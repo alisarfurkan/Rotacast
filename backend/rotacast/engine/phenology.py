@@ -33,6 +33,7 @@ DOUBLE_PEAK_MIN_PROM = 0.15    # each of two peaks needs prominence >= 0.15 NDVI
 DOUBLE_PEAK_MIN_FRAC = 0.40    # ... and >= 40 % of the year's amplitude
 DOUBLE_PEAK_MIN_SEP_BINS = 5   # peaks >= 5 composites (80 days) apart
 STRESS_Z = -1.0                # season-integral z <= -1 (~ lowest 16 % of years if normal)
+MIN_PATTERN_YEARS = 5          # min years of one crop pattern to compute a within-pattern z-score
 BARE_THRESHOLD_DEFAULT = 0.20  # bare soil / stubble NDVI in semi-arid cropland (MOD13 bare soil ~0.1-0.2)
 BARE_THRESHOLD_BOUNDS = (0.15, 0.30)   # derived threshold is clipped to this range
 BARE_THRESHOLD_MARGIN = 0.05   # derived threshold = median annual minimum + margin (soil moisture / residue)
@@ -178,8 +179,20 @@ def analyze_ndvi(ndvi: pd.DataFrame, bare_threshold: float | None = None) -> dic
             "pattern": pattern,
         })
     integrals = np.array(integrals)
-    sd = integrals.std(ddof=1) if len(integrals) > 1 else 0.0
-    z = (integrals - integrals.mean()) / sd if sd > 0 else np.zeros_like(integrals)
+
+    def _z(vals: np.ndarray) -> np.ndarray:
+        sd = vals.std(ddof=1) if len(vals) > 1 else 0.0
+        return (vals - vals.mean()) / sd if sd > 0 else np.zeros_like(vals)
+
+    # z-score within the same crop pattern: a winter cereal naturally has a smaller NDVI integral than an
+    # irrigated summer crop, so comparing across patterns would flag crop choice as "stress". Patterns with
+    # fewer than MIN_PATTERN_YEARS years fall back to the all-years z-score.
+    z = _z(integrals)
+    groups = np.array(["summer" if r["pattern"] in ("summer_crop", "double_crop") else r["pattern"] for r in years])
+    for gname in set(groups):
+        m = groups == gname
+        if m.sum() >= MIN_PATTERN_YEARS:
+            z[m] = _z(integrals[m])
     for rec, zi in zip(years, z):
         rec["anomaly_z"] = _f(zi, 2)
         rec["stress"] = bool(zi <= STRESS_Z and rec["pattern"] != "fallow")
@@ -187,10 +200,10 @@ def analyze_ndvi(ndvi: pd.DataFrame, bare_threshold: float | None = None) -> dic
 
     # bare probability per 16-day bin
     sm = g["smooth"]
-    k = ((sm.index.dayofyear - 1) // COMPOSITE_DAYS).clip(upper=N_BINS - 1)
-    in_full = sm.index.year.isin(list(by_year))
-    isbare = (sm < thr_bare)[in_full]
-    prob = isbare.groupby(k[in_full]).mean()
+    k = np.minimum((sm.index.dayofyear.to_numpy() - 1) // COMPOSITE_DAYS, N_BINS - 1)
+    in_full = np.asarray(sm.index.year.isin(list(by_year)))
+    isbare = (sm < thr_bare).to_numpy()[in_full]
+    prob = pd.Series(isbare).groupby(k[in_full]).mean()
     bare_prob = [{"doy": 1 + COMPOSITE_DAYS * b, "p_bare": _f(prob.get(b, np.nan), 3)} for b in range(N_BINS)]
 
     windows, run = [], []

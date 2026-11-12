@@ -8,6 +8,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import threading
 import time
 from pathlib import Path
 from typing import Any
@@ -56,6 +57,19 @@ def _download(url: str, params: dict | None, timeout: float, retries: int) -> ht
     raise RuntimeError(f"GET failed after {retries} attempt(s): {last}")
 
 
+def _atomic_write(path: Path, payload: bytes) -> None:
+    """Write via a unique temp file + rename (safe across threads/processes on Windows)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f"{path.name}.{os.getpid()}.{threading.get_ident()}.tmp")
+    try:
+        tmp.write_bytes(payload)
+        os.replace(tmp, path)
+    except OSError:
+        tmp.unlink(missing_ok=True)
+        if not path.exists():  # another writer may have won the race; otherwise it is a real failure
+            raise
+
+
 def cached_get_json(source_id: str, url: str, params: dict | None = None, *,
                     timeout: float = 120, retries: int = 3) -> dict:
     """GET ``url`` as JSON with an on-disk cache. Raises CacheMiss when offline and uncached."""
@@ -65,10 +79,7 @@ def cached_get_json(source_id: str, url: str, params: dict | None = None, *,
     if is_offline():
         raise CacheMiss(f"{source_id}: not cached ({url} {params})")
     data: Any = _download(url, params, timeout, retries).json()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".tmp")
-    tmp.write_text(json.dumps(data), encoding="utf-8")
-    tmp.replace(path)
+    _atomic_write(path, json.dumps(data).encode("utf-8"))
     return data
 
 
@@ -81,8 +92,5 @@ def cached_get_bytes(source_id: str, url: str, params: dict | None = None, *,
     if is_offline():
         raise CacheMiss(f"{source_id}: not cached ({url} {params})")
     content = _download(url, params, timeout, retries).content
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".tmp")
-    tmp.write_bytes(content)
-    tmp.replace(path)
+    _atomic_write(path, content)
     return content

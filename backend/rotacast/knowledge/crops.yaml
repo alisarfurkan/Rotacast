@@ -1,0 +1,673 @@
+# Rotacast crop knowledge base (schema: docs/CONTRACTS.md section 2).
+#
+# Conventions
+# - FAO-56 (Allen et al. 1998): stage lengths Table 11, Kc Table 12, rooting depth & p Table 22.
+#   Stage lengths: where FAO lists several regions, the Mediterranean / continental entry is used and then
+#   adapted to the Konya calendar (marked "adapted"). The engine rescales stages to gdd_to_maturity anyway.
+#   Kc: ranges in Table 12 are given as the midpoint. root_depth_m = [0.3 initial, midpoint of Table 22 range].
+#   Winter cereals/canola: Kc_ini 0.7 (Table 12 value for frozen/wet-winter soils, Konya has cold winters).
+# - Ky: FAO-33 (Doorenbos & Kassam 1979) seasonal total where listed, else FAO-66 (Steduto et al. 2012)
+#   or a conservative literature value marked "# approx".
+# - economics.yield_t_ha.irrigated = water-UNLIMITED POTENTIAL yield Ym (good Konya management); the engine
+#   multiplies it by its own water-stress yield ratio. rainfed = typical observed Konya rainfed yield, kept only
+#   as a calibration reference. Basis: TUIK crop production statistics 2022-2024 (Konya province), rounded.
+#   Yields are dry grain/seed/hay unless stated; silage maize and potato/sugar beet are fresh weight.
+# - price_usd_t: Turkiye farm-gate / TMO purchase level 2024-2025, converted at ~32-36 TRY/USD. Rough tiers.
+# - Cover crops have no sold yield: yield 0, price 0 (benefit is in soil indicators, not income).
+# - Sowing windows are Northern-Hemisphere DOY (Mar 1=60, Apr 1=91, May 1=121, Jun 1=152, Jul 1=182,
+#   Aug 1=213, Sep 1=244, Oct 1=274, Nov 1=305).
+# - n_fixation_kg_ha: typical net N credit left for the next crop (conservative; approx for all).
+# - rusle_c: seasonal average cover-management factor; approx, order of magnitude from USDA AH-703 tables.
+
+- id: wheat_winter
+  name: {en: Winter wheat, tr: Kışlık buğday}
+  family: Poaceae
+  category: cereal
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 12, window_doy: [270, 330]}
+  t_base_c: 0
+  gdd_to_maturity: 2100
+  heat_stress_tmax_c: 32        # anthesis heat
+  frost_damage_tmin_c: -2       # frost at flowering
+  sensitive_stage: mid
+  fao56:
+    stage_days: [120, 70, 45, 30]   # adapted: FAO-56 T11 winter wheat (long cold-winter entry 160/75/75/25) shortened for Oct-Jul Konya; approx
+    kc: [0.7, 1.15, 0.25]
+    root_depth_m: [0.3, 1.65]
+    p: 0.55
+    ky: 1.0                          # FAO-33 winter wheat
+  drought_tolerance: 3
+  n_fixation_kg_ha: 0
+  residue_index: 0.7
+  rusle_c: 0.2
+  root_type: fibrous
+  forage_value: 1
+  disease_groups: [cereal_root_rots, cereal_rusts, fusarium_head_blight]
+  economics:
+    yield_t_ha: {rainfed: 2.6, irrigated: 6.5}
+    price_usd_t: 280                 # TMO 2024 bread wheat ~9,250 TRY/t
+  irrigation_typical: optional
+  notes: {en: "The backbone cereal of the Konya Plain; sown in autumn and harvested in early summer. Growing it year after year builds up root diseases, so it needs a break crop.", tr: "Konya Ovası'nın temel tahılıdır; sonbaharda ekilir, yaz başında hasat edilir. Her yıl üst üste ekilirse kök hastalıkları artar, bu yüzden araya başka ürün girmelidir."}
+  sources: [fao56, fao33, ecocrop, tuik, tmo]
+
+- id: barley_winter
+  name: {en: Winter barley, tr: Kışlık arpa}
+  family: Poaceae
+  category: cereal
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 13, window_doy: [265, 325]}
+  t_base_c: 0
+  gdd_to_maturity: 1900
+  heat_stress_tmax_c: 30
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [115, 65, 45, 28]    # adapted from FAO-56 T11 barley/oats entries; approx
+    kc: [0.7, 1.15, 0.25]
+    root_depth_m: [0.3, 1.25]
+    p: 0.55
+    ky: 1.0                          # approx (not listed separately in FAO-33)
+  drought_tolerance: 4
+  n_fixation_kg_ha: 0
+  residue_index: 0.6
+  rusle_c: 0.2
+  root_type: fibrous
+  forage_value: 2
+  disease_groups: [cereal_root_rots, cereal_rusts, fusarium_head_blight]
+  economics:
+    yield_t_ha: {rainfed: 2.4, irrigated: 6.0}
+    price_usd_t: 240                 # TMO 2024 barley ~8,000 TRY/t; approx
+  irrigation_typical: optional
+  notes: {en: "Matures earlier and tolerates drought better than wheat, so it fits after a legume or in water-saving rotations. Early harvest leaves time to sow a cover crop.", tr: "Buğdaydan erken olgunlaşır ve kuraklığa daha dayanıklıdır; baklagilden sonra veya su tasarruflu rotasyonlarda uygundur. Erken hasat sayesinde ardından örtü bitkisi ekilebilir."}
+  sources: [fao56, ecocrop, tuik, tmo]
+
+- id: oats_spring
+  name: {en: Spring oats, tr: Yulaf (yazlık)}
+  family: Poaceae
+  category: cereal
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 4, window_doy: [60, 100]}
+  t_base_c: 0
+  gdd_to_maturity: 1500
+  heat_stress_tmax_c: 30
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 25, 45, 25]     # adapted from FAO-56 T11 barley/oats (20/25/60/30, Mar-Apr); approx
+    kc: [0.3, 1.15, 0.25]
+    root_depth_m: [0.3, 1.25]
+    p: 0.55
+    ky: 1.0                          # approx
+  drought_tolerance: 2
+  n_fixation_kg_ha: 0
+  residue_index: 0.6
+  rusle_c: 0.2
+  root_type: fibrous
+  forage_value: 2
+  disease_groups: [cereal_rusts, fusarium_head_blight]
+  economics:
+    yield_t_ha: {rainfed: 1.8, irrigated: 4.5}
+    price_usd_t: 230                 # approx
+  irrigation_typical: optional
+  notes: {en: "A spring cereal that is a poor host for wheat root rots, so it helps break disease cycles. Needs more moisture than barley.", tr: "Buğday kök çürüklüğü etmenlerine zayıf konukçu olduğu için hastalık döngüsünü kırmaya yardımcı olur. Arpadan daha fazla neme ihtiyaç duyar."}
+  sources: [fao56, ecocrop, faostat]
+
+- id: rye_cover
+  name: {en: Winter rye (cover crop), tr: Çavdar (örtü bitkisi)}
+  family: Poaceae
+  category: cover
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 14, window_doy: [250, 310]}
+  t_base_c: 0
+  gdd_to_maturity: 1100             # to termination in spring, not grain maturity
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -25          # very hardy; effectively never counted
+  sensitive_stage: ini
+  fao56:
+    stage_days: [50, 70, 60, 20]    # approx; cover crop terminated ~mid April
+    kc: [0.4, 1.0, 0.3]             # approx, winter-cereal like
+    root_depth_m: [0.3, 1.25]
+    p: 0.55
+    ky: 1.0                          # approx
+  drought_tolerance: 4
+  n_fixation_kg_ha: 0
+  residue_index: 0.9
+  rusle_c: 0.1
+  root_type: fibrous
+  forage_value: 1
+  disease_groups: [cereal_root_rots, cereal_rusts]
+  economics:
+    yield_t_ha: {rainfed: 0, irrigated: 0}
+    price_usd_t: 0
+  irrigation_typical: none
+  notes: {en: "Fast-growing winter cover that protects bare soil from wind and rain erosion and scavenges leftover nitrate. Do not follow it with wheat or barley.", tr: "Çıplak toprağı rüzgâr ve yağmur erozyonundan korur, artan nitratı tutar. Ardından buğday veya arpa ekilmemelidir."}
+  sources: [fao56, ecocrop, rusle_ah703]
+
+- id: sugar_beet
+  name: {en: Sugar beet, tr: Şeker pancarı}
+  family: Amaranthaceae
+  category: root
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 8, window_doy: [75, 115]}
+  t_base_c: 3
+  gdd_to_maturity: 2600             # approx
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -5
+  sensitive_stage: mid
+  fao56:
+    stage_days: [30, 45, 90, 15]    # FAO-56 T11 Mediterranean (Mar sowing)
+    kc: [0.35, 1.2, 0.7]
+    root_depth_m: [0.3, 0.95]
+    p: 0.55
+    ky: 1.0                          # FAO-33
+  drought_tolerance: 2
+  n_fixation_kg_ha: 0
+  residue_index: 0.4
+  rusle_c: 0.4
+  root_type: tap
+  forage_value: 1
+  disease_groups: [beet_cyst_nematode, cercospora_leaf_spot]
+  economics:
+    yield_t_ha: {rainfed: 25, irrigated: 75}   # fresh roots
+    price_usd_t: 60                  # TRY ~2,000/t in 2024; approx
+  irrigation_typical: required
+  notes: {en: "High-income but very thirsty crop that needs full irrigation in Konya. Repeat it no more than once every four years to avoid nematodes.", tr: "Geliri yüksek ama çok su isteyen bir üründür; Konya'da tam sulama gerekir. Nematodları önlemek için en az dört yılda bir ekilmelidir."}
+  sources: [fao56, fao33, ecocrop, tuik]
+
+- id: maize_grain
+  name: {en: Grain maize, tr: Dane mısır}
+  family: Poaceae
+  category: cereal
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 12, window_doy: [110, 145]}
+  t_base_c: 10
+  gdd_to_maturity: 1650
+  heat_stress_tmax_c: 35            # silking
+  frost_damage_tmin_c: -2
+  sensitive_stage: mid
+  fao56:
+    stage_days: [30, 40, 50, 30]    # adapted from FAO-56 T11 maize grain 30/40/50/50 (170 d); approx
+    kc: [0.3, 1.2, 0.6]
+    root_depth_m: [0.3, 1.35]
+    p: 0.55
+    ky: 1.25                         # FAO-33
+  drought_tolerance: 2
+  n_fixation_kg_ha: 0
+  residue_index: 0.9
+  rusle_c: 0.35
+  root_type: fibrous
+  forage_value: 1
+  disease_groups: [maize_stalk_rots, fusarium_head_blight]
+  economics:
+    yield_t_ha: {rainfed: 2.0, irrigated: 12.0}   # rainfed maize is rarely viable in Konya; approx
+    price_usd_t: 250                 # TMO 2024 maize ~8,000 TRY/t; approx
+  irrigation_typical: required
+  notes: {en: "Very high yield but one of the biggest water users on the plain. Leaves plenty of residue that feeds soil organic matter.", tr: "Verimi çok yüksektir ama ovada en çok su tüketen ürünlerden biridir. Bol anız bırakarak toprağın organik maddesine katkı sağlar."}
+  sources: [fao56, fao33, ecocrop, tuik, tmo]
+
+- id: maize_silage
+  name: {en: Silage maize, tr: Silajlık mısır}
+  family: Poaceae
+  category: forage
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 12, window_doy: [110, 150]}
+  t_base_c: 10
+  gdd_to_maturity: 1400
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -2
+  sensitive_stage: mid
+  fao56:
+    stage_days: [25, 40, 40, 25]    # approx, harvested at dough stage
+    kc: [0.3, 1.15, 0.95]           # end Kc high because harvested green; approx
+    root_depth_m: [0.3, 1.35]
+    p: 0.55
+    ky: 1.25                         # FAO-33 maize
+  drought_tolerance: 2
+  n_fixation_kg_ha: 0
+  residue_index: 0.3
+  rusle_c: 0.45
+  root_type: fibrous
+  forage_value: 3
+  disease_groups: [maize_stalk_rots, fusarium_head_blight]
+  economics:
+    yield_t_ha: {rainfed: 15, irrigated: 60}   # FRESH weight
+    price_usd_t: 35                  # fresh silage; approx
+  irrigation_typical: required
+  notes: {en: "Main feed crop for dairy farms, but it removes almost all plant material and needs full irrigation. Soil carbon drops if grown repeatedly.", tr: "Süt sığırcılığının ana yem bitkisidir; bitkinin neredeyse tamamı tarladan alındığı için ve tam sulama gerektirir. Üst üste ekilirse toprak karbonu azalır."}
+  sources: [fao56, fao33, tuik]
+
+- id: sunflower
+  name: {en: Sunflower, tr: Ayçiçeği}
+  family: Asteraceae
+  category: oilseed
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 10, window_doy: [105, 140]}
+  t_base_c: 6
+  gdd_to_maturity: 1700             # approx
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [25, 35, 45, 25]    # FAO-56 T11 (Apr/May)
+    kc: [0.35, 1.08, 0.35]          # midpoint of 1.0-1.15
+    root_depth_m: [0.3, 1.15]
+    p: 0.45
+    ky: 0.95                         # FAO-33
+  drought_tolerance: 4
+  n_fixation_kg_ha: 0
+  residue_index: 0.6
+  rusle_c: 0.4
+  root_type: deep_tap
+  forage_value: 0
+  disease_groups: [sclerotinia, verticillium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 1.8, irrigated: 3.5}
+    price_usd_t: 550                 # approx, 2024 oilseed sunflower
+  irrigation_typical: optional
+  notes: {en: "Deep taproot reaches water other crops cannot, so it copes well with dry summers. Do not grow it again within four years because of white mold.", tr: "Derin kazık kökü sayesinde kurak yazlara iyi dayanır. Beyaz çürüklük nedeniyle dört yıl içinde aynı tarlaya tekrar ekilmemelidir."}
+  sources: [fao56, fao33, ecocrop, tuik]
+
+- id: safflower
+  name: {en: Safflower, tr: Aspir}
+  family: Asteraceae
+  category: oilseed
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 6, window_doy: [75, 115]}
+  t_base_c: 5
+  gdd_to_maturity: 1700             # approx
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 35, 45, 25]    # FAO-56 T11 safflower (Apr)
+    kc: [0.35, 1.08, 0.25]
+    root_depth_m: [0.3, 1.5]
+    p: 0.6
+    ky: 0.8                          # FAO-33
+  drought_tolerance: 5
+  n_fixation_kg_ha: 0
+  residue_index: 0.5
+  rusle_c: 0.35
+  root_type: deep_tap
+  forage_value: 0
+  disease_groups: [sclerotinia]
+  economics:
+    yield_t_ha: {rainfed: 1.1, irrigated: 2.5}
+    price_usd_t: 500                 # approx
+  irrigation_typical: none
+  notes: {en: "Very drought tolerant with a deep root that loosens subsoil. A good low-water choice that fits between cereals.", tr: "Kuraklığa çok dayanıklıdır, derin kökü alt toprağı gevşetir. Tahıllar arasında az sulu seçenek olarak iyi bir seçimdir."}
+  sources: [fao56, fao33, ecocrop, tuik]
+
+- id: chickpea
+  name: {en: Chickpea, tr: Nohut}
+  family: Fabaceae
+  category: legume
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 6, window_doy: [70, 110]}
+  t_base_c: 5
+  gdd_to_maturity: 1250             # approx
+  heat_stress_tmax_c: 35            # flowering
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 30, 40, 25]    # adapted; FAO-56 T11 chick pea 15/25/35/20 is for India; approx
+    kc: [0.4, 1.0, 0.35]
+    root_depth_m: [0.3, 0.8]
+    p: 0.5
+    ky: 0.9                          # approx (FAO-66 gives no separate chickpea value)
+  drought_tolerance: 4
+  n_fixation_kg_ha: 25
+  residue_index: 0.35
+  rusle_c: 0.35
+  root_type: tap
+  forage_value: 0
+  disease_groups: [legume_ascochyta, legume_fusarium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 1.1, irrigated: 2.5}
+    price_usd_t: 1000                # approx, 2024
+  irrigation_typical: none
+  notes: {en: "A low-water legume that leaves some nitrogen for the next cereal and breaks wheat disease cycles. Ascochyta blight limits repeating it more than once in four years.", tr: "Az su isteyen bir baklagildir; sonraki tahıla azot bırakır ve buğday hastalık döngüsünü kırar. Antraknoz nedeniyle dört yılda bir defadan fazla ekilmemelidir."}
+  sources: [fao56, ecocrop, peoples2009, tuik]
+
+- id: lentil
+  name: {en: Lentil, tr: Mercimek}
+  family: Fabaceae
+  category: legume
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 4, window_doy: [60, 100]}
+  t_base_c: 5
+  gdd_to_maturity: 1100             # approx
+  heat_stress_tmax_c: 32
+  frost_damage_tmin_c: -3
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 25, 45, 25]    # adapted; FAO-56 T11 lentil 20/30/60/40 (Apr) too long for Konya; approx
+    kc: [0.4, 1.1, 0.3]
+    root_depth_m: [0.3, 0.7]
+    p: 0.5
+    ky: 0.9                          # approx
+  drought_tolerance: 4
+  n_fixation_kg_ha: 20
+  residue_index: 0.25
+  rusle_c: 0.35
+  root_type: tap
+  forage_value: 1
+  disease_groups: [legume_ascochyta, legume_fusarium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 1.1, irrigated: 2.0}
+    price_usd_t: 850                 # approx, red lentil 2024
+  irrigation_typical: none
+  notes: {en: "Short-season legume that finishes before the hottest weeks and adds nitrogen to the soil. Its straw is a useful animal feed.", tr: "Kısa sezonlu bir baklagildir, en sıcak haftalardan önce biter ve toprağa azot kazandırır. Samanı hayvan yemi olarak değerlidir."}
+  sources: [fao56, ecocrop, peoples2009, tuik]
+
+- id: dry_bean
+  name: {en: Dry bean, tr: Kuru fasulye}
+  family: Fabaceae
+  category: legume
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 15, window_doy: [120, 160]}
+  t_base_c: 10
+  gdd_to_maturity: 1200             # approx
+  heat_stress_tmax_c: 32
+  frost_damage_tmin_c: 0
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 30, 40, 20]    # FAO-56 T11 dry beans (Mediterranean)
+    kc: [0.4, 1.15, 0.35]
+    root_depth_m: [0.3, 0.75]
+    p: 0.45
+    ky: 1.15                         # FAO-33
+  drought_tolerance: 2
+  n_fixation_kg_ha: 10
+  residue_index: 0.3
+  rusle_c: 0.4
+  root_type: tap
+  forage_value: 0
+  disease_groups: [bean_root_rots, sclerotinia]
+  economics:
+    yield_t_ha: {rainfed: 1.2, irrigated: 3.0}
+    price_usd_t: 1100                # approx
+  irrigation_typical: required
+  notes: {en: "A valuable legume but sensitive to drought and heat, so it needs irrigation on the plain. Fixes only a little nitrogen compared with chickpea or vetch.", tr: "Değerli bir baklagildir ama kuraklığa ve sıcağa duyarlıdır, ovada sulama ister. Nohut veya fiğe göre az azot bırakır."}
+  sources: [fao56, fao33, ecocrop, tuik]
+
+- id: vetch_forage
+  name: {en: Common vetch (forage), tr: Adi fiğ (yem)}
+  family: Fabaceae
+  category: forage
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 5, window_doy: [65, 105]}
+  t_base_c: 3
+  gdd_to_maturity: 900              # approx, cut for hay at pod set
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -4
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 30, 35, 15]    # approx; no FAO-56 entry, clover/berseem hay used as analogue
+    kc: [0.4, 0.9, 0.85]            # approx
+    root_depth_m: [0.3, 0.8]
+    p: 0.55
+    ky: 1.0                          # approx
+  drought_tolerance: 3
+  n_fixation_kg_ha: 40
+  residue_index: 0.4
+  rusle_c: 0.15
+  root_type: tap
+  forage_value: 3
+  disease_groups: [legume_ascochyta, legume_fusarium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 2.5, irrigated: 5.0}   # hay, dry matter
+    price_usd_t: 200                 # approx
+  irrigation_typical: none
+  notes: {en: "Quick spring legume cut for hay while adding nitrogen to the soil. A cheap way to cover the field between cereal crops.", tr: "Hızlı gelişen ilkbahar baklagilidir; kuru ot için biçilir ve toprağa azot kazandırır. Tahıllar arasında tarlayı değerlendirmenin ucuz bir yoludur."}
+  sources: [fao56, ecocrop, peoples2009, tuik]
+
+- id: vetch_cover
+  name: {en: Common vetch (cover crop), tr: Adi fiğ (örtü bitkisi)}
+  family: Fabaceae
+  category: cover
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 18, window_doy: [230, 290]}
+  t_base_c: 3
+  gdd_to_maturity: 900              # to termination in early spring; approx
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -12          # approx, winter hardiness limited
+  sensitive_stage: dev
+  fao56:
+    stage_days: [50, 70, 60, 20]    # approx; sown after cereal harvest, terminated ~April
+    kc: [0.4, 0.9, 0.7]             # approx
+    root_depth_m: [0.3, 0.8]
+    p: 0.55
+    ky: 1.0                          # approx
+  drought_tolerance: 3
+  n_fixation_kg_ha: 60
+  residue_index: 0.7
+  rusle_c: 0.12
+  root_type: tap
+  forage_value: 2
+  disease_groups: [legume_ascochyta, legume_fusarium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 0, irrigated: 0}
+    price_usd_t: 0
+  irrigation_typical: none
+  notes: {en: "Sown after cereal harvest to cover the soil over winter and fix nitrogen for the next crop. Needs autumn moisture to establish.", tr: "Tahıl hasadından sonra ekilerek kışın toprağı örter ve sonraki ürün için azot bağlar. Çimlenme için sonbahar nemine ihtiyaç duyar."}
+  sources: [fao56, ecocrop, peoples2009, rusle_ah703]
+
+- id: vetch_barley_mix
+  name: {en: Vetch + barley mix (forage), tr: Fiğ + arpa karışımı (yem)}
+  family: Fabaceae
+  category: forage
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 13, window_doy: [265, 315]}
+  t_base_c: 0
+  gdd_to_maturity: 1200             # approx, cut at barley boot / vetch flowering
+  heat_stress_tmax_c: 32
+  frost_damage_tmin_c: -10
+  sensitive_stage: mid
+  fao56:
+    stage_days: [90, 60, 45, 25]    # approx; Oct sowing, hay cut in late May
+    kc: [0.4, 1.0, 0.8]             # approx
+    root_depth_m: [0.3, 1.2]
+    p: 0.55
+    ky: 1.0                          # approx
+  drought_tolerance: 3
+  n_fixation_kg_ha: 30
+  residue_index: 0.5
+  rusle_c: 0.15
+  root_type: fibrous
+  forage_value: 3
+  disease_groups: [legume_ascochyta, cereal_root_rots]
+  economics:
+    yield_t_ha: {rainfed: 3.0, irrigated: 6.0}   # hay, dry matter
+    price_usd_t: 190                 # approx
+  irrigation_typical: none
+  notes: {en: "Autumn-sown mix where the barley supports the vetch; gives good hay and some nitrogen. Harvested in May, leaving time for a summer crop.", tr: "Arpanın fiğe destek olduğu sonbahar karışımıdır; kaliteli ot verir ve azot bırakır. Mayısta biçildiği için ardından yaz ürünü ekilebilir."}
+  sources: [fao56, ecocrop, peoples2009, tuik]
+
+- id: sainfoin
+  name: {en: Sainfoin, tr: Korunga}
+  family: Fabaceae
+  category: forage
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 6, window_doy: [70, 110]}
+  t_base_c: 5
+  gdd_to_maturity: 1500             # approx
+  heat_stress_tmax_c: 38
+  frost_damage_tmin_c: -5
+  sensitive_stage: mid
+  fao56:
+    stage_days: [15, 30, 100, 25]   # approx; alfalfa hay used as analogue (FAO-56 T11/T12)
+    kc: [0.4, 0.95, 0.9]            # alfalfa hay averaged over cuttings
+    root_depth_m: [0.3, 1.5]
+    p: 0.6                           # approx
+    ky: 0.9                          # approx
+  perennial_years: 3                 # approx; one production year modelled as one season
+  drought_tolerance: 4
+  n_fixation_kg_ha: 40
+  residue_index: 0.7
+  rusle_c: 0.05
+  root_type: deep_tap
+  forage_value: 3
+  disease_groups: [legume_fusarium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 3.0, irrigated: 8.0}   # hay
+    price_usd_t: 180                 # approx
+  irrigation_typical: optional
+  notes: {en: "Perennial forage legume (stand lasts about 3 years) that thrives without irrigation on calcareous soils. Deep roots and permanent cover improve soil structure and cut erosion.", tr: "Yaklaşık 3 yıl ömürlü çok yıllık yem baklagilidir; kireçli topraklarda sulamasız da iyi gelişir. Derin kökleri ve sürekli örtüsü toprak yapısını iyileştirir, erozyonu azaltır."}
+  sources: [fao56, ecocrop, peoples2009, tuik]
+
+- id: alfalfa
+  name: {en: Alfalfa, tr: Yonca}
+  family: Fabaceae
+  category: forage
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 8, window_doy: [85, 115]}
+  t_base_c: 5
+  gdd_to_maturity: 2000             # approx, one production year (Apr-Oct)
+  heat_stress_tmax_c: 38
+  frost_damage_tmin_c: -6
+  sensitive_stage: mid
+  fao56:
+    stage_days: [15, 30, 130, 25]   # approx; one production year, several cuttings (FAO-56 T11 gives 10/30/25/10 per cutting)
+    kc: [0.4, 0.95, 0.9]            # FAO-56 T12 alfalfa hay, averaged cutting effects
+    root_depth_m: [0.3, 1.5]
+    p: 0.55
+    ky: 1.1                          # FAO-33
+  perennial_years: 3                 # approx; one production year modelled as one season
+  drought_tolerance: 3
+  n_fixation_kg_ha: 50
+  residue_index: 0.8
+  rusle_c: 0.02
+  root_type: deep_tap
+  forage_value: 3
+  disease_groups: [legume_fusarium_wilt, verticillium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 3.0, irrigated: 14.0}  # hay
+    price_usd_t: 230                 # approx
+  irrigation_typical: required
+  notes: {en: "Perennial legume (stand lasts about 3 years) with very deep roots and high N credit, but it uses a lot of water. Plow-down releases nitrogen for the following cereal.", tr: "Çok derin köklü, yaklaşık 3 yıl ömürlü baklagildir; yüksek azot bırakır ama çok su tüketir. Söküm sonrası ardındaki tahıl için azot serbest kalır."}
+  sources: [fao56, fao33, ecocrop, peoples2009, tuik]
+
+- id: canola_winter
+  name: {en: Winter canola, tr: Kışlık kanola}
+  family: Brassicaceae
+  category: oilseed
+  season: winter
+  sowing: {rule: tmean_below, threshold_c: 18, window_doy: [235, 275]}
+  t_base_c: 5
+  gdd_to_maturity: 1900             # approx
+  heat_stress_tmax_c: 30
+  frost_damage_tmin_c: -5           # flowering
+  sensitive_stage: mid
+  fao56:
+    stage_days: [150, 60, 60, 30]   # approx; FAO-56 T11 gives spring rape only
+    kc: [0.35, 1.15, 0.35]
+    root_depth_m: [0.3, 1.25]
+    p: 0.6
+    ky: 0.9                          # approx
+  drought_tolerance: 2
+  n_fixation_kg_ha: 0
+  residue_index: 0.5
+  rusle_c: 0.25
+  root_type: tap
+  forage_value: 0
+  disease_groups: [sclerotinia, brassica_blackleg]
+  economics:
+    yield_t_ha: {rainfed: 1.8, irrigated: 3.5}
+    price_usd_t: 550                 # approx
+  irrigation_typical: optional
+  notes: {en: "An autumn-sown oilseed that is a good break crop before wheat. Needs reliable autumn moisture and can lose yield to winter cold in Konya.", tr: "Sonbaharda ekilen, buğdaydan önce iyi bir ara ürün olan yağlı tohumdur. Güvenilir sonbahar nemi ister ve Konya'da kış soğuğundan zarar görebilir."}
+  sources: [fao56, ecocrop, tuik]
+
+- id: potato
+  name: {en: Potato, tr: Patates}
+  family: Solanaceae
+  category: root
+  season: spring
+  sowing: {rule: tmean_above, threshold_c: 8, window_doy: [95, 125]}
+  t_base_c: 7
+  gdd_to_maturity: 1500             # approx
+  heat_stress_tmax_c: 30
+  frost_damage_tmin_c: -1
+  sensitive_stage: mid
+  fao56:
+    stage_days: [30, 35, 50, 30]    # FAO-56 T11 potato (Mediterranean, Apr)
+    kc: [0.5, 1.15, 0.75]
+    root_depth_m: [0.3, 0.5]
+    p: 0.35
+    ky: 1.1                          # FAO-33
+  drought_tolerance: 1
+  n_fixation_kg_ha: 0
+  residue_index: 0.2
+  rusle_c: 0.45
+  root_type: fibrous
+  forage_value: 0
+  disease_groups: [potato_late_blight, verticillium_wilt]
+  economics:
+    yield_t_ha: {rainfed: 12, irrigated: 45}     # fresh tubers
+    price_usd_t: 280                 # approx
+  irrigation_typical: required
+  notes: {en: "High-value crop with shallow roots that needs frequent irrigation. Leaves little residue and leaves soil loose and exposed to erosion.", tr: "Kökleri sığ, değeri yüksek bir üründür ve sık sulama ister. Az anız bırakır, toprağı gevşek ve erozyona açık bırakır."}
+  sources: [fao56, fao33, ecocrop, tuik]
+
+- id: sorghum
+  name: {en: Grain sorghum, tr: Dane sorgum}
+  family: Poaceae
+  category: cereal
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 15, window_doy: [120, 155]}
+  t_base_c: 10
+  gdd_to_maturity: 1650             # approx
+  heat_stress_tmax_c: 38
+  frost_damage_tmin_c: 0
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 35, 45, 30]    # adapted from FAO-56 T11 sorghum 20/35/40/30; approx
+    kc: [0.3, 1.05, 0.55]
+    root_depth_m: [0.3, 1.5]
+    p: 0.55
+    ky: 0.9                          # FAO-33
+  drought_tolerance: 5
+  n_fixation_kg_ha: 0
+  residue_index: 0.8
+  rusle_c: 0.35
+  root_type: fibrous
+  forage_value: 2
+  disease_groups: [maize_stalk_rots]
+  economics:
+    yield_t_ha: {rainfed: 2.0, irrigated: 6.0}
+    price_usd_t: 230                 # approx
+  irrigation_typical: optional
+  notes: {en: "The most heat- and drought-tolerant summer cereal, a hardy alternative to maize in dry years. Sow only when the soil is warm.", tr: "En sıcağa ve kuraklığa dayanıklı yaz tahılıdır; kurak yıllarda mısıra sağlam bir alternatiftir. Toprak ısındıktan sonra ekilmelidir."}
+  sources: [fao56, fao33, ecocrop, faostat]
+
+- id: soybean
+  name: {en: Soybean, tr: Soya}
+  family: Fabaceae
+  category: legume
+  season: summer
+  sowing: {rule: tmean_above, threshold_c: 14, window_doy: [120, 155]}
+  t_base_c: 10
+  gdd_to_maturity: 1500             # approx
+  heat_stress_tmax_c: 35
+  frost_damage_tmin_c: -1
+  sensitive_stage: mid
+  fao56:
+    stage_days: [20, 30, 60, 25]    # FAO-56 T11 soybeans (May, Central USA)
+    kc: [0.4, 1.15, 0.5]
+    root_depth_m: [0.3, 0.95]
+    p: 0.5
+    ky: 0.85                         # FAO-33
+  drought_tolerance: 2
+  n_fixation_kg_ha: 10               # net credit is small because the grain removes most fixed N
+  residue_index: 0.4
+  rusle_c: 0.4
+  root_type: tap
+  forage_value: 1
+  disease_groups: [sclerotinia, bean_root_rots]
+  economics:
+    yield_t_ha: {rainfed: 1.5, irrigated: 4.0}
+    price_usd_t: 520                 # approx
+  irrigation_typical: required
+  notes: {en: "Important legume in Kansas; in Konya it needs irrigation. Leaves only a small nitrogen credit because the beans remove most of it.", tr: "Kansas'ta önemli bir baklagildir; Konya'da sulama gerektirir. Azotun çoğunu taneyle çıkardığı için sonraki ürüne az azot bırakır."}
+  sources: [fao56, fao33, ecocrop, faostat]

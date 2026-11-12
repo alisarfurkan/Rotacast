@@ -1,0 +1,1 @@
+{"subset": [{"modis_date": "A2024161", "calendar_date": "2024-06-09", "band": "250m_16_days_NDVI", "data": [4217]}, {"modis_date": "A2024177", "calendar_date": "2024-06-25", "band": "250m_16_days_NDVI", "data": [-3000]}, {"modis_date": "A2024193", "calendar_date": "2024-07-11", "band": "250m_16_days_NDVI", "data": [5588]}]}

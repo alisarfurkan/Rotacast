@@ -238,3 +238,69 @@ Response (all numbers are plain floats; `{p10,p50,p90}` objects where marked *ba
 ```
 
 `facts` is the single source of numbers for any narrative text (the SI layer may only reference fact ids).
+
+Clarifications (v1.1):
+- `score` and every `score_breakdown` value are on a 0–100 scale; the baseline scores 50 on every axis.
+- `calendar[].year` is the cycle year in which the crop is **harvested**. A `sow` date later in the year than `harvest` means the crop was sown in the autumn of the previous cycle year (winter crops). Cover crops are separate entries with `kind: "cover"` and the `year` of the main crop they follow.
+- `risks[].check_with` enum: `agronomist` | `extension_service` | `market`.
+- `location.label` is always a non-empty string (falls back to formatted coordinates).
+- `field_memory.bare_probability` is reported per 16-day composite bin (`doy` = bin start); `bare_windows` that wrap the new year may appear as two windows (end of year and start of year).
+
+
+---
+
+## 5. BasinReport JSON — `data/demo/basin_report_konya.json`
+
+Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Scenario analysis, **not a forecast**. Strict JSON (no NaN). All shown labels are bilingual `{en, tr}`. Units: area ha / km2, water Mm3/yr (million m3 per year) or m3/ha, production t/yr.
+
+```jsonc
+{
+  "schema_version": "1.0", "generated": "2026-11-12",
+  "scenario_notice": {"en": "", "tr": ""},
+  "region": {"id": "konya_closed_basin", "name": {"en":"","tr":""}, "bbox": [32.0, 37.0, 34.5, 38.8],   // min_lon,min_lat,max_lon,max_lat
+             "bbox_area_km2": 0, "approximation": "bounding box + MODIS cropland filter"},
+  "totals": {"n_cells": 0, "cropland_ha": 0, "irrigated_ha": 0, "skipped_cells": [{"id": "", "reason": ""}]},
+  "baseline": {"rotation": [{"crop_id": "wheat_winter", "irrigation": "none"}],
+               "irrigated_ha": 0,
+               "irrigation_demand_mm3_yr": {"p10": 0, "p50": 0, "p90": 0},   // whole-basin baseline demand
+               "production_t_yr": [{"crop_id": "", "name": {"en":"","tr":""}, "t_yr": 0}]},
+  "strategies": [{"id": "baseline|water_saver|soil_builder|balanced_income", "name": {"en":"","tr":""}}],
+  "adoption_rates": [0.1, 0.3, 0.5],
+  "horizons": [5, 10],                       // years; 10 = "trend continuation" climate (see assumptions)
+  "cells": [{                                // one per POWER grid cell with cropland fraction > threshold
+    "id": "c+37.50_+032.500", "lat": 0, "lon": 0,
+    "bounds": [lon0, lat0, lon1, lat1],      // full POWER cell
+    "clip": [lon0, lat0, lon1, lat1],        // cell ∩ bbox (area_km2 refers to this)
+    "area_km2": 0, "cropland_fraction": 0, "cropland_ha": 0, "irrigated_ha": 0,
+    "elevation_m": 0, "soil_source": "soilgrids|soil_default", "delta_t_c_per_decade": 0,
+    "baseline_water_m3_ha": 0,               // p50
+    "best_strategy": {"archetype": "water_saver", "name": {"en":"","tr":""}, "score": 0},   // highest score among the 3 archetypes (map colour)
+    "strategies": {"<baseline|archetype>": {
+        "score": 50, "rotation_name": {"en":"","tr":""}, "steps": [{"crop_id":"","year":1,"irrigation":"none"}],
+        "water_m3_ha": {"p10":0,"p50":0,"p90":0}, "water_change_m3_ha_p50": 0,   // vs. baseline; negative = less water
+        "crop_t_ha_yr": {"<crop_id>": 0}}}    // t/ha per rotation-year, current climate
+  }],
+  "scenarios": {                              // [archetype][adoption rate as string][horizon years as string]
+    "water_saver": {"0.3": {"10": {
+      "climate": "current|trend_continuation",
+      "irrigation_change_mm3_yr": {"p10": 0, "p50": 0, "p90": 0},   // negative = water saved; p10<=p50<=p90 (sorted values)
+      "grace_offset_pct": {"p10": 0, "p50": 0, "p90": 0},           // share of the GRACE storage loss offset; null if GRACE unavailable
+      "production_change_t_yr": [{"crop_id": "", "name": {"en":"","tr":""}, "change_t_yr": 0}]   // sorted by |change|
+    }}}
+  },
+  "grace": {
+    "available": true, "source_id": "grace_csr_mascon", "bbox": [], "area_km2": 0,
+    "period": ["2002-04-01", "2025-12-01"], "n_months": 0,
+    "trend_cm_yr": 0, "trend_ci95_cm_yr": [0, 0],      // OLS, AR(1)-adjusted CI
+    "volume_change_mm3_yr": 0, "volume_change_ci95_mm3_yr": [0, 0],   // trend x bbox area; negative = storage loss
+    "loss_mm3_yr": 0,                                  // positive loss used as the denominator; null if not a loss
+    "series": [{"date": "2003-01-01", "tws_cm": 0}], "note": {"en":"","tr":""}
+    // available=false -> trend/volume/series are null/[] and note explains why
+  },
+  "assumptions": [{"id": "", "label": {"en":"","tr":""}, "value": "any", "source": ""}],
+  "limitations": [{"en": "", "tr": ""}],
+  "sources": [{"id": "", "name": "", "url": ""}]
+}
+```
+
+Notes: adopters are a fraction of the *irrigated* area of every cell (irrigated = cropland × `irrigated_share`) and move from the baseline rotation to the cell's own archetype rotation. Results are steady-state annual rates at the horizon (no ramp-up). The p10/p50/p90 water band sums same-quantile differences across cells (weather assumed perfectly correlated).

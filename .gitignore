@@ -9,3 +9,9 @@ frontend/dist/
 
 # Large raw downloads (re-fetched by scripts; small extracts are committed)
 data/cache/grace_csr_mascon/*.nc
+
+# WP1: large GRACE netCDF downloads (small CSV extracts stay committed)
+data/cache/grace_csr_mascon/*.nc
+data/cache/**/*.part
+data/cache/**/*.tmp
+frontend/*.tsbuildinfo

@@ -1,0 +1,5637 @@
+{
+ "location": {
+  "lat": 37.6,
+  "lon": 32.75,
+  "elevation_m": 1011.67578125,
+  "label": "Çumra, Konya"
+ },
+ "sources": [
+  {
+   "id": "nasa_power",
+   "name": "NASA POWER",
+   "detail": "Daily weather, 0.5°×0.625° grid",
+   "url": "https://power.larc.nasa.gov/"
+  },
+  {
+   "id": "modis_mod13q1",
+   "name": "MODIS MOD13Q1 NDVI",
+   "detail": "16-day composites, 250 m pixel",
+   "url": "https://modis.ornl.gov/data/modis_webservice.html"
+  },
+  {
+   "id": "fao56",
+   "name": "FAO Irrigation and Drainage Paper 56",
+   "detail": "ET0, crop coefficients, root-zone water balance",
+   "url": "https://www.fao.org/4/x0490e/x0490e00.htm"
+  },
+  {
+   "id": "soilgrids",
+   "name": "ISRIC SoilGrids 2.0",
+   "detail": "250 m soil properties, 0–30 cm",
+   "url": "https://soilgrids.org/"
+  },
+  {
+   "id": "srtm_terrain_tiles",
+   "name": "SRTM terrain tiles",
+   "detail": "AWS Open Data terrain tiles, SRTM-derived",
+   "url": "https://registry.opendata.aws/terrain-tiles/"
+  }
+ ],
+ "climate": {
+  "period": [
+   1991,
+   2025
+  ],
+  "annual": [
+   {
+    "year": 1991,
+    "precip_mm": 459.1,
+    "et0_mm": 1152.3,
+    "tmean_c": 11.0,
+    "gdd0": 4218.0,
+    "heat_days_35": 5,
+    "frost_days": 107
+   },
+   {
+    "year": 1992,
+    "precip_mm": 283.1,
+    "et0_mm": 1119.8,
+    "tmean_c": 9.56,
+    "gdd0": 3833.0,
+    "heat_days_35": 0,
+    "frost_days": 136
+   },
+   {
+    "year": 1993,
+    "precip_mm": 344.5,
+    "et0_mm": 1177.5,
+    "tmean_c": 10.73,
+    "gdd0": 4125.0,
+    "heat_days_35": 5,
+    "frost_days": 124
+   },
+   {
+    "year": 1994,
+    "precip_mm": 453.3,
+    "et0_mm": 1229.1,
+    "tmean_c": 11.95,
+    "gdd0": 4446.0,
+    "heat_days_35": 2,
+    "frost_days": 101
+   },
+   {
+    "year": 1995,
+    "precip_mm": 440.1,
+    "et0_mm": 1133.0,
+    "tmean_c": 11.05,
+    "gdd0": 4114.0,
+    "heat_days_35": 2,
+    "frost_days": 115
+   },
+   {
+    "year": 1996,
+    "precip_mm": 501.2,
+    "et0_mm": 1144.4,
+    "tmean_c": 11.46,
+    "gdd0": 4254.0,
+    "heat_days_35": 10,
+    "frost_days": 89
+   },
+   {
+    "year": 1997,
+    "precip_mm": 572.4,
+    "et0_mm": 1081.9,
+    "tmean_c": 10.42,
+    "gdd0": 3935.0,
+    "heat_days_35": 0,
+    "frost_days": 111
+   },
+   {
+    "year": 1998,
+    "precip_mm": 695.1,
+    "et0_mm": 1203.8,
+    "tmean_c": 11.81,
+    "gdd0": 4384.0,
+    "heat_days_35": 11,
+    "frost_days": 106
+   },
+   {
+    "year": 1999,
+    "precip_mm": 489.6,
+    "et0_mm": 1170.3,
+    "tmean_c": 11.95,
+    "gdd0": 4400.0,
+    "heat_days_35": 10,
+    "frost_days": 90
+   },
+   {
+    "year": 2000,
+    "precip_mm": 621.0,
+    "et0_mm": 1168.6,
+    "tmean_c": 10.69,
+    "gdd0": 4102.0,
+    "heat_days_35": 13,
+    "frost_days": 119
+   },
+   {
+    "year": 2001,
+    "precip_mm": 854.9,
+    "et0_mm": 1245.8,
+    "tmean_c": 12.25,
+    "gdd0": 4528.0,
+    "heat_days_35": 13,
+    "frost_days": 87
+   },
+   {
+    "year": 2002,
+    "precip_mm": 598.9,
+    "et0_mm": 1100.2,
+    "tmean_c": 10.85,
+    "gdd0": 4204.0,
+    "heat_days_35": 7,
+    "frost_days": 92
+   },
+   {
+    "year": 2003,
+    "precip_mm": 628.9,
+    "et0_mm": 1145.3,
+    "tmean_c": 10.86,
+    "gdd0": 4091.0,
+    "heat_days_35": 3,
+    "frost_days": 118
+   },
+   {
+    "year": 2004,
+    "precip_mm": 523.5,
+    "et0_mm": 1196.8,
+    "tmean_c": 11.16,
+    "gdd0": 4259.0,
+    "heat_days_35": 4,
+    "frost_days": 114
+   },
+   {
+    "year": 2005,
+    "precip_mm": 436.1,
+    "et0_mm": 1175.8,
+    "tmean_c": 11.09,
+    "gdd0": 4161.0,
+    "heat_days_35": 9,
+    "frost_days": 115
+   },
+   {
+    "year": 2006,
+    "precip_mm": 639.5,
+    "et0_mm": 1177.3,
+    "tmean_c": 11.31,
+    "gdd0": 4300.0,
+    "heat_days_35": 14,
+    "frost_days": 114
+   },
+   {
+    "year": 2007,
+    "precip_mm": 460.4,
+    "et0_mm": 1239.6,
+    "tmean_c": 11.9,
+    "gdd0": 4447.0,
+    "heat_days_35": 21,
+    "frost_days": 120
+   },
+   {
+    "year": 2008,
+    "precip_mm": 365.8,
+    "et0_mm": 1252.6,
+    "tmean_c": 11.6,
+    "gdd0": 4435.0,
+    "heat_days_35": 8,
+    "frost_days": 98
+   },
+   {
+    "year": 2009,
+    "precip_mm": 756.2,
+    "et0_mm": 1118.6,
+    "tmean_c": 11.34,
+    "gdd0": 4193.0,
+    "heat_days_35": 0,
+    "frost_days": 96
+   },
+   {
+    "year": 2010,
+    "precip_mm": 581.8,
+    "et0_mm": 1218.1,
+    "tmean_c": 13.17,
+    "gdd0": 4857.0,
+    "heat_days_35": 26,
+    "frost_days": 55
+   },
+   {
+    "year": 2011,
+    "precip_mm": 604.8,
+    "et0_mm": 1064.7,
+    "tmean_c": 10.19,
+    "gdd0": 3810.0,
+    "heat_days_35": 5,
+    "frost_days": 126
+   },
+   {
+    "year": 2012,
+    "precip_mm": 720.1,
+    "et0_mm": 1181.2,
+    "tmean_c": 11.41,
+    "gdd0": 4353.0,
+    "heat_days_35": 15,
+    "frost_days": 110
+   },
+   {
+    "year": 2013,
+    "precip_mm": 331.4,
+    "et0_mm": 1229.6,
+    "tmean_c": 11.56,
+    "gdd0": 4322.0,
+    "heat_days_35": 2,
+    "frost_days": 93
+   },
+   {
+    "year": 2014,
+    "precip_mm": 593.0,
+    "et0_mm": 1199.9,
+    "tmean_c": 12.55,
+    "gdd0": 4601.0,
+    "heat_days_35": 14,
+    "frost_days": 75
+   },
+   {
+    "year": 2015,
+    "precip_mm": 535.2,
+    "et0_mm": 1111.1,
+    "tmean_c": 11.43,
+    "gdd0": 4285.0,
+    "heat_days_35": 5,
+    "frost_days": 113
+   },
+   {
+    "year": 2016,
+    "precip_mm": 472.5,
+    "et0_mm": 1252.9,
+    "tmean_c": 12.08,
+    "gdd0": 4607.0,
+    "heat_days_35": 10,
+    "frost_days": 93
+   },
+   {
+    "year": 2017,
+    "precip_mm": 526.5,
+    "et0_mm": 1178.1,
+    "tmean_c": 11.49,
+    "gdd0": 4395.0,
+    "heat_days_35": 16,
+    "frost_days": 93
+   },
+   {
+    "year": 2018,
+    "precip_mm": 574.9,
+    "et0_mm": 1208.1,
+    "tmean_c": 12.89,
+    "gdd0": 4767.0,
+    "heat_days_35": 2,
+    "frost_days": 70
+   },
+   {
+    "year": 2019,
+    "precip_mm": 670.2,
+    "et0_mm": 1139.0,
+    "tmean_c": 11.84,
+    "gdd0": 4382.0,
+    "heat_days_35": 5,
+    "frost_days": 97
+   },
+   {
+    "year": 2020,
+    "precip_mm": 485.2,
+    "et0_mm": 1223.1,
+    "tmean_c": 12.11,
+    "gdd0": 4559.0,
+    "heat_days_35": 13,
+    "frost_days": 89
+   },
+   {
+    "year": 2021,
+    "precip_mm": 457.4,
+    "et0_mm": 1220.4,
+    "tmean_c": 11.78,
+    "gdd0": 4425.0,
+    "heat_days_35": 8,
+    "frost_days": 94
+   },
+   {
+    "year": 2022,
+    "precip_mm": 532.8,
+    "et0_mm": 1176.1,
+    "tmean_c": 11.56,
+    "gdd0": 4433.0,
+    "heat_days_35": 15,
+    "frost_days": 92
+   },
+   {
+    "year": 2023,
+    "precip_mm": 527.8,
+    "et0_mm": 1185.8,
+    "tmean_c": 12.68,
+    "gdd0": 4724.0,
+    "heat_days_35": 21,
+    "frost_days": 77
+   },
+   {
+    "year": 2024,
+    "precip_mm": 557.3,
+    "et0_mm": 1248.2,
+    "tmean_c": 13.52,
+    "gdd0": 4981.0,
+    "heat_days_35": 23,
+    "frost_days": 69
+   },
+   {
+    "year": 2025,
+    "precip_mm": 346.9,
+    "et0_mm": 1278.2,
+    "tmean_c": 13.08,
+    "gdd0": 4859.0,
+    "heat_days_35": 35,
+    "frost_days": 81
+   }
+  ],
+  "monthly_normals": [
+   {
+    "month": 1,
+    "precip_mm": 88.9,
+    "et0_mm": 20.5,
+    "tmean_c": -0.11,
+    "tmin_c": -3.88,
+    "tmax_c": 5.07
+   },
+   {
+    "month": 2,
+    "precip_mm": 56.8,
+    "et0_mm": 30.9,
+    "tmean_c": 1.09,
+    "tmin_c": -3.19,
+    "tmax_c": 6.72
+   },
+   {
+    "month": 3,
+    "precip_mm": 49.3,
+    "et0_mm": 59.4,
+    "tmean_c": 4.69,
+    "tmin_c": -0.57,
+    "tmax_c": 11.03
+   },
+   {
+    "month": 4,
+    "precip_mm": 42.5,
+    "et0_mm": 91.1,
+    "tmean_c": 9.69,
+    "tmin_c": 3.57,
+    "tmax_c": 16.41
+   },
+   {
+    "month": 5,
+    "precip_mm": 38.0,
+    "et0_mm": 132.0,
+    "tmean_c": 14.96,
+    "tmin_c": 8.33,
+    "tmax_c": 21.79
+   },
+   {
+    "month": 6,
+    "precip_mm": 21.4,
+    "et0_mm": 168.6,
+    "tmean_c": 19.79,
+    "tmin_c": 12.24,
+    "tmax_c": 27.2
+   },
+   {
+    "month": 7,
+    "precip_mm": 6.8,
+    "et0_mm": 211.0,
+    "tmean_c": 23.6,
+    "tmin_c": 15.39,
+    "tmax_c": 31.52
+   },
+   {
+    "month": 8,
+    "precip_mm": 4.4,
+    "et0_mm": 195.2,
+    "tmean_c": 23.92,
+    "tmin_c": 16.15,
+    "tmax_c": 31.82
+   },
+   {
+    "month": 9,
+    "precip_mm": 17.5,
+    "et0_mm": 135.1,
+    "tmean_c": 19.31,
+    "tmin_c": 12.31,
+    "tmax_c": 27.26
+   },
+   {
+    "month": 10,
+    "precip_mm": 45.1,
+    "et0_mm": 79.3,
+    "tmean_c": 13.09,
+    "tmin_c": 7.42,
+    "tmax_c": 20.53
+   },
+   {
+    "month": 11,
+    "precip_mm": 63.6,
+    "et0_mm": 37.7,
+    "tmean_c": 6.68,
+    "tmin_c": 2.02,
+    "tmax_c": 13.35
+   },
+   {
+    "month": 12,
+    "precip_mm": 98.4,
+    "et0_mm": 20.6,
+    "tmean_c": 1.96,
+    "tmin_c": -1.75,
+    "tmax_c": 7.43
+   }
+  ],
+  "frost": {
+   "last_spring_doy": {
+    "p10": 86.6,
+    "p50": 105.0,
+    "p90": 117.2
+   },
+   "first_fall_doy": {
+    "p10": 292.4,
+    "p50": 305.0,
+    "p90": 321.4
+   },
+   "frost_free_days": {
+    "p10": 182.0,
+    "p50": 197.0,
+    "p90": 221.8
+   }
+  },
+  "water_balance": {
+   "aridity_index": 0.451,
+   "annual_deficit_mm": 648.7
+  },
+  "shift": {
+   "early": [
+    1991,
+    2005
+   ],
+   "late": [
+    2011,
+    2025
+   ],
+   "metrics": [
+    {
+     "id": "last_spring_frost",
+     "label": {
+      "en": "Last spring frost",
+      "tr": "Son ilkbahar donu"
+     },
+     "unit": "doy",
+     "early": 104.73,
+     "late": 103.8,
+     "delta": -0.93,
+     "trend_per_decade": -0.385,
+     "p_value": 0.8759
+    },
+    {
+     "id": "first_fall_frost",
+     "label": {
+      "en": "First fall frost",
+      "tr": "İlk sonbahar donu"
+     },
+     "unit": "doy",
+     "early": 302.93,
+     "late": 306.53,
+     "delta": 3.6,
+     "trend_per_decade": 1.667,
+     "p_value": 0.4602
+    },
+    {
+     "id": "frost_free_days",
+     "label": {
+      "en": "Frost-free days",
+      "tr": "Donsuz gün sayısı"
+     },
+     "unit": "days",
+     "early": 197.2,
+     "late": 201.73,
+     "delta": 4.53,
+     "trend_per_decade": 2.0,
+     "p_value": 0.4954
+    },
+    {
+     "id": "heat_days_35",
+     "label": {
+      "en": "Days with Tmax >= 35 °C",
+      "tr": "Tmax >= 35 °C olan gün sayısı"
+     },
+     "unit": "days",
+     "early": 6.27,
+     "late": 12.6,
+     "delta": 6.33,
+     "trend_per_decade": 3.636,
+     "p_value": 0.003
+    },
+    {
+     "id": "gdd0",
+     "label": {
+      "en": "Growing degree-days (base 0 °C)",
+      "tr": "Büyüme derece-günü (taban 0 °C)"
+     },
+     "unit": "°C·day",
+     "early": 4203.62,
+     "late": 4500.26,
+     "delta": 296.64,
+     "trend_per_decade": 169.75,
+     "p_value": 0.0001
+    },
+    {
+     "id": "precip_mm",
+     "label": {
+      "en": "Annual precipitation",
+      "tr": "Yıllık yağış"
+     },
+     "unit": "mm",
+     "early": 526.77,
+     "late": 529.06,
+     "delta": 2.29,
+     "trend_per_decade": 12.088,
+     "p_value": 0.6092
+    },
+    {
+     "id": "et0_mm",
+     "label": {
+      "en": "Annual reference ET0",
+      "tr": "Yıllık referans ET0"
+     },
+     "unit": "mm",
+     "early": 1162.98,
+     "late": 1193.08,
+     "delta": 30.1,
+     "trend_per_decade": 20.646,
+     "p_value": 0.0184
+    },
+    {
+     "id": "tmean_c",
+     "label": {
+      "en": "Mean annual temperature",
+      "tr": "Yıllık ortalama sıcaklık"
+     },
+     "unit": "°C",
+     "early": 11.12,
+     "late": 12.01,
+     "delta": 0.89,
+     "trend_per_decade": 0.496,
+     "p_value": 0.0001
+    },
+    {
+     "id": "spring_precip_mm",
+     "label": {
+      "en": "Spring (MAM) precipitation",
+      "tr": "İlkbahar (MAM) yağışı"
+     },
+     "unit": "mm",
+     "early": 137.94,
+     "late": 131.11,
+     "delta": -6.83,
+     "trend_per_decade": -6.352,
+     "p_value": 0.4101
+    },
+    {
+     "id": "summer_tmax_c",
+     "label": {
+      "en": "Summer (JJA) mean Tmax",
+      "tr": "Yaz (HAZ-AĞU) ortalama Tmax"
+     },
+     "unit": "°C",
+     "early": 29.65,
+     "late": 30.52,
+     "delta": 0.86,
+     "trend_per_decade": 0.531,
+     "p_value": 0.009
+    }
+   ]
+  }
+ },
+ "field_memory": {
+  "ndvi": [
+   {
+    "date": "2000-02-18",
+    "ndvi": 0.1422,
+    "ndvi_smooth": 0.1467
+   },
+   {
+    "date": "2000-03-05",
+    "ndvi": 0.1297,
+    "ndvi_smooth": 0.1222
+   },
+   {
+    "date": "2000-03-21",
+    "ndvi": 0.134,
+    "ndvi_smooth": 0.1293
+   },
+   {
+    "date": "2000-04-06",
+    "ndvi": 0.1541,
+    "ndvi_smooth": 0.1498
+   },
+   {
+    "date": "2000-04-22",
+    "ndvi": 0.244,
+    "ndvi_smooth": 0.2829
+   },
+   {
+    "date": "2000-05-08",
+    "ndvi": 0.508,
+    "ndvi_smooth": 0.478
+   },
+   {
+    "date": "2000-05-24",
+    "ndvi": 0.5962,
+    "ndvi_smooth": 0.5786
+   },
+   {
+    "date": "2000-06-09",
+    "ndvi": 0.5083,
+    "ndvi_smooth": 0.4994
+   },
+   {
+    "date": "2000-06-25",
+    "ndvi": 0.4493,
+    "ndvi_smooth": 0.5571
+   },
+   {
+    "date": "2000-07-11",
+    "ndvi": 0.7279,
+    "ndvi_smooth": 0.5341
+   },
+   {
+    "date": "2000-07-27",
+    "ndvi": 0.3951,
+    "ndvi_smooth": 0.6082
+   },
+   {
+    "date": "2000-08-12",
+    "ndvi": 0.7632,
+    "ndvi_smooth": 0.6278
+   },
+   {
+    "date": "2000-08-28",
+    "ndvi": 0.6587,
+    "ndvi_smooth": 0.6501
+   },
+   {
+    "date": "2000-09-13",
+    "ndvi": 0.4879,
+    "ndvi_smooth": 0.6111
+   },
+   {
+    "date": "2000-09-29",
+    "ndvi": 0.7573,
+    "ndvi_smooth": 0.621
+   },
+   {
+    "date": "2000-10-15",
+    "ndvi": 0.5366,
+    "ndvi_smooth": 0.6259
+   },
+   {
+    "date": "2000-10-31",
+    "ndvi": 0.4855,
+    "ndvi_smooth": 0.4168
+   },
+   {
+    "date": "2000-11-16",
+    "ndvi": 0.2217,
+    "ndvi_smooth": 0.2688
+   },
+   {
+    "date": "2000-12-02",
+    "ndvi": 0.1647,
+    "ndvi_smooth": 0.1639
+   },
+   {
+    "date": "2000-12-18",
+    "ndvi": 0.1845,
+    "ndvi_smooth": 0.1681
+   },
+   {
+    "date": "2001-01-01",
+    "ndvi": 0.1605,
+    "ndvi_smooth": 0.1691
+   },
+   {
+    "date": "2001-01-17",
+    "ndvi": 0.1629,
+    "ndvi_smooth": 0.1612
+   },
+   {
+    "date": "2001-02-02",
+    "ndvi": 0.162,
+    "ndvi_smooth": 0.1531
+   },
+   {
+    "date": "2001-02-18",
+    "ndvi": 0.1476,
+    "ndvi_smooth": 0.1576
+   },
+   {
+    "date": "2001-03-06",
+    "ndvi": 0.2136,
+    "ndvi_smooth": 0.2365
+   },
+   {
+    "date": "2001-03-22",
+    "ndvi": 0.3367,
+    "ndvi_smooth": 0.261
+   },
+   {
+    "date": "2001-04-07",
+    "ndvi": 0.2264,
+    "ndvi_smooth": 0.3351
+   },
+   {
+    "date": "2001-04-23",
+    "ndvi": 0.4751,
+    "ndvi_smooth": 0.384
+   },
+   {
+    "date": "2001-05-09",
+    "ndvi": 0.4073,
+    "ndvi_smooth": 0.4549
+   },
+   {
+    "date": "2001-05-25",
+    "ndvi": 0.41,
+    "ndvi_smooth": 0.3786
+   },
+   {
+    "date": "2001-06-10",
+    "ndvi": 0.3153,
+    "ndvi_smooth": 0.3269
+   },
+   {
+    "date": "2001-06-26",
+    "ndvi": 0.3214,
+    "ndvi_smooth": 0.358
+   },
+   {
+    "date": "2001-07-12",
+    "ndvi": 0.4916,
+    "ndvi_smooth": 0.4488
+   },
+   {
+    "date": "2001-07-28",
+    "ndvi": 0.4619,
+    "ndvi_smooth": 0.464
+   },
+   {
+    "date": "2001-08-13",
+    "ndvi": 0.368,
+    "ndvi_smooth": 0.3845
+   },
+   {
+    "date": "2001-08-29",
+    "ndvi": 0.3208,
+    "ndvi_smooth": 0.2833
+   },
+   {
+    "date": "2001-09-14",
+    "ndvi": 0.2391,
+    "ndvi_smooth": 0.3391
+   },
+   {
+    "date": "2001-09-30",
+    "ndvi": 0.479,
+    "ndvi_smooth": 0.3524
+   },
+   {
+    "date": "2001-10-16",
+    "ndvi": 0.2295,
+    "ndvi_smooth": 0.2954
+   },
+   {
+    "date": "2001-11-01",
+    "ndvi": 0.1567,
+    "ndvi_smooth": 0.1544
+   },
+   {
+    "date": "2001-11-17",
+    "ndvi": 0.1582,
+    "ndvi_smooth": 0.1504
+   },
+   {
+    "date": "2001-12-03",
+    "ndvi": 0.1589,
+    "ndvi_smooth": 0.1632
+   },
+   {
+    "date": "2001-12-19",
+    "ndvi": 0.1747,
+    "ndvi_smooth": 0.1701
+   },
+   {
+    "date": "2002-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.1724
+   },
+   {
+    "date": "2002-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.1666
+   },
+   {
+    "date": "2002-02-02",
+    "ndvi": 0.1613,
+    "ndvi_smooth": 0.1538
+   },
+   {
+    "date": "2002-02-18",
+    "ndvi": 0.1509,
+    "ndvi_smooth": 0.1663
+   },
+   {
+    "date": "2002-03-06",
+    "ndvi": 0.2163,
+    "ndvi_smooth": 0.2122
+   },
+   {
+    "date": "2002-03-22",
+    "ndvi": 0.2595,
+    "ndvi_smooth": 0.231
+   },
+   {
+    "date": "2002-04-07",
+    "ndvi": 0.2302,
+    "ndvi_smooth": 0.2817
+   },
+   {
+    "date": "2002-04-23",
+    "ndvi": 0.4105,
+    "ndvi_smooth": 0.3908
+   },
+   {
+    "date": "2002-05-09",
+    "ndvi": 0.4816,
+    "ndvi_smooth": 0.4476
+   },
+   {
+    "date": "2002-05-25",
+    "ndvi": 0.3544,
+    "ndvi_smooth": 0.3912
+   },
+   {
+    "date": "2002-06-10",
+    "ndvi": 0.337,
+    "ndvi_smooth": 0.3205
+   },
+   {
+    "date": "2002-06-26",
+    "ndvi": 0.3077,
+    "ndvi_smooth": 0.3081
+   },
+   {
+    "date": "2002-07-12",
+    "ndvi": 0.3374,
+    "ndvi_smooth": 0.3706
+   },
+   {
+    "date": "2002-07-28",
+    "ndvi": 0.4921,
+    "ndvi_smooth": 0.4443
+   },
+   {
+    "date": "2002-08-13",
+    "ndvi": 0.4507,
+    "ndvi_smooth": 0.4795
+   },
+   {
+    "date": "2002-08-29",
+    "ndvi": 0.4493,
+    "ndvi_smooth": 0.4329
+   },
+   {
+    "date": "2002-09-14",
+    "ndvi": 0.388,
+    "ndvi_smooth": 0.4042
+   },
+   {
+    "date": "2002-09-30",
+    "ndvi": 0.3582,
+    "ndvi_smooth": 0.3389
+   },
+   {
+    "date": "2002-10-16",
+    "ndvi": 0.2621,
+    "ndvi_smooth": 0.2755
+   },
+   {
+    "date": "2002-11-01",
+    "ndvi": 0.2273,
+    "ndvi_smooth": 0.2308
+   },
+   {
+    "date": "2002-11-17",
+    "ndvi": 0.2253,
+    "ndvi_smooth": 0.2132
+   },
+   {
+    "date": "2002-12-03",
+    "ndvi": 0.1871,
+    "ndvi_smooth": 0.1964
+   },
+   {
+    "date": "2002-12-19",
+    "ndvi": null,
+    "ndvi_smooth": 0.1804
+   },
+   {
+    "date": "2003-01-01",
+    "ndvi": 0.1837,
+    "ndvi_smooth": 0.1871
+   },
+   {
+    "date": "2003-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.2031
+   },
+   {
+    "date": "2003-02-02",
+    "ndvi": 0.2211,
+    "ndvi_smooth": 0.2163
+   },
+   {
+    "date": "2003-02-18",
+    "ndvi": null,
+    "ndvi_smooth": 0.2156
+   },
+   {
+    "date": "2003-03-06",
+    "ndvi": 0.2026,
+    "ndvi_smooth": 0.1931
+   },
+   {
+    "date": "2003-03-22",
+    "ndvi": 0.1781,
+    "ndvi_smooth": 0.1874
+   },
+   {
+    "date": "2003-04-07",
+    "ndvi": 0.2336,
+    "ndvi_smooth": 0.2501
+   },
+   {
+    "date": "2003-04-23",
+    "ndvi": 0.3558,
+    "ndvi_smooth": 0.3155
+   },
+   {
+    "date": "2003-05-09",
+    "ndvi": 0.3387,
+    "ndvi_smooth": 0.3934
+   },
+   {
+    "date": "2003-05-25",
+    "ndvi": 0.4468,
+    "ndvi_smooth": 0.383
+   },
+   {
+    "date": "2003-06-10",
+    "ndvi": 0.3063,
+    "ndvi_smooth": 0.3429
+   },
+   {
+    "date": "2003-06-26",
+    "ndvi": 0.2876,
+    "ndvi_smooth": 0.2763
+   },
+   {
+    "date": "2003-07-12",
+    "ndvi": 0.3345,
+    "ndvi_smooth": 0.372
+   },
+   {
+    "date": "2003-07-28",
+    "ndvi": 0.5224,
+    "ndvi_smooth": 0.4758
+   },
+   {
+    "date": "2003-08-13",
+    "ndvi": 0.4894,
+    "ndvi_smooth": 0.507
+   },
+   {
+    "date": "2003-08-29",
+    "ndvi": 0.417,
+    "ndvi_smooth": 0.3978
+   },
+   {
+    "date": "2003-09-14",
+    "ndvi": 0.2819,
+    "ndvi_smooth": 0.3178
+   },
+   {
+    "date": "2003-09-30",
+    "ndvi": 0.2844,
+    "ndvi_smooth": 0.2542
+   },
+   {
+    "date": "2003-10-16",
+    "ndvi": 0.2063,
+    "ndvi_smooth": 0.2217
+   },
+   {
+    "date": "2003-11-01",
+    "ndvi": 0.1813,
+    "ndvi_smooth": 0.1764
+   },
+   {
+    "date": "2003-11-17",
+    "ndvi": 0.1636,
+    "ndvi_smooth": 0.1643
+   },
+   {
+    "date": "2003-12-03",
+    "ndvi": 0.1646,
+    "ndvi_smooth": 0.1693
+   },
+   {
+    "date": "2003-12-19",
+    "ndvi": 0.1872,
+    "ndvi_smooth": 0.1791
+   },
+   {
+    "date": "2004-01-01",
+    "ndvi": 0.1789,
+    "ndvi_smooth": 0.1831
+   },
+   {
+    "date": "2004-01-17",
+    "ndvi": 0.1818,
+    "ndvi_smooth": 0.1845
+   },
+   {
+    "date": "2004-02-02",
+    "ndvi": 0.1892,
+    "ndvi_smooth": 0.1791
+   },
+   {
+    "date": "2004-02-18",
+    "ndvi": 0.1629,
+    "ndvi_smooth": 0.1758
+   },
+   {
+    "date": "2004-03-05",
+    "ndvi": 0.1822,
+    "ndvi_smooth": 0.1571
+   },
+   {
+    "date": "2004-03-21",
+    "ndvi": 0.1759,
+    "ndvi_smooth": 0.221
+   },
+   {
+    "date": "2004-04-06",
+    "ndvi": 0.3652,
+    "ndvi_smooth": 0.3352
+   },
+   {
+    "date": "2004-04-22",
+    "ndvi": 0.445,
+    "ndvi_smooth": 0.4513
+   },
+   {
+    "date": "2004-05-08",
+    "ndvi": 0.4604,
+    "ndvi_smooth": 0.4315
+   },
+   {
+    "date": "2004-05-24",
+    "ndvi": 0.3834,
+    "ndvi_smooth": 0.4385
+   },
+   {
+    "date": "2004-06-09",
+    "ndvi": 0.5228,
+    "ndvi_smooth": 0.4743
+   },
+   {
+    "date": "2004-06-25",
+    "ndvi": 0.545,
+    "ndvi_smooth": 0.5982
+   },
+   {
+    "date": "2004-07-11",
+    "ndvi": 0.6823,
+    "ndvi_smooth": 0.6011
+   },
+   {
+    "date": "2004-07-27",
+    "ndvi": 0.5466,
+    "ndvi_smooth": 0.6592
+   },
+   {
+    "date": "2004-08-12",
+    "ndvi": 0.6972,
+    "ndvi_smooth": 0.5397
+   },
+   {
+    "date": "2004-08-28",
+    "ndvi": 0.38,
+    "ndvi_smooth": 0.5538
+   },
+   {
+    "date": "2004-09-13",
+    "ndvi": 0.6785,
+    "ndvi_smooth": 0.5904
+   },
+   {
+    "date": "2004-09-29",
+    "ndvi": 0.6491,
+    "ndvi_smooth": 0.6291
+   },
+   {
+    "date": "2004-10-15",
+    "ndvi": 0.3759,
+    "ndvi_smooth": 0.3934
+   },
+   {
+    "date": "2004-10-31",
+    "ndvi": 0.1762,
+    "ndvi_smooth": 0.2019
+   },
+   {
+    "date": "2004-11-16",
+    "ndvi": null,
+    "ndvi_smooth": 0.1462
+   },
+   {
+    "date": "2004-12-02",
+    "ndvi": 0.1501,
+    "ndvi_smooth": 0.1509
+   },
+   {
+    "date": "2004-12-18",
+    "ndvi": 0.1487,
+    "ndvi_smooth": 0.1493
+   },
+   {
+    "date": "2005-01-01",
+    "ndvi": 0.1618,
+    "ndvi_smooth": 0.1685
+   },
+   {
+    "date": "2005-01-17",
+    "ndvi": 0.1853,
+    "ndvi_smooth": 0.1672
+   },
+   {
+    "date": "2005-02-02",
+    "ndvi": 0.137,
+    "ndvi_smooth": 0.1479
+   },
+   {
+    "date": "2005-02-18",
+    "ndvi": 0.1457,
+    "ndvi_smooth": 0.1489
+   },
+   {
+    "date": "2005-03-06",
+    "ndvi": 0.2127,
+    "ndvi_smooth": 0.2163
+   },
+   {
+    "date": "2005-03-22",
+    "ndvi": 0.3022,
+    "ndvi_smooth": 0.2907
+   },
+   {
+    "date": "2005-04-07",
+    "ndvi": 0.3359,
+    "ndvi_smooth": 0.3303
+   },
+   {
+    "date": "2005-04-23",
+    "ndvi": 0.3692,
+    "ndvi_smooth": 0.3892
+   },
+   {
+    "date": "2005-05-09",
+    "ndvi": 0.5224,
+    "ndvi_smooth": 0.5286
+   },
+   {
+    "date": "2005-05-25",
+    "ndvi": 0.6824,
+    "ndvi_smooth": 0.6688
+   },
+   {
+    "date": "2005-06-10",
+    "ndvi": 0.6637,
+    "ndvi_smooth": 0.6252
+   },
+   {
+    "date": "2005-06-26",
+    "ndvi": 0.4393,
+    "ndvi_smooth": 0.4943
+   },
+   {
+    "date": "2005-07-12",
+    "ndvi": 0.4319,
+    "ndvi_smooth": 0.3919
+   },
+   {
+    "date": "2005-07-28",
+    "ndvi": 0.4221,
+    "ndvi_smooth": 0.4824
+   },
+   {
+    "date": "2005-08-13",
+    "ndvi": 0.6567,
+    "ndvi_smooth": 0.633
+   },
+   {
+    "date": "2005-08-29",
+    "ndvi": 0.6795,
+    "ndvi_smooth": 0.5959
+   },
+   {
+    "date": "2005-09-14",
+    "ndvi": 0.3107,
+    "ndvi_smooth": 0.4175
+   },
+   {
+    "date": "2005-09-30",
+    "ndvi": 0.3455,
+    "ndvi_smooth": 0.3027
+   },
+   {
+    "date": "2005-10-16",
+    "ndvi": 0.3331,
+    "ndvi_smooth": 0.3469
+   },
+   {
+    "date": "2005-11-01",
+    "ndvi": 0.3216,
+    "ndvi_smooth": 0.2944
+   },
+   {
+    "date": "2005-11-17",
+    "ndvi": 0.1986,
+    "ndvi_smooth": 0.2217
+   },
+   {
+    "date": "2005-12-03",
+    "ndvi": 0.1686,
+    "ndvi_smooth": 0.1653
+   },
+   {
+    "date": "2005-12-19",
+    "ndvi": null,
+    "ndvi_smooth": 0.1639
+   },
+   {
+    "date": "2006-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.1631
+   },
+   {
+    "date": "2006-01-17",
+    "ndvi": 0.1617,
+    "ndvi_smooth": 0.1626
+   },
+   {
+    "date": "2006-02-02",
+    "ndvi": 0.1698,
+    "ndvi_smooth": 0.1742
+   },
+   {
+    "date": "2006-02-18",
+    "ndvi": 0.1885,
+    "ndvi_smooth": 0.1733
+   },
+   {
+    "date": "2006-03-06",
+    "ndvi": 0.1669,
+    "ndvi_smooth": 0.1848
+   },
+   {
+    "date": "2006-03-22",
+    "ndvi": 0.2314,
+    "ndvi_smooth": 0.2382
+   },
+   {
+    "date": "2006-04-07",
+    "ndvi": 0.299,
+    "ndvi_smooth": 0.2529
+   },
+   {
+    "date": "2006-04-23",
+    "ndvi": 0.2071,
+    "ndvi_smooth": 0.2684
+   },
+   {
+    "date": "2006-05-09",
+    "ndvi": 0.3304,
+    "ndvi_smooth": 0.2846
+   },
+   {
+    "date": "2006-05-25",
+    "ndvi": 0.3288,
+    "ndvi_smooth": 0.3644
+   },
+   {
+    "date": "2006-06-10",
+    "ndvi": 0.3963,
+    "ndvi_smooth": 0.3425
+   },
+   {
+    "date": "2006-06-26",
+    "ndvi": 0.3115,
+    "ndvi_smooth": 0.3726
+   },
+   {
+    "date": "2006-07-12",
+    "ndvi": 0.4801,
+    "ndvi_smooth": 0.4808
+   },
+   {
+    "date": "2006-07-28",
+    "ndvi": 0.5954,
+    "ndvi_smooth": 0.5134
+   },
+   {
+    "date": "2006-08-13",
+    "ndvi": 0.3429,
+    "ndvi_smooth": 0.4382
+   },
+   {
+    "date": "2006-08-29",
+    "ndvi": 0.3648,
+    "ndvi_smooth": 0.2899
+   },
+   {
+    "date": "2006-09-14",
+    "ndvi": 0.191,
+    "ndvi_smooth": 0.2466
+   },
+   {
+    "date": "2006-09-30",
+    "ndvi": 0.2255,
+    "ndvi_smooth": 0.1991
+   },
+   {
+    "date": "2006-10-16",
+    "ndvi": 0.2231,
+    "ndvi_smooth": 0.2357
+   },
+   {
+    "date": "2006-11-01",
+    "ndvi": 0.2465,
+    "ndvi_smooth": 0.2333
+   },
+   {
+    "date": "2006-11-17",
+    "ndvi": 0.2109,
+    "ndvi_smooth": 0.217
+   },
+   {
+    "date": "2006-12-03",
+    "ndvi": 0.185,
+    "ndvi_smooth": 0.1822
+   },
+   {
+    "date": "2006-12-19",
+    "ndvi": 0.1668,
+    "ndvi_smooth": 0.1761
+   },
+   {
+    "date": "2007-01-01",
+    "ndvi": 0.1867,
+    "ndvi_smooth": 0.1748
+   },
+   {
+    "date": "2007-01-17",
+    "ndvi": 0.1662,
+    "ndvi_smooth": 0.1731
+   },
+   {
+    "date": "2007-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.1622
+   },
+   {
+    "date": "2007-02-18",
+    "ndvi": 0.1653,
+    "ndvi_smooth": 0.1683
+   },
+   {
+    "date": "2007-03-06",
+    "ndvi": 0.1863,
+    "ndvi_smooth": 0.1841
+   },
+   {
+    "date": "2007-03-22",
+    "ndvi": 0.2154,
+    "ndvi_smooth": 0.2216
+   },
+   {
+    "date": "2007-04-07",
+    "ndvi": 0.2649,
+    "ndvi_smooth": 0.245
+   },
+   {
+    "date": "2007-04-23",
+    "ndvi": 0.275,
+    "ndvi_smooth": 0.2905
+   },
+   {
+    "date": "2007-05-09",
+    "ndvi": 0.4179,
+    "ndvi_smooth": 0.478
+   },
+   {
+    "date": "2007-05-25",
+    "ndvi": 0.685,
+    "ndvi_smooth": 0.537
+   },
+   {
+    "date": "2007-06-10",
+    "ndvi": 0.3664,
+    "ndvi_smooth": 0.5059
+   },
+   {
+    "date": "2007-06-26",
+    "ndvi": 0.4787,
+    "ndvi_smooth": 0.4076
+   },
+   {
+    "date": "2007-07-12",
+    "ndvi": 0.4114,
+    "ndvi_smooth": 0.4319
+   },
+   {
+    "date": "2007-07-28",
+    "ndvi": 0.3838,
+    "ndvi_smooth": 0.3859
+   },
+   {
+    "date": "2007-08-13",
+    "ndvi": 0.376,
+    "ndvi_smooth": 0.3754
+   },
+   {
+    "date": "2007-08-29",
+    "ndvi": 0.3431,
+    "ndvi_smooth": 0.3288
+   },
+   {
+    "date": "2007-09-14",
+    "ndvi": 0.247,
+    "ndvi_smooth": 0.2634
+   },
+   {
+    "date": "2007-09-30",
+    "ndvi": 0.2169,
+    "ndvi_smooth": 0.2108
+   },
+   {
+    "date": "2007-10-16",
+    "ndvi": 0.1909,
+    "ndvi_smooth": 0.1929
+   },
+   {
+    "date": "2007-11-01",
+    "ndvi": 0.178,
+    "ndvi_smooth": 0.1739
+   },
+   {
+    "date": "2007-11-17",
+    "ndvi": 0.1644,
+    "ndvi_smooth": 0.1741
+   },
+   {
+    "date": "2007-12-03",
+    "ndvi": 0.1838,
+    "ndvi_smooth": 0.1721
+   },
+   {
+    "date": "2007-12-19",
+    "ndvi": 0.1563,
+    "ndvi_smooth": 0.1601
+   },
+   {
+    "date": "2008-01-01",
+    "ndvi": 0.1382,
+    "ndvi_smooth": 0.1407
+   },
+   {
+    "date": "2008-01-17",
+    "ndvi": 0.1418,
+    "ndvi_smooth": 0.1408
+   },
+   {
+    "date": "2008-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.1522
+   },
+   {
+    "date": "2008-02-18",
+    "ndvi": 0.1592,
+    "ndvi_smooth": 0.1529
+   },
+   {
+    "date": "2008-03-05",
+    "ndvi": 0.1424,
+    "ndvi_smooth": 0.1429
+   },
+   {
+    "date": "2008-03-21",
+    "ndvi": 0.148,
+    "ndvi_smooth": 0.1588
+   },
+   {
+    "date": "2008-04-06",
+    "ndvi": 0.2175,
+    "ndvi_smooth": 0.2111
+   },
+   {
+    "date": "2008-04-22",
+    "ndvi": 0.2669,
+    "ndvi_smooth": 0.2612
+   },
+   {
+    "date": "2008-05-08",
+    "ndvi": 0.2869,
+    "ndvi_smooth": 0.2848
+   },
+   {
+    "date": "2008-05-24",
+    "ndvi": 0.3351,
+    "ndvi_smooth": 0.3647
+   },
+   {
+    "date": "2008-06-09",
+    "ndvi": 0.4941,
+    "ndvi_smooth": 0.442
+   },
+   {
+    "date": "2008-06-25",
+    "ndvi": 0.5011,
+    "ndvi_smooth": 0.5752
+   },
+   {
+    "date": "2008-07-11",
+    "ndvi": 0.7017,
+    "ndvi_smooth": 0.6241
+   },
+   {
+    "date": "2008-07-27",
+    "ndvi": 0.5772,
+    "ndvi_smooth": 0.597
+   },
+   {
+    "date": "2008-08-12",
+    "ndvi": 0.5139,
+    "ndvi_smooth": 0.5663
+   },
+   {
+    "date": "2008-08-28",
+    "ndvi": 0.6673,
+    "ndvi_smooth": 0.6034
+   },
+   {
+    "date": "2008-09-13",
+    "ndvi": 0.581,
+    "ndvi_smooth": 0.6146
+   },
+   {
+    "date": "2008-09-29",
+    "ndvi": 0.5438,
+    "ndvi_smooth": 0.5392
+   },
+   {
+    "date": "2008-10-15",
+    "ndvi": 0.4528,
+    "ndvi_smooth": 0.4268
+   },
+   {
+    "date": "2008-10-31",
+    "ndvi": 0.2591,
+    "ndvi_smooth": 0.2898
+   },
+   {
+    "date": "2008-11-16",
+    "ndvi": 0.2173,
+    "ndvi_smooth": 0.2138
+   },
+   {
+    "date": "2008-12-02",
+    "ndvi": 0.2235,
+    "ndvi_smooth": 0.2166
+   },
+   {
+    "date": "2008-12-18",
+    "ndvi": 0.2147,
+    "ndvi_smooth": 0.2151
+   },
+   {
+    "date": "2009-01-01",
+    "ndvi": 0.2085,
+    "ndvi_smooth": 0.2071
+   },
+   {
+    "date": "2009-01-17",
+    "ndvi": 0.2179,
+    "ndvi_smooth": 0.2295
+   },
+   {
+    "date": "2009-02-02",
+    "ndvi": 0.2719,
+    "ndvi_smooth": 0.2512
+   },
+   {
+    "date": "2009-02-18",
+    "ndvi": 0.2637,
+    "ndvi_smooth": 0.2768
+   },
+   {
+    "date": "2009-03-06",
+    "ndvi": 0.3282,
+    "ndvi_smooth": 0.3457
+   },
+   {
+    "date": "2009-03-22",
+    "ndvi": 0.4469,
+    "ndvi_smooth": 0.4019
+   },
+   {
+    "date": "2009-04-07",
+    "ndvi": 0.397,
+    "ndvi_smooth": 0.4244
+   },
+   {
+    "date": "2009-04-23",
+    "ndvi": 0.4805,
+    "ndvi_smooth": 0.5171
+   },
+   {
+    "date": "2009-05-09",
+    "ndvi": 0.6802,
+    "ndvi_smooth": 0.6101
+   },
+   {
+    "date": "2009-05-25",
+    "ndvi": 0.5521,
+    "ndvi_smooth": 0.5839
+   },
+   {
+    "date": "2009-06-10",
+    "ndvi": 0.4695,
+    "ndvi_smooth": 0.47
+   },
+   {
+    "date": "2009-06-26",
+    "ndvi": 0.4344,
+    "ndvi_smooth": 0.4196
+   },
+   {
+    "date": "2009-07-12",
+    "ndvi": 0.4424,
+    "ndvi_smooth": 0.5043
+   },
+   {
+    "date": "2009-07-28",
+    "ndvi": 0.6621,
+    "ndvi_smooth": 0.568
+   },
+   {
+    "date": "2009-08-13",
+    "ndvi": 0.5397,
+    "ndvi_smooth": 0.6179
+   },
+   {
+    "date": "2009-08-29",
+    "ndvi": 0.6189,
+    "ndvi_smooth": 0.5835
+   },
+   {
+    "date": "2009-09-14",
+    "ndvi": 0.5306,
+    "ndvi_smooth": 0.5137
+   },
+   {
+    "date": "2009-09-30",
+    "ndvi": 0.3192,
+    "ndvi_smooth": 0.3442
+   },
+   {
+    "date": "2009-10-16",
+    "ndvi": 0.2258,
+    "ndvi_smooth": 0.2273
+   },
+   {
+    "date": "2009-11-01",
+    "ndvi": 0.2004,
+    "ndvi_smooth": 0.1899
+   },
+   {
+    "date": "2009-11-17",
+    "ndvi": 0.176,
+    "ndvi_smooth": 0.1887
+   },
+   {
+    "date": "2009-12-03",
+    "ndvi": 0.2076,
+    "ndvi_smooth": 0.1936
+   },
+   {
+    "date": "2009-12-19",
+    "ndvi": 0.2025,
+    "ndvi_smooth": 0.2037
+   },
+   {
+    "date": "2010-01-01",
+    "ndvi": 0.2313,
+    "ndvi_smooth": 0.2537
+   },
+   {
+    "date": "2010-01-17",
+    "ndvi": 0.3509,
+    "ndvi_smooth": 0.3237
+   },
+   {
+    "date": "2010-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.3547
+   },
+   {
+    "date": "2010-02-18",
+    "ndvi": 0.3631,
+    "ndvi_smooth": 0.4094
+   },
+   {
+    "date": "2010-03-06",
+    "ndvi": 0.5097,
+    "ndvi_smooth": 0.4389
+   },
+   {
+    "date": "2010-03-22",
+    "ndvi": 0.3975,
+    "ndvi_smooth": 0.4397
+   },
+   {
+    "date": "2010-04-07",
+    "ndvi": 0.4535,
+    "ndvi_smooth": 0.4703
+   },
+   {
+    "date": "2010-04-23",
+    "ndvi": 0.6128,
+    "ndvi_smooth": 0.5985
+   },
+   {
+    "date": "2010-05-09",
+    "ndvi": 0.615,
+    "ndvi_smooth": 0.5645
+   },
+   {
+    "date": "2010-05-25",
+    "ndvi": 0.366,
+    "ndvi_smooth": 0.4328
+   },
+   {
+    "date": "2010-06-10",
+    "ndvi": 0.3606,
+    "ndvi_smooth": 0.3216
+   },
+   {
+    "date": "2010-06-26",
+    "ndvi": 0.3137,
+    "ndvi_smooth": 0.3487
+   },
+   {
+    "date": "2010-07-12",
+    "ndvi": 0.3947,
+    "ndvi_smooth": 0.3622
+   },
+   {
+    "date": "2010-07-28",
+    "ndvi": 0.3645,
+    "ndvi_smooth": 0.3856
+   },
+   {
+    "date": "2010-08-13",
+    "ndvi": 0.3631,
+    "ndvi_smooth": 0.3468
+   },
+   {
+    "date": "2010-08-29",
+    "ndvi": 0.2843,
+    "ndvi_smooth": 0.2884
+   },
+   {
+    "date": "2010-09-14",
+    "ndvi": 0.2124,
+    "ndvi_smooth": 0.2163
+   },
+   {
+    "date": "2010-09-30",
+    "ndvi": 0.1838,
+    "ndvi_smooth": 0.1884
+   },
+   {
+    "date": "2010-10-16",
+    "ndvi": 0.1892,
+    "ndvi_smooth": 0.1749
+   },
+   {
+    "date": "2010-11-01",
+    "ndvi": 0.1656,
+    "ndvi_smooth": 0.1838
+   },
+   {
+    "date": "2010-11-17",
+    "ndvi": 0.2165,
+    "ndvi_smooth": 0.2083
+   },
+   {
+    "date": "2010-12-03",
+    "ndvi": 0.2328,
+    "ndvi_smooth": 0.2234
+   },
+   {
+    "date": "2010-12-19",
+    "ndvi": 0.2005,
+    "ndvi_smooth": 0.2122
+   },
+   {
+    "date": "2011-01-01",
+    "ndvi": 0.215,
+    "ndvi_smooth": 0.2119
+   },
+   {
+    "date": "2011-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.2318
+   },
+   {
+    "date": "2011-02-02",
+    "ndvi": 0.2546,
+    "ndvi_smooth": 0.2587
+   },
+   {
+    "date": "2011-02-18",
+    "ndvi": 0.304,
+    "ndvi_smooth": 0.3079
+   },
+   {
+    "date": "2011-03-06",
+    "ndvi": 0.3648,
+    "ndvi_smooth": 0.3343
+   },
+   {
+    "date": "2011-03-22",
+    "ndvi": 0.3729,
+    "ndvi_smooth": 0.4437
+   },
+   {
+    "date": "2011-04-07",
+    "ndvi": 0.6202,
+    "ndvi_smooth": 0.5438
+   },
+   {
+    "date": "2011-04-23",
+    "ndvi": 0.5722,
+    "ndvi_smooth": 0.6087
+   },
+   {
+    "date": "2011-05-09",
+    "ndvi": 0.5854,
+    "ndvi_smooth": 0.5822
+   },
+   {
+    "date": "2011-05-25",
+    "ndvi": 0.5908,
+    "ndvi_smooth": 0.5993
+   },
+   {
+    "date": "2011-06-10",
+    "ndvi": 0.5564,
+    "ndvi_smooth": 0.5145
+   },
+   {
+    "date": "2011-06-26",
+    "ndvi": 0.3506,
+    "ndvi_smooth": 0.3975
+   },
+   {
+    "date": "2011-07-12",
+    "ndvi": 0.3309,
+    "ndvi_smooth": 0.3138
+   },
+   {
+    "date": "2011-07-28",
+    "ndvi": 0.3079,
+    "ndvi_smooth": 0.3068
+   },
+   {
+    "date": "2011-08-13",
+    "ndvi": 0.2922,
+    "ndvi_smooth": 0.2958
+   },
+   {
+    "date": "2011-08-29",
+    "ndvi": 0.3072,
+    "ndvi_smooth": 0.3157
+   },
+   {
+    "date": "2011-09-14",
+    "ndvi": 0.3347,
+    "ndvi_smooth": 0.3126
+   },
+   {
+    "date": "2011-09-30",
+    "ndvi": 0.2576,
+    "ndvi_smooth": 0.2707
+   },
+   {
+    "date": "2011-10-16",
+    "ndvi": 0.2162,
+    "ndvi_smooth": 0.2155
+   },
+   {
+    "date": "2011-11-01",
+    "ndvi": 0.1981,
+    "ndvi_smooth": 0.2016
+   },
+   {
+    "date": "2011-11-17",
+    "ndvi": 0.1986,
+    "ndvi_smooth": 0.1909
+   },
+   {
+    "date": "2011-12-03",
+    "ndvi": 0.1724,
+    "ndvi_smooth": 0.1744
+   },
+   {
+    "date": "2011-12-19",
+    "ndvi": 0.1646,
+    "ndvi_smooth": 0.1742
+   },
+   {
+    "date": "2012-01-01",
+    "ndvi": 0.1971,
+    "ndvi_smooth": 0.1852
+   },
+   {
+    "date": "2012-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.1843
+   },
+   {
+    "date": "2012-02-02",
+    "ndvi": 0.1634,
+    "ndvi_smooth": 0.1617
+   },
+   {
+    "date": "2012-02-18",
+    "ndvi": 0.1488,
+    "ndvi_smooth": 0.1542
+   },
+   {
+    "date": "2012-03-05",
+    "ndvi": 0.1582,
+    "ndvi_smooth": 0.1484
+   },
+   {
+    "date": "2012-03-21",
+    "ndvi": 0.1499,
+    "ndvi_smooth": 0.1566
+   },
+   {
+    "date": "2012-04-06",
+    "ndvi": 0.1961,
+    "ndvi_smooth": 0.1951
+   },
+   {
+    "date": "2012-04-22",
+    "ndvi": 0.2903,
+    "ndvi_smooth": 0.3121
+   },
+   {
+    "date": "2012-05-08",
+    "ndvi": 0.438,
+    "ndvi_smooth": 0.3956
+   },
+   {
+    "date": "2012-05-24",
+    "ndvi": 0.3904,
+    "ndvi_smooth": 0.4012
+   },
+   {
+    "date": "2012-06-09",
+    "ndvi": 0.3936,
+    "ndvi_smooth": 0.4234
+   },
+   {
+    "date": "2012-06-25",
+    "ndvi": 0.5677,
+    "ndvi_smooth": 0.5567
+   },
+   {
+    "date": "2012-07-11",
+    "ndvi": 0.6852,
+    "ndvi_smooth": 0.6566
+   },
+   {
+    "date": "2012-07-27",
+    "ndvi": 0.6471,
+    "ndvi_smooth": 0.678
+   },
+   {
+    "date": "2012-08-12",
+    "ndvi": 0.6885,
+    "ndvi_smooth": 0.693
+   },
+   {
+    "date": "2012-08-28",
+    "ndvi": 0.6839,
+    "ndvi_smooth": 0.6209
+   },
+   {
+    "date": "2012-09-13",
+    "ndvi": 0.4553,
+    "ndvi_smooth": 0.54
+   },
+   {
+    "date": "2012-09-29",
+    "ndvi": 0.5597,
+    "ndvi_smooth": 0.5288
+   },
+   {
+    "date": "2012-10-15",
+    "ndvi": 0.5655,
+    "ndvi_smooth": 0.5477
+   },
+   {
+    "date": "2012-10-31",
+    "ndvi": 0.4021,
+    "ndvi_smooth": 0.3936
+   },
+   {
+    "date": "2012-11-16",
+    "ndvi": 0.2067,
+    "ndvi_smooth": 0.2427
+   },
+   {
+    "date": "2012-12-02",
+    "ndvi": 0.2156,
+    "ndvi_smooth": 0.2056
+   },
+   {
+    "date": "2012-12-18",
+    "ndvi": 0.2452,
+    "ndvi_smooth": 0.2357
+   },
+   {
+    "date": "2013-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.2248
+   },
+   {
+    "date": "2013-01-17",
+    "ndvi": 0.2099,
+    "ndvi_smooth": 0.2192
+   },
+   {
+    "date": "2013-02-02",
+    "ndvi": 0.2782,
+    "ndvi_smooth": 0.2817
+   },
+   {
+    "date": "2013-02-18",
+    "ndvi": 0.4148,
+    "ndvi_smooth": 0.4383
+   },
+   {
+    "date": "2013-03-06",
+    "ndvi": 0.5603,
+    "ndvi_smooth": 0.4654
+   },
+   {
+    "date": "2013-03-22",
+    "ndvi": 0.3806,
+    "ndvi_smooth": 0.5202
+   },
+   {
+    "date": "2013-04-07",
+    "ndvi": 0.649,
+    "ndvi_smooth": 0.5219
+   },
+   {
+    "date": "2013-04-23",
+    "ndvi": 0.5102,
+    "ndvi_smooth": 0.5763
+   },
+   {
+    "date": "2013-05-09",
+    "ndvi": 0.5915,
+    "ndvi_smooth": 0.6136
+   },
+   {
+    "date": "2013-05-25",
+    "ndvi": 0.749,
+    "ndvi_smooth": 0.6883
+   },
+   {
+    "date": "2013-06-10",
+    "ndvi": 0.5804,
+    "ndvi_smooth": 0.598
+   },
+   {
+    "date": "2013-06-26",
+    "ndvi": 0.3916,
+    "ndvi_smooth": 0.3955
+   },
+   {
+    "date": "2013-07-12",
+    "ndvi": 0.2835,
+    "ndvi_smooth": 0.3008
+   },
+   {
+    "date": "2013-07-28",
+    "ndvi": 0.3113,
+    "ndvi_smooth": 0.3004
+   },
+   {
+    "date": "2013-08-13",
+    "ndvi": 0.3278,
+    "ndvi_smooth": 0.3262
+   },
+   {
+    "date": "2013-08-29",
+    "ndvi": 0.3134,
+    "ndvi_smooth": 0.309
+   },
+   {
+    "date": "2013-09-14",
+    "ndvi": 0.2668,
+    "ndvi_smooth": 0.2727
+   },
+   {
+    "date": "2013-09-30",
+    "ndvi": 0.2384,
+    "ndvi_smooth": 0.238
+   },
+   {
+    "date": "2013-10-16",
+    "ndvi": 0.2093,
+    "ndvi_smooth": 0.2048
+   },
+   {
+    "date": "2013-11-01",
+    "ndvi": 0.1652,
+    "ndvi_smooth": 0.1685
+   },
+   {
+    "date": "2013-11-17",
+    "ndvi": 0.1444,
+    "ndvi_smooth": 0.1463
+   },
+   {
+    "date": "2013-12-03",
+    "ndvi": null,
+    "ndvi_smooth": 0.1443
+   },
+   {
+    "date": "2013-12-19",
+    "ndvi": null,
+    "ndvi_smooth": 0.148
+   },
+   {
+    "date": "2014-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.1517
+   },
+   {
+    "date": "2014-01-17",
+    "ndvi": 0.1515,
+    "ndvi_smooth": 0.146
+   },
+   {
+    "date": "2014-02-02",
+    "ndvi": 0.1305,
+    "ndvi_smooth": 0.1315
+   },
+   {
+    "date": "2014-02-18",
+    "ndvi": 0.1273,
+    "ndvi_smooth": 0.1359
+   },
+   {
+    "date": "2014-03-06",
+    "ndvi": 0.1705,
+    "ndvi_smooth": 0.1577
+   },
+   {
+    "date": "2014-03-22",
+    "ndvi": 0.1888,
+    "ndvi_smooth": 0.1943
+   },
+   {
+    "date": "2014-04-07",
+    "ndvi": 0.2597,
+    "ndvi_smooth": 0.2815
+   },
+   {
+    "date": "2014-04-23",
+    "ndvi": 0.3968,
+    "ndvi_smooth": 0.3552
+   },
+   {
+    "date": "2014-05-09",
+    "ndvi": 0.3593,
+    "ndvi_smooth": 0.391
+   },
+   {
+    "date": "2014-05-25",
+    "ndvi": 0.3917,
+    "ndvi_smooth": 0.3667
+   },
+   {
+    "date": "2014-06-10",
+    "ndvi": 0.3687,
+    "ndvi_smooth": 0.3788
+   },
+   {
+    "date": "2014-06-26",
+    "ndvi": 0.4569,
+    "ndvi_smooth": 0.493
+   },
+   {
+    "date": "2014-07-12",
+    "ndvi": 0.7051,
+    "ndvi_smooth": 0.6763
+   },
+   {
+    "date": "2014-07-28",
+    "ndvi": 0.7411,
+    "ndvi_smooth": 0.7101
+   },
+   {
+    "date": "2014-08-13",
+    "ndvi": 0.529,
+    "ndvi_smooth": 0.5493
+   },
+   {
+    "date": "2014-08-29",
+    "ndvi": 0.3941,
+    "ndvi_smooth": 0.4319
+   },
+   {
+    "date": "2014-09-14",
+    "ndvi": 0.4246,
+    "ndvi_smooth": 0.3715
+   },
+   {
+    "date": "2014-09-30",
+    "ndvi": 0.2672,
+    "ndvi_smooth": 0.2907
+   },
+   {
+    "date": "2014-10-16",
+    "ndvi": 0.188,
+    "ndvi_smooth": 0.1932
+   },
+   {
+    "date": "2014-11-01",
+    "ndvi": 0.1784,
+    "ndvi_smooth": 0.1676
+   },
+   {
+    "date": "2014-11-17",
+    "ndvi": 0.169,
+    "ndvi_smooth": 0.1834
+   },
+   {
+    "date": "2014-12-03",
+    "ndvi": 0.2167,
+    "ndvi_smooth": 0.2023
+   },
+   {
+    "date": "2014-12-19",
+    "ndvi": 0.2105,
+    "ndvi_smooth": 0.2157
+   },
+   {
+    "date": "2015-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.2076
+   },
+   {
+    "date": "2015-01-17",
+    "ndvi": 0.2031,
+    "ndvi_smooth": 0.1962
+   },
+   {
+    "date": "2015-02-02",
+    "ndvi": 0.1897,
+    "ndvi_smooth": 0.2067
+   },
+   {
+    "date": "2015-02-18",
+    "ndvi": 0.2387,
+    "ndvi_smooth": 0.216
+   },
+   {
+    "date": "2015-03-06",
+    "ndvi": 0.2236,
+    "ndvi_smooth": 0.2375
+   },
+   {
+    "date": "2015-03-22",
+    "ndvi": 0.2832,
+    "ndvi_smooth": 0.2726
+   },
+   {
+    "date": "2015-04-07",
+    "ndvi": 0.3944,
+    "ndvi_smooth": 0.4447
+   },
+   {
+    "date": "2015-04-23",
+    "ndvi": 0.6576,
+    "ndvi_smooth": 0.5769
+   },
+   {
+    "date": "2015-05-09",
+    "ndvi": 0.5862,
+    "ndvi_smooth": 0.6514
+   },
+   {
+    "date": "2015-05-25",
+    "ndvi": 0.635,
+    "ndvi_smooth": 0.5888
+   },
+   {
+    "date": "2015-06-10",
+    "ndvi": 0.4978,
+    "ndvi_smooth": 0.5191
+   },
+   {
+    "date": "2015-06-26",
+    "ndvi": 0.4078,
+    "ndvi_smooth": 0.4034
+   },
+   {
+    "date": "2015-07-12",
+    "ndvi": 0.35,
+    "ndvi_smooth": 0.3632
+   },
+   {
+    "date": "2015-07-28",
+    "ndvi": 0.3611,
+    "ndvi_smooth": 0.3448
+   },
+   {
+    "date": "2015-08-13",
+    "ndvi": 0.3238,
+    "ndvi_smooth": 0.3355
+   },
+   {
+    "date": "2015-08-29",
+    "ndvi": 0.3109,
+    "ndvi_smooth": 0.2999
+   },
+   {
+    "date": "2015-09-14",
+    "ndvi": 0.2591,
+    "ndvi_smooth": 0.2675
+   },
+   {
+    "date": "2015-09-30",
+    "ndvi": 0.2337,
+    "ndvi_smooth": 0.2278
+   },
+   {
+    "date": "2015-10-16",
+    "ndvi": 0.2021,
+    "ndvi_smooth": 0.209
+   },
+   {
+    "date": "2015-11-01",
+    "ndvi": 0.2009,
+    "ndvi_smooth": 0.1945
+   },
+   {
+    "date": "2015-11-17",
+    "ndvi": 0.1866,
+    "ndvi_smooth": 0.1908
+   },
+   {
+    "date": "2015-12-03",
+    "ndvi": 0.19,
+    "ndvi_smooth": 0.1885
+   },
+   {
+    "date": "2015-12-19",
+    "ndvi": null,
+    "ndvi_smooth": 0.1948
+   },
+   {
+    "date": "2016-01-01",
+    "ndvi": 0.1958,
+    "ndvi_smooth": 0.1933
+   },
+   {
+    "date": "2016-01-17",
+    "ndvi": 0.1785,
+    "ndvi_smooth": 0.1763
+   },
+   {
+    "date": "2016-02-02",
+    "ndvi": 0.1511,
+    "ndvi_smooth": 0.1565
+   },
+   {
+    "date": "2016-02-18",
+    "ndvi": 0.1493,
+    "ndvi_smooth": 0.142
+   },
+   {
+    "date": "2016-03-05",
+    "ndvi": 0.1458,
+    "ndvi_smooth": 0.1627
+   },
+   {
+    "date": "2016-03-21",
+    "ndvi": 0.198,
+    "ndvi_smooth": 0.1765
+   },
+   {
+    "date": "2016-04-06",
+    "ndvi": 0.1664,
+    "ndvi_smooth": 0.1705
+   },
+   {
+    "date": "2016-04-22",
+    "ndvi": 0.1624,
+    "ndvi_smooth": 0.1699
+   },
+   {
+    "date": "2016-05-08",
+    "ndvi": 0.2493,
+    "ndvi_smooth": 0.2509
+   },
+   {
+    "date": "2016-05-24",
+    "ndvi": 0.403,
+    "ndvi_smooth": 0.4025
+   },
+   {
+    "date": "2016-06-09",
+    "ndvi": 0.5809,
+    "ndvi_smooth": 0.6089
+   },
+   {
+    "date": "2016-06-25",
+    "ndvi": 0.7468,
+    "ndvi_smooth": 0.6514
+   },
+   {
+    "date": "2016-07-11",
+    "ndvi": 0.5373,
+    "ndvi_smooth": 0.6575
+   },
+   {
+    "date": "2016-07-27",
+    "ndvi": 0.702,
+    "ndvi_smooth": 0.6006
+   },
+   {
+    "date": "2016-08-12",
+    "ndvi": 0.5886,
+    "ndvi_smooth": 0.6802
+   },
+   {
+    "date": "2016-08-28",
+    "ndvi": 0.7275,
+    "ndvi_smooth": 0.6547
+   },
+   {
+    "date": "2016-09-13",
+    "ndvi": 0.5799,
+    "ndvi_smooth": 0.6111
+   },
+   {
+    "date": "2016-09-29",
+    "ndvi": 0.4565,
+    "ndvi_smooth": 0.4444
+   },
+   {
+    "date": "2016-10-15",
+    "ndvi": 0.3035,
+    "ndvi_smooth": 0.3115
+   },
+   {
+    "date": "2016-10-31",
+    "ndvi": 0.2077,
+    "ndvi_smooth": 0.207
+   },
+   {
+    "date": "2016-11-16",
+    "ndvi": 0.1629,
+    "ndvi_smooth": 0.1688
+   },
+   {
+    "date": "2016-12-02",
+    "ndvi": 0.1713,
+    "ndvi_smooth": 0.1644
+   },
+   {
+    "date": "2016-12-18",
+    "ndvi": null,
+    "ndvi_smooth": 0.1675
+   },
+   {
+    "date": "2017-01-01",
+    "ndvi": null,
+    "ndvi_smooth": 0.1615
+   },
+   {
+    "date": "2017-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.1566
+   },
+   {
+    "date": "2017-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.1514
+   },
+   {
+    "date": "2017-02-18",
+    "ndvi": null,
+    "ndvi_smooth": 0.1444
+   },
+   {
+    "date": "2017-03-06",
+    "ndvi": 0.1411,
+    "ndvi_smooth": 0.1363
+   },
+   {
+    "date": "2017-03-22",
+    "ndvi": 0.1569,
+    "ndvi_smooth": 0.1807
+   },
+   {
+    "date": "2017-04-07",
+    "ndvi": 0.2708,
+    "ndvi_smooth": 0.237
+   },
+   {
+    "date": "2017-04-23",
+    "ndvi": 0.282,
+    "ndvi_smooth": 0.3019
+   },
+   {
+    "date": "2017-05-09",
+    "ndvi": 0.3844,
+    "ndvi_smooth": 0.3933
+   },
+   {
+    "date": "2017-05-25",
+    "ndvi": 0.5401,
+    "ndvi_smooth": 0.5242
+   },
+   {
+    "date": "2017-06-10",
+    "ndvi": 0.6078,
+    "ndvi_smooth": 0.6201
+   },
+   {
+    "date": "2017-06-26",
+    "ndvi": 0.6314,
+    "ndvi_smooth": 0.5881
+   },
+   {
+    "date": "2017-07-12",
+    "ndvi": 0.5117,
+    "ndvi_smooth": 0.5809
+   },
+   {
+    "date": "2017-07-28",
+    "ndvi": 0.6544,
+    "ndvi_smooth": 0.6161
+   },
+   {
+    "date": "2017-08-13",
+    "ndvi": 0.6583,
+    "ndvi_smooth": 0.6506
+   },
+   {
+    "date": "2017-08-29",
+    "ndvi": 0.5695,
+    "ndvi_smooth": 0.5913
+   },
+   {
+    "date": "2017-09-14",
+    "ndvi": 0.5241,
+    "ndvi_smooth": 0.5111
+   },
+   {
+    "date": "2017-09-30",
+    "ndvi": 0.4035,
+    "ndvi_smooth": 0.3872
+   },
+   {
+    "date": "2017-10-16",
+    "ndvi": 0.2402,
+    "ndvi_smooth": 0.2796
+   },
+   {
+    "date": "2017-11-01",
+    "ndvi": 0.2568,
+    "ndvi_smooth": 0.2311
+   },
+   {
+    "date": "2017-11-17",
+    "ndvi": 0.2163,
+    "ndvi_smooth": 0.2192
+   },
+   {
+    "date": "2017-12-03",
+    "ndvi": 0.1818,
+    "ndvi_smooth": 0.1876
+   },
+   {
+    "date": "2017-12-19",
+    "ndvi": 0.1826,
+    "ndvi_smooth": 0.1806
+   },
+   {
+    "date": "2018-01-01",
+    "ndvi": 0.1809,
+    "ndvi_smooth": 0.1775
+   },
+   {
+    "date": "2018-01-17",
+    "ndvi": 0.1625,
+    "ndvi_smooth": 0.1636
+   },
+   {
+    "date": "2018-02-02",
+    "ndvi": 0.1525,
+    "ndvi_smooth": 0.1539
+   },
+   {
+    "date": "2018-02-18",
+    "ndvi": 0.1633,
+    "ndvi_smooth": 0.1668
+   },
+   {
+    "date": "2018-03-06",
+    "ndvi": 0.1905,
+    "ndvi_smooth": 0.1815
+   },
+   {
+    "date": "2018-03-22",
+    "ndvi": 0.1894,
+    "ndvi_smooth": 0.1992
+   },
+   {
+    "date": "2018-04-07",
+    "ndvi": 0.2198,
+    "ndvi_smooth": 0.2103
+   },
+   {
+    "date": "2018-04-23",
+    "ndvi": 0.227,
+    "ndvi_smooth": 0.2371
+   },
+   {
+    "date": "2018-05-09",
+    "ndvi": 0.2667,
+    "ndvi_smooth": 0.2507
+   },
+   {
+    "date": "2018-05-25",
+    "ndvi": 0.277,
+    "ndvi_smooth": 0.294
+   },
+   {
+    "date": "2018-06-10",
+    "ndvi": 0.3821,
+    "ndvi_smooth": 0.3798
+   },
+   {
+    "date": "2018-06-26",
+    "ndvi": 0.5074,
+    "ndvi_smooth": 0.5061
+   },
+   {
+    "date": "2018-07-12",
+    "ndvi": 0.6049,
+    "ndvi_smooth": 0.61
+   },
+   {
+    "date": "2018-07-28",
+    "ndvi": 0.6417,
+    "ndvi_smooth": 0.617
+   },
+   {
+    "date": "2018-08-13",
+    "ndvi": 0.5251,
+    "ndvi_smooth": 0.5494
+   },
+   {
+    "date": "2018-08-29",
+    "ndvi": 0.45,
+    "ndvi_smooth": 0.4323
+   },
+   {
+    "date": "2018-09-14",
+    "ndvi": 0.3279,
+    "ndvi_smooth": 0.3438
+   },
+   {
+    "date": "2018-09-30",
+    "ndvi": 0.2773,
+    "ndvi_smooth": 0.2714
+   },
+   {
+    "date": "2018-10-16",
+    "ndvi": 0.2307,
+    "ndvi_smooth": 0.2295
+   },
+   {
+    "date": "2018-11-01",
+    "ndvi": 0.19,
+    "ndvi_smooth": 0.1906
+   },
+   {
+    "date": "2018-11-17",
+    "ndvi": 0.1709,
+    "ndvi_smooth": 0.1758
+   },
+   {
+    "date": "2018-12-03",
+    "ndvi": 0.182,
+    "ndvi_smooth": 0.1719
+   },
+   {
+    "date": "2018-12-19",
+    "ndvi": 0.1751,
+    "ndvi_smooth": 0.1925
+   },
+   {
+    "date": "2019-01-01",
+    "ndvi": 0.2202,
+    "ndvi_smooth": 0.1999
+   },
+   {
+    "date": "2019-01-17",
+    "ndvi": 0.1844,
+    "ndvi_smooth": 0.1889
+   },
+   {
+    "date": "2019-02-02",
+    "ndvi": 0.1718,
+    "ndvi_smooth": 0.1889
+   },
+   {
+    "date": "2019-02-18",
+    "ndvi": 0.2338,
+    "ndvi_smooth": 0.2128
+   },
+   {
+    "date": "2019-03-06",
+    "ndvi": 0.2224,
+    "ndvi_smooth": 0.2358
+   },
+   {
+    "date": "2019-03-22",
+    "ndvi": 0.2351,
+    "ndvi_smooth": 0.2216
+   },
+   {
+    "date": "2019-04-07",
+    "ndvi": 0.213,
+    "ndvi_smooth": 0.2252
+   },
+   {
+    "date": "2019-04-23",
+    "ndvi": 0.2542,
+    "ndvi_smooth": 0.2542
+   },
+   {
+    "date": "2019-05-09",
+    "ndvi": 0.3144,
+    "ndvi_smooth": 0.2965
+   },
+   {
+    "date": "2019-05-25",
+    "ndvi": 0.3491,
+    "ndvi_smooth": 0.3743
+   },
+   {
+    "date": "2019-06-10",
+    "ndvi": 0.5222,
+    "ndvi_smooth": 0.5333
+   },
+   {
+    "date": "2019-06-26",
+    "ndvi": 0.7034,
+    "ndvi_smooth": 0.6414
+   },
+   {
+    "date": "2019-07-12",
+    "ndvi": 0.6326,
+    "ndvi_smooth": 0.7161
+   },
+   {
+    "date": "2019-07-28",
+    "ndvi": 0.7734,
+    "ndvi_smooth": 0.6997
+   },
+   {
+    "date": "2019-08-13",
+    "ndvi": 0.6158,
+    "ndvi_smooth": 0.6518
+   },
+   {
+    "date": "2019-08-29",
+    "ndvi": 0.5092,
+    "ndvi_smooth": 0.496
+   },
+   {
+    "date": "2019-09-14",
+    "ndvi": 0.3829,
+    "ndvi_smooth": 0.3898
+   },
+   {
+    "date": "2019-09-30",
+    "ndvi": 0.3206,
+    "ndvi_smooth": 0.3363
+   },
+   {
+    "date": "2019-10-16",
+    "ndvi": 0.3258,
+    "ndvi_smooth": 0.2953
+   },
+   {
+    "date": "2019-11-01",
+    "ndvi": 0.2186,
+    "ndvi_smooth": 0.2352
+   },
+   {
+    "date": "2019-11-17",
+    "ndvi": 0.1752,
+    "ndvi_smooth": 0.175
+   },
+   {
+    "date": "2019-12-03",
+    "ndvi": 0.1784,
+    "ndvi_smooth": 0.1826
+   },
+   {
+    "date": "2019-12-19",
+    "ndvi": 0.2134,
+    "ndvi_smooth": 0.2112
+   },
+   {
+    "date": "2020-01-01",
+    "ndvi": 0.2161,
+    "ndvi_smooth": 0.1969
+   },
+   {
+    "date": "2020-01-17",
+    "ndvi": 0.1482,
+    "ndvi_smooth": 0.1771
+   },
+   {
+    "date": "2020-02-02",
+    "ndvi": 0.195,
+    "ndvi_smooth": 0.1828
+   },
+   {
+    "date": "2020-02-18",
+    "ndvi": 0.2043,
+    "ndvi_smooth": 0.1926
+   },
+   {
+    "date": "2020-03-05",
+    "ndvi": 0.1657,
+    "ndvi_smooth": 0.1775
+   },
+   {
+    "date": "2020-03-21",
+    "ndvi": 0.2051,
+    "ndvi_smooth": 0.2108
+   },
+   {
+    "date": "2020-04-06",
+    "ndvi": 0.311,
+    "ndvi_smooth": 0.3153
+   },
+   {
+    "date": "2020-04-22",
+    "ndvi": 0.405,
+    "ndvi_smooth": 0.3711
+   },
+   {
+    "date": "2020-05-08",
+    "ndvi": 0.3585,
+    "ndvi_smooth": 0.3848
+   },
+   {
+    "date": "2020-05-24",
+    "ndvi": 0.438,
+    "ndvi_smooth": 0.4523
+   },
+   {
+    "date": "2020-06-09",
+    "ndvi": 0.6035,
+    "ndvi_smooth": 0.5834
+   },
+   {
+    "date": "2020-06-25",
+    "ndvi": 0.6485,
+    "ndvi_smooth": 0.6324
+   },
+   {
+    "date": "2020-07-11",
+    "ndvi": 0.6012,
+    "ndvi_smooth": 0.6453
+   },
+   {
+    "date": "2020-07-27",
+    "ndvi": 0.6775,
+    "ndvi_smooth": 0.6368
+   },
+   {
+    "date": "2020-08-12",
+    "ndvi": 0.5792,
+    "ndvi_smooth": 0.58
+   },
+   {
+    "date": "2020-08-28",
+    "ndvi": 0.4835,
+    "ndvi_smooth": 0.5299
+   },
+   {
+    "date": "2020-09-13",
+    "ndvi": 0.5579,
+    "ndvi_smooth": 0.5067
+   },
+   {
+    "date": "2020-09-29",
+    "ndvi": 0.4285,
+    "ndvi_smooth": 0.4496
+   },
+   {
+    "date": "2020-10-15",
+    "ndvi": 0.3184,
+    "ndvi_smooth": 0.3095
+   },
+   {
+    "date": "2020-10-31",
+    "ndvi": 0.2051,
+    "ndvi_smooth": 0.2165
+   },
+   {
+    "date": "2020-11-16",
+    "ndvi": 0.1698,
+    "ndvi_smooth": 0.1643
+   },
+   {
+    "date": "2020-12-02",
+    "ndvi": 0.161,
+    "ndvi_smooth": 0.1715
+   },
+   {
+    "date": "2020-12-18",
+    "ndvi": 0.1918,
+    "ndvi_smooth": 0.1673
+   },
+   {
+    "date": "2021-01-01",
+    "ndvi": 0.1526,
+    "ndvi_smooth": 0.178
+   },
+   {
+    "date": "2021-01-17",
+    "ndvi": 0.2198,
+    "ndvi_smooth": 0.2124
+   },
+   {
+    "date": "2021-02-02",
+    "ndvi": 0.274,
+    "ndvi_smooth": 0.2596
+   },
+   {
+    "date": "2021-02-18",
+    "ndvi": 0.2826,
+    "ndvi_smooth": 0.3133
+   },
+   {
+    "date": "2021-03-06",
+    "ndvi": 0.3807,
+    "ndvi_smooth": 0.324
+   },
+   {
+    "date": "2021-03-22",
+    "ndvi": 0.3453,
+    "ndvi_smooth": 0.4341
+   },
+   {
+    "date": "2021-04-07",
+    "ndvi": 0.6148,
+    "ndvi_smooth": 0.5338
+   },
+   {
+    "date": "2021-04-23",
+    "ndvi": 0.5914,
+    "ndvi_smooth": 0.6407
+   },
+   {
+    "date": "2021-05-09",
+    "ndvi": 0.6221,
+    "ndvi_smooth": 0.5884
+   },
+   {
+    "date": "2021-05-25",
+    "ndvi": 0.4788,
+    "ndvi_smooth": 0.4786
+   },
+   {
+    "date": "2021-06-10",
+    "ndvi": 0.3262,
+    "ndvi_smooth": 0.3399
+   },
+   {
+    "date": "2021-06-26",
+    "ndvi": 0.3308,
+    "ndvi_smooth": 0.3522
+   },
+   {
+    "date": "2021-07-12",
+    "ndvi": 0.4987,
+    "ndvi_smooth": 0.4748
+   },
+   {
+    "date": "2021-07-28",
+    "ndvi": 0.5867,
+    "ndvi_smooth": 0.5943
+   },
+   {
+    "date": "2021-08-13",
+    "ndvi": 0.6302,
+    "ndvi_smooth": 0.621
+   },
+   {
+    "date": "2021-08-29",
+    "ndvi": 0.5754,
+    "ndvi_smooth": 0.5775
+   },
+   {
+    "date": "2021-09-14",
+    "ndvi": 0.476,
+    "ndvi_smooth": 0.4743
+   },
+   {
+    "date": "2021-09-30",
+    "ndvi": 0.3613,
+    "ndvi_smooth": 0.366
+   },
+   {
+    "date": "2021-10-16",
+    "ndvi": 0.28,
+    "ndvi_smooth": 0.2804
+   },
+   {
+    "date": "2021-11-01",
+    "ndvi": 0.2259,
+    "ndvi_smooth": 0.2213
+   },
+   {
+    "date": "2021-11-17",
+    "ndvi": 0.1876,
+    "ndvi_smooth": 0.1949
+   },
+   {
+    "date": "2021-12-03",
+    "ndvi": 0.2068,
+    "ndvi_smooth": 0.2048
+   },
+   {
+    "date": "2021-12-19",
+    "ndvi": null,
+    "ndvi_smooth": 0.2432
+   },
+   {
+    "date": "2022-01-01",
+    "ndvi": 0.2669,
+    "ndvi_smooth": 0.2565
+   },
+   {
+    "date": "2022-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.2354
+   },
+   {
+    "date": "2022-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.1817
+   },
+   {
+    "date": "2022-02-18",
+    "ndvi": 0.1561,
+    "ndvi_smooth": 0.1934
+   },
+   {
+    "date": "2022-03-06",
+    "ndvi": 0.2515,
+    "ndvi_smooth": 0.2029
+   },
+   {
+    "date": "2022-03-22",
+    "ndvi": 0.1762,
+    "ndvi_smooth": 0.205
+   },
+   {
+    "date": "2022-04-07",
+    "ndvi": 0.1944,
+    "ndvi_smooth": 0.1798
+   },
+   {
+    "date": "2022-04-23",
+    "ndvi": 0.2347,
+    "ndvi_smooth": 0.2646
+   },
+   {
+    "date": "2022-05-09",
+    "ndvi": 0.3963,
+    "ndvi_smooth": 0.357
+   },
+   {
+    "date": "2022-05-25",
+    "ndvi": 0.429,
+    "ndvi_smooth": 0.4575
+   },
+   {
+    "date": "2022-06-10",
+    "ndvi": 0.5416,
+    "ndvi_smooth": 0.5305
+   },
+   {
+    "date": "2022-06-26",
+    "ndvi": 0.6106,
+    "ndvi_smooth": 0.6073
+   },
+   {
+    "date": "2022-07-12",
+    "ndvi": 0.6424,
+    "ndvi_smooth": 0.6495
+   },
+   {
+    "date": "2022-07-28",
+    "ndvi": 0.6818,
+    "ndvi_smooth": 0.6891
+   },
+   {
+    "date": "2022-08-13",
+    "ndvi": 0.6908,
+    "ndvi_smooth": 0.6726
+   },
+   {
+    "date": "2022-08-29",
+    "ndvi": 0.5464,
+    "ndvi_smooth": 0.5294
+   },
+   {
+    "date": "2022-09-14",
+    "ndvi": 0.338,
+    "ndvi_smooth": 0.3927
+   },
+   {
+    "date": "2022-09-30",
+    "ndvi": 0.3534,
+    "ndvi_smooth": 0.3027
+   },
+   {
+    "date": "2022-10-16",
+    "ndvi": 0.2421,
+    "ndvi_smooth": 0.2756
+   },
+   {
+    "date": "2022-11-01",
+    "ndvi": 0.245,
+    "ndvi_smooth": 0.2269
+   },
+   {
+    "date": "2022-11-17",
+    "ndvi": 0.2123,
+    "ndvi_smooth": 0.2235
+   },
+   {
+    "date": "2022-12-03",
+    "ndvi": 0.2055,
+    "ndvi_smooth": 0.1917
+   },
+   {
+    "date": "2022-12-19",
+    "ndvi": 0.1558,
+    "ndvi_smooth": 0.1702
+   },
+   {
+    "date": "2023-01-01",
+    "ndvi": 0.1558,
+    "ndvi_smooth": 0.1442
+   },
+   {
+    "date": "2023-01-17",
+    "ndvi": 0.1296,
+    "ndvi_smooth": 0.1376
+   },
+   {
+    "date": "2023-02-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.1342
+   },
+   {
+    "date": "2023-02-18",
+    "ndvi": 0.1447,
+    "ndvi_smooth": 0.145
+   },
+   {
+    "date": "2023-03-06",
+    "ndvi": 0.1525,
+    "ndvi_smooth": 0.1483
+   },
+   {
+    "date": "2023-03-22",
+    "ndvi": 0.1575,
+    "ndvi_smooth": 0.1696
+   },
+   {
+    "date": "2023-04-07",
+    "ndvi": 0.2055,
+    "ndvi_smooth": 0.1928
+   },
+   {
+    "date": "2023-04-23",
+    "ndvi": 0.2017,
+    "ndvi_smooth": 0.1976
+   },
+   {
+    "date": "2023-05-09",
+    "ndvi": 0.1997,
+    "ndvi_smooth": 0.2183
+   },
+   {
+    "date": "2023-05-25",
+    "ndvi": 0.301,
+    "ndvi_smooth": 0.2832
+   },
+   {
+    "date": "2023-06-10",
+    "ndvi": 0.3902,
+    "ndvi_smooth": 0.4086
+   },
+   {
+    "date": "2023-06-26",
+    "ndvi": 0.5598,
+    "ndvi_smooth": 0.5597
+   },
+   {
+    "date": "2023-07-12",
+    "ndvi": 0.6874,
+    "ndvi_smooth": 0.6743
+   },
+   {
+    "date": "2023-07-28",
+    "ndvi": 0.6512,
+    "ndvi_smooth": 0.6257
+   },
+   {
+    "date": "2023-08-13",
+    "ndvi": 0.4825,
+    "ndvi_smooth": 0.5414
+   },
+   {
+    "date": "2023-08-29",
+    "ndvi": 0.5097,
+    "ndvi_smooth": 0.4576
+   },
+   {
+    "date": "2023-09-14",
+    "ndvi": 0.3745,
+    "ndvi_smooth": 0.4031
+   },
+   {
+    "date": "2023-09-30",
+    "ndvi": 0.3265,
+    "ndvi_smooth": 0.3195
+   },
+   {
+    "date": "2023-10-16",
+    "ndvi": 0.2812,
+    "ndvi_smooth": 0.2803
+   },
+   {
+    "date": "2023-11-01",
+    "ndvi": 0.2352,
+    "ndvi_smooth": 0.2365
+   },
+   {
+    "date": "2023-11-17",
+    "ndvi": 0.1957,
+    "ndvi_smooth": 0.1918
+   },
+   {
+    "date": "2023-12-03",
+    "ndvi": 0.1544,
+    "ndvi_smooth": 0.1564
+   },
+   {
+    "date": "2023-12-19",
+    "ndvi": 0.1483,
+    "ndvi_smooth": 0.1574
+   },
+   {
+    "date": "2024-01-01",
+    "ndvi": 0.1915,
+    "ndvi_smooth": 0.1799
+   },
+   {
+    "date": "2024-01-17",
+    "ndvi": null,
+    "ndvi_smooth": 0.194
+   },
+   {
+    "date": "2024-02-02",
+    "ndvi": 0.1924,
+    "ndvi_smooth": 0.1924
+   },
+   {
+    "date": "2024-02-18",
+    "ndvi": 0.2117,
+    "ndvi_smooth": 0.2236
+   },
+   {
+    "date": "2024-03-05",
+    "ndvi": 0.2682,
+    "ndvi_smooth": 0.2432
+   },
+   {
+    "date": "2024-03-21",
+    "ndvi": 0.2419,
+    "ndvi_smooth": 0.2768
+   },
+   {
+    "date": "2024-04-06",
+    "ndvi": 0.3045,
+    "ndvi_smooth": 0.2612
+   },
+   {
+    "date": "2024-04-22",
+    "ndvi": 0.2209,
+    "ndvi_smooth": 0.2514
+   },
+   {
+    "date": "2024-05-08",
+    "ndvi": 0.2613,
+    "ndvi_smooth": 0.2569
+   },
+   {
+    "date": "2024-05-24",
+    "ndvi": 0.3398,
+    "ndvi_smooth": 0.3371
+   },
+   {
+    "date": "2024-06-09",
+    "ndvi": 0.4217,
+    "ndvi_smooth": 0.4239
+   },
+   {
+    "date": "2024-06-25",
+    "ndvi": 0.5042,
+    "ndvi_smooth": 0.498
+   },
+   {
+    "date": "2024-07-11",
+    "ndvi": 0.5588,
+    "ndvi_smooth": 0.5695
+   },
+   {
+    "date": "2024-07-27",
+    "ndvi": 0.6294,
+    "ndvi_smooth": 0.6256
+   },
+   {
+    "date": "2024-08-12",
+    "ndvi": 0.6355,
+    "ndvi_smooth": 0.6227
+   },
+   {
+    "date": "2024-08-28",
+    "ndvi": 0.5411,
+    "ndvi_smooth": 0.5501
+   },
+   {
+    "date": "2024-09-13",
+    "ndvi": 0.4601,
+    "ndvi_smooth": 0.4674
+   },
+   {
+    "date": "2024-09-29",
+    "ndvi": 0.4014,
+    "ndvi_smooth": 0.3779
+   },
+   {
+    "date": "2024-10-15",
+    "ndvi": 0.2892,
+    "ndvi_smooth": 0.3304
+   },
+   {
+    "date": "2024-10-31",
+    "ndvi": 0.3216,
+    "ndvi_smooth": 0.2783
+   },
+   {
+    "date": "2024-11-16",
+    "ndvi": 0.2165,
+    "ndvi_smooth": 0.243
+   },
+   {
+    "date": "2024-12-02",
+    "ndvi": null,
+    "ndvi_smooth": 0.188
+   },
+   {
+    "date": "2024-12-18",
+    "ndvi": 0.1775,
+    "ndvi_smooth": 0.1828
+   },
+   {
+    "date": "2025-01-01",
+    "ndvi": 0.1775,
+    "ndvi_smooth": 0.1702
+   },
+   {
+    "date": "2025-01-17",
+    "ndvi": 0.1547,
+    "ndvi_smooth": 0.1573
+   },
+   {
+    "date": "2025-02-02",
+    "ndvi": 0.1514,
+    "ndvi_smooth": 0.1573
+   },
+   {
+    "date": "2025-02-18",
+    "ndvi": 0.1794,
+    "ndvi_smooth": 0.1745
+   },
+   {
+    "date": "2025-03-06",
+    "ndvi": 0.1813,
+    "ndvi_smooth": 0.174
+   },
+   {
+    "date": "2025-03-22",
+    "ndvi": 0.157,
+    "ndvi_smooth": 0.1712
+   },
+   {
+    "date": "2025-04-07",
+    "ndvi": 0.1914,
+    "ndvi_smooth": 0.1768
+   },
+   {
+    "date": "2025-04-23",
+    "ndvi": 0.204,
+    "ndvi_smooth": 0.227
+   },
+   {
+    "date": "2025-05-09",
+    "ndvi": 0.2846,
+    "ndvi_smooth": 0.2519
+   },
+   {
+    "date": "2025-05-25",
+    "ndvi": 0.2548,
+    "ndvi_smooth": 0.2718
+   },
+   {
+    "date": "2025-06-10",
+    "ndvi": 0.3172,
+    "ndvi_smooth": 0.3455
+   },
+   {
+    "date": "2025-06-26",
+    "ndvi": 0.4759,
+    "ndvi_smooth": 0.3987
+   },
+   {
+    "date": "2025-07-12",
+    "ndvi": 0.4045,
+    "ndvi_smooth": 0.4963
+   },
+   {
+    "date": "2025-07-28",
+    "ndvi": 0.6768,
+    "ndvi_smooth": 0.6386
+   },
+   {
+    "date": "2025-08-13",
+    "ndvi": 0.7951,
+    "ndvi_smooth": 0.7776
+   },
+   {
+    "date": "2025-08-29",
+    "ndvi": 0.7069,
+    "ndvi_smooth": 0.7128
+   },
+   {
+    "date": "2025-09-14",
+    "ndvi": 0.5642,
+    "ndvi_smooth": 0.5698
+   },
+   {
+    "date": "2025-09-30",
+    "ndvi": 0.4501,
+    "ndvi_smooth": 0.4612
+   },
+   {
+    "date": "2025-10-16",
+    "ndvi": 0.3825,
+    "ndvi_smooth": 0.3592
+   },
+   {
+    "date": "2025-11-01",
+    "ndvi": 0.25,
+    "ndvi_smooth": 0.27
+   },
+   {
+    "date": "2025-11-17",
+    "ndvi": 0.2127,
+    "ndvi_smooth": 0.2092
+   },
+   {
+    "date": "2025-12-03",
+    "ndvi": 0.1977,
+    "ndvi_smooth": 0.1902
+   },
+   {
+    "date": "2025-12-19",
+    "ndvi": 0.1731,
+    "ndvi_smooth": 0.1869
+   },
+   {
+    "date": "2026-01-01",
+    "ndvi": 0.194,
+    "ndvi_smooth": 0.1732
+   },
+   {
+    "date": "2026-01-17",
+    "ndvi": 0.1546,
+    "ndvi_smooth": 0.1773
+   },
+   {
+    "date": "2026-02-02",
+    "ndvi": 0.1916,
+    "ndvi_smooth": 0.1746
+   },
+   {
+    "date": "2026-02-18",
+    "ndvi": 0.1769,
+    "ndvi_smooth": 0.1809
+   },
+   {
+    "date": "2026-03-06",
+    "ndvi": 0.1804,
+    "ndvi_smooth": 0.186
+   },
+   {
+    "date": "2026-03-22",
+    "ndvi": null,
+    "ndvi_smooth": 0.2247
+   },
+   {
+    "date": "2026-04-07",
+    "ndvi": 0.2714,
+    "ndvi_smooth": 0.2636
+   },
+   {
+    "date": "2026-04-23",
+    "ndvi": 0.2885,
+    "ndvi_smooth": 0.3008
+   },
+   {
+    "date": "2026-05-09",
+    "ndvi": 0.3401,
+    "ndvi_smooth": 0.3067
+   },
+   {
+    "date": "2026-05-25",
+    "ndvi": 0.3461,
+    "ndvi_smooth": 0.4239
+   },
+   {
+    "date": "2026-06-10",
+    "ndvi": 0.616,
+    "ndvi_smooth": 0.5223
+   },
+   {
+    "date": "2026-06-26",
+    "ndvi": 0.5521,
+    "ndvi_smooth": 0.6189
+   },
+   {
+    "date": "2026-07-12",
+    "ndvi": 0.6498,
+    "ndvi_smooth": 0.6078
+   },
+   {
+    "date": "2026-07-28",
+    "ndvi": 0.6247,
+    "ndvi_smooth": 0.6412
+   },
+   {
+    "date": "2026-08-13",
+    "ndvi": 0.6819,
+    "ndvi_smooth": 0.7074
+   },
+   {
+    "date": "2026-08-29",
+    "ndvi": 0.8345,
+    "ndvi_smooth": 0.8066
+   },
+   {
+    "date": "2026-09-14",
+    "ndvi": 0.7983,
+    "ndvi_smooth": 0.7694
+   },
+   {
+    "date": "2026-09-30",
+    "ndvi": 0.6148,
+    "ndvi_smooth": 0.718
+   },
+   {
+    "date": "2026-10-16",
+    "ndvi": 0.6621,
+    "ndvi_smooth": 0.6153
+   }
+  ],
+  "years": [
+   {
+    "year": 2000,
+    "greenup_doy": 106,
+    "peak_doy": 241,
+    "peak_ndvi": 0.65,
+    "senescence_doy": 327,
+    "season_integral": 83.23,
+    "pattern": "summer_crop",
+    "anomaly_z": 1.25,
+    "stress": false
+   },
+   {
+    "year": 2001,
+    "greenup_doy": 60,
+    "peak_doy": 209,
+    "peak_ndvi": 0.464,
+    "senescence_doy": 298,
+    "season_integral": 48.18,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.34,
+    "stress": true
+   },
+   {
+    "year": 2002,
+    "greenup_doy": 71,
+    "peak_doy": 225,
+    "peak_ndvi": 0.479,
+    "senescence_doy": 316,
+    "season_integral": 51.7,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.08,
+    "stress": true
+   },
+   {
+    "year": 2003,
+    "greenup_doy": 93,
+    "peak_doy": 225,
+    "peak_ndvi": 0.507,
+    "senescence_doy": 284,
+    "season_integral": 45.12,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.56,
+    "stress": true
+   },
+   {
+    "year": 2004,
+    "greenup_doy": 85,
+    "peak_doy": 209,
+    "peak_ndvi": 0.659,
+    "senescence_doy": 301,
+    "season_integral": 78.17,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.88,
+    "stress": false
+   },
+   {
+    "year": 2005,
+    "greenup_doy": 73,
+    "peak_doy": 145,
+    "peak_ndvi": 0.669,
+    "senescence_doy": 314,
+    "season_integral": 74.03,
+    "pattern": "double_crop",
+    "anomaly_z": 0.57,
+    "stress": false
+   },
+   {
+    "year": 2006,
+    "greenup_doy": 79,
+    "peak_doy": 209,
+    "peak_ndvi": 0.513,
+    "senescence_doy": 262,
+    "season_integral": 41.84,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.8,
+    "stress": true
+   },
+   {
+    "year": 2007,
+    "greenup_doy": 90,
+    "peak_doy": 145,
+    "peak_ndvi": 0.537,
+    "senescence_doy": 265,
+    "season_integral": 45.41,
+    "pattern": "winter_crop",
+    "anomaly_z": -1.62,
+    "stress": true
+   },
+   {
+    "year": 2008,
+    "greenup_doy": 105,
+    "peak_doy": 193,
+    "peak_ndvi": 0.624,
+    "senescence_doy": 316,
+    "season_integral": 70.45,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.31,
+    "stress": false
+   },
+   {
+    "year": 2009,
+    "greenup_doy": 48,
+    "peak_doy": 225,
+    "peak_ndvi": 0.618,
+    "senescence_doy": 283,
+    "season_integral": 84.69,
+    "pattern": "double_crop",
+    "anomaly_z": 1.36,
+    "stress": false
+   },
+   {
+    "year": 2010,
+    "greenup_doy": 2,
+    "peak_doy": 113,
+    "peak_ndvi": 0.599,
+    "senescence_doy": 247,
+    "season_integral": 66.68,
+    "pattern": "winter_crop",
+    "anomaly_z": 0.39,
+    "stress": false
+   },
+   {
+    "year": 2011,
+    "greenup_doy": 34,
+    "peak_doy": 113,
+    "peak_ndvi": 0.609,
+    "senescence_doy": 276,
+    "season_integral": 67.63,
+    "pattern": "winter_crop",
+    "anomaly_z": 0.48,
+    "stress": false
+   },
+   {
+    "year": 2012,
+    "greenup_doy": 106,
+    "peak_doy": 225,
+    "peak_ndvi": 0.693,
+    "senescence_doy": 319,
+    "season_integral": 80.74,
+    "pattern": "summer_crop",
+    "anomaly_z": 1.07,
+    "stress": false
+   },
+   {
+    "year": 2013,
+    "greenup_doy": 26,
+    "peak_doy": 145,
+    "peak_ndvi": 0.688,
+    "senescence_doy": 266,
+    "season_integral": 72.82,
+    "pattern": "winter_crop",
+    "anomaly_z": 0.97,
+    "stress": false
+   },
+   {
+    "year": 2014,
+    "greenup_doy": 91,
+    "peak_doy": 209,
+    "peak_ndvi": 0.71,
+    "senescence_doy": 280,
+    "season_integral": 58.45,
+    "pattern": "summer_crop",
+    "anomaly_z": -0.58,
+    "stress": false
+   },
+   {
+    "year": 2015,
+    "greenup_doy": 82,
+    "peak_doy": 129,
+    "peak_ndvi": 0.651,
+    "senescence_doy": 250,
+    "season_integral": 60.12,
+    "pattern": "winter_crop",
+    "anomaly_z": -0.23,
+    "stress": false
+   },
+   {
+    "year": 2016,
+    "greenup_doy": 129,
+    "peak_doy": 225,
+    "peak_ndvi": 0.68,
+    "senescence_doy": 298,
+    "season_integral": 69.81,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.26,
+    "stress": false
+   },
+   {
+    "year": 2017,
+    "greenup_doy": 98,
+    "peak_doy": 225,
+    "peak_ndvi": 0.651,
+    "senescence_doy": 302,
+    "season_integral": 71.78,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.4,
+    "stress": false
+   },
+   {
+    "year": 2018,
+    "greenup_doy": 124,
+    "peak_doy": 209,
+    "peak_ndvi": 0.617,
+    "senescence_doy": 282,
+    "season_integral": 50.03,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.2,
+    "stress": true
+   },
+   {
+    "year": 2019,
+    "greenup_doy": 124,
+    "peak_doy": 193,
+    "peak_ndvi": 0.716,
+    "senescence_doy": 292,
+    "season_integral": 70.12,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.28,
+    "stress": false
+   },
+   {
+    "year": 2020,
+    "greenup_doy": 89,
+    "peak_doy": 193,
+    "peak_ndvi": 0.645,
+    "senescence_doy": 297,
+    "season_integral": 74.8,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.63,
+    "stress": false
+   },
+   {
+    "year": 2021,
+    "greenup_doy": 36,
+    "peak_doy": 113,
+    "peak_ndvi": 0.641,
+    "senescence_doy": 292,
+    "season_integral": 85.25,
+    "pattern": "double_crop",
+    "anomaly_z": 1.4,
+    "stress": false
+   },
+   {
+    "year": 2022,
+    "greenup_doy": 115,
+    "peak_doy": 209,
+    "peak_ndvi": 0.689,
+    "senescence_doy": 290,
+    "season_integral": 70.66,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.32,
+    "stress": false
+   },
+   {
+    "year": 2023,
+    "greenup_doy": 135,
+    "peak_doy": 193,
+    "peak_ndvi": 0.674,
+    "senescence_doy": 303,
+    "season_integral": 52.36,
+    "pattern": "summer_crop",
+    "anomaly_z": -1.03,
+    "stress": true
+   },
+   {
+    "year": 2024,
+    "greenup_doy": 131,
+    "peak_doy": 209,
+    "peak_ndvi": 0.626,
+    "senescence_doy": 309,
+    "season_integral": 67.11,
+    "pattern": "summer_crop",
+    "anomaly_z": 0.06,
+    "stress": false
+   },
+   {
+    "year": 2025,
+    "greenup_doy": 147,
+    "peak_doy": 225,
+    "peak_ndvi": 0.778,
+    "senescence_doy": 303,
+    "season_integral": 63.5,
+    "pattern": "summer_crop",
+    "anomaly_z": -0.21,
+    "stress": false
+   }
+  ],
+  "bare_probability": [
+   {
+    "doy": 1,
+    "p_bare": 0.76
+   },
+   {
+    "doy": 17,
+    "p_bare": 0.76
+   },
+   {
+    "doy": 33,
+    "p_bare": 0.72
+   },
+   {
+    "doy": 49,
+    "p_bare": 0.654
+   },
+   {
+    "doy": 65,
+    "p_bare": 0.577
+   },
+   {
+    "doy": 81,
+    "p_bare": 0.423
+   },
+   {
+    "doy": 97,
+    "p_bare": 0.231
+   },
+   {
+    "doy": 113,
+    "p_bare": 0.077
+   },
+   {
+    "doy": 129,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 145,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 161,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 177,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 193,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 209,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 225,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 241,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 257,
+    "p_bare": 0.0
+   },
+   {
+    "doy": 273,
+    "p_bare": 0.077
+   },
+   {
+    "doy": 289,
+    "p_bare": 0.154
+   },
+   {
+    "doy": 305,
+    "p_bare": 0.423
+   },
+   {
+    "doy": 321,
+    "p_bare": 0.577
+   },
+   {
+    "doy": 337,
+    "p_bare": 0.923
+   },
+   {
+    "doy": 353,
+    "p_bare": 0.769
+   }
+  ],
+  "bare_windows": [
+   {
+    "start_doy": 1,
+    "end_doy": 64,
+    "probability": 0.723
+   },
+   {
+    "start_doy": 337,
+    "end_doy": 365,
+    "probability": 0.846
+   }
+  ],
+  "stress_years": [
+   2001,
+   2002,
+   2003,
+   2006,
+   2007,
+   2018,
+   2023
+  ],
+  "bare_threshold": 0.206
+ },
+ "soil": {
+  "clay_pct": 33.8,
+  "sand_pct": 18.933333333333334,
+  "silt_pct": 47.266666666666666,
+  "soc_gkg": 16.65,
+  "ph": 7.383333333333334,
+  "texture_class": "silty clay loam",
+  "taw_mm_per_m": 157.72315331322872,
+  "source_id": "soilgrids"
+ },
+ "terrain": {
+  "elevation_m": 1011.67578125,
+  "slope_pct": 0.4314458721197009
+ },
+ "strategies": [
+  {
+   "id": "baseline",
+   "archetype": "baseline",
+   "name": {
+    "en": "Current rotation",
+    "tr": "Mevcut rotasyon"
+   },
+   "cycle_years": 3,
+   "calendar": [
+    {
+     "year": 1,
+     "crop_id": "wheat_winter",
+     "crop_name": {
+      "en": "Winter wheat",
+      "tr": "Kışlık buğday"
+     },
+     "irrigation": "none",
+     "sow": "10-21",
+     "harvest": "07-03",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "sugar_beet",
+     "crop_name": {
+      "en": "Sugar beet",
+      "tr": "Şeker pancarı"
+     },
+     "irrigation": "full",
+     "sow": "04-04",
+     "harvest": "09-14",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "maize_grain",
+     "crop_name": {
+      "en": "Grain maize",
+      "tr": "Dane mısır"
+     },
+     "irrigation": "full",
+     "sow": "04-25",
+     "harvest": "10-01",
+     "kind": "main"
+    }
+   ],
+   "indicators": {
+    "irrigation_mm_yr": {
+     "p10": 420.9703901156541,
+     "p50": 454.666892193879,
+     "p90": 503.1582802620878
+    },
+    "water_m3_ha_yr": {
+     "p10": 4209.703901156541,
+     "p50": 4546.66892193879,
+     "p90": 5031.582802620878
+    },
+    "yield_ratio": {
+     "p10": 0.8111436699136237,
+     "p50": 0.8647307725942088,
+     "p90": 0.9223291577144969
+    },
+    "stress_days_yr": {
+     "p10": 22.06666666666667,
+     "p50": 33.666666666666664,
+     "p90": 40.26666666666667
+    },
+    "frost_risk": 0.0,
+    "heat_risk": 0.5606060606060606,
+    "n_balance_kg_ha_yr": 0.0,
+    "residue_index": 0.6666666666666666,
+    "soil_cover_days_yr": 160.72727272727272,
+    "erosion_rel": 1.0,
+    "pest_break": 0.6666666666666666,
+    "income_usd_ha_yr": {
+     "p10": 1676.7810231694734,
+     "p50": 2052.020840497735,
+     "p90": 2287.781994712229
+    }
+   },
+   "score": 50.0,
+   "score_breakdown": {
+    "water": 50.0,
+    "soil": 50.0,
+    "income": 50.0,
+    "erosion": 50.0,
+    "risk": 50.0
+   },
+   "feasibility": {
+    "fraction": 0.88,
+    "n_members": 22,
+    "n_requested": 25,
+    "issues": [
+     "wheat_winter (next cycle): sowing delayed in 3 start years"
+    ]
+   },
+   "rotation_name": {
+    "en": "Winter wheat → Sugar beet → Grain maize",
+    "tr": "Kışlık buğday → Şeker pancarı → Dane mısır"
+   },
+   "steps": [
+    {
+     "crop_id": "wheat_winter",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "sugar_beet",
+     "year": 2,
+     "irrigation": "full"
+    },
+    {
+     "crop_id": "maize_grain",
+     "year": 3,
+     "irrigation": "full"
+    }
+   ],
+   "evidence": {
+    "why": [
+     {
+      "text": {
+       "en": "This is the rotation you entered; every other option is compared against it.",
+       "tr": "Bu, sizin girdiğiniz rotasyon; diğer seçeneklerin hepsi buna göre karşılaştırılıyor."
+      },
+      "facts": [
+       "f9",
+       "f10"
+      ]
+     },
+     {
+      "text": {
+       "en": "Your area has a large water deficit, so irrigated crops in the rotation depend on well or canal water.",
+       "tr": "Bölgenizde büyük bir su açığı var; bu yüzden rotasyondaki sulu ürünler kuyu veya kanal suyuna bağlıdır."
+      },
+      "facts": [
+       "f1"
+      ]
+     },
+     {
+      "text": {
+       "en": "Satellite greenness records show what has actually been grown here.",
+       "tr": "Uydu yeşillik kayıtları buraya gerçekte ne ekildiğini gösteriyor."
+      },
+      "facts": [
+       "f5"
+      ]
+     }
+    ],
+    "benefits": [],
+    "gaps": [
+     {
+      "text": {
+       "en": "Weather comes from a 0.5° NASA POWER grid cell (reanalysis); its rainfall can differ from your field, especially in showers and hilly terrain.",
+       "tr": "Hava verisi 0,5° çözünürlüklü NASA POWER ızgarasından (yeniden analiz) geliyor; özellikle sağanak yağışlarda ve engebeli arazide tarlanıza düşen yağmur bundan farklı olabilir."
+      }
+     },
+     {
+      "text": {
+       "en": "The satellite sees a 250 m MODIS pixel that can mix your field with neighbouring parcels, so the inferred crop history is approximate.",
+       "tr": "Uydu 250 m'lik bir MODIS pikselini görüyor; bu piksel tarlanız ile komşu parselleri karıştırabilir, bu yüzden çıkarılan ekim geçmişi yaklaşıktır."
+      }
+     },
+     {
+      "text": {
+       "en": "Crop water use relies on generic FAO crop coefficients, not on your variety, sowing density or management.",
+       "tr": "Bitki su tüketimi, çeşidinize, ekim sıklığınıza veya yönetiminize değil, genel FAO bitki katsayılarına dayanıyor."
+      }
+     },
+     {
+      "text": {
+       "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
+       "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
+      }
+     }
+    ],
+    "risks": [
+     {
+      "text": {
+       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
+       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
+      },
+      "facts": [
+       "f11"
+      ],
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "In some historical years the sowing and harvest dates of this sequence did not fit; timing may be tight.",
+       "tr": "Geçmiş yılların bir kısmında bu sıralamanın ekim ve hasat tarihleri birbirine uymadı; zamanlama sıkışık olabilir."
+      },
+      "check_with": "agronomist"
+     }
+    ]
+   }
+  },
+  {
+   "id": "water_saver",
+   "archetype": "water_saver",
+   "name": {
+    "en": "Water saver",
+    "tr": "Su koruyucu"
+   },
+   "cycle_years": 4,
+   "calendar": [
+    {
+     "year": 1,
+     "crop_id": "wheat_winter",
+     "crop_name": {
+      "en": "Winter wheat",
+      "tr": "Kışlık buğday"
+     },
+     "irrigation": "none",
+     "sow": "10-21",
+     "harvest": "07-05",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "chickpea",
+     "crop_name": {
+      "en": "Chickpea",
+      "tr": "Nohut"
+     },
+     "irrigation": "none",
+     "sow": "03-23",
+     "harvest": "07-21",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "maize_grain",
+     "crop_name": {
+      "en": "Grain maize",
+      "tr": "Dane mısır"
+     },
+     "irrigation": "deficit",
+     "sow": "04-29",
+     "harvest": "10-04",
+     "kind": "main"
+    },
+    {
+     "year": 4,
+     "crop_id": "sunflower",
+     "crop_name": {
+      "en": "Sunflower",
+      "tr": "Ayçiçeği"
+     },
+     "irrigation": "none",
+     "sow": "04-18",
+     "harvest": "08-22",
+     "kind": "main"
+    }
+   ],
+   "indicators": {
+    "irrigation_mm_yr": {
+     "p10": 95.87193145824692,
+     "p50": 116.6470349498946,
+     "p90": 134.403391588159
+    },
+    "water_m3_ha_yr": {
+     "p10": 958.7193145824692,
+     "p50": 1166.470349498946,
+     "p90": 1344.03391588159
+    },
+    "yield_ratio": {
+     "p10": 0.5676473835840593,
+     "p50": 0.6124851544329524,
+     "p90": 0.6700193942463362
+    },
+    "stress_days_yr": {
+     "p10": 66.5,
+     "p50": 75.25,
+     "p90": 87.85
+    },
+    "frost_risk": 0.0,
+    "heat_risk": 0.35,
+    "n_balance_kg_ha_yr": 6.25,
+    "residue_index": 0.6375,
+    "soil_cover_days_yr": 129.31,
+    "erosion_rel": 1.0190264830508475,
+    "pest_break": 0.8,
+    "income_usd_ha_yr": {
+     "p10": 1043.6652888944557,
+     "p50": 1253.0672189614131,
+     "p90": 1450.3119890643784
+    }
+   },
+   "score": 56.29,
+   "score_breakdown": {
+    "water": 87.17,
+    "soil": 53.23,
+    "income": 30.53,
+    "erosion": 49.05,
+    "risk": 42.98
+   },
+   "feasibility": {
+    "fraction": 1.0,
+    "n_members": 25,
+    "n_requested": 25,
+    "issues": []
+   },
+   "rotation_name": {
+    "en": "Winter wheat > Chickpea > Grain maize > Sunflower",
+    "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği"
+   },
+   "steps": [
+    {
+     "crop_id": "wheat_winter",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "chickpea",
+     "year": 2,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "maize_grain",
+     "year": 3,
+     "irrigation": "deficit"
+    },
+    {
+     "crop_id": "sunflower",
+     "year": 4,
+     "irrigation": "none"
+    }
+   ],
+   "evidence": {
+    "why": [
+     {
+      "text": {
+       "en": "Crops chosen here (Winter wheat → Chickpea → Grain maize → Sunflower) need less irrigation water than your current rotation.",
+       "tr": "Burada seçilen ürünler (Kışlık buğday → Nohut → Dane mısır → Ayçiçeği) mevcut rotasyonunuza göre daha fazla sulama suyu istiyor."
+      },
+      "facts": [
+       "f13"
+      ]
+     },
+     {
+      "text": {
+       "en": "Your area loses far more water to evaporation than it receives as rain, so every cubic metre saved counts.",
+       "tr": "Bölgenizde buharlaşmayla kaybedilen su yağmurdan çok fazla; tasarruf edilen her metreküp önemli."
+      },
+      "facts": [
+       "f1",
+       "f3"
+      ]
+     },
+     {
+      "text": {
+       "en": "Fewer days of water stress mean the crops cope better in dry years.",
+       "tr": "Daha az su stresi günü, ürünlerin kurak yıllarla daha iyi başa çıkması demek."
+      },
+      "facts": [
+       "f18"
+      ]
+     }
+    ],
+    "benefits": [
+     {
+      "text": {
+       "en": "Saves irrigation water compared with your current rotation.",
+       "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
+      },
+      "facts": [
+       "f13"
+      ]
+     },
+     {
+      "text": {
+       "en": "Breaks disease and pest cycles better by changing crop families.",
+       "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
+      },
+      "facts": [
+       "f19"
+      ]
+     }
+    ],
+    "gaps": [
+     {
+      "text": {
+       "en": "Weather comes from a 0.5° NASA POWER grid cell (reanalysis); its rainfall can differ from your field, especially in showers and hilly terrain.",
+       "tr": "Hava verisi 0,5° çözünürlüklü NASA POWER ızgarasından (yeniden analiz) geliyor; özellikle sağanak yağışlarda ve engebeli arazide tarlanıza düşen yağmur bundan farklı olabilir."
+      }
+     },
+     {
+      "text": {
+       "en": "The satellite sees a 250 m MODIS pixel that can mix your field with neighbouring parcels, so the inferred crop history is approximate.",
+       "tr": "Uydu 250 m'lik bir MODIS pikselini görüyor; bu piksel tarlanız ile komşu parselleri karıştırabilir, bu yüzden çıkarılan ekim geçmişi yaklaşıktır."
+      }
+     },
+     {
+      "text": {
+       "en": "Crop water use relies on generic FAO crop coefficients, not on your variety, sowing density or management.",
+       "tr": "Bitki su tüketimi, çeşidinize, ekim sıklığınıza veya yönetiminize değil, genel FAO bitki katsayılarına dayanıyor."
+      }
+     },
+     {
+      "text": {
+       "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
+       "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
+      }
+     }
+    ],
+    "risks": [
+     {
+      "text": {
+       "en": "New crops for you (Chickpea, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Nohut, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+      },
+      "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Check that certified seed of suitable varieties is available locally and on time.",
+       "tr": "Uygun çeşitlerin sertifikalı tohumunun yerelde ve zamanında bulunabildiğini kontrol edin."
+      },
+      "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "A new crop brings new diseases and weeds; ask an agronomist about the spray and weed-control plan.",
+       "tr": "Yeni ürün yeni hastalık ve yabancı otlar getirir; ilaçlama ve yabancı ot mücadele planı için ziraat mühendisine danışın."
+      },
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
+       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
+      },
+      "facts": [
+       "f20"
+      ],
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
+       "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
+      },
+      "facts": [
+       "f14"
+      ],
+      "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
+       "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
+      },
+      "check_with": "extension_service"
+     }
+    ]
+   }
+  },
+  {
+   "id": "soil_builder",
+   "archetype": "soil_builder",
+   "name": {
+    "en": "Soil builder",
+    "tr": "Toprak kurucu"
+   },
+   "cycle_years": 4,
+   "calendar": [
+    {
+     "year": 1,
+     "crop_id": "safflower",
+     "crop_name": {
+      "en": "Safflower",
+      "tr": "Aspir"
+     },
+     "irrigation": "none",
+     "sow": "03-23",
+     "harvest": "08-12",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "wheat_winter",
+     "crop_name": {
+      "en": "Winter wheat",
+      "tr": "Kışlık buğday"
+     },
+     "irrigation": "none",
+     "sow": "10-21",
+     "harvest": "07-04",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "vetch_cover",
+     "crop_name": {
+      "en": "Common vetch (cover crop)",
+      "tr": "Adi fiğ (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "09-24",
+     "harvest": "03-07",
+     "kind": "cover"
+    },
+    {
+     "year": 3,
+     "crop_id": "chickpea",
+     "crop_name": {
+      "en": "Chickpea",
+      "tr": "Nohut"
+     },
+     "irrigation": "none",
+     "sow": "03-19",
+     "harvest": "07-21",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "vetch_cover",
+     "crop_name": {
+      "en": "Common vetch (cover crop)",
+      "tr": "Adi fiğ (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "09-20",
+     "harvest": "04-23",
+     "kind": "cover"
+    },
+    {
+     "year": 4,
+     "crop_id": "sorghum",
+     "crop_name": {
+      "en": "Grain sorghum",
+      "tr": "Dane sorgum"
+     },
+     "irrigation": "none",
+     "sow": "05-15",
+     "harvest": "10-17",
+     "kind": "main"
+    },
+    {
+     "year": 4,
+     "crop_id": "rye_cover",
+     "crop_name": {
+      "en": "Winter rye (cover crop)",
+      "tr": "Çavdar (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "10-21",
+     "harvest": "03-15",
+     "kind": "cover"
+    }
+   ],
+   "indicators": {
+    "irrigation_mm_yr": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0
+    },
+    "water_m3_ha_yr": {
+     "p10": 0.0,
+     "p50": 0.0,
+     "p90": 0.0
+    },
+    "yield_ratio": {
+     "p10": 0.47159878550285406,
+     "p50": 0.552843255525779,
+     "p90": 0.6103472122112883
+    },
+    "stress_days_yr": {
+     "p10": 77.5,
+     "p50": 89.25,
+     "p90": 102.95
+    },
+    "frost_risk": 0.0,
+    "heat_risk": 0.09,
+    "n_balance_kg_ha_yr": 37.45,
+    "residue_index": 0.6642857142857144,
+    "soil_cover_days_yr": 193.44,
+    "erosion_rel": 0.5598056144067797,
+    "pest_break": 0.8,
+    "income_usd_ha_yr": {
+     "p10": 761.5576265232955,
+     "p50": 930.9530834782526,
+     "p90": 1013.9258394004182
+    }
+   },
+   "score": 69.92,
+   "score_breakdown": {
+    "water": 100.0,
+    "soil": 87.74,
+    "income": 22.68,
+    "erosion": 72.01,
+    "risk": 51.1
+   },
+   "feasibility": {
+    "fraction": 1.0,
+    "n_members": 25,
+    "n_requested": 25,
+    "issues": []
+   },
+   "rotation_name": {
+    "en": "Safflower > Winter wheat > Chickpea > Grain sorghum (+cover)",
+    "tr": "Aspir > Kışlık buğday > Nohut > Dane sorgum (+cover)"
+   },
+   "steps": [
+    {
+     "crop_id": "safflower",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "vetch_cover",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "wheat_winter",
+     "year": 2,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "vetch_cover",
+     "year": 2,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "chickpea",
+     "year": 3,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "vetch_cover",
+     "year": 3,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "sorghum",
+     "year": 4,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "rye_cover",
+     "year": 4,
+     "irrigation": "none"
+    }
+   ],
+   "evidence": {
+    "why": [
+     {
+      "text": {
+       "en": "The sequence (Safflower → Common vetch (cover crop) → Winter wheat → Common vetch (cover crop) → Chickpea → Common vetch (cover crop) → Grain sorghum → Winter rye (cover crop)) returns more organic matter and nitrogen to the soil.",
+       "tr": "Bu sıralama (Aspir → Adi fiğ (örtü bitkisi) → Kışlık buğday → Adi fiğ (örtü bitkisi) → Nohut → Adi fiğ (örtü bitkisi) → Dane sorgum → Çavdar (örtü bitkisi)) toprağa daha fazla organik madde ve azot bırakıyor."
+      },
+      "facts": [
+       "f25",
+       "f27"
+      ]
+     },
+     {
+      "text": {
+       "en": "Your field sits bare for a long stretch each year; keeping it covered protects the soil.",
+       "tr": "Tarlanız her yıl uzun süre boş kalıyor; üzerini kapalı tutmak toprağı korur."
+      },
+      "facts": [
+       "f7"
+      ]
+     },
+     {
+      "text": {
+       "en": "More ground cover and a lower share of bare days reduce erosion.",
+       "tr": "Daha fazla toprak örtüsü ve daha az çıplak gün, erozyonu azaltır."
+      },
+      "facts": [
+       "f26",
+       "f27"
+      ]
+     }
+    ],
+    "benefits": [
+     {
+      "text": {
+       "en": "Saves irrigation water compared with your current rotation.",
+       "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
+      },
+      "facts": [
+       "f23"
+      ]
+     },
+     {
+      "text": {
+       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
+       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
+      },
+      "facts": [
+       "f25"
+      ]
+     },
+     {
+      "text": {
+       "en": "Lowers soil erosion.",
+       "tr": "Toprak erozyonunu azaltır."
+      },
+      "facts": [
+       "f26"
+      ]
+     },
+     {
+      "text": {
+       "en": "Keeps the soil covered for more days.",
+       "tr": "Toprağı daha fazla gün kapalı tutar."
+      },
+      "facts": [
+       "f27"
+      ]
+     },
+     {
+      "text": {
+       "en": "Breaks disease and pest cycles better by changing crop families.",
+       "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
+      },
+      "facts": [
+       "f29"
+      ]
+     }
+    ],
+    "gaps": [
+     {
+      "text": {
+       "en": "Weather comes from a 0.5° NASA POWER grid cell (reanalysis); its rainfall can differ from your field, especially in showers and hilly terrain.",
+       "tr": "Hava verisi 0,5° çözünürlüklü NASA POWER ızgarasından (yeniden analiz) geliyor; özellikle sağanak yağışlarda ve engebeli arazide tarlanıza düşen yağmur bundan farklı olabilir."
+      }
+     },
+     {
+      "text": {
+       "en": "The satellite sees a 250 m MODIS pixel that can mix your field with neighbouring parcels, so the inferred crop history is approximate.",
+       "tr": "Uydu 250 m'lik bir MODIS pikselini görüyor; bu piksel tarlanız ile komşu parselleri karıştırabilir, bu yüzden çıkarılan ekim geçmişi yaklaşıktır."
+      }
+     },
+     {
+      "text": {
+       "en": "Crop water use relies on generic FAO crop coefficients, not on your variety, sowing density or management.",
+       "tr": "Bitki su tüketimi, çeşidinize, ekim sıklığınıza veya yönetiminize değil, genel FAO bitki katsayılarına dayanıyor."
+      }
+     },
+     {
+      "text": {
+       "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
+       "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
+      }
+     }
+    ],
+    "risks": [
+     {
+      "text": {
+       "en": "New crops for you (Chickpea, Winter rye (cover crop), Safflower, Grain sorghum, Common vetch (cover crop)): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Nohut, Çavdar (örtü bitkisi), Aspir, Dane sorgum, Adi fiğ (örtü bitkisi)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+      },
+      "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Check that certified seed of suitable varieties is available locally and on time.",
+       "tr": "Uygun çeşitlerin sertifikalı tohumunun yerelde ve zamanında bulunabildiğini kontrol edin."
+      },
+      "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "A new crop brings new diseases and weeds; ask an agronomist about the spray and weed-control plan.",
+       "tr": "Yeni ürün yeni hastalık ve yabancı otlar getirir; ilaçlama ve yabancı ot mücadele planı için ziraat mühendisine danışın."
+      },
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
+       "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
+      },
+      "facts": [
+       "f24"
+      ],
+      "check_with": "market"
+     }
+    ]
+   }
+  },
+  {
+   "id": "balanced_income",
+   "archetype": "balanced_income",
+   "name": {
+    "en": "Balanced income",
+    "tr": "Dengeli gelir"
+   },
+   "cycle_years": 3,
+   "calendar": [
+    {
+     "year": 1,
+     "crop_id": "vetch_forage",
+     "crop_name": {
+      "en": "Common vetch (forage)",
+      "tr": "Adi fiğ (yem)"
+     },
+     "irrigation": "none",
+     "sow": "03-07",
+     "harvest": "06-20",
+     "kind": "main"
+    },
+    {
+     "year": 1,
+     "crop_id": "vetch_cover",
+     "crop_name": {
+      "en": "Common vetch (cover crop)",
+      "tr": "Adi fiğ (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "09-24",
+     "harvest": "03-30",
+     "kind": "cover"
+    },
+    {
+     "year": 2,
+     "crop_id": "potato",
+     "crop_name": {
+      "en": "Potato",
+      "tr": "Patates"
+     },
+     "irrigation": "deficit",
+     "sow": "04-07",
+     "harvest": "08-17",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "barley_winter",
+     "crop_name": {
+      "en": "Winter barley",
+      "tr": "Kışlık arpa"
+     },
+     "irrigation": "none",
+     "sow": "10-15",
+     "harvest": "06-23",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "rye_cover",
+     "crop_name": {
+      "en": "Winter rye (cover crop)",
+      "tr": "Çavdar (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "10-07",
+     "harvest": "02-28",
+     "kind": "cover"
+    }
+   ],
+   "indicators": {
+    "irrigation_mm_yr": {
+     "p10": 151.36632839241992,
+     "p50": 174.73568352909936,
+     "p90": 189.5791989110714
+    },
+    "water_m3_ha_yr": {
+     "p10": 1513.6632839241993,
+     "p50": 1747.3568352909936,
+     "p90": 1895.7919891107138
+    },
+    "yield_ratio": {
+     "p10": 0.7255993915051732,
+     "p50": 0.7842446261992905,
+     "p90": 0.8837831829491175
+    },
+    "stress_days_yr": {
+     "p10": 41.333333333333336,
+     "p50": 51.0,
+     "p90": 61.733333333333334
+    },
+    "frost_risk": 0.02666666666666667,
+    "heat_risk": 0.3466666666666667,
+    "n_balance_kg_ha_yr": 33.333333333333336,
+    "residue_index": 0.56,
+    "soil_cover_days_yr": 191.13333333333333,
+    "erosion_rel": 0.549263559322034,
+    "pest_break": 1.0,
+    "income_usd_ha_yr": {
+     "p10": 2751.9143087243465,
+     "p50": 2851.5062164083065,
+     "p90": 3065.7223104067416
+    }
+   },
+   "score": 75.28,
+   "score_breakdown": {
+    "water": 80.78,
+    "soil": 83.9,
+    "income": 69.48,
+    "erosion": 72.54,
+    "risk": 54.51
+   },
+   "feasibility": {
+    "fraction": 1.0,
+    "n_members": 25,
+    "n_requested": 25,
+    "issues": []
+   },
+   "rotation_name": {
+    "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
+    "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
+   },
+   "steps": [
+    {
+     "crop_id": "vetch_forage",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "vetch_cover",
+     "year": 1,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "potato",
+     "year": 2,
+     "irrigation": "deficit"
+    },
+    {
+     "crop_id": "barley_winter",
+     "year": 3,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "rye_cover",
+     "year": 3,
+     "irrigation": "none"
+    }
+   ],
+   "evidence": {
+    "why": [
+     {
+      "text": {
+       "en": "The sequence (Common vetch (forage) → Common vetch (cover crop) → Potato → Winter barley → Winter rye (cover crop)) keeps income close to, or above, your current level while cutting other costs.",
+       "tr": "Bu sıralama (Adi fiğ (yem) → Adi fiğ (örtü bitkisi) → Patates → Kışlık arpa → Çavdar (örtü bitkisi)) geliri mevcut düzeyin yakınında veya üstünde tutarken diğer maliyetleri düşürüyor."
+      },
+      "facts": [
+       "f34",
+       "f33"
+      ]
+     },
+     {
+      "text": {
+       "en": "Water is the scarce input in your area, so income per cubic metre matters.",
+       "tr": "Bölgenizde kıt olan girdi su; bu yüzden metreküp başına gelir önemli."
+      },
+      "facts": [
+       "f1"
+      ]
+     },
+     {
+      "text": {
+       "en": "Summer heat days are increasing, so spreading crops across different seasons lowers the risk.",
+       "tr": "Yaz sıcak günleri artıyor; ürünleri farklı mevsimlere yaymak riski azaltır."
+      },
+      "facts": [
+       "f2"
+      ]
+     }
+    ],
+    "benefits": [
+     {
+      "text": {
+       "en": "Saves irrigation water compared with your current rotation.",
+       "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
+      },
+      "facts": [
+       "f33"
+      ]
+     },
+     {
+      "text": {
+       "en": "Raises the median income per hectare.",
+       "tr": "Hektar başına ortanca geliri artırır."
+      },
+      "facts": [
+       "f34"
+      ]
+     },
+     {
+      "text": {
+       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
+       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
+      },
+      "facts": [
+       "f35"
+      ]
+     },
+     {
+      "text": {
+       "en": "Lowers soil erosion.",
+       "tr": "Toprak erozyonunu azaltır."
+      },
+      "facts": [
+       "f36"
+      ]
+     },
+     {
+      "text": {
+       "en": "Keeps the soil covered for more days.",
+       "tr": "Toprağı daha fazla gün kapalı tutar."
+      },
+      "facts": [
+       "f37"
+      ]
+     },
+     {
+      "text": {
+       "en": "Breaks disease and pest cycles better by changing crop families.",
+       "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
+      },
+      "facts": [
+       "f39"
+      ]
+     }
+    ],
+    "gaps": [
+     {
+      "text": {
+       "en": "Weather comes from a 0.5° NASA POWER grid cell (reanalysis); its rainfall can differ from your field, especially in showers and hilly terrain.",
+       "tr": "Hava verisi 0,5° çözünürlüklü NASA POWER ızgarasından (yeniden analiz) geliyor; özellikle sağanak yağışlarda ve engebeli arazide tarlanıza düşen yağmur bundan farklı olabilir."
+      }
+     },
+     {
+      "text": {
+       "en": "The satellite sees a 250 m MODIS pixel that can mix your field with neighbouring parcels, so the inferred crop history is approximate.",
+       "tr": "Uydu 250 m'lik bir MODIS pikselini görüyor; bu piksel tarlanız ile komşu parselleri karıştırabilir, bu yüzden çıkarılan ekim geçmişi yaklaşıktır."
+      }
+     },
+     {
+      "text": {
+       "en": "Crop water use relies on generic FAO crop coefficients, not on your variety, sowing density or management.",
+       "tr": "Bitki su tüketimi, çeşidinize, ekim sıklığınıza veya yönetiminize değil, genel FAO bitki katsayılarına dayanıyor."
+      }
+     },
+     {
+      "text": {
+       "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
+       "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
+      }
+     }
+    ],
+    "risks": [
+     {
+      "text": {
+       "en": "New crops for you (Winter barley, Potato, Winter rye (cover crop), Common vetch (cover crop), Common vetch (forage)): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Kışlık arpa, Patates, Çavdar (örtü bitkisi), Adi fiğ (örtü bitkisi), Adi fiğ (yem)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+      },
+      "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Check that certified seed of suitable varieties is available locally and on time.",
+       "tr": "Uygun çeşitlerin sertifikalı tohumunun yerelde ve zamanında bulunabildiğini kontrol edin."
+      },
+      "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "A new crop brings new diseases and weeds; ask an agronomist about the spray and weed-control plan.",
+       "tr": "Yeni ürün yeni hastalık ve yabancı otlar getirir; ilaçlama ve yabancı ot mücadele planı için ziraat mühendisine danışın."
+      },
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
+       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
+      },
+      "facts": [
+       "f40"
+      ],
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
+       "en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
+       "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
+      },
+      "check_with": "extension_service"
+     }
+    ]
+   }
+  }
+ ],
+ "facts": [
+  {
+   "id": "f1",
+   "text": {
+    "en": "On average 533 mm of rain falls per year but the atmosphere demands 1,181 mm (reference ET0): a deficit of 649 mm.",
+    "tr": "Yılda ortalama 533 mm yağmur düşüyor, ancak bitkilerin ihtiyacı (referans ET0) 1.181 mm; açık 649 mm."
+   },
+   "value": 648.7,
+   "unit": "mm",
+   "source_id": "nasa_power"
+  },
+  {
+   "id": "f2",
+   "text": {
+    "en": "Days above 35 °C changed from 6.3 per year (1991–2005) to 12.6 per year (2011–2025), p = 0.003.",
+    "tr": "35 °C üzeri gün sayısı yılda 6,3 günden (1991–2005) 12,6 güne (2011–2025) değişti, p = 0,003."
+   },
+   "value": 6.33,
+   "unit": "days/yr",
+   "source_id": "nasa_power"
+  },
+  {
+   "id": "f3",
+   "text": {
+    "en": "Yearly reference ET0 went from 1,163 mm (1991–2005) to 1,193 mm (2011–2025), p = 0.018.",
+    "tr": "Yıllık referans ET0 1.163 mm'den (1991–2005) 1.193 mm'ye (2011–2025) çıktı, p = 0,018."
+   },
+   "value": 30.1,
+   "unit": "mm",
+   "source_id": "nasa_power"
+  },
+  {
+   "id": "f4",
+   "text": {
+    "en": "The median frost-free period is 197 days.",
+    "tr": "Ortanca donsuz dönem 197 gün."
+   },
+   "value": 197.0,
+   "unit": "days",
+   "source_id": "nasa_power"
+  },
+  {
+   "id": "f5",
+   "text": {
+    "en": "Satellite greenness suggests a summer crop in 18 of 26 years (winter 5, summer 18, double 3, fallow 0).",
+    "tr": "Uydu yeşillik verisi 26 yılın 18 tanesinde yazlık ürün gösteriyor (kışlık 5, yazlık 18, çift ürün 3, nadas 0)."
+   },
+   "value": 18,
+   "unit": "years",
+   "source_id": "modis_mod13q1"
+  },
+  {
+   "id": "f6",
+   "text": {
+    "en": "7 of 26 years showed below-normal greenness (stress years): 2001, 2002, 2003, 2006, 2007, 2018, 2023.",
+    "tr": "26 yılın 7 tanesinde yeşillik normalin altında kaldı (stresli yıllar): 2001, 2002, 2003, 2006, 2007, 2018, 2023."
+   },
+   "value": 7,
+   "unit": "years",
+   "source_id": "modis_mod13q1"
+  },
+  {
+   "id": "f7",
+   "text": {
+    "en": "The field is typically bare for about 64 days between Jan 1 and Mar 5 (probability 72%).",
+    "tr": "Tarla genellikle 1 Oca – 5 Mar arasında yaklaşık 64 gün boş kalıyor (olasılık %72)."
+   },
+   "value": 64,
+   "unit": "days",
+   "source_id": "modis_mod13q1"
+  },
+  {
+   "id": "f8",
+   "text": {
+    "en": "The soil is silty clay loam and holds about 158 mm of plant-available water per metre of depth.",
+    "tr": "Toprak siltli killi tın yapıda ve her metre derinlikte yaklaşık 158 mm bitkinin kullanabileceği su tutuyor."
+   },
+   "value": 158.0,
+   "unit": "mm/m",
+   "source_id": "soilgrids"
+  },
+  {
+   "id": "f9",
+   "text": {
+    "en": "Your current rotation uses 4,547 m³/ha of irrigation water per year.",
+    "tr": "Mevcut rotasyonunuz yılda 4.547 m³/ha sulama suyu kullanıyor."
+   },
+   "value": 4547.0,
+   "unit": "m3/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f10",
+   "text": {
+    "en": "Its median gross margin is 2,052 USD/ha per year.",
+    "tr": "Ortanca brüt kârı yılda 2.052 USD/ha."
+   },
+   "value": 2052.0,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f11",
+   "text": {
+    "en": "In 56% of simulated years a crop in the current rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %56 kadarında mevcut rotasyondaki bir ürün sıcak zararı görüyor."
+   },
+   "value": 0.561,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f12",
+   "text": {
+    "en": "In 0% of simulated years a crop in the current rotation suffers frost damage.",
+    "tr": "Simüle edilen yılların %0 kadarında mevcut rotasyondaki bir ürün don zararı görüyor."
+   },
+   "value": 0.0,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f13",
+   "text": {
+    "en": "Irrigation water use is 1,166 m³/ha per year versus 4,547 in the current rotation (3,380 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.166 m³/ha; mevcut rotasyonda 4.547 (3.380 m³/ha daha az)."
+   },
+   "value": -3380.199,
+   "unit": "m3/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f14",
+   "text": {
+    "en": "Median gross margin is 1,253 USD/ha per year versus 2,052 now (799 USD/ha lower).",
+    "tr": "Ortanca brüt kâr yılda 1.253 USD/ha; şimdiki rotasyonda 2.052 (799 USD/ha düşük)."
+   },
+   "value": -798.954,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f15",
+   "text": {
+    "en": "Nitrogen left for the next crop is 6 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 6 kg/ha; şimdi 0."
+   },
+   "value": 6.25,
+   "unit": "kg/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f16",
+   "text": {
+    "en": "Modelled erosion is 102% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %102 düzeyinde."
+   },
+   "value": 0.019,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f17",
+   "text": {
+    "en": "The soil is covered by crop canopy 129 days per year versus 161 now.",
+    "tr": "Toprak yılda 129 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+   },
+   "value": -31.417,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f18",
+   "text": {
+    "en": "Water-stress days are 75 per year versus 34 now.",
+    "tr": "Su stresi günleri yılda 75; şimdi 34."
+   },
+   "value": 41.583,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f19",
+   "text": {
+    "en": "The disease and pest break index is 0.80 versus 0.67 now.",
+    "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
+   },
+   "value": 0.133,
+   "unit": "index",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f20",
+   "text": {
+    "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+   },
+   "value": 0.35,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f21",
+   "text": {
+    "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
+    "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
+   },
+   "value": 0.0,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f22",
+   "text": {
+    "en": "Median relative yield is 61% of potential versus 86% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %61'i; şimdi %86."
+   },
+   "value": -0.252,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f23",
+   "text": {
+    "en": "Irrigation water use is 0 m³/ha per year versus 4,547 in the current rotation (4,547 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 0 m³/ha; mevcut rotasyonda 4.547 (4.547 m³/ha daha az)."
+   },
+   "value": -4546.669,
+   "unit": "m3/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f24",
+   "text": {
+    "en": "Median gross margin is 931 USD/ha per year versus 2,052 now (1,121 USD/ha lower).",
+    "tr": "Ortanca brüt kâr yılda 931 USD/ha; şimdiki rotasyonda 2.052 (1.121 USD/ha düşük)."
+   },
+   "value": -1121.068,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f25",
+   "text": {
+    "en": "Nitrogen left for the next crop is 37 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 37 kg/ha; şimdi 0."
+   },
+   "value": 37.45,
+   "unit": "kg/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f26",
+   "text": {
+    "en": "Modelled erosion is 56% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %56 düzeyinde."
+   },
+   "value": -0.44,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f27",
+   "text": {
+    "en": "The soil is covered by crop canopy 193 days per year versus 161 now.",
+    "tr": "Toprak yılda 193 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+   },
+   "value": 32.713,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f28",
+   "text": {
+    "en": "Water-stress days are 89 per year versus 34 now.",
+    "tr": "Su stresi günleri yılda 89; şimdi 34."
+   },
+   "value": 55.583,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f29",
+   "text": {
+    "en": "The disease and pest break index is 0.80 versus 0.67 now.",
+    "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
+   },
+   "value": 0.133,
+   "unit": "index",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f30",
+   "text": {
+    "en": "In 9% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %9 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+   },
+   "value": 0.09,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f31",
+   "text": {
+    "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
+    "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
+   },
+   "value": 0.0,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f32",
+   "text": {
+    "en": "Median relative yield is 55% of potential versus 86% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %55'i; şimdi %86."
+   },
+   "value": -0.312,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f33",
+   "text": {
+    "en": "Irrigation water use is 1,747 m³/ha per year versus 4,547 in the current rotation (2,799 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.747 m³/ha; mevcut rotasyonda 4.547 (2.799 m³/ha daha az)."
+   },
+   "value": -2799.312,
+   "unit": "m3/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f34",
+   "text": {
+    "en": "Median gross margin is 2,852 USD/ha per year versus 2,052 now (799 USD/ha higher).",
+    "tr": "Ortanca brüt kâr yılda 2.852 USD/ha; şimdiki rotasyonda 2.052 (799 USD/ha yüksek)."
+   },
+   "value": 799.485,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f35",
+   "text": {
+    "en": "Nitrogen left for the next crop is 33 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 33 kg/ha; şimdi 0."
+   },
+   "value": 33.333,
+   "unit": "kg/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f36",
+   "text": {
+    "en": "Modelled erosion is 55% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %55 düzeyinde."
+   },
+   "value": -0.451,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f37",
+   "text": {
+    "en": "The soil is covered by crop canopy 191 days per year versus 161 now.",
+    "tr": "Toprak yılda 191 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+   },
+   "value": 30.406,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f38",
+   "text": {
+    "en": "Water-stress days are 51 per year versus 34 now.",
+    "tr": "Su stresi günleri yılda 51; şimdi 34."
+   },
+   "value": 17.333,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f39",
+   "text": {
+    "en": "The disease and pest break index is 1.00 versus 0.67 now.",
+    "tr": "Hastalık-zararlı kırma endeksi 1,00; şimdi 0,67."
+   },
+   "value": 0.333,
+   "unit": "index",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f40",
+   "text": {
+    "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+   },
+   "value": 0.347,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f41",
+   "text": {
+    "en": "In 3% of simulated years a crop in this rotation suffers frost damage.",
+    "tr": "Simüle edilen yılların %3 kadarında bu rotasyondaki bir ürün don zararı görüyor."
+   },
+   "value": 0.027,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f42",
+   "text": {
+    "en": "Median relative yield is 78% of potential versus 86% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %78'i; şimdi %86."
+   },
+   "value": -0.08,
+   "unit": "ratio",
+   "source_id": "fao56"
+  }
+ ],
+ "disclaimer": {
+  "en": "Rotacast is a decision-support tool, not a guarantee. Results come from satellite and reanalysis data and simplified models; check them with your agronomist or local extension service before changing your rotation.",
+  "tr": "Rotacast bir karar destek aracıdır, kesin sonuç vaat etmez. Sonuçlar uydu ve yeniden analiz verilerine ve basitleştirilmiş modellere dayanır; rotasyonunuzu değiştirmeden önce ziraat mühendisiniz veya ilçe tarım müdürlüğünüzle mutlaka görüşün."
+ },
+ "scenario": {
+  "delta_t_c": 0.0,
+  "precip_change_pct": 0.0
+ }
+}
