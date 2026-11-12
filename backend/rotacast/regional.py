@@ -413,18 +413,26 @@ def aggregate(cells: list[dict], params: BasinParams, crop_names: dict | None = 
                 if grace_loss_mm3 and grace_loss_mm3 > 0:
                     offset = _sorted_band([-params.groundwater_share * v / grace_loss_mm3 * 100.0
                                            for v in change.values()])
-                flags = []
+                # Market cap applies to crops already in the irrigated baseline. Crops new to it (pulses, forage,
+                # oilseeds that Konya grows mostly rainfed) have no irrigated reference, so they are listed, not flagged.
+                flags, new_crops = [], []
                 for k, v in prod.items():
                     bp = base_prod.get(k, 0.0)
-                    if v > 1e-9 and v > params.max_production_increase * bp:
-                        flags.append({"crop_id": k, "increase_pct": (v / bp * 100.0) if bp > 0 else None})
-                flags.sort(key=lambda f: -(f["increase_pct"] if f["increase_pct"] is not None else float("inf")))
+                    if v <= 1e-9:
+                        continue
+                    if bp <= 0:
+                        new_crops.append({"crop_id": k, "change_t_yr": v})
+                    elif v > params.max_production_increase * bp:
+                        flags.append({"crop_id": k, "increase_pct": v / bp * 100.0})
+                flags.sort(key=lambda f: -f["increase_pct"])
+                new_crops.sort(key=lambda f: -f["change_t_yr"])
                 per_h[str(h)] = {
                     "climate": "trend_continuation" if tag == "trend" else "current",
                     "irrigation_change_mm3_yr": change,
                     "grace_offset_pct": offset,
                     "market_flags": flags,
                     "market_plausible": not flags,
+                    "new_crops": new_crops,
                     "production_change_t_yr": [
                         {"crop_id": k, "name": crop_names.get(k, {"en": k, "tr": k}), "change_t_yr": v,
                          "baseline_t_yr": base_prod.get(k, 0.0)}

@@ -131,9 +131,8 @@ def test_market_flags_cap():
     # baseline: wheat 2 t/ha, maize 4 t/ha; strategy: wheat 2.1 (+5 %), maize 2, lentil 1 (no baseline)
     c = _cell(10_000, bw, bw, {"wheat": 2.0, "maize": 4.0}, {"wheat": 2.1, "maize": 2.0, "lentil": 1.0})
     sc = R.aggregate([c], _params())["scenarios"]["water_saver"]["0.5"]["5"]
-    flagged = {f["crop_id"]: f["increase_pct"] for f in sc["market_flags"]}
-    assert set(flagged) == {"lentil"} and flagged["lentil"] is None   # new crop with zero baseline
-    assert sc["market_plausible"] is False
+    assert sc["market_flags"] == [] and sc["market_plausible"] is True   # new crop is listed, not flagged
+    assert [x["crop_id"] for x in sc["new_crops"]] == ["lentil"]
     # numbers are not altered
     prod = {x["crop_id"]: x["change_t_yr"] for x in sc["production_change_t_yr"]}
     assert math.isclose(prod["lentil"], 0.5 * 10_000 * 1.0)
