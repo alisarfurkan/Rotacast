@@ -33,6 +33,7 @@ HALF_WIDTH_DEG = 0.05      # polygon is a 0.1 deg box around the point
 CHUNK_YEARS = 1
 WORKERS = 3
 MIN_OVERLAP_YEARS = 8
+MIN_COVERAGE = 0.8  # minimum fraction of requested years a source must deliver
 FACTOR_MIN, FACTOR_MAX = 0.3, 1.5
 CONNECT_TIMEOUT = 6.0
 
@@ -122,11 +123,29 @@ def _fetch_source(source_id: str, lat: float, lon: float, start: date, end: date
     down = threading.Event()
     with ThreadPoolExecutor(max_workers=WORKERS) as ex:  # the server answers ~1 min per year; ask for several at once
         results = list(ex.map(lambda se: _try_chunk(source_id, lat, lon, se[0], se[1], down), spans))
+    # sequential retry pass over failed/skipped chunks, with a fresh circuit breaker (2 consecutive failures stop it)
+    if not is_offline():
+        consecutive = 0
+        for i, (se, r) in enumerate(zip(spans, results)):
+            if isinstance(r, pd.Series):
+                continue
+            try:
+                results[i] = _fetch_chunk(source_id, lat, lon, se[0], se[1])
+                consecutive = 0
+            except Exception as exc:  # noqa: BLE001
+                results[i] = exc
+                consecutive += 1
+                if consecutive >= 2:
+                    break
     parts = [r for r in results if isinstance(r, pd.Series)]
     if not parts:
         raise RuntimeError(f"{source_id}: all chunks failed ({results[0] if results else 'no chunks'})")
-    ser = pd.concat(parts).sort_index()  # failed years are simply missing; the correction uses complete overlap months only
-    return ser[~ser.index.duplicated()]
+    ser = pd.concat(parts).sort_index()
+    ser = ser[~ser.index.duplicated()]
+    missing = [se[0].year for se, r in zip(spans, results) if not isinstance(r, pd.Series)]
+    ser.attrs["coverage"] = {"requested_years": len(spans), "obtained_years": len(spans) - len(missing),
+                             "missing_years": missing}
+    return ser
 
 
 def fetch_precip_daily(lat: float, lon: float, start: date, end: date) -> pd.Series:
@@ -138,8 +157,14 @@ def fetch_precip_daily(lat: float, lon: float, start: date, end: date) -> pd.Ser
             ser = _fetch_source(sid, lat, lon, start, end)
             if ser.notna().sum() < 365 * MIN_OVERLAP_YEARS:
                 raise RuntimeError(f"too few days ({int(ser.notna().sum())})")
+            cov = ser.attrs.get("coverage")
+            if cov and cov["requested_years"] and cov["obtained_years"] / cov["requested_years"] < MIN_COVERAGE:
+                raise RuntimeError(f"coverage too low ({cov['obtained_years']}/{cov['requested_years']} years, "
+                                   f"missing {cov['missing_years']})")
             ser = ser.astype(float)
             ser.attrs.update({"source_id": sid, "lat": lat, "lon": lon})
+            if cov:
+                ser.attrs["coverage"] = cov
             return ser
         except Exception as exc:  # noqa: BLE001 - try the next dataset
             errors.append(f"{sid}: {exc}")
@@ -183,4 +208,6 @@ def bias_correct_power(power_df: pd.DataFrame, sat_series: pd.Series, *, min_ove
         "sat_mean_mm": round(ann_s, 1),
         "overlap_years": n_years,
     }
+    if sat_series.attrs.get("coverage"):
+        out.attrs["precip_correction"]["coverage"] = dict(sat_series.attrs["coverage"])
     return out

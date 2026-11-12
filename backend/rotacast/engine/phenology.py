@@ -5,7 +5,7 @@ References
 Savitzky, A., Golay, M.J.E. (1964) Anal. Chem. 36:1627-1639.
 Jonsson, P., Eklundh, L. (2004) TIMESAT - a program for analyzing time-series of satellite sensor data.
 Computers & Geosciences 30:833-845 (amplitude-threshold green-up / senescence definition).
-Didan, K. (2015) MOD13Q1 v006, NASA LP DAAC (16-day composites, reliability flags).
+Didan, K. (2021) MOD13Q1 v061, NASA LP DAAC (16-day composites, reliability flags).
 """
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ MIN_COVERAGE_BINS = 20         # a calendar year needs >= 20 of 23 composites in
 THRESHOLD_FRAC = 0.20          # green-up / senescence at baseline + 20 % of amplitude (TIMESAT default 20 %)
 FALLOW_AMPLITUDE = 0.12        # amplitude (peak - annual min) below this: no crop canopy developed
 WINTER_PEAK_MAX_DOY = 175      # single peak before ~DOY 175 (late Jun): autumn-sown cereal (Konya peak ~May)
-                               # single peak after: spring/summer crop. (spec: <170 winter, >180 summer)
+                               # single peak after: spring/summer crop. (threshold tuned from the original <170 spec)
 DOUBLE_PEAK_MIN_PROM = 0.15    # each of two peaks needs prominence >= 0.15 NDVI (well above SG-smoothed noise)
 DOUBLE_PEAK_MIN_FRAC = 0.40    # ... and >= 40 % of the year's amplitude
 DOUBLE_PEAK_MIN_SEP_BINS = 5   # peaks >= 5 composites (80 days) apart

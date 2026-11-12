@@ -439,8 +439,10 @@ def generate_candidates(crops: dict, climate: dict, field_memory: dict, constrai
     (when a suitable legume exists); ``water_access`` none/limited/full and ``max_irrigated_share`` bound the
     irrigated share of cycle years; cover crops are optionally inserted into bare windows >= 60 days.
     ``field_memory`` is accepted for interface symmetry (bare windows come from the crops' typical timing).
-    constraints extras: ``max_candidates`` (300), ``seed`` (42), ``cycle_lengths`` ((3, 4))."""
+    constraints extras: ``max_candidates`` (300), ``seed`` (42), ``cycle_lengths`` ((3, 4)),
+    ``exclude_crops`` (crop ids never used in generated candidates; default none)."""
     c = constraints or {}
+    excluded = set(c.get("exclude_crops") or ())
     access = c.get("water_access", "limited")
     default_share = {"none": 0.0, "limited": 0.5, "full": 1.0}.get(access, 0.5)
     max_share = float(c.get("max_irrigated_share", default_share))
@@ -453,7 +455,8 @@ def generate_candidates(crops: dict, climate: dict, field_memory: dict, constrai
     # Perennials (alfalfa, sainfoin) need a multi-year stand that the one-season-per-step simulator does not
     # model yet, so they are not generated as candidates (they stay usable in a user's own rotation).
     mains = [cr for _, cr in sorted(crops.items())
-             if not _is_cover(cr) and _climate_suitable(cr, climate) and not getattr(cr, "perennial_years", None)]
+             if not _is_cover(cr) and _climate_suitable(cr, climate) and not getattr(cr, "perennial_years", None)
+             and cr.id not in excluded]
     if access == "none":
         mains = [cr for cr in mains if getattr(cr, "irrigation_typical", "optional") != "required"]
     covers = [cr for _, cr in sorted(crops.items()) if _is_cover(cr) and _climate_suitable(cr, climate)]

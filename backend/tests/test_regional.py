@@ -124,3 +124,47 @@ def test_calibrate_mix_matches_statistics():
     assert math.isclose(sum(m["target"].values()), 1.0, rel_tol=1e-9)
     for k, t in m["target"].items():
         assert abs(m["achieved"][k] - t) < 0.03
+
+
+def test_market_flags_cap():
+    bw = {"p10": 4000.0, "p50": 5000.0, "p90": 6000.0}
+    # baseline: wheat 2 t/ha, maize 4 t/ha; strategy: wheat 2.1 (+5 %), maize 2, lentil 1 (no baseline)
+    c = _cell(10_000, bw, bw, {"wheat": 2.0, "maize": 4.0}, {"wheat": 2.1, "maize": 2.0, "lentil": 1.0})
+    sc = R.aggregate([c], _params())["scenarios"]["water_saver"]["0.5"]["5"]
+    flagged = {f["crop_id"]: f["increase_pct"] for f in sc["market_flags"]}
+    assert set(flagged) == {"lentil"} and flagged["lentil"] is None   # new crop with zero baseline
+    assert sc["market_plausible"] is False
+    # numbers are not altered
+    prod = {x["crop_id"]: x["change_t_yr"] for x in sc["production_change_t_yr"]}
+    assert math.isclose(prod["lentil"], 0.5 * 10_000 * 1.0)
+    # wheat +5 % is within the cap; +50 % yield at 50 % adoption (= +25 %) is flagged only when it exceeds 25 %
+    c2 = _cell(10_000, bw, bw, {"wheat": 2.0}, {"wheat": 3.2})
+    sc2 = R.aggregate([c2], _params())["scenarios"]["water_saver"]["0.5"]["5"]
+    assert [f["crop_id"] for f in sc2["market_flags"]] == ["wheat"]
+    assert math.isclose(sc2["market_flags"][0]["increase_pct"], 30.0)   # 50 % adoption x +60 % yield
+    c3 = _cell(10_000, bw, bw, {"wheat": 2.0}, {"wheat": 2.2})
+    sc3 = R.aggregate([c3], _params())["scenarios"]["water_saver"]["0.5"]["5"]
+    assert sc3["market_flags"] == [] and sc3["market_plausible"] is True
+
+
+def test_exclude_crops_default_and_candidates():
+    assert R.BasinParams().exclude_crops == ("potato",)
+    assert math.isclose(R.BasinParams().max_production_increase, 0.25)
+    from rotacast.engine.rotations import generate_candidates
+    from rotacast.knowledge.crops import load_crops
+    crops = load_crops()
+    base = generate_candidates(crops, {}, {}, {"max_candidates": 150})
+    assert any(s.crop_id == "potato" for r in base for s in r.steps)      # default behaviour unchanged
+    ex = generate_candidates(crops, {}, {}, {"max_candidates": 150, "exclude_crops": ("potato",)})
+    assert ex and not any(s.crop_id == "potato" for r in ex for s in r.steps)
+
+
+def test_headline_and_limitation():
+    bw = {"p10": 4000.0, "p50": 5000.0, "p90": 6000.0}
+    c = _cell(10_000, bw, {"p10": 1000.0, "p50": 2000.0, "p90": 3000.0}, {"wheat": 2.0}, {"wheat": 2.0})
+    p = _params()
+    h = R.build_headline(R.aggregate([c], p, grace_loss_mm3=100.0), p)
+    assert h["adoption"] == 0.1 and h["horizon"] == 10
+    assert h["scenarios"][0]["archetype"] == "water_saver"
+    assert h["scenarios"][0]["market_plausible"] is True and {"en", "tr"} <= set(h["note"])
+    assert any("absorb" in l["en"] for l in R._limitations(True, p))

@@ -129,6 +129,13 @@ export interface BasinScenario {
   irrigation_change_mm3_yr: Band
   grace_offset_pct: Band | null
   production_change_t_yr: { crop_id: string; name: I18nText; change_t_yr: number }[]
+  market_flags?: { crop_id: string; increase_pct: number | null }[]
+  market_plausible?: boolean
+}
+export interface BasinHeadline {
+  adoption: number; horizon: number; note: I18nText
+  scenarios: { archetype: string; name: I18nText; water_change_mm3_yr: Band; grace_offset_pct: Band | null
+    market_plausible: boolean; market_flags: { crop_id: string; increase_pct: number | null }[] }[]
 }
 export interface BasinReport {
   scenario_notice: I18nText
@@ -137,6 +144,7 @@ export interface BasinReport {
   strategies: { id: string; name: I18nText }[]
   adoption_rates: number[]
   horizons: number[]
+  headline?: BasinHeadline
   cells: BasinCell[]
   scenarios: Record<string, Record<string, Record<string, BasinScenario>>>
   grace: {

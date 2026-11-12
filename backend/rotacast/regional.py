@@ -150,6 +150,10 @@ class BasinParams:
     groundwater_share: float = 1.0
     priorities: dict = field(default_factory=lambda: dict(DEFAULT_PRIORITIES))
     constraints: dict = field(default_factory=lambda: {"water_access": "limited", "max_irrigated_share": 0.5})
+    # Crops strategies may not introduce/expand (no market at basin scale); the baseline mix still contains them.
+    exclude_crops: tuple = ("potato",)
+    # Assumption: markets absorb at most +25 % of a crop's basin baseline production; larger increases are flagged.
+    max_production_increase: float = 0.25
     max_candidates: int = 300
     max_workers: int = 4
 
@@ -304,7 +308,8 @@ def simulate_cell(cell: dict, params: BasinParams, crops: dict, wx_obs: pd.DataF
     ref_rot = base_rots[ref_id]
     ref = simulate_rotation(ref_rot, wx_obs, sp, crops, ys_fn(_n_main(ref_rot.steps, crops)))
     bidx = ref.get("erosion_index") or None
-    cands = generate_candidates(crops, clim, {}, {**params.constraints, "max_candidates": params.max_candidates})
+    cands = generate_candidates(crops, clim, {}, {**params.constraints, "max_candidates": params.max_candidates,
+                                                  "exclude_crops": tuple(params.exclude_crops)})
     results = [ref] + [simulate_rotation(c, wx_obs, sp, crops, ys_fn(_n_main(c.steps, crops)),
                                          baseline_erosion_index=bidx) for c in cands]
     picked = pick_strategies(results, params.priorities)
@@ -408,10 +413,18 @@ def aggregate(cells: list[dict], params: BasinParams, crop_names: dict | None = 
                 if grace_loss_mm3 and grace_loss_mm3 > 0:
                     offset = _sorted_band([-params.groundwater_share * v / grace_loss_mm3 * 100.0
                                            for v in change.values()])
+                flags = []
+                for k, v in prod.items():
+                    bp = base_prod.get(k, 0.0)
+                    if v > 1e-9 and v > params.max_production_increase * bp:
+                        flags.append({"crop_id": k, "increase_pct": (v / bp * 100.0) if bp > 0 else None})
+                flags.sort(key=lambda f: -(f["increase_pct"] if f["increase_pct"] is not None else float("inf")))
                 per_h[str(h)] = {
                     "climate": "trend_continuation" if tag == "trend" else "current",
                     "irrigation_change_mm3_yr": change,
                     "grace_offset_pct": offset,
+                    "market_flags": flags,
+                    "market_plausible": not flags,
                     "production_change_t_yr": [
                         {"crop_id": k, "name": crop_names.get(k, {"en": k, "tr": k}), "change_t_yr": v,
                          "baseline_t_yr": base_prod.get(k, 0.0)}
@@ -422,6 +435,24 @@ def aggregate(cells: list[dict], params: BasinParams, crop_names: dict | None = 
                          "production_t_yr": [{"crop_id": k, "name": crop_names.get(k, {"en": k, "tr": k}), "t_yr": v}
                                              for k, v in sorted(base_prod.items(), key=lambda kv: -kv[1])]},
             "scenarios": out}
+
+
+def build_headline(agg: dict, params: BasinParams, rate: float = 0.1, horizon: int = 10) -> dict:
+    """Pitch headline: the lowest-adoption scenario per archetype at the 10-year horizon. Higher adoption rates
+    are sensitivity runs only."""
+    rows = []
+    for arch in ARCHETYPES:
+        sc = agg["scenarios"].get(arch, {}).get(str(rate), {}).get(str(horizon))
+        if not sc:
+            continue
+        rows.append({"archetype": arch, "name": ARCHETYPE_NAMES[arch], "adoption": rate, "horizon": horizon,
+                     "water_change_mm3_yr": sc["irrigation_change_mm3_yr"], "grace_offset_pct": sc["grace_offset_pct"],
+                     "market_plausible": sc["market_plausible"], "market_flags": sc["market_flags"]})
+    return {"adoption": rate, "horizon": horizon, "scenarios": rows,
+            "note": {"en": "Order-of-magnitude scenario at 10 % adoption (10-year horizon, trend-continuation climate). "
+                           "Higher adoption rates (30 %, 50 %) are sensitivity runs, not recommendations.",
+                     "tr": "%10 benimseme için büyüklük mertebesi senaryosu (10 yıllık ufuk, eğilim sürdürme iklimi). "
+                           "Daha yüksek benimseme oranları (%30, %50) duyarlılık koşularıdır, öneri değildir."}}
 
 
 # ------------------------------------------------------------------ GRACE
@@ -508,6 +539,12 @@ def _assumptions(p: BasinParams, mix: dict, precip: dict, plaus: dict) -> list[d
           p.min_cropland_fraction, "assumption"),
         A("constraints", "Candidate constraints (water access / max irrigated share)", "Aday kısıtları",
           p.constraints, "assumption (field-engine demo default)"),
+        A("exclude_crops", "Crops strategies may not introduce (baseline mix still contains them)",
+          "Stratejilerin getiremeyeceği ürünler (baz karışımda bulunmaya devam eder)", list(p.exclude_crops),
+          "assumption: no basin-scale market for these crops"),
+        A("max_production_increase", "Market absorption cap: largest plausible production increase per crop, as a share of its basin baseline",
+          "Pazar emme sınırı: ürün başına havza baz üretiminin payı olarak makul en büyük üretim artışı",
+          p.max_production_increase, "assumption; scenarios exceeding it are flagged (market_flags), numbers are not changed"),
         A("priorities", "Strategy scoring priorities", "Strateji puanlama öncelikleri", p.priorities,
           "engine default; strategies are scored against the highest-weight baseline rotation of each cell"),
         A("start_years", "Ensemble start years per rotation", "Rotasyon başına topluluk başlangıç yılı sayısı",
@@ -536,9 +573,12 @@ def _assumptions(p: BasinParams, mix: dict, precip: dict, plaus: dict) -> list[d
     ]
 
 
-def _limitations(precip_ok: bool) -> list[dict]:
-    extra = [] if precip_ok else [{"en": "Satellite rain bias correction was not applied to all cells (service unavailable); raw NASA POWER rain was used there.",
-                                    "tr": "Uydu yağış düzeltmesi tüm hücrelere uygulanamadı (servis yok); orada ham NASA POWER yağışı kullanıldı."}]
+def _limitations(precip_ok: bool, p: BasinParams | None = None) -> list[dict]:
+    cap = p.max_production_increase if p else BasinParams.max_production_increase
+    market = [{"en": f"Markets are assumed to absorb at most +{cap * 100:.0f} % of a crop's basin baseline production; no price or demand feedback is modelled, and scenarios above that cap are flagged, not corrected.",
+               "tr": f"Pazarların bir ürünün havza baz üretiminin en fazla +%{cap * 100:.0f} kadarını emebileceği varsayılır; fiyat veya talep geri bildirimi modellenmez, bu sınırı aşan senaryolar düzeltilmez, işaretlenir."}]
+    extra = market + ([] if precip_ok else [{"en": "Satellite rain bias correction was not applied to all cells (service unavailable); raw NASA POWER rain was used there.",
+                                    "tr": "Uydu yağış düzeltmesi tüm hücrelere uygulanamadı (servis yok); orada ham NASA POWER yağışı kullanıldı."}])
     return LIMITATIONS + extra
 
 
@@ -714,7 +754,8 @@ def build_basin_report(params: BasinParams | None = None, log=print) -> dict:
         "scenarios": agg["scenarios"],
         "grace": {**gr, "loss_mm3_yr": loss},
         "assumptions": _assumptions(p, mix, pc_summary, plaus),
-        "limitations": _limitations(n_pc == len(done)),
+        "limitations": _limitations(n_pc == len(done), p),
+        "headline": build_headline(agg, p),
         "sources": SOURCES + [{"id": "konya_tarim_2026", "name": "Konya Il Tarim ve Orman Mudurlugu, Konya Tarimi 2026 (TUIK data)",
                                "url": "https://konya.tarimorman.gov.tr/Belgeler/kitap/%C4%B0l_Tar%C4%B1m_ve_Orman_Ocak_26_4DonemV2.pdf"},
                               {"id": "climateserv_precip", "name": "GPM IMERG / CHIRPS via ClimateSERV", "url": "https://climateserv.servirglobal.net/"}],

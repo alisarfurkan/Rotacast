@@ -42,7 +42,7 @@ export function BasinView() {
   const lang = useLang()
   const muted = useCssVar('--muted')
   const [data, setData] = useState<{ report: BasinReport; mock: boolean } | null>(null)
-  const [rate, setRate] = useState(0.3)
+  const [rate, setRate] = useState(0.1)
   const [arch, setArch] = useState('water_saver')
   const [horizon, setHorizon] = useState(10)
   const [colorBy, setColorBy] = useState<'change' | 'best'>('change')
@@ -108,6 +108,10 @@ export function BasinView() {
   const sHi = sc ? -sc.irrigation_change_mm3_yr.p10 : 0
   const off = sc?.grace_offset_pct
   const g = rep.grace
+  const capPct = Math.round(Number(rep.assumptions.find((a) => a.id === 'max_production_increase')?.value ?? 0.25) * 100)
+  const flagText = (fl: { crop_id: string }[]) => t('bsMarketFlag', {
+    crops: fl.map((f) => pick(sc?.production_change_t_yr.find((p) => p.crop_id === f.crop_id)?.name ?? { en: f.crop_id, tr: f.crop_id }, lang)).join(', '), cap: capPct })
+  const hl = rep.headline
   const bandText = (a: number, b: number) => t('bsRange', { a: fmt(Math.min(a, b), 0, lang), b: fmt(Math.max(a, b), 0, lang) })
 
   return (
@@ -130,6 +134,27 @@ export function BasinView() {
           <Seg label={t('bsHorizon')} value={horizon} onChange={setHorizon}
             opts={rep.horizons.map((h) => ({ v: h, text: t(h >= 10 ? 'bsH10' : 'bsH5') }))} />
         </div>
+
+        {hl && hl.scenarios.length > 0 && (
+          <div className="rounded-2xl border border-line bg-surface2 p-4 mb-5" aria-labelledby="hl-title">
+            <h3 id="hl-title" className="font-display text-lg font-extrabold text-soil">{t('bsHeadline')} · <span className="text-sm font-semibold text-muted">{t('bsHeadlineSub', { p: Math.round(hl.adoption * 100) })}</span></h3>
+            <div className="grid gap-3 md:grid-cols-3 mt-2">
+              {hl.scenarios.map((h) => (
+                <div key={h.archetype} className="rounded-xl bg-surface p-3 text-sm" style={{ borderLeft: `4px solid ${ARCH_COLOR[h.archetype] ?? '#888'}` }}>
+                  <div className="font-bold">{pick(h.name, lang)}</div>
+                  <div className="text-xs text-muted mt-1">{t('bsHlSaved')}: <b className="text-water">{bandText(-h.water_change_mm3_yr.p90, -h.water_change_mm3_yr.p10)}</b> Mm³/yr</div>
+                  {h.grace_offset_pct && <div className="text-xs text-muted">{t('bsHlOffset')}: <b className="text-leaf">{bandText(h.grace_offset_pct.p10, h.grace_offset_pct.p90)} %</b></div>}
+                  <div className={'text-xs font-bold mt-1 ' + (h.market_plausible ? 'text-leaf' : 'text-sun')}>{h.market_plausible ? '✓ ' + t('bsMarketOk') : '⚠ ' + t('bsMarketWarn')}</div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted mt-2">{pick(hl.note, lang)}</p>
+          </div>
+        )}
+
+        {sc && sc.market_flags && sc.market_flags.length > 0 && (
+          <div role="alert" className="rounded-xl border border-sun bg-sunsoft px-3 py-2 text-sm mb-4">⚠ {flagText(sc.market_flags)}</div>
+        )}
 
         {sc ? (
           <div className="grid gap-4 md:grid-cols-2">
