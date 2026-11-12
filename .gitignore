@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+node_modules/
+frontend/dist/
+.env
+*.log
+
+# Large raw downloads (re-fetched by scripts; small extracts are committed)
+data/cache/grace_csr_mascon/*.nc
