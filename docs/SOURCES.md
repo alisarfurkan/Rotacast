@@ -24,8 +24,8 @@ Code and data files refer to these ids (`source_id`, `sources:`). Add an entry b
 | peoples2009 | Peoples, M.B. et al. (2009). Symbiosis 48:1–17, doi:10.1007/BF03179980 | Legume nitrogen credit reference (crops.yaml) | Journal article, see DOI | https://doi.org/10.1007/BF03179980 |
 | scs_cn | USDA-SCS curve number method (NEH-4 / TR-55) | Daily runoff and effective precipitation, CN 75 (engine/waterbalance.py) | Public domain | https://www.nrcs.usda.gov/ |
 | konya_irrigated_share | Konya Plain irrigated-area study (DergiPark), approx. one third of 1.85 Mha agricultural area irrigated | Irrigated share for Konya (regional.py) | Journal article, see URL | https://dergipark.org.tr/en/download/article-file/4394763 |
-| gpm_imerg | NASA GPM IMERG 0.1° daily via SERVIR ClimateSERV (datatype 26) | Satellite rain, used to bias-correct POWER rain (precip.py, report.py) | Public, no auth | https://gpm.nasa.gov/data/imerg |
-| chirps | CHIRPS v2.0 0.05° daily via SERVIR ClimateSERV (datatype 0) | Satellite-gauge rain, used to bias-correct POWER rain (precip.py, report.py) | Public, no auth | https://www.chc.ucsb.edu/data/chirps |
+| gpm_imerg | Huffman, G.J. et al. GPM IMERG Final Precipitation L3 0.1° (V07), NASA GES DISC (fallback; DOI to verify: 10.5067/GPM/IMERG/3B-HH/07); daily series via NASA SERVIR ClimateSERV (datatype 26) | Fallback satellite rain for POWER bias correction | Public, no auth (NASA data policy) | https://gpm.nasa.gov/data/imerg |
+| chirps | Funk, C. et al. (2015) The climate hazards infrared precipitation with stations (CHIRPS), Scientific Data 2:150066, doi:10.1038/sdata.2015.66; UCSB Climate Hazards Center, daily series via NASA SERVIR ClimateSERV (datatype 0) | Primary satellite-gauge rain for monthly bias correction of POWER rain | Public, no auth | https://www.chc.ucsb.edu/data/chirps |
 
 TODO verify: gpm_imerg, chirps. These ids are in the code (connectors/precip.py, report.py SOURCES) but were not in the citation list supplied for this update. The row text is taken from the code; check the license and citation wording.
 

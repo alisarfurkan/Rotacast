@@ -1,5 +1,5 @@
 {
- "schema_version": "1.0",
+ "schema_version": "1.1",
  "generated": "2026-11-12",
  "scenario_notice": {
   "en": "Scenario analysis, not a forecast.",
@@ -23,15 +23,15 @@
  "totals": {
   "n_cells": 19,
   "cropland_ha": 1587234.846306692,
-  "irrigated_ha": 523787.4992812084,
+  "irrigated_ha": 707734.9329298215,
   "skipped_cells": []
  },
  "baseline": {
-  "irrigated_ha": 523787.4992812084,
+  "irrigated_ha": 707734.9329298215,
   "irrigation_demand_mm3_yr": {
-   "p10": 2208.671083313534,
-   "p50": 2404.1755153857907,
-   "p90": 2604.493995094251
+   "p10": 2836.3619508761385,
+   "p50": 3220.0676209529906,
+   "p90": 3630.912212054415
   },
   "production_t_yr": [
    {
@@ -40,7 +40,7 @@
      "en": "Sugar beet",
      "tr": "Şeker pancarı"
     },
-    "t_yr": 10154768.431368703
+    "t_yr": 5792525.997990052
    },
    {
     "crop_id": "maize_grain",
@@ -48,7 +48,7 @@
      "en": "Grain maize",
      "tr": "Dane mısır"
     },
-    "t_yr": 1687597.593809982
+    "t_yr": 2247028.2447020607
    },
    {
     "crop_id": "wheat_winter",
@@ -56,32 +56,128 @@
      "en": "Winter wheat",
      "tr": "Kışlık buğday"
     },
-    "t_yr": 553380.7062485063
+    "t_yr": 1528375.5104434954
+   },
+   {
+    "crop_id": "potato",
+    "name": {
+     "en": "Potato",
+     "tr": "Patates"
+    },
+    "t_yr": 546891.6664354715
+   },
+   {
+    "crop_id": "barley_winter",
+    "name": {
+     "en": "Winter barley",
+     "tr": "Kışlık arpa"
+    },
+    "t_yr": 134066.19070552397
+   },
+   {
+    "crop_id": "sunflower",
+    "name": {
+     "en": "Sunflower",
+     "tr": "Ayçiçeği"
+    },
+    "t_yr": 82160.79406508402
+   },
+   {
+    "crop_id": "dry_bean",
+    "name": {
+     "en": "Dry bean",
+     "tr": "Kuru fasulye"
+    },
+    "t_yr": 37092.411831097415
    }
   ],
-  "rotation": [
+  "mix": [
    {
-    "crop_id": "wheat_winter",
-    "irrigation": "none"
+    "id": "wheat_maize",
+    "weight": 0.3752148182392682,
+    "rotation": [
+     {
+      "crop_id": "wheat_winter",
+      "irrigation": "deficit"
+     },
+     {
+      "crop_id": "maize_grain",
+      "irrigation": "full"
+     }
+    ]
    },
    {
-    "crop_id": "sugar_beet",
-    "irrigation": "full"
+    "id": "wheat_beet_maize",
+    "weight": 0.42217593506663065,
+    "rotation": [
+     {
+      "crop_id": "wheat_winter",
+      "irrigation": "deficit"
+     },
+     {
+      "crop_id": "sugar_beet",
+      "irrigation": "full"
+     },
+     {
+      "crop_id": "maize_grain",
+      "irrigation": "full"
+     }
+    ]
    },
    {
-    "crop_id": "maize_grain",
-    "irrigation": "full"
+    "id": "barley_sunflower_wheat",
+    "weight": 0.11685682643200959,
+    "rotation": [
+     {
+      "crop_id": "barley_winter",
+      "irrigation": "deficit"
+     },
+     {
+      "crop_id": "sunflower",
+      "irrigation": "deficit"
+     },
+     {
+      "crop_id": "wheat_winter",
+      "irrigation": "deficit"
+     }
+    ]
+   },
+   {
+    "id": "wheat_potato_bean",
+    "weight": 0.08575242026209158,
+    "rotation": [
+     {
+      "crop_id": "wheat_winter",
+      "irrigation": "deficit"
+     },
+     {
+      "crop_id": "potato",
+      "irrigation": "full"
+     },
+     {
+      "crop_id": "dry_bean",
+      "irrigation": "full"
+     }
+    ]
    }
-  ]
+  ],
+  "target_noncereal_shares": {
+   "sugar_beet": 0.2493118398021032,
+   "maize_grain": 0.58098484686177,
+   "sunflower": 0.06871531520637156,
+   "potato": 0.05505603978522725,
+   "dry_bean": 0.045931958344528026
+  },
+  "achieved_noncereal_shares": {
+   "maize_grain": 0.5809362344804344,
+   "sugar_beet": 0.24899264522679407,
+   "sunflower": 0.0689202958039809,
+   "potato": 0.050575412244395324,
+   "dry_bean": 0.050575412244395324
+  },
+  "cereal_share_of_area": 0.43482141185054796
  },
  "strategies": [
-  {
-   "id": "baseline",
-   "name": {
-    "en": "Current rotation",
-    "tr": "Mevcut rotasyon"
-   }
-  },
   {
    "id": "water_saver",
    "name": {
@@ -133,57 +229,41 @@
    "area_km2": 1540.3657047943602,
    "cropland_fraction": 0.3200241984271022,
    "cropland_ha": 49295.42999614135,
-   "irrigated_ha": 16267.491898726646,
+   "irrigated_ha": 21980.425847659717,
    "elevation_m": 1394.38,
-   "soil_source": "soil_default",
+   "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.474,
-   "baseline_water_m3_ha": 4855.725437857066,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4945.623434265787,
+   "baseline_water_m3_ha_band": {
+    "p10": 4331.631210342245,
+    "p50": 4945.623434265787,
+    "p90": 5387.763407344342
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1774307058589955,
+    "maize_grain": 3.712889813149843,
+    "sugar_beet": 9.150023488520114,
+    "barley_winter": 0.1978286412528422,
+    "sunflower": 0.11695716025792902,
+    "potato": 0.7719771163128942,
+    "dry_bean": 0.05224637458786546
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 72.19
+    "score": 70.14
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4659.292455059031,
-      "p50": 4855.725437857066,
-      "p90": 5182.620028554159
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.1324331131332217,
-      "sugar_beet": 21.7247471291282,
-      "maize_grain": 3.7553058777336124
-     }
-    },
     "water_saver": {
-     "score": 58.52,
+     "score": 56.33,
      "rotation_name": {
       "en": "Winter barley > Potato > Grain sorghum > Lentil",
       "tr": "Kışlık arpa > Patates > Dane sorgum > Mercimek"
@@ -210,21 +290,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3407.2858847206167,
+     "water_change_m3_ha_p50": -3487.7434013194543,
      "water_m3_ha": {
-      "p10": 1337.1171633350255,
-      "p50": 1448.4395531364494,
-      "p90": 1595.1514389485183
+      "p10": 1341.5869922411534,
+      "p50": 1457.8800329463327,
+      "p90": 1577.9595646336322
      },
      "crop_t_ha_yr": {
-      "barley_winter": 0.8527158113655339,
-      "potato": 6.415256256546259,
-      "sorghum": 0.5801462614272477,
-      "lentil": 0.22470976032324094
+      "barley_winter": 0.8581462803243457,
+      "potato": 6.424727259236186,
+      "sorghum": 0.5913284364184204,
+      "lentil": 0.22755850310822104
      }
     },
     "soil_builder": {
-     "score": 63.97,
+     "score": 61.87,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -261,21 +341,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3626.278144093654,
+     "water_change_m3_ha_p50": -3694.897121976978,
      "water_m3_ha": {
-      "p10": 1130.8215166315758,
-      "p50": 1229.447293763412,
-      "p90": 1328.2629155613593
+      "p10": 1094.5066978852906,
+      "p50": 1250.7263122888094,
+      "p90": 1338.4576630499039
      },
      "crop_t_ha_yr": {
-      "sunflower": 0.2835170192417909,
-      "wheat_winter": 0.8493248348499163,
-      "dry_bean": 0.41847762784045606,
-      "barley_winter": 0.8527158113655339
+      "sunflower": 0.2897406666279005,
+      "wheat_winter": 0.8534618803244559,
+      "dry_bean": 0.4117723033675691,
+      "barley_winter": 0.8581462803243457
      }
     },
     "balanced_income": {
-     "score": 72.19,
+     "score": 70.14,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -307,16 +387,16 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2916.6388658568885,
+     "water_change_m3_ha_p50": -2991.335723005808,
      "water_m3_ha": {
-      "p10": 1781.5975343582952,
-      "p50": 1939.0865720001773,
-      "p90": 2163.653163777536
+      "p10": 1799.3058358404996,
+      "p50": 1954.287711259979,
+      "p90": 2159.9984937008617
      },
      "crop_t_ha_yr": {
-      "vetch_forage": 0.9959877530434699,
-      "potato": 8.553675008728346,
-      "barley_winter": 1.1369544151540452
+      "vetch_forage": 1.0140881276285776,
+      "potato": 8.566303012314915,
+      "barley_winter": 1.144195040432461
      }
     }
    }
@@ -340,57 +420,41 @@
    "area_km2": 919.6184971106518,
    "cropland_fraction": 0.25567595459236325,
    "cropland_ha": 23512.433710956037,
-   "irrigated_ha": 7759.103124615493,
+   "irrigated_ha": 10484.000357074436,
    "elevation_m": 1430.52,
-   "soil_source": "soil_default",
+   "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.56,
-   "baseline_water_m3_ha": 4343.640433068398,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4015.5235955673943,
+   "baseline_water_m3_ha_band": {
+    "p10": 3598.931511075303,
+    "p50": 4015.5235955673943,
+    "p90": 4852.9774847421795
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1407298611511307,
+    "maize_grain": 3.8935492581736506,
+    "sugar_beet": 10.484893185432336,
+    "barley_winter": 0.18735834653244554,
+    "sunflower": 0.12205516515684801,
+    "potato": 0.7746584840675151,
+    "dry_bean": 0.05594680976851532
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 65.6
+    "score": 65.66
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 3924.9620899135753,
-      "p50": 4343.640433068398,
-      "p90": 4570.224878090508
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.2461464700415843,
-      "sugar_beet": 24.77159044369687,
-      "maize_grain": 3.9588828460967083
-     }
-    },
     "water_saver": {
-     "score": 55.7,
+     "score": 55.62,
      "rotation_name": {
       "en": "Potato > Common vetch (forage) > Winter canola > Winter wheat",
       "tr": "Patates > Adi fiğ (yem) > Kışlık kanola > Kışlık buğday"
@@ -417,21 +481,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3007.1059618310346,
+     "water_change_m3_ha_p50": -2660.865219365171,
      "water_m3_ha": {
-      "p10": 1136.9700088210318,
-      "p50": 1336.5344712373635,
-      "p90": 1420.0228676300815
+      "p10": 1119.9116221513107,
+      "p50": 1354.6583762022233,
+      "p90": 1433.885851127689
      },
      "crop_t_ha_yr": {
-      "potato": 6.422575794645835,
-      "vetch_forage": 0.8171060663217906,
-      "canola_winter": 0.36889504978651216,
-      "wheat_winter": 0.9346098525311882
+      "potato": 6.432505780236004,
+      "vetch_forage": 0.8358137225385153,
+      "canola_winter": 0.3723261242914901,
+      "wheat_winter": 0.9407359800085522
      }
     },
     "soil_builder": {
-     "score": 60.62,
+     "score": 60.82,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -468,21 +532,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3254.423317896476,
+     "water_change_m3_ha_p50": -2935.5227205655724,
      "water_m3_ha": {
-      "p10": 916.6403214187568,
-      "p50": 1089.2171151719222,
-      "p90": 1264.2804474135248
+      "p10": 925.0396276052975,
+      "p50": 1080.000875001822,
+      "p90": 1195.209719621146
      },
      "crop_t_ha_yr": {
-      "sunflower": 0.3439330185905142,
-      "wheat_winter": 0.9346098525311882,
-      "dry_bean": 0.43569733568531727,
-      "barley_winter": 0.9131949906800952
+      "sunflower": 0.35380847315649716,
+      "wheat_winter": 0.9407359800085522,
+      "dry_bean": 0.4385620711795772,
+      "barley_winter": 0.9197844066337837
      }
     },
     "balanced_income": {
-     "score": 65.6,
+     "score": 65.66,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -514,16 +578,16 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2534.525946319146,
+     "water_change_m3_ha_p50": -2190.3310398535577,
      "water_m3_ha": {
-      "p10": 1512.025935364476,
-      "p50": 1809.1144867492521,
-      "p90": 1967.8725448854577
+      "p10": 1534.0934366580639,
+      "p50": 1825.1925557138366,
+      "p90": 1935.1736138010924
      },
      "crop_t_ha_yr": {
-      "vetch_forage": 1.089474755095721,
-      "potato": 8.563434392861113,
-      "barley_winter": 1.2175933209067937
+      "vetch_forage": 1.1144182967180203,
+      "potato": 8.576674373648006,
+      "barley_winter": 1.226379208845045
      }
     }
    }
@@ -547,57 +611,41 @@
    "area_km2": 3065.3949903688385,
    "cropland_fraction": 0.3896583564173592,
    "cropland_ha": 119445.67737171284,
-   "irrigated_ha": 39417.073532665236,
+   "irrigated_ha": 53259.84283934497,
    "elevation_m": 1197.55,
-   "soil_source": "soil_default",
+   "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.496,
-   "baseline_water_m3_ha": 4576.703008213337,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4230.15137437453,
+   "baseline_water_m3_ha_band": {
+    "p10": 3790.1425453089532,
+    "p50": 4230.15137437453,
+    "p90": 5031.950853727781
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.2217427253794964,
+    "maize_grain": 2.9944032905021167,
+    "sugar_beet": 7.782252779471583,
+    "barley_winter": 0.19120994452159523,
+    "sunflower": 0.11094642495349616,
+    "potato": 0.7724615774292504,
+    "dry_bean": 0.0518655344449355
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 75.01
+    "score": 73.56
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4107.871891591602,
-      "p50": 4576.703008213337,
-      "p90": 5007.352937310141
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.2440688682667584,
-      "sugar_beet": 18.43160035051898,
-      "maize_grain": 3.026046179853179
-     }
-    },
     "water_saver": {
-     "score": 64.06,
+     "score": 62.89,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -624,21 +672,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3266.6717033895266,
+     "water_change_m3_ha_p50": -2929.625009982584,
      "water_m3_ha": {
-      "p10": 1152.3138224534744,
-      "p50": 1310.0313048238104,
-      "p90": 1427.5249446557636
+      "p10": 1114.4284124252445,
+      "p50": 1300.5263643919461,
+      "p90": 1409.3652932158839
      },
      "crop_t_ha_yr": {
-      "vetch_barley_mix": 1.363877772715273,
-      "potato": 6.4315786764335465,
-      "vetch_forage": 0.8387749763433376,
-      "sorghum": 0.6119278077556479
+      "vetch_barley_mix": 1.3916463590846482,
+      "potato": 6.437475168990137,
+      "vetch_forage": 0.8902402148923673,
+      "sorghum": 0.6584216754386061
      }
     },
     "soil_builder": {
-     "score": 66.28,
+     "score": 65.22,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -680,21 +728,21 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3372.7037285412575,
+     "water_change_m3_ha_p50": -3064.4976445562343,
      "water_m3_ha": {
-      "p10": 938.5040835919284,
-      "p50": 1203.9992796720794,
-      "p90": 1516.6202343562627
+      "p10": 972.9530943594183,
+      "p50": 1165.6537298182957,
+      "p90": 1498.04665315485
      },
      "crop_t_ha_yr": {
-      "wheat_winter": 0.9330516512000688,
-      "chickpea": 0.3322296020287392,
-      "maize_grain": 1.9446377030650388,
-      "sunflower": 0.3089941395825619
+      "wheat_winter": 0.9526366612576441,
+      "chickpea": 0.35001979166422836,
+      "maize_grain": 1.9349974033850161,
+      "sunflower": 0.33460137817372304
      }
     },
     "balanced_income": {
-     "score": 75.01,
+     "score": 73.56,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -726,16 +774,16 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2810.3207221784373,
+     "water_change_m3_ha_p50": -2491.6245067066943,
      "water_m3_ha": {
-      "p10": 1487.0573888630136,
-      "p50": 1766.3822860348996,
-      "p90": 1913.9657319608925
+      "p10": 1459.173465839891,
+      "p50": 1738.5268676678356,
+      "p90": 1897.111359976407
      },
      "crop_t_ha_yr": {
-      "vetch_forage": 1.1183666351244501,
-      "potato": 8.575438235244729,
-      "barley_winter": 1.1622751287346091
+      "vetch_forage": 1.186986953189823,
+      "potato": 8.583300225320182,
+      "barley_winter": 1.1941682363677601
      }
     }
    }
@@ -759,98 +807,82 @@
    "area_km2": 3065.3949903688385,
    "cropland_fraction": 0.7181440443213296,
    "cropland_ha": 220139.5155825821,
-   "irrigated_ha": 72646.0401422521,
+   "irrigated_ha": 98158.39518554632,
    "elevation_m": 1063.87,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.555,
-   "baseline_water_m3_ha": 4822.911183493139,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4666.151316049908,
+   "baseline_water_m3_ha_band": {
+    "p10": 4023.2639469616483,
+    "p50": 4666.151316049908,
+    "p90": 5244.943047864723
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1787187953395453,
+    "maize_grain": 2.642489933354431,
+    "sugar_beet": 6.860928681611272,
+    "barley_winter": 0.18872019183204158,
+    "sunflower": 0.10779205952231931,
+    "potato": 0.7722553553136191,
+    "dry_bean": 0.05161035906809623
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 77.67
+    "score": 75.83
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4374.021098876885,
-      "p50": 4822.911183493139,
-      "p90": 5141.611670841954
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0612255763347846,
-      "sugar_beet": 16.25134952452568,
-      "maize_grain": 2.682735901605508
-     }
-    },
     "water_saver": {
-     "score": 62.19,
+     "score": 63.51,
      "rotation_name": {
-      "en": "Chickpea > Winter wheat > Lentil > Winter barley",
-      "tr": "Nohut > Kışlık buğday > Mercimek > Kışlık arpa"
+      "en": "Potato > Common vetch (forage) > Winter canola > Winter wheat",
+      "tr": "Patates > Adi fiğ (yem) > Kışlık kanola > Kışlık buğday"
      },
      "steps": [
       {
-       "crop_id": "chickpea",
+       "crop_id": "potato",
        "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "wheat_winter",
-       "year": 2,
        "irrigation": "deficit"
       },
       {
-       "crop_id": "lentil",
+       "crop_id": "vetch_forage",
+       "year": 2,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "canola_winter",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "wheat_winter",
        "year": 4,
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -4218.4791162664405,
+     "water_change_m3_ha_p50": -3358.5782432149736,
      "water_m3_ha": {
-      "p10": 282.7692120902611,
-      "p50": 604.4320672266986,
-      "p90": 857.549363141098
+      "p10": 1165.6604330045254,
+      "p50": 1307.5730728349345,
+      "p90": 1407.5577111768857
      },
      "crop_t_ha_yr": {
-      "chickpea": 0.3319357084871685,
-      "wheat_winter": 1.3759084727468662,
-      "lentil": 0.25272264071302053,
-      "barley_winter": 0.8154678280537844
+      "potato": 6.437162188043958,
+      "vetch_forage": 0.8331799839747195,
+      "canola_winter": 0.32158284764334183,
+      "wheat_winter": 0.7959191822510885
      }
     },
     "soil_builder": {
-     "score": 66.45,
+     "score": 64.99,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -892,7 +924,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3376.593112519844,
+     "water_change_m3_ha_p50": -3219.833245076613,
      "water_m3_ha": {
       "p10": 1059.5792515908145,
       "p50": 1446.3180709732949,
@@ -906,7 +938,7 @@
      }
     },
     "balanced_income": {
-     "score": 77.67,
+     "score": 75.83,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -938,7 +970,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3057.2319018471753,
+     "water_change_m3_ha_p50": -2900.4720344039442,
      "water_m3_ha": {
       "p10": 1557.7298573262826,
       "p50": 1765.679281645964,
@@ -971,57 +1003,41 @@
    "area_km2": 3065.3949903688385,
    "cropland_fraction": 0.17820867959372114,
    "cropland_ha": 54627.99936668383,
-   "irrigated_ha": 18027.239791005664,
+   "irrigated_ha": 24358.174568705163,
    "elevation_m": 1236.03,
    "soil_source": "soil_default",
    "delta_t_c_per_decade": 0.588,
-   "baseline_water_m3_ha": 4740.87182357959,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4712.00037428364,
+   "baseline_water_m3_ha_band": {
+    "p10": 4106.056281761083,
+    "p50": 4712.00037428364,
+    "p90": 5196.621574544246
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.177588797051533,
+    "maize_grain": 3.176457988365281,
+    "sugar_beet": 8.404000528042188,
+    "barley_winter": 0.18923375478901786,
+    "sunflower": 0.11423589143948668,
+    "potato": 0.7726235611047062,
+    "dry_bean": 0.05225404328527802
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 74.57
+    "score": 73.23
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4457.0349091518365,
-      "p50": 4740.87182357959,
-      "p90": 5217.7238939134095
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0242315766313521,
-      "sugar_beet": 19.90639406463519,
-      "maize_grain": 3.2248364611598195
-     }
-    },
     "water_saver": {
-     "score": 64.24,
+     "score": 62.92,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -1048,7 +1064,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3417.925627895868,
+     "water_change_m3_ha_p50": -3389.054178599918,
      "water_m3_ha": {
       "p10": 1170.6189724628457,
       "p50": 1322.9461956837217,
@@ -1062,7 +1078,7 @@
      }
     },
     "soil_builder": {
-     "score": 65.41,
+     "score": 64.03,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -1104,7 +1120,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3338.552259952755,
+     "water_change_m3_ha_p50": -3309.680810656805,
      "water_m3_ha": {
       "p10": 1067.5113887444418,
       "p50": 1402.3195636268347,
@@ -1118,7 +1134,7 @@
      }
     },
     "balanced_income": {
-     "score": 74.57,
+     "score": 73.23,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -1150,7 +1166,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2913.482362258775,
+     "water_change_m3_ha_p50": -2884.6109129628253,
      "water_m3_ha": {
       "p10": 1592.3975141537308,
       "p50": 1827.3894613208145,
@@ -1183,57 +1199,41 @@
    "area_km2": 2145.776493258187,
    "cropland_fraction": 0.3107616602481814,
    "cropland_ha": 66682.5065566435,
-   "irrigated_ha": 22005.227163692354,
+   "irrigated_ha": 29733.17994830586,
    "elevation_m": 1475.95,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.611,
-   "baseline_water_m3_ha": 4517.304038540219,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4532.159307753139,
+   "baseline_water_m3_ha_band": {
+    "p10": 3974.3810059184157,
+    "p50": 4532.159307753139,
+    "p90": 5161.662747756629
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1575318960382566,
+    "maize_grain": 3.753565270982684,
+    "sugar_beet": 9.47572010868033,
+    "barley_winter": 0.18967222825305027,
+    "sunflower": 0.1197326221680693,
+    "potato": 0.7726153485291851,
+    "dry_bean": 0.051885140173927424
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 72.07
+    "score": 69.58
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4310.184696629919,
-      "p50": 4517.304038540219,
-      "p90": 4777.524578464696
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.075169946283647,
-      "sugar_beet": 22.444955578021773,
-      "maize_grain": 3.8107332725775085
-     }
-    },
     "water_saver": {
-     "score": 60.26,
+     "score": 57.24,
      "rotation_name": {
       "en": "Potato > Common vetch (forage) > Winter canola > Winter wheat",
       "tr": "Patates > Adi fiğ (yem) > Kışlık kanola > Kışlık buğday"
@@ -1260,7 +1260,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3192.3499974295737,
+     "water_change_m3_ha_p50": -3207.2052666424934,
      "water_m3_ha": {
       "p10": 1186.6273421941617,
       "p50": 1324.9540411106457,
@@ -1274,7 +1274,7 @@
      }
     },
     "soil_builder": {
-     "score": 64.08,
+     "score": 61.45,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -1311,7 +1311,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3397.730433008661,
+     "water_change_m3_ha_p50": -3412.5857022215805,
      "water_m3_ha": {
       "p10": 948.5910318519856,
       "p50": 1119.5736055315583,
@@ -1325,7 +1325,7 @@
      }
     },
     "balanced_income": {
-     "score": 72.07,
+     "score": 69.58,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -1357,7 +1357,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2709.793058403872,
+     "water_change_m3_ha_p50": -2724.6483276167914,
      "water_m3_ha": {
       "p10": 1606.2960735830338,
       "p50": 1807.5109801363474,
@@ -1390,57 +1390,41 @@
    "area_km2": 913.4256177364994,
    "cropland_fraction": 0.2435500515995872,
    "cropland_ha": 22246.485633210923,
-   "irrigated_ha": 7341.340258959605,
+   "irrigated_ha": 9919.524545583554,
    "elevation_m": 1441.95,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.586,
-   "baseline_water_m3_ha": 4338.650587203176,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4312.890685811062,
+   "baseline_water_m3_ha_band": {
+    "p10": 3853.715365208276,
+    "p50": 4312.890685811062,
+    "p90": 4788.900147760823
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.150932632935711,
+    "maize_grain": 3.938686370936731,
+    "sugar_beet": 10.464346291260085,
+    "barley_winter": 0.19188306228009927,
+    "sunflower": 0.12352733789514725,
+    "potato": 0.7818363620967111,
+    "dry_bean": 0.06349452442987194
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 65.73
+    "score": 65.84
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4024.8965422349256,
-      "p50": 4338.650587203176,
-      "p90": 4669.691323693919
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0457933293119033,
-      "sugar_beet": 24.786695361043098,
-      "maize_grain": 3.9986738261905135
-     }
-    },
     "water_saver": {
-     "score": 55.7,
+     "score": 55.71,
      "rotation_name": {
       "en": "Potato > Common vetch (forage) > Winter canola > Winter wheat",
       "tr": "Patates > Adi fiğ (yem) > Kışlık kanola > Kışlık buğday"
@@ -1467,7 +1451,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2975.821229427571,
+     "water_change_m3_ha_p50": -2950.0613280354573,
      "water_m3_ha": {
       "p10": 1176.4273304306803,
       "p50": 1362.8293577756046,
@@ -1481,7 +1465,7 @@
      }
     },
     "soil_builder": {
-     "score": 60.88,
+     "score": 61.08,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -1518,7 +1502,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3240.8015381058967,
+     "water_change_m3_ha_p50": -3215.041636713783,
      "water_m3_ha": {
       "p10": 1018.8265106798221,
       "p50": 1097.8490490972792,
@@ -1532,7 +1516,7 @@
      }
     },
     "balanced_income": {
-     "score": 65.73,
+     "score": 65.84,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -1564,7 +1548,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2482.672406719102,
+     "water_change_m3_ha_p50": -2456.9125053269886,
      "water_m3_ha": {
       "p10": 1529.541392523742,
       "p50": 1855.9781804840736,
@@ -1597,57 +1581,41 @@
    "area_km2": 3044.7520591216644,
    "cropland_fraction": 0.36995998768851956,
    "cropland_ha": 112643.64343072457,
-   "irrigated_ha": 37172.40233213911,
+   "irrigated_ha": 50226.87198048726,
    "elevation_m": 1215.57,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.535,
-   "baseline_water_m3_ha": 4657.231268599711,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4553.2573423748845,
+   "baseline_water_m3_ha_band": {
+    "p10": 3970.4142096199703,
+    "p50": 4553.2573423748845,
+    "p90": 5118.905413030715
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.171361713753438,
+    "maize_grain": 3.256796297042574,
+    "sugar_beet": 8.667327673637823,
+    "barley_winter": 0.19187477716032666,
+    "sunflower": 0.11969270361884347,
+    "potato": 0.7729481517341411,
+    "dry_bean": 0.052085420718690066
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 73.54
+    "score": 71.54
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4115.111664064266,
-      "p50": 4657.231268599711,
-      "p90": 5044.829227451178
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0072173243023437,
-      "sugar_beet": 20.530131998807292,
-      "maize_grain": 3.306398348015996
-     }
-    },
     "water_saver": {
-     "score": 63.62,
+     "score": 61.84,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -1674,7 +1642,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3349.4066341400057,
+     "water_change_m3_ha_p50": -3245.432707915179,
      "water_m3_ha": {
       "p10": 1092.432679987314,
       "p50": 1307.8246344597055,
@@ -1688,7 +1656,7 @@
      }
     },
     "soil_builder": {
-     "score": 64.83,
+     "score": 62.86,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -1725,7 +1693,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3544.9464221574044,
+     "water_change_m3_ha_p50": -3440.9724959325777,
      "water_m3_ha": {
       "p10": 936.4481218982544,
       "p50": 1112.2848464423068,
@@ -1739,7 +1707,7 @@
      }
     },
     "balanced_income": {
-     "score": 73.54,
+     "score": 71.54,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -1771,7 +1739,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2855.811405412795,
+     "water_change_m3_ha_p50": -2751.8374791879683,
      "water_m3_ha": {
       "p10": 1499.625802969792,
       "p50": 1801.4198631869162,
@@ -1804,57 +1772,41 @@
    "area_km2": 3044.7520591216644,
    "cropland_fraction": 0.512927054478301,
    "cropland_ha": 156173.57053020172,
-   "irrigated_ha": 51537.27827496657,
+   "irrigated_ha": 69636.50761687354,
    "elevation_m": 1070.51,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.512,
-   "baseline_water_m3_ha": 4705.013097031826,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4674.945374794983,
+   "baseline_water_m3_ha_band": {
+    "p10": 4158.222787741027,
+    "p50": 4674.945374794983,
+    "p90": 5260.6295668692155
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.128315445404244,
+    "maize_grain": 3.0306117428248847,
+    "sugar_beet": 8.00565299414705,
+    "barley_winter": 0.1871682840477907,
+    "sunflower": 0.11105442758426592,
+    "potato": 0.7720738843835527,
+    "dry_bean": 0.05219105624888706
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 75.28
+    "score": 73.9
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4254.145892923693,
-      "p50": 4705.013097031826,
-      "p90": 5073.576715810706
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 0.9783823664594663,
-      "sugar_beet": 18.96283593920043,
-      "maize_grain": 3.0767689305755455
-     }
-    },
     "water_saver": {
-     "score": 64.48,
+     "score": 63.13,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -1881,7 +1833,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3389.470739765101,
+     "water_change_m3_ha_p50": -3359.403017528258,
      "water_m3_ha": {
       "p10": 1116.7181814995265,
       "p50": 1315.5423572667253,
@@ -1895,7 +1847,7 @@
      }
     },
     "soil_builder": {
-     "score": 65.92,
+     "score": 64.55,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -1937,7 +1889,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3308.486356616553,
+     "water_change_m3_ha_p50": -3278.41863437971,
      "water_m3_ha": {
       "p10": 1120.5937989008994,
       "p50": 1396.5267404152728,
@@ -1951,7 +1903,7 @@
      }
     },
     "balanced_income": {
-     "score": 75.28,
+     "score": 73.9,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -1983,7 +1935,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2911.745848050868,
+     "water_change_m3_ha_p50": -2881.678125814025,
      "water_m3_ha": {
       "p10": 1543.2760274561704,
       "p50": 1793.267248980958,
@@ -2016,57 +1968,41 @@
    "area_km2": 2131.3264413851653,
    "cropland_fraction": 0.19629867351305091,
    "cropland_ha": 41837.65532671992,
-   "irrigated_ha": 13806.426257817575,
+   "irrigated_ha": 18655.065603868272,
    "elevation_m": 1419.5,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.605,
-   "baseline_water_m3_ha": 4850.096574336728,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4806.761185598549,
+   "baseline_water_m3_ha_band": {
+    "p10": 4350.466518184128,
+    "p50": 4806.761185598549,
+    "p90": 5427.499647802341
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1031850596415245,
+    "maize_grain": 3.7144742185517554,
+    "sugar_beet": 9.46134763493001,
+    "barley_winter": 0.188550848747855,
+    "sunflower": 0.11919110536837879,
+    "potato": 0.7722664269798541,
+    "dry_bean": 0.05185815745684157
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 72.03
+    "score": 69.45
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4413.882496278387,
-      "p50": 4850.096574336728,
-      "p90": 4976.34213077938
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0292183600649827,
-      "sugar_beet": 22.410911776477164,
-      "maize_grain": 3.7710468508945816
-     }
-    },
     "water_saver": {
-     "score": 60.27,
+     "score": 57.14,
      "rotation_name": {
       "en": "Potato > Common vetch (forage) > Winter canola > Winter wheat",
       "tr": "Patates > Adi fiğ (yem) > Kışlık kanola > Kışlık buğday"
@@ -2093,7 +2029,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3460.199220401884,
+     "water_change_m3_ha_p50": -3416.863831663705,
      "water_m3_ha": {
       "p10": 1202.6730274603767,
       "p50": 1389.897353934844,
@@ -2107,7 +2043,7 @@
      }
     },
     "soil_builder": {
-     "score": 63.37,
+     "score": 61.16,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -2144,7 +2080,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3642.2549554459656,
+     "water_change_m3_ha_p50": -3598.9195667077865,
      "water_m3_ha": {
       "p10": 1028.6700847836173,
       "p50": 1207.8416188907622,
@@ -2158,7 +2094,7 @@
      }
     },
     "balanced_income": {
-     "score": 72.03,
+     "score": 69.45,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -2190,7 +2126,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2924.272224394318,
+     "water_change_m3_ha_p50": -2880.936835656139,
      "water_m3_ha": {
       "p10": 1652.661403441891,
       "p50": 1925.8243499424098,
@@ -2223,25 +2159,85 @@
    "area_km2": 907.1631774651074,
    "cropland_fraction": 0.7871517027863777,
    "cropland_ha": 71407.50398467602,
-   "irrigated_ha": 23564.476314943087,
+   "irrigated_ha": 31840.017348961082,
    "elevation_m": 1101.81,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.615,
-   "baseline_water_m3_ha": 4333.638232656052,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4317.406426035805,
+   "baseline_water_m3_ha_band": {
+    "p10": 3768.2963314767476,
+    "p50": 4317.406426035805,
+    "p90": 4856.290213503727
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1257478838867527,
+    "maize_grain": 3.080630062510129,
+    "sugar_beet": 8.044406527362458,
+    "barley_winter": 0.18724707860742745,
+    "sunflower": 0.11625075399958415,
+    "potato": 0.7726352290045961,
+    "dry_bean": 0.05197283242025397
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 74.38
+    "score": 73.3
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
+    "water_saver": {
+     "score": 63.18,
      "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
+     },
+     "steps": [
+      {
+       "crop_id": "vetch_barley_mix",
+       "year": 1,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "potato",
+       "year": 2,
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "vetch_forage",
+       "year": 3,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "sorghum",
+       "year": 4,
+       "irrigation": "none"
+      }
+     ],
+     "water_change_m3_ha_p50": -3160.725843627807,
+     "water_m3_ha": {
+      "p10": 935.0939838777616,
+      "p50": 1156.6805824079986,
+      "p90": 1335.2154914275936
+     },
+     "crop_t_ha_yr": {
+      "vetch_barley_mix": 1.1584737106048868,
+      "potato": 6.443212435586727,
+      "vetch_forage": 0.9112657648236673,
+      "sorghum": 0.6849718403070042
+     }
+    },
+    "soil_builder": {
+     "score": 64.65,
+     "rotation_name": {
+      "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
+      "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
      },
      "steps": [
       {
@@ -2250,42 +2246,17 @@
        "irrigation": "none"
       },
       {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 3963.206543921251,
-      "p50": 4333.638232656052,
-      "p90": 4807.071659031012
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0519466227497507,
-      "sugar_beet": 19.054630686357893,
-      "maize_grain": 3.127549045293806
-     }
-    },
-    "water_saver": {
-     "score": 56.48,
-     "rotation_name": {
-      "en": "Winter wheat > Chickpea > Grain maize > Sunflower",
-      "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
+       "crop_id": "vetch_cover",
        "year": 1,
        "irrigation": "none"
       },
       {
        "crop_id": "chickpea",
+       "year": 2,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "rye_cover",
        "year": 2,
        "irrigation": "none"
       },
@@ -2295,16 +2266,21 @@
        "irrigation": "deficit"
       },
       {
+       "crop_id": "vetch_cover",
+       "year": 3,
+       "irrigation": "none"
+      },
+      {
        "crop_id": "sunflower",
        "year": 4,
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3267.114380260246,
+     "water_change_m3_ha_p50": -3043.4494140030356,
      "water_m3_ha": {
-      "p10": 902.0162153813479,
-      "p50": 1066.5238523958064,
-      "p90": 1298.9433299987159
+      "p10": 1051.793908198608,
+      "p50": 1273.9570120327699,
+      "p90": 1463.0492543296623
      },
      "crop_t_ha_yr": {
       "wheat_winter": 0.7889599670623131,
@@ -2313,69 +2289,8 @@
       "sunflower": 0.3645308195600545
      }
     },
-    "soil_builder": {
-     "score": 69.48,
-     "rotation_name": {
-      "en": "Safflower > Winter wheat > Chickpea > Grain sorghum (+cover)",
-      "tr": "Aspir > Kışlık buğday > Nohut > Dane sorgum (+cover)"
-     },
-     "steps": [
-      {
-       "crop_id": "safflower",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "vetch_cover",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "wheat_winter",
-       "year": 2,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "vetch_cover",
-       "year": 2,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "chickpea",
-       "year": 3,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "vetch_cover",
-       "year": 3,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sorghum",
-       "year": 4,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "rye_cover",
-       "year": 4,
-       "irrigation": "none"
-      }
-     ],
-     "water_change_m3_ha_p50": -4333.638232656052,
-     "water_m3_ha": {
-      "p10": 0.0,
-      "p50": 0.0,
-      "p90": 0.0
-     },
-     "crop_t_ha_yr": {
-      "safflower": 0.3968186552103291,
-      "wheat_winter": 0.7889599670623131,
-      "chickpea": 0.3615045869831845,
-      "sorghum": 0.6849718403070042
-     }
-    },
     "balanced_income": {
-     "score": 74.38,
+     "score": 73.3,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -2407,7 +2322,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2692.8063911926683,
+     "water_change_m3_ha_p50": -2676.5745845724214,
      "water_m3_ha": {
       "p10": 1323.913821557893,
       "p50": 1640.831841463384,
@@ -2440,98 +2355,82 @@
    "area_km2": 3023.877258217024,
    "cropland_fraction": 0.7830871037242229,
    "cropland_ha": 236795.9284154713,
-   "irrigated_ha": 78142.65637710554,
+   "irrigated_ha": 105585.35235358374,
    "elevation_m": 1055.93,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.552,
-   "baseline_water_m3_ha": 4369.230498923557,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4500.941318329191,
+   "baseline_water_m3_ha_band": {
+    "p10": 3990.339157979745,
+    "p50": 4500.941318329191,
+    "p90": 4982.5412333869845
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.155450999730258,
+    "maize_grain": 3.0829645126251872,
+    "sugar_beet": 7.680833840015523,
+    "barley_winter": 0.18681043352883145,
+    "sunflower": 0.11888232812997639,
+    "potato": 0.773101694685703,
+    "dry_bean": 0.052019975211833165
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 74.34
+    "score": 73.19
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4149.1220733988375,
-      "p50": 4369.230498923557,
-      "p90": 4750.836090227811
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 0.9899349965782028,
-      "sugar_beet": 18.193443069660713,
-      "maize_grain": 3.1299190498319973
-     }
-    },
     "water_saver": {
-     "score": 55.12,
+     "score": 62.81,
      "rotation_name": {
-      "en": "Lentil > Sunflower > Chickpea > Grain maize",
-      "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
      },
      "steps": [
       {
-       "crop_id": "lentil",
+       "crop_id": "vetch_barley_mix",
        "year": 1,
        "irrigation": "none"
       },
       {
-       "crop_id": "sunflower",
+       "crop_id": "potato",
        "year": 2,
-       "irrigation": "none"
+       "irrigation": "deficit"
       },
       {
-       "crop_id": "chickpea",
+       "crop_id": "vetch_forage",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "maize_grain",
+       "crop_id": "sorghum",
        "year": 4,
-       "irrigation": "deficit"
+       "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3191.0705974832917,
+     "water_change_m3_ha_p50": -3273.295432725095,
      "water_m3_ha": {
-      "p10": 927.9885431694344,
-      "p50": 1178.1599014402655,
-      "p90": 1364.4719631385074
+      "p10": 1005.3389172292267,
+      "p50": 1227.6458856040958,
+      "p90": 1338.5563703983792
      },
      "crop_t_ha_yr": {
-      "lentil": 0.25591844085158794,
-      "sunflower": 0.368149423802994,
-      "chickpea": 0.3611679348680572,
-      "maize_grain": 2.047469954751486
+      "vetch_barley_mix": 1.1538793622286658,
+      "potato": 6.417096307710012,
+      "vetch_forage": 0.9161211012078994,
+      "sorghum": 0.6583262529723055
      }
     },
     "soil_builder": {
-     "score": 65.58,
+     "score": 64.36,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -2573,7 +2472,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2985.993647651248,
+     "water_change_m3_ha_p50": -3117.7044670568816,
      "water_m3_ha": {
       "p10": 973.1918975088428,
       "p50": 1383.2368512723092,
@@ -2587,7 +2486,7 @@
      }
     },
     "balanced_income": {
-     "score": 74.34,
+     "score": 73.19,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -2619,7 +2518,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2680.570521491752,
+     "water_change_m3_ha_p50": -2812.2813408973857,
      "water_m3_ha": {
       "p10": 1398.217009673326,
       "p50": 1688.6599774318051,
@@ -2652,57 +2551,41 @@
    "area_km2": 3023.877258217024,
    "cropland_fraction": 0.39188981224992303,
    "cropland_ha": 118502.66909894816,
-   "irrigated_ha": 39105.88080265289,
+   "irrigated_ha": 52839.3632246047,
    "elevation_m": 973.44,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.506,
-   "baseline_water_m3_ha": 4512.31089420719,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4579.633101419618,
+   "baseline_water_m3_ha_band": {
+    "p10": 4092.8484502163983,
+    "p50": 4579.633101419618,
+    "p90": 5077.716204783729
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1481218669595057,
+    "maize_grain": 3.3567794828913,
+    "sugar_beet": 8.809831434615793,
+    "barley_winter": 0.1937534198021687,
+    "sunflower": 0.12148556000996906,
+    "potato": 0.7723953554850607,
+    "dry_bean": 0.05478511723773476
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 73.39
+    "score": 71.78
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4097.970422580638,
-      "p50": 4512.31089420719,
-      "p90": 4847.082209537917
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.024172108643016,
-      "sugar_beet": 20.867677910692297,
-      "maize_grain": 3.4079043098164927
-     }
-    },
     "water_saver": {
-     "score": 62.94,
+     "score": 61.36,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -2729,7 +2612,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3274.0645671654006,
+     "water_change_m3_ha_p50": -3341.386774377828,
      "water_m3_ha": {
       "p10": 1045.685522436241,
       "p50": 1238.2463270417898,
@@ -2743,7 +2626,7 @@
      }
     },
     "soil_builder": {
-     "score": 65.6,
+     "score": 64.0,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -2785,7 +2668,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3216.000335074716,
+     "water_change_m3_ha_p50": -3283.3225422871433,
      "water_m3_ha": {
       "p10": 1040.270866289812,
       "p50": 1296.3105591324743,
@@ -2799,7 +2682,7 @@
      }
     },
     "balanced_income": {
-     "score": 73.39,
+     "score": 71.78,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -2831,7 +2714,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2830.495564651416,
+     "water_change_m3_ha_p50": -2897.817771863843,
      "water_m3_ha": {
       "p10": 1407.3895174208255,
       "p50": 1681.8153295557745,
@@ -2864,98 +2747,82 @@
    "area_km2": 3023.877258217024,
    "cropland_fraction": 0.3721914435210834,
    "cropland_ha": 112546.12417663701,
-   "irrigated_ha": 37140.220978290214,
+   "irrigated_ha": 50183.38894903062,
    "elevation_m": 993.12,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.53,
-   "baseline_water_m3_ha": 4633.116615073508,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4606.657418921363,
+   "baseline_water_m3_ha_band": {
+    "p10": 4027.2194696335505,
+    "p50": 4606.657418921363,
+    "p90": 5409.94886452822
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.149001056960695,
+    "maize_grain": 3.08523887120956,
+    "sugar_beet": 8.031645181984514,
+    "barley_winter": 0.18958022091626694,
+    "sunflower": 0.11829304575516073,
+    "potato": 0.7733059588198693,
+    "dry_bean": 0.052082697602005144
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 74.81
+    "score": 73.74
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4197.646429055719,
-      "p50": 4633.116615073508,
-      "p90": 5112.876680912477
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0643889271225146,
-      "sugar_beet": 19.024403133534612,
-      "maize_grain": 3.1322280476262385
-     }
-    },
     "water_saver": {
-     "score": 55.65,
+     "score": 63.13,
      "rotation_name": {
-      "en": "Lentil > Sunflower > Chickpea > Grain maize",
-      "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
      },
      "steps": [
       {
-       "crop_id": "lentil",
+       "crop_id": "vetch_barley_mix",
        "year": 1,
        "irrigation": "none"
       },
       {
-       "crop_id": "sunflower",
+       "crop_id": "potato",
        "year": 2,
-       "irrigation": "none"
+       "irrigation": "deficit"
       },
       {
-       "crop_id": "chickpea",
+       "crop_id": "vetch_forage",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "maize_grain",
+       "crop_id": "sorghum",
        "year": 4,
-       "irrigation": "deficit"
+       "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3454.1024893424483,
+     "water_change_m3_ha_p50": -3368.457179094844,
      "water_m3_ha": {
-      "p10": 934.8390081884473,
-      "p50": 1179.0141257310597,
-      "p90": 1425.0860406433449
+      "p10": 1064.5178943637695,
+      "p50": 1238.2002398265192,
+      "p90": 1396.719159624164
      },
      "crop_t_ha_yr": {
-      "lentil": 0.2745451669419671,
-      "sunflower": 0.3800242012322731,
-      "chickpea": 0.36784601449245263,
-      "maize_grain": 2.0403919251847658
+      "vetch_barley_mix": 1.1715746409493248,
+      "potato": 6.4447781260751595,
+      "vetch_forage": 0.937139596809343,
+      "sorghum": 0.6640627986210594
      }
     },
     "soil_builder": {
-     "score": 65.86,
+     "score": 64.72,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -2997,7 +2864,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3230.5977028574525,
+     "water_change_m3_ha_p50": -3204.138506705308,
      "water_m3_ha": {
       "p10": 1101.0441491096585,
       "p50": 1402.5189122160555,
@@ -3011,10 +2878,10 @@
      }
     },
     "balanced_income": {
-     "score": 74.81,
+     "score": 73.74,
      "rotation_name": {
-      "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
-      "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
+      "en": "Common vetch (forage) > Potato > Safflower (+cover)",
+      "tr": "Adi fiğ (yem) > Patates > Aspir (+cover)"
      },
      "steps": [
       {
@@ -3023,7 +2890,7 @@
        "irrigation": "none"
       },
       {
-       "crop_id": "vetch_cover",
+       "crop_id": "rye_cover",
        "year": 1,
        "irrigation": "none"
       },
@@ -3033,26 +2900,31 @@
        "irrigation": "deficit"
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "vetch_cover",
+       "year": 2,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "safflower",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "rye_cover",
+       "crop_id": "vetch_cover",
        "year": 3,
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2927.462432595188,
+     "water_change_m3_ha_p50": -2881.090028157675,
      "water_m3_ha": {
-      "p10": 1471.0758783480835,
-      "p50": 1705.6541824783199,
-      "p90": 1967.5163451584494
+      "p10": 1473.9567370360742,
+      "p50": 1725.5673907636883,
+      "p90": 1988.476145837515
      },
      "crop_t_ha_yr": {
       "vetch_forage": 1.2495194624124573,
       "potato": 8.593037501433546,
-      "barley_winter": 1.0237296101414117
+      "safflower": 0.5435866223954998
      }
     }
    }
@@ -3076,98 +2948,82 @@
    "area_km2": 2116.714080751917,
    "cropland_fraction": 0.5640778776208815,
    "cropland_ha": 119399.15862007765,
-   "irrigated_ha": 39401.722344625625,
+   "irrigated_ha": 53239.10051148775,
    "elevation_m": 1259.3,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.577,
-   "baseline_water_m3_ha": 4542.0235659570235,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4586.209501295154,
+   "baseline_water_m3_ha_band": {
+    "p10": 4082.8614882829374,
+    "p50": 4586.209501295154,
+    "p90": 5116.356679013745
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1522417299280376,
+    "maize_grain": 3.544990958060665,
+    "sugar_beet": 8.826988385365793,
+    "barley_winter": 0.19019119325306771,
+    "sunflower": 0.12149640581152306,
+    "potato": 0.7717717823588243,
+    "dry_bean": 0.052075717143869306
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 73.7
+    "score": 72.15
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4314.418307535266,
-      "p50": 4542.0235659570235,
-      "p90": 5062.402987329014
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.1007265126551797,
-      "sugar_beet": 20.908317249235576,
-      "maize_grain": 3.5989823060493986
-     }
-    },
     "water_saver": {
-     "score": 54.69,
+     "score": 62.11,
      "rotation_name": {
-      "en": "Lentil > Sunflower > Chickpea > Grain maize",
-      "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
      },
      "steps": [
       {
-       "crop_id": "lentil",
+       "crop_id": "vetch_barley_mix",
        "year": 1,
        "irrigation": "none"
       },
       {
-       "crop_id": "sunflower",
+       "crop_id": "potato",
        "year": 2,
-       "irrigation": "none"
+       "irrigation": "deficit"
       },
       {
-       "crop_id": "chickpea",
+       "crop_id": "vetch_forage",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "maize_grain",
+       "crop_id": "sorghum",
        "year": 4,
-       "irrigation": "deficit"
+       "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3273.758584585757,
+     "water_change_m3_ha_p50": -3295.3810775302263,
      "water_m3_ha": {
-      "p10": 948.5268612806095,
-      "p50": 1268.2649813712665,
-      "p90": 1366.6334814247282
+      "p10": 1074.5537142823673,
+      "p50": 1290.8284237649277,
+      "p90": 1524.748639684461
      },
      "crop_t_ha_yr": {
-      "lentil": 0.27460385690241074,
-      "sunflower": 0.3421855810683478,
-      "chickpea": 0.3631521292304011,
-      "maize_grain": 2.30820860857414
+      "vetch_barley_mix": 1.1707626174078452,
+      "potato": 6.468018461498346,
+      "vetch_forage": 0.9349728328174897,
+      "sorghum": 0.6654964111393001
      }
     },
     "soil_builder": {
-     "score": 64.74,
+     "score": 63.23,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -3204,7 +3060,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3399.675218897072,
+     "water_change_m3_ha_p50": -3443.861154235203,
      "water_m3_ha": {
       "p10": 919.5001257365232,
       "p50": 1142.3483470599515,
@@ -3218,7 +3074,7 @@
      }
     },
     "balanced_income": {
-     "score": 73.7,
+     "score": 72.15,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -3250,7 +3106,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2728.1779222110144,
+     "water_change_m3_ha_p50": -2772.363857549145,
      "water_m3_ha": {
       "p10": 1482.3158719518174,
       "p50": 1813.845643746009,
@@ -3283,25 +3139,85 @@
    "area_km2": 301.23073212827114,
    "cropland_fraction": 0.8131578947368421,
    "cropland_ha": 24494.814796746257,
-   "irrigated_ha": 8083.288882926266,
+   "irrigated_ha": 10922.035984556449,
    "elevation_m": 1023.93,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.579,
-   "baseline_water_m3_ha": 4377.874940772206,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4246.830529314812,
+   "baseline_water_m3_ha_band": {
+    "p10": 3700.699980612538,
+    "p50": 4246.830529314812,
+    "p90": 4784.367046959857
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1206347093552256,
+    "maize_grain": 2.9530721583287605,
+    "sugar_beet": 7.635807617790045,
+    "barley_winter": 0.18372864912063622,
+    "sunflower": 0.11069302155290685,
+    "potato": 0.772209046430456,
+    "dry_bean": 0.052116887072946136
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 75.38
+    "score": 74.06
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
+    "water_saver": {
+     "score": 63.61,
      "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
+     },
+     "steps": [
+      {
+       "crop_id": "vetch_barley_mix",
+       "year": 1,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "potato",
+       "year": 2,
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "vetch_forage",
+       "year": 3,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "sorghum",
+       "year": 4,
+       "irrigation": "none"
+      }
+     ],
+     "water_change_m3_ha_p50": -3084.9126507973824,
+     "water_m3_ha": {
+      "p10": 914.3858050209955,
+      "p50": 1161.9178785174302,
+      "p90": 1341.5924011203542
+     },
+     "crop_t_ha_yr": {
+      "vetch_barley_mix": 1.1168454332075,
+      "potato": 6.4405562852187375,
+      "vetch_forage": 0.903146185928062,
+      "sorghum": 0.69562678523378
+     }
+    },
+    "soil_builder": {
+     "score": 64.9,
+     "rotation_name": {
+      "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
+      "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
      },
      "steps": [
       {
@@ -3310,37 +3226,7 @@
        "irrigation": "none"
       },
       {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 3873.441161844349,
-      "p50": 4377.874940772206,
-      "p90": 4799.504216729937
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0596695962306366,
-      "sugar_beet": 18.08679032495045,
-      "maize_grain": 2.9980483933664352
-     }
-    },
-    "water_saver": {
-     "score": 56.33,
-     "rotation_name": {
-      "en": "Winter wheat > Chickpea > Grain maize > Sunflower",
-      "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
+       "crop_id": "vetch_cover",
        "year": 1,
        "irrigation": "none"
       },
@@ -3350,9 +3236,19 @@
        "irrigation": "none"
       },
       {
+       "crop_id": "rye_cover",
+       "year": 2,
+       "irrigation": "none"
+      },
+      {
        "crop_id": "maize_grain",
        "year": 3,
        "irrigation": "deficit"
+      },
+      {
+       "crop_id": "vetch_cover",
+       "year": 3,
+       "irrigation": "none"
       },
       {
        "crop_id": "sunflower",
@@ -3360,11 +3256,11 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3285.2123136720893,
+     "water_change_m3_ha_p50": -2965.0300591403075,
      "water_m3_ha": {
-      "p10": 883.1462855087653,
-      "p50": 1092.662627100117,
-      "p90": 1258.7394342036039
+      "p10": 942.0131392730649,
+      "p50": 1281.800470174505,
+      "p90": 1483.6484097558148
      },
      "crop_t_ha_yr": {
       "wheat_winter": 0.7947521971729774,
@@ -3373,64 +3269,8 @@
       "sunflower": 0.35768987038976646
      }
     },
-    "soil_builder": {
-     "score": 65.44,
-     "rotation_name": {
-      "en": "Lentil > Grain maize > Sunflower > Winter wheat (+cover)",
-      "tr": "Mercimek > Dane mısır > Ayçiçeği > Kışlık buğday (+cover)"
-     },
-     "steps": [
-      {
-       "crop_id": "lentil",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "vetch_cover",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 2,
-       "irrigation": "deficit"
-      },
-      {
-       "crop_id": "vetch_cover",
-       "year": 2,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sunflower",
-       "year": 3,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "wheat_winter",
-       "year": 4,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "rye_cover",
-       "year": 4,
-       "irrigation": "none"
-      }
-     ],
-     "water_change_m3_ha_p50": -3124.9412109581754,
-     "water_m3_ha": {
-      "p10": 1050.2232583351465,
-      "p50": 1252.9337298140306,
-      "p90": 1474.1524272613103
-     },
-     "crop_t_ha_yr": {
-      "lentil": 0.2769118393223197,
-      "maize_grain": 2.0182349156390424,
-      "sunflower": 0.35768987038976646,
-      "wheat_winter": 0.7947521971729774
-     }
-    },
     "balanced_income": {
-     "score": 75.38,
+     "score": 74.06,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -3462,7 +3302,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2777.267479160157,
+     "water_change_m3_ha_p50": -2646.2230677027633,
      "water_m3_ha": {
       "p10": 1278.2167990966097,
       "p50": 1600.607461612049,
@@ -3495,57 +3335,41 @@
    "area_km2": 301.23073212827114,
    "cropland_fraction": 0.3157894736842105,
    "cropland_ha": 9512.549435629615,
-   "irrigated_ha": 3139.141313757773,
+   "irrigated_ha": 4241.567372643281,
    "elevation_m": 1010.72,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.544,
-   "baseline_water_m3_ha": 4400.466409969604,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4404.41980862318,
+   "baseline_water_m3_ha_band": {
+    "p10": 3876.8575466202155,
+    "p50": 4404.41980862318,
+    "p90": 4899.303520006363
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1689457894913122,
+    "maize_grain": 3.3144995726256488,
+    "sugar_beet": 8.515558081836774,
+    "barley_winter": 0.18928942033447727,
+    "sunflower": 0.12145367020505729,
+    "potato": 0.7724024667794012,
+    "dry_bean": 0.05208404284707321
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 74.31
+    "score": 72.83
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4037.2696973826296,
-      "p50": 4400.466409969604,
-      "p90": 4823.77288402786
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.060759797221739,
-      "sugar_beet": 20.17063829204948,
-      "maize_grain": 3.3649804629724156
-     }
-    },
     "water_saver": {
-     "score": 63.78,
+     "score": 62.35,
      "rotation_name": {
       "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
       "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
@@ -3572,7 +3396,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3218.8884156351896,
+     "water_change_m3_ha_p50": -3222.841814288766,
      "water_m3_ha": {
       "p10": 948.7577814123711,
       "p50": 1181.5779943344141,
@@ -3586,7 +3410,7 @@
      }
     },
     "soil_builder": {
-     "score": 65.93,
+     "score": 64.71,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -3628,7 +3452,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3037.317712217381,
+     "water_change_m3_ha_p50": -3041.2711108709573,
      "water_m3_ha": {
       "p10": 1119.475444257526,
       "p50": 1363.1486977522227,
@@ -3642,7 +3466,7 @@
      }
     },
     "balanced_income": {
-     "score": 74.31,
+     "score": 72.83,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -3674,7 +3498,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2767.297424405999,
+     "water_change_m3_ha_p50": -2771.2508230595754,
      "water_m3_ha": {
       "p10": 1322.8450930140946,
       "p50": 1633.1689855636046,
@@ -3707,98 +3531,82 @@
    "area_km2": 301.23073212827114,
    "cropland_fraction": 0.4631578947368421,
    "cropland_ha": 13951.73917225677,
-   "irrigated_ha": 4604.073926844734,
+   "irrigated_ha": 6220.965479876812,
    "elevation_m": 1063.26,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.548,
-   "baseline_water_m3_ha": 4463.62692387829,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4303.675407773243,
+   "baseline_water_m3_ha_band": {
+    "p10": 3726.6062260051267,
+    "p50": 4303.675407773243,
+    "p90": 4921.56587889196
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.1604665166648473,
+    "maize_grain": 3.543353566832448,
+    "sugar_beet": 9.261473513235288,
+    "barley_winter": 0.1856922397322149,
+    "sunflower": 0.12101640343826532,
+    "potato": 0.7786060331113126,
+    "dry_bean": 0.05223473763705475
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 73.86
+    "score": 72.41
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 4064.6102895698796,
-      "p50": 4463.62692387829,
-      "p90": 4940.322064099314
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.0970440545928952,
-      "sugar_beet": 21.937473796969456,
-      "maize_grain": 3.59731997682821
-     }
-    },
     "water_saver": {
-     "score": 55.31,
+     "score": 62.08,
      "rotation_name": {
-      "en": "Lentil > Sunflower > Chickpea > Grain maize",
-      "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
+      "en": "Vetch + barley mix (forage) > Potato > Common vetch (forage) > Grain sorghum",
+      "tr": "Fiğ + arpa karışımı (yem) > Patates > Adi fiğ (yem) > Dane sorgum"
      },
      "steps": [
       {
-       "crop_id": "lentil",
+       "crop_id": "vetch_barley_mix",
        "year": 1,
        "irrigation": "none"
       },
       {
-       "crop_id": "sunflower",
+       "crop_id": "potato",
        "year": 2,
-       "irrigation": "none"
+       "irrigation": "deficit"
       },
       {
-       "crop_id": "chickpea",
+       "crop_id": "vetch_forage",
        "year": 3,
        "irrigation": "none"
       },
       {
-       "crop_id": "maize_grain",
+       "crop_id": "sorghum",
        "year": 4,
-       "irrigation": "deficit"
+       "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3304.6399196787684,
+     "water_change_m3_ha_p50": -3100.6913328105347,
      "water_m3_ha": {
-      "p10": 949.7815381057083,
-      "p50": 1158.9870041995214,
-      "p90": 1350.3112599909714
+      "p10": 987.8062810189463,
+      "p50": 1202.9840749627085,
+      "p90": 1460.7299191741158
      },
      "crop_t_ha_yr": {
-      "lentil": 0.2832465924491714,
-      "sunflower": 0.3832273588286382,
-      "chickpea": 0.3778513914762045,
-      "maize_grain": 2.3721728515226617
+      "vetch_barley_mix": 1.166934527695586,
+      "potato": 6.497138976652068,
+      "vetch_forage": 0.914462991111144,
+      "sorghum": 0.6942151775157769
      }
     },
     "soil_builder": {
-     "score": 65.76,
+     "score": 64.57,
      "rotation_name": {
       "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
       "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
@@ -3840,7 +3648,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3097.3138915600425,
+     "water_change_m3_ha_p50": -2937.362375454996,
      "water_m3_ha": {
       "p10": 1044.6426345134264,
       "p50": 1366.3130323182472,
@@ -3854,7 +3662,7 @@
      }
     },
     "balanced_income": {
-     "score": 73.86,
+     "score": 72.41,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -3886,7 +3694,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2813.656234045381,
+     "water_change_m3_ha_p50": -2653.7047179403344,
      "water_m3_ha": {
       "p10": 1352.3318871280724,
       "p50": 1649.9706898329084,
@@ -3919,60 +3727,44 @@
    "area_km2": 210.86151248978985,
    "cropland_fraction": 0.6648648648648648,
    "cropland_ha": 14019.441100672515,
-   "irrigated_ha": 4626.41556322193,
+   "irrigated_ha": 6251.153211628059,
    "elevation_m": 1138.62,
    "soil_source": "soilgrids",
    "delta_t_c_per_decade": 0.565,
-   "baseline_water_m3_ha": 4460.832712470749,
+   "precip_correction": {
+    "applied": false,
+    "reason": "satellite precipitation unavailable: chirps: too few days (2191); gpm_imerg: too few days (1461)"
+   },
+   "baseline_water_m3_ha": 4455.158326276617,
+   "baseline_water_m3_ha_band": {
+    "p10": 3679.5027233310275,
+    "p50": 4455.158326276617,
+    "p90": 4796.454483568551
+   },
+   "baseline_crop_t_ha_yr": {
+    "wheat_winter": 2.2150771692407205,
+    "maize_grain": 3.340688215638024,
+    "sugar_beet": 8.193307383173524,
+    "barley_winter": 0.18815030388864354,
+    "sunflower": 0.11669095112867518,
+    "potato": 0.7717717823588243,
+    "dry_bean": 0.05158172490885257
+   },
+   "reference_baseline": "wheat_beet_maize",
    "best_strategy": {
     "archetype": "balanced_income",
     "name": {
      "en": "Balanced income",
      "tr": "Dengeli gelir"
     },
-    "score": 75.25
+    "score": 74.43
    },
    "strategies": {
-    "baseline": {
-     "score": 50.0,
-     "rotation_name": {
-      "en": "Current rotation",
-      "tr": "Mevcut rotasyon"
-     },
-     "steps": [
-      {
-       "crop_id": "wheat_winter",
-       "year": 1,
-       "irrigation": "none"
-      },
-      {
-       "crop_id": "sugar_beet",
-       "year": 2,
-       "irrigation": "full"
-      },
-      {
-       "crop_id": "maize_grain",
-       "year": 3,
-       "irrigation": "full"
-      }
-     ],
-     "water_change_m3_ha_p50": 0.0,
-     "water_m3_ha": {
-      "p10": 3973.778438402212,
-      "p50": 4460.832712470749,
-      "p90": 4870.533738164517
-     },
-     "crop_t_ha_yr": {
-      "wheat_winter": 1.132510276669945,
-      "sugar_beet": 19.40732927347079,
-      "maize_grain": 3.3915679674078416
-     }
-    },
     "water_saver": {
-     "score": 58.92,
+     "score": 55.28,
      "rotation_name": {
-      "en": "Chickpea > Sunflower > Winter wheat",
-      "tr": "Nohut > Ayçiçeği > Kışlık buğday"
+      "en": "Chickpea > Winter canola > Lentil > Grain maize",
+      "tr": "Nohut > Kışlık kanola > Mercimek > Dane mısır"
      },
      "steps": [
       {
@@ -3981,30 +3773,36 @@
        "irrigation": "none"
       },
       {
-       "crop_id": "sunflower",
+       "crop_id": "canola_winter",
        "year": 2,
        "irrigation": "none"
       },
       {
-       "crop_id": "wheat_winter",
+       "crop_id": "lentil",
        "year": 3,
+       "irrigation": "none"
+      },
+      {
+       "crop_id": "maize_grain",
+       "year": 4,
        "irrigation": "deficit"
       }
      ],
-     "water_change_m3_ha_p50": -3665.5401240951087,
+     "water_change_m3_ha_p50": -3331.1784840271857,
      "water_m3_ha": {
-      "p10": 437.993856192494,
-      "p50": 795.2925883756407,
-      "p90": 882.6569777103507
+      "p10": 948.8366610006364,
+      "p50": 1123.9798422494314,
+      "p90": 1354.0659631698652
      },
      "crop_t_ha_yr": {
-      "chickpea": 0.5211100740258033,
-      "sunflower": 0.4908659937194013,
-      "wheat_winter": 1.8651594392483144
+      "chickpea": 0.39083255551935253,
+      "canola_winter": 0.3531039016208773,
+      "lentil": 0.2758376118362447,
+      "maize_grain": 2.1656054696278284
      }
     },
     "soil_builder": {
-     "score": 65.69,
+     "score": 64.68,
      "rotation_name": {
       "en": "Sunflower > Winter wheat > Dry bean > Winter barley (+cover)",
       "tr": "Ayçiçeği > Kışlık buğday > Kuru fasulye > Kışlık arpa (+cover)"
@@ -4041,7 +3839,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -3411.439867711605,
+     "water_change_m3_ha_p50": -3405.765481517473,
      "water_m3_ha": {
       "p10": 795.5165971445584,
       "p50": 1049.3928447591443,
@@ -4055,7 +3853,7 @@
      }
     },
     "balanced_income": {
-     "score": 75.25,
+     "score": 74.43,
      "rotation_name": {
       "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
       "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
@@ -4087,7 +3885,7 @@
        "irrigation": "none"
       }
      ],
-     "water_change_m3_ha_p50": -2791.24850320415,
+     "water_change_m3_ha_p50": -2785.5741170100177,
      "water_m3_ha": {
       "p10": 1393.2886066740684,
       "p50": 1669.5842092665994,
@@ -4108,14 +3906,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -191.16324275366287,
-      "p50": -179.51447157499723,
-      "p90": -171.824418556204
+      "p10": -263.1986715633948,
+      "p50": -231.28907679125155,
+      "p90": -206.29299587991846
      },
      "grace_offset_pct": {
-      "p10": 32.16433747853994,
-      "p50": 33.60386198036984,
-      "p90": 35.78443102026061
+      "p10": 38.616615698136876,
+      "p50": 43.29570839537201,
+      "p90": 49.26896285872961
      },
      "production_change_t_yr": [
       {
@@ -4124,7 +3922,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -1015476.8431368703
+       "change_t_yr": -579252.5997990051,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4132,7 +3931,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 164543.4874159883
+       "change_t_yr": 397012.47411146987,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4140,7 +3940,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -128622.21426430615
+       "change_t_yr": -223349.07131154765,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4148,7 +3949,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -37836.999393570164
+       "change_t_yr": -139423.0086879541,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4156,7 +3958,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 22886.61230850606
+       "change_t_yr": 61002.01148123467,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4164,7 +3967,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 20492.08108337873
+       "change_t_yr": 59970.98143424688,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4172,15 +3976,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 12693.176092420632
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 9593.215013140292
+       "change_t_yr": 34622.14341560407,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4188,7 +3985,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 7311.205612481529
+       "change_t_yr": -11520.37700244097,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4196,15 +3994,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 7188.1703566204005
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 6433.35314360886
+       "change_t_yr": -8216.079406508403,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4212,21 +4003,49 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 1683.1040810690802
+       "change_t_yr": 5655.122010891998,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -3709.2411831097425,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 672.6135976692651,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 244.31541846436022,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -191.0519024410675,
-      "p50": -178.21084417198514,
-      "p90": -170.8381569274713
+      "p10": -257.3786397197374,
+      "p50": -225.1124330737814,
+      "p90": -197.76792243089022
      },
      "grace_offset_pct": {
-      "p10": 31.97971615326355,
-      "p50": 33.35983198690859,
-      "p90": 35.763588887231
+      "p10": 37.02078117270711,
+      "p50": 42.13948360099898,
+      "p90": 48.17949332972892
      },
      "production_change_t_yr": [
       {
@@ -4235,7 +4054,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -941272.4363470656
+       "change_t_yr": -536870.8473950431,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4243,7 +4063,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 164376.14213190784
+       "change_t_yr": 397316.5225147975,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4251,7 +4072,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -118722.13948417292
+       "change_t_yr": -204878.3211881273,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4259,7 +4081,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -39421.30124345207
+       "change_t_yr": -139103.8596186456,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4267,7 +4090,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 23534.557741156117
+       "change_t_yr": 62715.61978383492,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4275,7 +4099,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 20727.45959879185
+       "change_t_yr": 60597.06174487162,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4283,15 +4108,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 12600.510243213266
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 9811.803986360397
+       "change_t_yr": 34169.660830627756,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4299,7 +4117,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 7594.970086275566
+       "change_t_yr": -11574.457449632684,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4307,15 +4126,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 7013.093556144718
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 6629.6041977172135
+       "change_t_yr": -8118.1352611769935,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4323,7 +4135,35 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 1729.607880056854
+       "change_t_yr": 6066.317420121205,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -3669.082707378098,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 686.6777395524409,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 251.667051787641,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -4332,14 +4172,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -573.4897282609887,
-      "p50": -538.5434147249915,
-      "p90": -515.4732556686118
+      "p10": -789.5960146901843,
+      "p50": -693.8672303737545,
+      "p90": -618.8789876397552
      },
      "grace_offset_pct": {
-      "p10": 96.49301243561982,
-      "p50": 100.81158594110948,
-      "p90": 107.35329306078185
+      "p10": 115.84984709441059,
+      "p50": 129.88712518611604,
+      "p90": 147.8068885761888
      },
      "production_change_t_yr": [
       {
@@ -4348,7 +4188,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -3046430.5294106114
+       "change_t_yr": -1737757.7993970152,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4356,7 +4197,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 493630.4622479648
+       "change_t_yr": 1191037.4223344098,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4364,7 +4206,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -385866.6427929184
+       "change_t_yr": -670047.2139346428,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4372,7 +4215,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -113510.99818071048
+       "change_t_yr": -418269.02606386226,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4380,7 +4224,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 68659.83692551818
+       "change_t_yr": 183006.03444370403,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4388,7 +4233,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 61476.24325013618
+       "change_t_yr": 179912.94430274065,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4396,15 +4242,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 38079.528277261896
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 28779.64503942087
+       "change_t_yr": 103866.4302468122,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4412,7 +4251,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 21933.616837444588
+       "change_t_yr": -34561.13100732291,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4420,15 +4260,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 21564.511069861197
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 19300.059430826575
+       "change_t_yr": -24648.238219525214,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4436,21 +4269,49 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 5049.3122432072405
+       "change_t_yr": 16965.366032675993,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -11127.723549329228,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 2017.8407930077951,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 732.9462553930806,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -573.1557073232025,
-      "p50": -534.6325325159554,
-      "p90": -512.5144707824138
+      "p10": -772.1359191592121,
+      "p50": -675.3372992213441,
+      "p90": -593.3037672926706
      },
      "grace_offset_pct": {
-      "p10": 95.93914845979063,
-      "p50": 100.07949596072577,
-      "p90": 107.290766661693
+      "p10": 111.06234351812132,
+      "p50": 126.41845080299692,
+      "p90": 144.53847998918675
      },
      "production_change_t_yr": [
       {
@@ -4459,7 +4320,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -2823817.309041197
+       "change_t_yr": -1610612.5421851291,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4467,7 +4329,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 493128.4263957236
+       "change_t_yr": 1191949.5675443923,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4475,7 +4338,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -356166.4184525187
+       "change_t_yr": -614634.963564382,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4483,7 +4347,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -118263.90373035624
+       "change_t_yr": -417311.57885593665,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4491,7 +4356,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 70603.67322346834
+       "change_t_yr": 188146.85935150474,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4499,7 +4365,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 62182.378796375546
+       "change_t_yr": 181791.18523461485,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4507,15 +4374,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 37801.530729639795
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 29435.41195908119
+       "change_t_yr": 102508.98249188323,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4523,7 +4383,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 22784.910258826698
+       "change_t_yr": -34723.37234889805,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4531,15 +4392,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 21039.28066843415
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 19888.812593151637
+       "change_t_yr": -24354.405783530972,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4547,7 +4401,35 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 5188.823640170561
+       "change_t_yr": 18198.952260363618,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -11007.248122134297,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 2060.0332186573223,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 755.0011553629229,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -4556,14 +4438,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -955.8162137683145,
-      "p50": -897.5723578749861,
-      "p90": -859.1220927810198
+      "p10": -1315.993357816974,
+      "p50": -1156.4453839562575,
+      "p90": -1031.4649793995923
      },
      "grace_offset_pct": {
-      "p10": 160.82168739269972,
-      "p50": 168.0193099018492,
-      "p90": 178.92215510130308
+      "p10": 193.0830784906844,
+      "p50": 216.47854197686001,
+      "p90": 246.34481429364806
      },
      "production_change_t_yr": [
       {
@@ -4572,7 +4454,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -5077384.2156843515
+       "change_t_yr": -2896262.998995026,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4580,7 +4463,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 822717.4370799412
+       "change_t_yr": 1985062.3705573499,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4588,7 +4472,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -643111.0713215308
+       "change_t_yr": -1116745.3565577387,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4596,7 +4481,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -189184.9969678508
+       "change_t_yr": -697115.0434397704,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4604,7 +4490,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 114433.0615425303
+       "change_t_yr": 305010.0574061734,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4612,7 +4499,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 102460.40541689364
+       "change_t_yr": 299854.9071712344,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4620,15 +4508,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 63465.88046210315
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 47966.07506570145
+       "change_t_yr": 173110.7170780204,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4636,7 +4517,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 36556.02806240765
+       "change_t_yr": -57601.88501220486,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4644,15 +4526,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 35940.85178310201
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 32166.7657180443
+       "change_t_yr": -41080.39703254201,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4660,21 +4535,49 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 8415.5204053454
+       "change_t_yr": 28275.610054459987,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -18546.205915548708,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 3363.0679883463254,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 1221.577092321801,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -955.2595122053375,
-      "p50": -891.0542208599257,
-      "p90": -854.1907846373564
+      "p10": -1286.893198598687,
+      "p50": -1125.5621653689068,
+      "p90": -988.8396121544512
      },
      "grace_offset_pct": {
-      "p10": 159.89858076631774,
-      "p50": 166.79915993454296,
-      "p90": 178.817944436155
+      "p10": 185.10390586353557,
+      "p50": 210.69741800499483,
+      "p90": 240.89746664864458
      },
      "production_change_t_yr": [
       {
@@ -4683,7 +4586,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -4706362.181735328
+       "change_t_yr": -2684354.2369752154,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -4691,7 +4595,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 821880.7106595392
+       "change_t_yr": 1986582.612573987,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -4699,7 +4604,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -593610.6974208646
+       "change_t_yr": -1024391.6059406367,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4707,7 +4613,8 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -197106.50621726047
+       "change_t_yr": -695519.298093228,
+       "baseline_t_yr": 1528375.5104434954
       },
       {
        "crop_id": "vetch_barley_mix",
@@ -4715,7 +4622,8 @@
         "en": "Vetch + barley mix (forage)",
         "tr": "Fiğ + arpa karışımı (yem)"
        },
-       "change_t_yr": 117672.78870578056
+       "change_t_yr": 313578.0989191745,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "vetch_forage",
@@ -4723,7 +4631,8 @@
         "en": "Common vetch (forage)",
         "tr": "Adi fiğ (yem)"
        },
-       "change_t_yr": 103637.29799395926
+       "change_t_yr": 302985.30872435815,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "sorghum",
@@ -4731,15 +4640,8 @@
         "en": "Grain sorghum",
         "tr": "Dane sorgum"
        },
-       "change_t_yr": 63002.55121606633
-      },
-      {
-       "crop_id": "chickpea",
-       "name": {
-        "en": "Chickpea",
-        "tr": "Nohut"
-       },
-       "change_t_yr": 49059.01993180199
+       "change_t_yr": 170848.3041531387,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -4747,7 +4649,8 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 37974.85043137783
+       "change_t_yr": -57872.28724816342,
+       "baseline_t_yr": 134066.19070552397
       },
       {
        "crop_id": "sunflower",
@@ -4755,15 +4658,8 @@
         "en": "Sunflower",
         "tr": "Ayçiçeği"
        },
-       "change_t_yr": 35065.467780723586
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 33148.02098858606
+       "change_t_yr": -40590.67630588496,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "canola_winter",
@@ -4771,7 +4667,35 @@
         "en": "Winter canola",
         "tr": "Kışlık kanola"
        },
-       "change_t_yr": 8648.039400284268
+       "change_t_yr": 30331.58710060603,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -18345.413536890486,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "lentil",
+       "name": {
+        "en": "Lentil",
+        "tr": "Mercimek"
+       },
+       "change_t_yr": 3433.3886977622046,
+       "baseline_t_yr": 0.0
+      },
+      {
+       "crop_id": "chickpea",
+       "name": {
+        "en": "Chickpea",
+        "tr": "Nohut"
+       },
+       "change_t_yr": 1258.3352589382048,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -4782,14 +4706,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -185.0754963718105,
-      "p50": -175.37891673497055,
-      "p90": -170.04885178015138
+      "p10": -256.7271775775406,
+      "p50": -230.20670338864085,
+      "p90": -211.62803502519162
      },
      "grace_offset_pct": {
-      "p10": 31.8319637130384,
-      "p50": 32.82971484427976,
-      "p90": 34.64484718953976
+      "p10": 39.61529796327521,
+      "p50": 43.093095613720266,
+      "p90": 48.05754414245868
      },
      "production_change_t_yr": [
       {
@@ -4798,7 +4722,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -1015476.8431368703
+       "change_t_yr": -579252.5997990051,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -4806,15 +4731,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -98684.97290502914
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 16751.02496729963
+       "change_t_yr": -123663.0842881828,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4822,7 +4740,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -13834.517656212656
+       "change_t_yr": -96638.65853384593,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -54689.16664354715,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -4830,15 +4758,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 12707.13795082244
+       "change_t_yr": 17663.857990967208,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 11492.792880471425
+       "change_t_yr": 15738.77388609553,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -4846,45 +4776,31 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 6254.541034263032
+       "change_t_yr": 4730.079026757998,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 1614.1002707317382
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 935.0823802031368
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 223.83583923447716
+       "change_t_yr": 2141.1396139656345,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -183.20321453948796,
-      "p50": -173.15907980528357,
-      "p90": -166.77113570859302
+      "p10": -249.45757171115858,
+      "p50": -223.44241759574587,
+      "p90": -199.23525930770444
      },
      "grace_offset_pct": {
-      "p10": 31.21839803494502,
-      "p50": 32.414176792390926,
-      "p90": 34.29436903739014
+      "p10": 37.29545644236398,
+      "p50": 41.82686830521464,
+      "p90": 46.69672442668701
      },
      "production_change_t_yr": [
       {
@@ -4893,7 +4809,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -941272.4363470656
+       "change_t_yr": -536870.8473950431,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -4901,15 +4818,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -90096.81555095602
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 16741.460019208163
+       "change_t_yr": -112785.50771717193,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -4917,7 +4827,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -14313.5082185363
+       "change_t_yr": -95088.82064013413,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -54677.739801601754,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -4925,15 +4845,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 12998.621028806141
+       "change_t_yr": 18058.780118584466,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 11792.037958877207
+       "change_t_yr": 15828.636387107885,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -4941,31 +4863,17 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 6189.12291716317
+       "change_t_yr": 4690.522723648318,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 1595.685701961671
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 957.1316708170518
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 227.39863427899675
+       "change_t_yr": 2476.0440557627253,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     }
@@ -4974,14 +4882,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -555.2264891154314,
-      "p50": -526.1367502049116,
-      "p90": -510.1465553404541
+      "p10": -770.1815327326217,
+      "p50": -690.6201101659225,
+      "p90": -634.8841050755749
      },
      "grace_offset_pct": {
-      "p10": 95.49589113911519,
-      "p50": 98.48914453283928,
-      "p90": 103.93454156861928
+      "p10": 118.84589388982565,
+      "p50": 129.2792868411608,
+      "p90": 144.17263242737602
      },
      "production_change_t_yr": [
       {
@@ -4990,7 +4898,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -3046430.5294106114
+       "change_t_yr": -1737757.7993970152,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -4998,15 +4907,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -296054.91871508735
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 50253.07490189888
+       "change_t_yr": -370989.2528645484,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5014,7 +4916,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -41503.552968637974
+       "change_t_yr": -289915.9756015376,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -164067.49993064144,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -5022,15 +4934,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 38121.4138524673
+       "change_t_yr": 52991.57397290162,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 34478.378641414274
+       "change_t_yr": 47216.321658286586,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -5038,45 +4952,31 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 18763.623102789097
+       "change_t_yr": 14190.237080273988,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 4842.300812195213
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 2805.24714060941
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 671.5075177034314
+       "change_t_yr": 6423.418841896906,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -549.6096436184639,
-      "p50": -519.4772394158506,
-      "p90": -500.313407125779
+      "p10": -748.3727151334757,
+      "p50": -670.3272527872375,
+      "p90": -597.7057779231133
      },
      "grace_offset_pct": {
-      "p10": 93.65519410483506,
-      "p50": 97.24253037717276,
-      "p90": 102.88310711217044
+      "p10": 111.88636932709193,
+      "p50": 125.4806049156439,
+      "p90": 140.09017328006104
      },
      "production_change_t_yr": [
       {
@@ -5085,7 +4985,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -2823817.309041197
+       "change_t_yr": -1610612.5421851291,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5093,15 +4994,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -270290.44665286806
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 50224.38005762446
+       "change_t_yr": -338356.5231515158,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5109,7 +5003,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -42940.524655608904
+       "change_t_yr": -285266.46192040236,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -164033.2194048053,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -5117,15 +5021,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 38995.86308641842
+       "change_t_yr": 54176.3403557534,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 35376.11387663161
+       "change_t_yr": 47485.909161323645,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -5133,31 +5039,17 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 18567.368751489506
+       "change_t_yr": 14071.568170944953,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 4787.057105885012
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 2871.3950124511553
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 682.1959028369902
+       "change_t_yr": 7428.13216728818,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     }
@@ -5166,14 +5058,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -925.3774818590524,
-      "p50": -876.8945836748527,
-      "p90": -850.2442589007568
+      "p10": -1283.635887887703,
+      "p50": -1151.0335169432042,
+      "p90": -1058.1401751259582
      },
      "grace_offset_pct": {
-      "p10": 159.15981856519196,
-      "p50": 164.1485742213988,
-      "p90": 173.22423594769882
+      "p10": 198.07648981637607,
+      "p50": 215.46547806860136,
+      "p90": 240.28772071229335
      },
      "production_change_t_yr": [
       {
@@ -5182,7 +5074,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -5077384.2156843515
+       "change_t_yr": -2896262.998995026,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5190,15 +5083,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -493424.86452514544
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 83755.12483649816
+       "change_t_yr": -618315.4214409139,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5206,7 +5092,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -69172.58828106329
+       "change_t_yr": -483193.2926692295,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -273445.83321773575,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -5214,15 +5110,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 63535.68975411217
+       "change_t_yr": 88319.28995483606,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 57463.964402357116
+       "change_t_yr": 78693.86943047767,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -5230,45 +5128,31 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 31272.705171315152
+       "change_t_yr": 23650.39513378998,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 8070.501353658689
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 4675.411901015684
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 1119.1791961723857
+       "change_t_yr": 10705.698069828179,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -916.0160726974398,
-      "p50": -865.7953990264178,
-      "p90": -833.855678542965
+      "p10": -1247.2878585557928,
+      "p50": -1117.2120879787292,
+      "p90": -996.1762965385223
      },
      "grace_offset_pct": {
-      "p10": 156.0919901747251,
-      "p50": 162.07088396195462,
-      "p90": 171.47184518695073
+      "p10": 186.4772822118199,
+      "p50": 209.13434152607317,
+      "p90": 233.48362213343506
      },
      "production_change_t_yr": [
       {
@@ -5277,7 +5161,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -4706362.181735328
+       "change_t_yr": -2684354.2369752154,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5285,15 +5170,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -450484.07775478007
-      },
-      {
-       "crop_id": "sunflower",
-       "name": {
-        "en": "Sunflower",
-        "tr": "Ayçiçeği"
-       },
-       "change_t_yr": 83707.3000960408
+       "change_t_yr": -563927.5385858597,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5301,7 +5179,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -71567.54109268154
+       "change_t_yr": -475444.1032006707,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "potato",
+       "name": {
+        "en": "Potato",
+        "tr": "Patates"
+       },
+       "change_t_yr": -273388.6990080088,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "chickpea",
@@ -5309,15 +5197,17 @@
         "en": "Chickpea",
         "tr": "Nohut"
        },
-       "change_t_yr": 64993.105144030706
+       "change_t_yr": 90293.90059292233,
+       "baseline_t_yr": 0.0
       },
       {
-       "crop_id": "barley_winter",
+       "crop_id": "sunflower",
        "name": {
-        "en": "Winter barley",
-        "tr": "Kışlık arpa"
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
        },
-       "change_t_yr": 58960.18979438603
+       "change_t_yr": 79143.18193553941,
+       "baseline_t_yr": 82160.79406508402
       },
       {
        "crop_id": "dry_bean",
@@ -5325,31 +5215,17 @@
         "en": "Dry bean",
         "tr": "Kuru fasulye"
        },
-       "change_t_yr": 30945.61458581585
+       "change_t_yr": 23452.613618241594,
+       "baseline_t_yr": 37092.411831097415
       },
       {
-       "crop_id": "sorghum",
+       "crop_id": "barley_winter",
        "name": {
-        "en": "Grain sorghum",
-        "tr": "Dane sorgum"
+        "en": "Winter barley",
+        "tr": "Kışlık arpa"
        },
-       "change_t_yr": 7978.428509808354
-      },
-      {
-       "crop_id": "safflower",
-       "name": {
-        "en": "Safflower",
-        "tr": "Aspir"
-       },
-       "change_t_yr": 4785.658354085259
-      },
-      {
-       "crop_id": "lentil",
-       "name": {
-        "en": "Lentil",
-        "tr": "Mercimek"
-       },
-       "change_t_yr": 1136.9931713949836
+       "change_t_yr": 12380.220278813633,
+       "baseline_t_yr": 134066.19070552397
       }
      ]
     }
@@ -5360,14 +5236,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -158.21970815379143,
-      "p50": -148.37909888475644,
-      "p90": -142.71042483665826
+      "p10": -224.98667437526223,
+      "p50": -197.64374581091926,
+      "p90": -178.10388251382193
      },
      "grace_offset_pct": {
-      "p10": 26.714400111010008,
-      "p50": 27.77553651217426,
-      "p90": 29.61763020399814
+      "p10": 33.33980950756989,
+      "p50": 36.99753617211144,
+      "p90": 42.11594244628988
      },
      "production_change_t_yr": [
       {
@@ -5376,7 +5252,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -1015476.8431368703
+       "change_t_yr": -579252.5997990051,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -5384,7 +5261,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 449630.7328174803
+       "change_t_yr": 552929.607645199,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -5392,15 +5270,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -168759.75938099824
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 61103.23521468426
+       "change_t_yr": -224702.824470206,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5408,7 +5279,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -55338.070624850625
+       "change_t_yr": -152837.55104434956,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 82993.31255175323,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5416,38 +5297,68 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 53645.333076976625
+       "change_t_yr": 54135.831481954716,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -8216.079406508403,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -3709.2411831097425,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 2727.9018899163207,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -157.62386533263447,
-      "p50": -148.3202858494086,
-      "p90": -143.87130254757113
+      "p10": -219.70601924016182,
+      "p50": -193.08095419352,
+      "p90": -170.96512472342775
      },
      "grace_offset_pct": {
-      "p10": 26.931708353801486,
-      "p50": 27.76452712053505,
-      "p90": 29.50609256723559
+      "p10": 32.003483642613226,
+      "p50": 36.143413279338326,
+      "p90": 41.1274404900467
      },
      "production_change_t_yr": [
-      {
-       "crop_id": "sugar_beet",
-       "name": {
-        "en": "Sugar beet",
-        "tr": "Şeker pancarı"
-       },
-       "change_t_yr": -941272.4363470656
-      },
       {
        "crop_id": "potato",
        "name": {
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 450086.5053734634
+       "change_t_yr": 553370.3058818755,
+       "baseline_t_yr": 546891.6664354715
+      },
+      {
+       "crop_id": "sugar_beet",
+       "name": {
+        "en": "Sugar beet",
+        "tr": "Şeker pancarı"
+       },
+       "change_t_yr": -536870.8473950431,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5455,15 +5366,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -154783.65384060258
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 61723.29664003047
+       "change_t_yr": -206113.15150918002,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5471,7 +5375,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -57254.0328741452
+       "change_t_yr": -153179.02828533074,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 83862.9152545164,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5479,7 +5393,35 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 55137.83634966264
+       "change_t_yr": 55984.13485906763,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -8118.1352611769935,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -3669.082707378098,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 2758.143904236348,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -5488,14 +5430,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -474.6591244613743,
-      "p50": -445.1372966542693,
-      "p90": -428.13127450997473
+      "p10": -674.9600231257866,
+      "p50": -592.9312374327577,
+      "p90": -534.3116475414658
      },
      "grace_offset_pct": {
-      "p10": 80.14320033303001,
-      "p50": 83.32660953652277,
-      "p90": 88.85289061199443
+      "p10": 100.01942852270969,
+      "p50": 110.9926085163343,
+      "p90": 126.34782733886962
      },
      "production_change_t_yr": [
       {
@@ -5504,7 +5446,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -3046430.5294106114
+       "change_t_yr": -1737757.7993970152,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -5512,7 +5455,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 1348892.1984524406
+       "change_t_yr": 1658788.8229355968,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -5520,15 +5464,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -506279.27814299444
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 183309.7056440527
+       "change_t_yr": -674108.4734106179,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5536,7 +5473,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -166014.21187455187
+       "change_t_yr": -458512.6531330486,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 248979.93765525965,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5544,38 +5491,68 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 160935.99923092985
+       "change_t_yr": 162407.4944458642,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -24648.238219525214,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -11127.723549329228,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 8183.705669748961,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -472.8715959979034,
-      "p50": -444.9608575482258,
-      "p90": -431.61390764271334
+      "p10": -659.1180577204855,
+      "p50": -579.24286258056,
+      "p90": -512.8953741702832
      },
      "grace_offset_pct": {
-      "p10": 80.79512506140443,
-      "p50": 83.29358136160513,
-      "p90": 88.51827770170678
+      "p10": 96.01045092783967,
+      "p50": 108.43023983801497,
+      "p90": 123.3823214701401
      },
      "production_change_t_yr": [
-      {
-       "crop_id": "sugar_beet",
-       "name": {
-        "en": "Sugar beet",
-        "tr": "Şeker pancarı"
-       },
-       "change_t_yr": -2823817.309041197
-      },
       {
        "crop_id": "potato",
        "name": {
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 1350259.51612039
+       "change_t_yr": 1660110.917645626,
+       "baseline_t_yr": 546891.6664354715
+      },
+      {
+       "crop_id": "sugar_beet",
+       "name": {
+        "en": "Sugar beet",
+        "tr": "Şeker pancarı"
+       },
+       "change_t_yr": -1610612.5421851291,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5583,15 +5560,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -464350.9615218078
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 185169.88992009143
+       "change_t_yr": -618339.4545275401,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5599,7 +5569,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -171762.09862243562
+       "change_t_yr": -459537.0848559922,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 251588.74576354914,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5607,7 +5587,35 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 165413.50904898797
+       "change_t_yr": 167952.4045772029,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -24354.405783530972,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -11007.248122134297,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 8274.431712709043,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -5616,14 +5624,14 @@
     "5": {
      "climate": "current",
      "irrigation_change_mm3_yr": {
-      "p10": -791.0985407689572,
-      "p50": -741.8954944237822,
-      "p90": -713.5521241832912
+      "p10": -1124.933371876311,
+      "p50": -988.2187290545962,
+      "p90": -890.5194125691097
      },
      "grace_offset_pct": {
-      "p10": 133.57200055505,
-      "p50": 138.8776825608713,
-      "p90": 148.0881510199907
+      "p10": 166.69904753784945,
+      "p50": 184.98768086055716,
+      "p90": 210.57971223144935
      },
      "production_change_t_yr": [
       {
@@ -5632,7 +5640,8 @@
         "en": "Sugar beet",
         "tr": "Şeker pancarı"
        },
-       "change_t_yr": -5077384.2156843515
+       "change_t_yr": -2896262.998995026,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "potato",
@@ -5640,7 +5649,8 @@
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 2248153.664087401
+       "change_t_yr": 2764648.038225995,
+       "baseline_t_yr": 546891.6664354715
       },
       {
        "crop_id": "maize_grain",
@@ -5648,15 +5658,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -843798.796904991
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 305516.17607342126
+       "change_t_yr": -1123514.1223510304,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5664,7 +5667,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -276690.35312425316
+       "change_t_yr": -764187.7552217477,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 414966.56275876606,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5672,38 +5685,68 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 268226.6653848832
+       "change_t_yr": 270679.1574097735,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -41080.39703254201,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -18546.205915548708,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 13639.509449581603,
+       "baseline_t_yr": 0.0
       }
      ]
     },
     "10": {
      "climate": "trend_continuation",
      "irrigation_change_mm3_yr": {
-      "p10": -788.1193266631724,
-      "p50": -741.601429247043,
-      "p90": -719.3565127378557
+      "p10": -1098.530096200809,
+      "p50": -965.4047709676,
+      "p90": -854.8256236171387
      },
      "grace_offset_pct": {
-      "p10": 134.65854176900746,
-      "p50": 138.82263560267523,
-      "p90": 147.53046283617797
+      "p10": 160.01741821306615,
+      "p50": 180.71706639669162,
+      "p90": 205.6372024502335
      },
      "production_change_t_yr": [
-      {
-       "crop_id": "sugar_beet",
-       "name": {
-        "en": "Sugar beet",
-        "tr": "Şeker pancarı"
-       },
-       "change_t_yr": -4706362.181735328
-      },
       {
        "crop_id": "potato",
        "name": {
         "en": "Potato",
         "tr": "Patates"
        },
-       "change_t_yr": 2250432.526867317
+       "change_t_yr": 2766851.529409377,
+       "baseline_t_yr": 546891.6664354715
+      },
+      {
+       "crop_id": "sugar_beet",
+       "name": {
+        "en": "Sugar beet",
+        "tr": "Şeker pancarı"
+       },
+       "change_t_yr": -2684354.2369752154,
+       "baseline_t_yr": 5792525.997990052
       },
       {
        "crop_id": "maize_grain",
@@ -5711,15 +5754,8 @@
         "en": "Grain maize",
         "tr": "Dane mısır"
        },
-       "change_t_yr": -773918.269203013
-      },
-      {
-       "crop_id": "vetch_forage",
-       "name": {
-        "en": "Common vetch (forage)",
-        "tr": "Adi fiğ (yem)"
-       },
-       "change_t_yr": 308616.4832001524
+       "change_t_yr": -1030565.7575459002,
+       "baseline_t_yr": 2247028.2447020607
       },
       {
        "crop_id": "wheat_winter",
@@ -5727,7 +5763,17 @@
         "en": "Winter wheat",
         "tr": "Kışlık buğday"
        },
-       "change_t_yr": -286270.1643707261
+       "change_t_yr": -765895.1414266538,
+       "baseline_t_yr": 1528375.5104434954
+      },
+      {
+       "crop_id": "vetch_forage",
+       "name": {
+        "en": "Common vetch (forage)",
+        "tr": "Adi fiğ (yem)"
+       },
+       "change_t_yr": 419314.57627258194,
+       "baseline_t_yr": 0.0
       },
       {
        "crop_id": "barley_winter",
@@ -5735,7 +5781,35 @@
         "en": "Winter barley",
         "tr": "Kışlık arpa"
        },
-       "change_t_yr": 275689.1817483133
+       "change_t_yr": 279920.6742953382,
+       "baseline_t_yr": 134066.19070552397
+      },
+      {
+       "crop_id": "sunflower",
+       "name": {
+        "en": "Sunflower",
+        "tr": "Ayçiçeği"
+       },
+       "change_t_yr": -40590.67630588496,
+       "baseline_t_yr": 82160.79406508402
+      },
+      {
+       "crop_id": "dry_bean",
+       "name": {
+        "en": "Dry bean",
+        "tr": "Kuru fasulye"
+       },
+       "change_t_yr": -18345.413536890486,
+       "baseline_t_yr": 37092.411831097415
+      },
+      {
+       "crop_id": "safflower",
+       "name": {
+        "en": "Safflower",
+        "tr": "Aspir"
+       },
+       "change_t_yr": 13790.71952118174,
+       "baseline_t_yr": 0.0
       }
      ]
     }
@@ -6832,30 +6906,103 @@
     "en": "Irrigated share of cropland",
     "tr": "Ekili alanın sulu payı"
    },
-   "value": 0.33,
-   "source": "Turkish Konya Plain study: ~1/3 of 1.85 Mha agricultural area irrigated (dergipark.org.tr article-file/4394763); approximate"
+   "value": 0.4458917560792199,
+   "source": "828,948 ha irrigated (KOP Dec 2024) / 1,859,079 ha agricultural area (TUIK 2020), both quoted in Konya Il Tarim ve Orman Mudurlugu, 2026 Konya Tarimi, Tablo 4 (TUIK), 2024: https://konya.tarimorman.gov.tr/Belgeler/kitap/%C4%B0l_Tar%C4%B1m_ve_Orman_Ocak_26_4DonemV2.pdf; includes irrigated orchards, so an upper-ish estimate for field crops"
   },
   {
-   "id": "baseline",
+   "id": "baseline_mix",
    "label": {
-    "en": "Regional baseline rotation",
-    "tr": "Bölgesel baz rotasyon"
+    "en": "Calibrated baseline: weighted mix of representative irrigated rotations",
+    "tr": "Kalibre baz: temsili sulu rotasyonların ağırlıklı karışımı"
    },
-   "value": [
-    {
-     "crop_id": "wheat_winter",
-     "irrigation": "none"
+   "value": {
+    "rotations": {
+     "wheat_maize": [
+      {
+       "crop_id": "wheat_winter",
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "maize_grain",
+       "irrigation": "full"
+      }
+     ],
+     "wheat_beet_maize": [
+      {
+       "crop_id": "wheat_winter",
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "sugar_beet",
+       "irrigation": "full"
+      },
+      {
+       "crop_id": "maize_grain",
+       "irrigation": "full"
+      }
+     ],
+     "barley_sunflower_wheat": [
+      {
+       "crop_id": "barley_winter",
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "sunflower",
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "wheat_winter",
+       "irrigation": "deficit"
+      }
+     ],
+     "wheat_potato_bean": [
+      {
+       "crop_id": "wheat_winter",
+       "irrigation": "deficit"
+      },
+      {
+       "crop_id": "potato",
+       "irrigation": "full"
+      },
+      {
+       "crop_id": "dry_bean",
+       "irrigation": "full"
+      }
+     ]
     },
-    {
-     "crop_id": "sugar_beet",
-     "irrigation": "full"
+    "weights": {
+     "wheat_maize": 0.3752148182392682,
+     "wheat_beet_maize": 0.42217593506663065,
+     "barley_sunflower_wheat": 0.11685682643200959,
+     "wheat_potato_bean": 0.08575242026209158
     },
-    {
-     "crop_id": "maize_grain",
-     "irrigation": "full"
-    }
-   ],
-   "source": "assumption: dominant irrigated Konya-plain rotation (winter wheat > sugar beet > grain maize)"
+    "target_noncereal_shares": {
+     "sugar_beet": 0.2493118398021032,
+     "maize_grain": 0.58098484686177,
+     "sunflower": 0.06871531520637156,
+     "potato": 0.05505603978522725,
+     "dry_bean": 0.045931958344528026
+    },
+    "achieved_noncereal_shares": {
+     "maize_grain": 0.5809362344804344,
+     "sugar_beet": 0.24899264522679407,
+     "sunflower": 0.0689202958039809,
+     "potato": 0.050575412244395324,
+     "dry_bean": 0.050575412244395324
+    },
+    "cereal_share_of_area": 0.43482141185054796,
+    "rmse": 0.0028908113970225234
+   },
+   "source": "weights solved by least squares so that non-cereal crop-area shares match Konya 2024 statistics (grain+silage maize, sugar beet, sunflower x0.3, potato, dry bean; sown area, decare: {\"wheat\": 6378828, \"barley\": 3517522, \"sugar_beet\": 850642, \"maize_grain\": 1589939, \"maize_silage\": 392358, \"sunflower\": 781513, \"dry_bean\": 156718, \"potato\": 187849}; irrigated fractions are assumptions: {\"sugar_beet\": 1.0, \"maize_grain\": 1.0, \"maize_silage\": 1.0, \"potato\": 1.0, \"dry_bean\": 1.0, \"sunflower\": 0.3}); cereals are not targeted (their share follows from the rotations); Konya Il Tarim ve Orman Mudurlugu, 2026 Konya Tarimi, Tablo 4 (TUIK), 2024: https://konya.tarimorman.gov.tr/Belgeler/kitap/%C4%B0l_Tar%C4%B1m_ve_Orman_Ocak_26_4DonemV2.pdf"
+  },
+  {
+   "id": "scenario_definition",
+   "label": {
+    "en": "Scenario: the adoption fraction of each baseline rotation's area switches to the cell's archetype strategy",
+    "tr": "Senaryo: her baz rotasyonun alanının benimseme oranı kadarı hücrenin strateji rotasyonuna geçer"
+   },
+   "value": true,
+   "source": "a crop can lose at most its area share in the baseline mix"
   },
   {
    "id": "cropland_weights",
@@ -6903,7 +7050,7 @@
     "erosion": 0.1,
     "risk": 0.1
    },
-   "source": "engine default"
+   "source": "engine default; strategies are scored against the highest-weight baseline rotation of each cell"
   },
   {
    "id": "start_years",
@@ -6913,6 +7060,19 @@
    },
    "value": 20,
    "source": "last 20 feasible start years of 1991-2025"
+  },
+  {
+   "id": "precip_correction",
+   "label": {
+    "en": "NASA POWER rain bias-corrected to GPM IMERG / CHIRPS (monthly ratio)",
+    "tr": "NASA POWER yağışı GPM IMERG / CHIRPS'e göre aylık oranla düzeltildi"
+   },
+   "value": {
+    "cells_corrected": 0,
+    "cells_total": 19,
+    "sources": []
+   },
+   "source": "rotacast/connectors/precip.py (ClimateSERV); factors per cell in cells[].precip_correction"
   },
   {
    "id": "trend",
@@ -6949,9 +7109,28 @@
    },
    "value": "crops.yaml",
    "source": "rotacast/knowledge/crops.yaml; engine water stress applied"
+  },
+  {
+   "id": "plausibility_irrigation",
+   "label": {
+    "en": "Plausibility check: modelled baseline irrigation demand vs published basin figures",
+    "tr": "Makullük kontrolü: modellenen baz sulama talebi ve yayımlanmış havza rakamları"
+   },
+   "value": {
+    "model_baseline_demand_mm3_yr_p50": 3220.0676209529906,
+    "published_total_irrigation_mm3_yr": 3690,
+    "published_groundwater_irrigation_mm3_yr": 2790,
+    "ratio_to_total": 0.872647051748778,
+    "ratio_to_groundwater": 1.1541461006999967
+   },
+   "source": "published figures are secondary/unverified: ~2.8 bcm/yr groundwater and ~3.7 bcm/yr total irrigation withdrawal, >4.5 bcm/yr total extraction vs ~2.4 bcm/yr allowed (literature summaries, not primary DSI data); ~1.9 bcm/yr abstraction from the two main irrigation zones (University of Twente MSc thesis, https://essay.utwente.nl/essays/93328). Model value is crop net irrigation requirement, which is lower than abstraction (efficiency losses, orchards, non-field uses)."
   }
  ],
  "limitations": [
+  {
+   "en": "The baseline is a mix of 4 representative irrigated rotations calibrated to Konya province crop-area statistics (non-cereal shares only); real farms deviate, and the statistics cover the whole province rather than the bbox.",
+   "tr": "Baz, Konya il ürün alanı istatistiklerine kalibre 4 temsili sulu rotasyonun karışımıdır (yalnızca tahıl dışı paylar); gerçek işletmeler farklıdır ve istatistikler sınır kutusunu değil tüm ili kapsar."
+  },
   {
    "en": "Scenario analysis, not a forecast: all results scale with the stated assumptions.",
    "tr": "Senaryo analizidir, tahmin değil: tüm sonuçlar belirtilen varsayımlarla ölçeklenir."
@@ -6983,6 +7162,10 @@
   {
    "en": "Water-band quantiles are summed across cells assuming perfectly correlated weather (conservative width).",
    "tr": "Su bandı yüzdelikleri hücreler arası tam ilişkili hava varsayımıyla toplanır (geniş bant)."
+  },
+  {
+   "en": "Satellite rain bias correction was not applied to all cells (service unavailable); raw NASA POWER rain was used there.",
+   "tr": "Uydu yağış düzeltmesi tüm hücrelere uygulanamadı (servis yok); orada ham NASA POWER yağışı kullanıldı."
   }
  ],
  "sources": [
@@ -7012,9 +7195,14 @@
    "url": "https://www.fao.org/4/x0490e/x0490e00.htm"
   },
   {
-   "id": "konya_irrigated_share",
-   "name": "Konya Plain irrigated-area study (dergipark)",
-   "url": "https://dergipark.org.tr/en/download/article-file/4394763"
+   "id": "konya_tarim_2026",
+   "name": "Konya Il Tarim ve Orman Mudurlugu, Konya Tarimi 2026 (TUIK data)",
+   "url": "https://konya.tarimorman.gov.tr/Belgeler/kitap/%C4%B0l_Tar%C4%B1m_ve_Orman_Ocak_26_4DonemV2.pdf"
+  },
+  {
+   "id": "climateserv_precip",
+   "name": "GPM IMERG / CHIRPS via ClimateSERV",
+   "url": "https://climateserv.servirglobal.net/"
   }
  ]
 }

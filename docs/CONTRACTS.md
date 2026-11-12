@@ -255,16 +255,19 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
 
 ```jsonc
 {
-  "schema_version": "1.0", "generated": "2026-11-12",
+  "schema_version": "1.1", "generated": "2026-11-12",
   "scenario_notice": {"en": "", "tr": ""},
   "region": {"id": "konya_closed_basin", "name": {"en":"","tr":""}, "bbox": [32.0, 37.0, 34.5, 38.8],   // min_lon,min_lat,max_lon,max_lat
              "bbox_area_km2": 0, "approximation": "bounding box + MODIS cropland filter"},
   "totals": {"n_cells": 0, "cropland_ha": 0, "irrigated_ha": 0, "skipped_cells": [{"id": "", "reason": ""}]},
-  "baseline": {"rotation": [{"crop_id": "wheat_winter", "irrigation": "none"}],
+  "baseline": {"mix": [{"id": "wheat_beet_maize", "weight": 0.42,        // calibrated mix of representative irrigated rotations, weights sum to 1
+                        "rotation": [{"crop_id": "wheat_winter", "irrigation": "deficit"}]}],
+               "target_noncereal_shares": {"sugar_beet": 0.25},         // Konya statistics (see assumptions[id=baseline_mix])
+               "achieved_noncereal_shares": {"sugar_beet": 0.25}, "cereal_share_of_area": 0.43,
                "irrigated_ha": 0,
                "irrigation_demand_mm3_yr": {"p10": 0, "p50": 0, "p90": 0},   // whole-basin baseline demand
                "production_t_yr": [{"crop_id": "", "name": {"en":"","tr":""}, "t_yr": 0}]},
-  "strategies": [{"id": "baseline|water_saver|soil_builder|balanced_income", "name": {"en":"","tr":""}}],
+  "strategies": [{"id": "water_saver|soil_builder|balanced_income", "name": {"en":"","tr":""}}],
   "adoption_rates": [0.1, 0.3, 0.5],
   "horizons": [5, 10],                       // years; 10 = "trend continuation" climate (see assumptions)
   "cells": [{                                // one per POWER grid cell with cropland fraction > threshold
@@ -273,11 +276,15 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
     "clip": [lon0, lat0, lon1, lat1],        // cell ∩ bbox (area_km2 refers to this)
     "area_km2": 0, "cropland_fraction": 0, "cropland_ha": 0, "irrigated_ha": 0,
     "elevation_m": 0, "soil_source": "soilgrids|soil_default", "delta_t_c_per_decade": 0,
-    "baseline_water_m3_ha": 0,               // p50
-    "best_strategy": {"archetype": "water_saver", "name": {"en":"","tr":""}, "score": 0},   // highest score among the 3 archetypes (map colour)
-    "strategies": {"<baseline|archetype>": {
+    "precip_correction": {"applied": true, "source_id": "gpm_imerg|chirps", "factors_by_month": {"1": 1.0},
+                          "power_mean_mm": 0, "sat_mean_mm": 0}, // applied=false -> {"reason": ""}
+    "baseline_water_m3_ha": 0,               // p50 of the weight-averaged baseline mix
+    "baseline_water_m3_ha_band": {"p10":0,"p50":0,"p90":0}, "baseline_crop_t_ha_yr": {"<crop_id>": 0},
+    "reference_baseline": "wheat_beet_maize", // mix rotation the archetype scores are relative to
+    "best_strategy": {"archetype": "water_saver",     // null if no archetype was found "name": {"en":"","tr":""}, "score": 0},   // highest score among the 3 archetypes (map colour)
+    "strategies": {"<archetype>": {
         "score": 50, "rotation_name": {"en":"","tr":""}, "steps": [{"crop_id":"","year":1,"irrigation":"none"}],
-        "water_m3_ha": {"p10":0,"p50":0,"p90":0}, "water_change_m3_ha_p50": 0,   // vs. baseline; negative = less water
+        "water_m3_ha": {"p10":0,"p50":0,"p90":0}, "water_change_m3_ha_p50": 0,   // vs. the baseline mix; negative = less water
         "crop_t_ha_yr": {"<crop_id>": 0}}}    // t/ha per rotation-year, current climate
   }],
   "scenarios": {                              // [archetype][adoption rate as string][horizon years as string]
@@ -285,7 +292,7 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
       "climate": "current|trend_continuation",
       "irrigation_change_mm3_yr": {"p10": 0, "p50": 0, "p90": 0},   // negative = water saved; p10<=p50<=p90 (sorted values)
       "grace_offset_pct": {"p10": 0, "p50": 0, "p90": 0},           // share of the GRACE storage loss offset; null if GRACE unavailable
-      "production_change_t_yr": [{"crop_id": "", "name": {"en":"","tr":""}, "change_t_yr": 0}]   // sorted by |change|
+      "production_change_t_yr": [{"crop_id": "", "name": {"en":"","tr":""}, "change_t_yr": 0, "baseline_t_yr": 0}]   // sorted by |change|; baseline_t_yr = whole-basin baseline production of the crop
     }}}
   },
   "grace": {
@@ -303,4 +310,4 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
 }
 ```
 
-Notes: adopters are a fraction of the *irrigated* area of every cell (irrigated = cropland × `irrigated_share`) and move from the baseline rotation to the cell's own archetype rotation. Results are steady-state annual rates at the horizon (no ramp-up). The p10/p50/p90 water band sums same-quantile differences across cells (weather assumed perfectly correlated).
+Notes: the baseline is a weighted mix of representative irrigated rotations calibrated to Konya crop-area statistics. A fraction of the *irrigated* area of every cell (irrigated = cropland × `irrigated_share`), taken proportionally from each baseline rotation, moves to the cell's own archetype rotation, so a crop can lose at most its baseline area share. `assumptions[id=plausibility_irrigation]` compares the modelled baseline demand with published basin irrigation figures. Results are steady-state annual rates at the horizon (no ramp-up). The p10/p50/p90 water band sums same-quantile differences across cells (weather assumed perfectly correlated).

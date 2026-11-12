@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import math
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date
@@ -137,6 +138,8 @@ class BasinParams:
     adoption_rates: tuple = (0.1, 0.3, 0.5)
     mix_rotations: dict = field(default_factory=lambda: {k: list(v) for k, v in MIX_ROTATIONS.items()})
     baseline_mix: dict | None = None            # {rotation_id: weight}; None -> calibrate_mix() against Konya statistics
+    precip_start_year: int = 2013               # satellite rain window (13 yr overlap keeps ClimateSERV calls modest)
+    precip_probe_timeout_s: float = 240.0
     precip_correction: bool = True              # bias-correct POWER rain with GPM IMERG / CHIRPS (connectors.precip)
     weather_start_year: int = 1991
     last_year: int = field(default_factory=lambda: date.today().year - 1)
@@ -595,15 +598,34 @@ def build_basin_report(params: BasinParams | None = None, log=print) -> dict:
             and c["cropland_fraction"] > p.min_cropland_fraction]
     log(f"{len(kept)} cells with cropland fraction > {p.min_cropland_fraction}")
 
+    precip_on, precip_reason = p.precip_correction, "disabled"
+    if precip_on and kept:
+        # circuit breaker: ClimateSERV is often down; probe one cell in a daemon thread and give up after a timeout
+        box: dict = {}
+
+        def probe():
+            try:
+                box["sat"] = precip_mod.fetch_precip_daily(kept[0]["lat"], kept[0]["lon"], date(p.precip_start_year, 1, 1),
+                                                           date(p.last_year, 12, 31))
+            except Exception as exc:  # noqa: BLE001
+                box["err"] = str(exc)[:160]
+        th = threading.Thread(target=probe, daemon=True)
+        th.start()
+        th.join(p.precip_probe_timeout_s)
+        if "sat" not in box:
+            precip_on = False
+            precip_reason = box.get("err") or f"satellite rain service did not answer within {p.precip_probe_timeout_s:.0f} s"
+            log(f"  rain bias correction disabled: {precip_reason}")
+
     def load_wx(c):
         try:
             w = power.fetch_daily(c["lat"], c["lon"], date(p.weather_start_year, 1, 1), date(p.last_year, 12, 31))
         except Exception as exc:  # noqa: BLE001
             return exc
-        c["precip_correction"] = {"applied": False, "reason": "disabled"}
-        if p.precip_correction:
+        c["precip_correction"] = {"applied": False, "reason": precip_reason}
+        if precip_on:
             try:
-                sat = precip_mod.fetch_precip_daily(c["lat"], c["lon"], date(p.weather_start_year, 1, 1),
+                sat = precip_mod.fetch_precip_daily(c["lat"], c["lon"], date(p.precip_start_year, 1, 1),
                                                     date(p.last_year, 12, 31))
                 w = precip_mod.bias_correct_power(w, sat)
                 c["precip_correction"] = {"applied": True, **w.attrs["precip_correction"]}

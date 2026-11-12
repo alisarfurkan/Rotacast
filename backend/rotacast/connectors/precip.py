@@ -1,4 +1,4 @@
-"""Satellite precipitation (NASA GPM IMERG 0.1 deg, fallback CHIRPS v2.0 0.05 deg) via NASA SERVIR ClimateSERV.
+"""Satellite precipitation (CHIRPS v2.0 0.05 deg; fallback NASA GPM IMERG 0.1 deg) via NASA SERVIR ClimateSERV.
 
 No login. API (base ``https://climateserv.servirglobal.net/chirps``; the ``/api`` alias is flaky):
 ``submitDataRequest`` (GET: datatype, begintime/endtime ``MM/DD/YYYY``, intervaltype=0 daily, operationtype=5 average,
@@ -12,7 +12,9 @@ satellite record over their overlap, while keeping POWER's day-to-day timing.
 from __future__ import annotations
 
 import json
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 
 import httpx
@@ -26,14 +28,16 @@ DATASETS = {  # source_id -> (ClimateSERV datatype, first usable year)
     "gpm_imerg": (26, 2001),
     "chirps": (0, 1981),
 }
+PREFERENCE = ("chirps", "gpm_imerg")  # CHIRPS is gauge-blended: IMERG gave spurious 100-230 mm days on the Konya plain
 HALF_WIDTH_DEG = 0.05      # polygon is a 0.1 deg box around the point
 CHUNK_YEARS = 1
+WORKERS = 3
 MIN_OVERLAP_YEARS = 8
 FACTOR_MIN, FACTOR_MAX = 0.3, 1.5
 CONNECT_TIMEOUT = 6.0
 
 
-def _call(path: str, params: dict, tries: int = 8):
+def _call(path: str, params: dict, tries: int = 4):
     """GET one ClimateSERV endpoint with retries (the server drops some connections)."""
     last: Exception | None = None
     for attempt in range(tries):
@@ -58,6 +62,8 @@ def _polygon(lat: float, lon: float) -> str:
 def parse_response(payload: dict) -> pd.Series:
     """ClimateSERV ``getDataFromRequest`` payload -> daily mm Series (negative fill values become NaN)."""
     rows = payload["data"]
+    if not rows:
+        return pd.Series(dtype=float, name="precip", index=pd.DatetimeIndex([], name="date"))
     idx = pd.to_datetime([r["date"] for r in rows], format="%m/%d/%Y")
     vals = np.array([float(r["raw_value"]) for r in rows], dtype=float)
     vals[vals < 0] = np.nan
@@ -66,10 +72,17 @@ def parse_response(payload: dict) -> pd.Series:
     return s[~s.index.duplicated()]
 
 
+def _chunk_params(source_id: str, lat: float, lon: float, s: date, e: date) -> dict:
+    return {"datatype": DATASETS[source_id][0], "begintime": s.strftime("%m/%d/%Y"), "endtime": e.strftime("%m/%d/%Y"),
+            "intervaltype": 0, "operationtype": 5, "geometry": _polygon(lat, lon)}
+
+
+def _is_cached(source_id: str, lat: float, lon: float, s: date, e: date) -> bool:
+    return cache_path(source_id, BASE + "/getDataFromRequest", _chunk_params(source_id, lat, lon, s, e)).exists()
+
+
 def _fetch_chunk(source_id: str, lat: float, lon: float, s: date, e: date) -> pd.Series:
-    datatype, _ = DATASETS[source_id]
-    params = {"datatype": datatype, "begintime": s.strftime("%m/%d/%Y"), "endtime": e.strftime("%m/%d/%Y"),
-              "intervaltype": 0, "operationtype": 5, "geometry": _polygon(lat, lon)}
+    params = _chunk_params(source_id, lat, lon, s, e)
     path = cache_path(source_id, BASE + "/getDataFromRequest", params)
     if path.exists():
         return parse_response(json.loads(path.read_text(encoding="utf-8")))
@@ -86,30 +99,41 @@ def _fetch_chunk(source_id: str, lat: float, lon: float, s: date, e: date) -> pd
             raise RuntimeError(f"ClimateSERV request {rid} failed (progress {prog})")
         time.sleep(2)
     payload = _call("getDataFromRequest", {"id": rid})
-    if not payload.get("data"):
-        raise RuntimeError("ClimateSERV returned no data")
-    slim = {"data": [{"date": r["date"], "raw_value": r["raw_value"]} for r in payload["data"]]}
+    # an empty list means the dataset has no coverage for this period yet (IMERG final lags by many months): cache it
+    slim = {"data": [{"date": r["date"], "raw_value": r["raw_value"]} for r in payload.get("data") or []]}
     _atomic_write(path, json.dumps(slim).encode("utf-8"))
     return parse_response(slim)
 
 
+def _try_chunk(source_id: str, lat: float, lon: float, s: date, e: date, down: threading.Event):
+    if down.is_set() and not _is_cached(source_id, lat, lon, s, e):
+        return RuntimeError("ClimateSERV unreachable, skipped")
+    try:
+        return _fetch_chunk(source_id, lat, lon, s, e)
+    except Exception as exc:
+        down.set()  # circuit breaker: do not hammer a server that just failed  # noqa: BLE001 - one flaky year must not sink the whole record
+        return exc
+
+
 def _fetch_source(source_id: str, lat: float, lon: float, start: date, end: date) -> pd.Series:
     y0 = max(start.year, DATASETS[source_id][1])
-    parts, y = [], y0
-    while y <= end.year:
-        s = max(start, date(y, 1, 1))
-        e = min(end, date(y + CHUNK_YEARS - 1, 12, 31))
-        parts.append(_fetch_chunk(source_id, lat, lon, s, e))
-        y += CHUNK_YEARS
-    ser = pd.concat(parts).sort_index()
+    spans = [(max(start, date(y, 1, 1)), min(end, date(y + CHUNK_YEARS - 1, 12, 31)))
+             for y in range(y0, end.year + 1, CHUNK_YEARS)]
+    down = threading.Event()
+    with ThreadPoolExecutor(max_workers=WORKERS) as ex:  # the server answers ~1 min per year; ask for several at once
+        results = list(ex.map(lambda se: _try_chunk(source_id, lat, lon, se[0], se[1], down), spans))
+    parts = [r for r in results if isinstance(r, pd.Series)]
+    if not parts:
+        raise RuntimeError(f"{source_id}: all chunks failed ({results[0] if results else 'no chunks'})")
+    ser = pd.concat(parts).sort_index()  # failed years are simply missing; the correction uses complete overlap months only
     return ser[~ser.index.duplicated()]
 
 
 def fetch_precip_daily(lat: float, lon: float, start: date, end: date) -> pd.Series:
     """Daily satellite rain (mm/day) for a point, ``attrs['source_id']`` in {gpm_imerg, chirps}.
-    Tries IMERG first, then CHIRPS; raises RuntimeError if neither is usable."""
+    Tries CHIRPS first (gauge-blended, 1981+), then GPM IMERG; raises RuntimeError if neither is usable."""
     errors = []
-    for sid in ("gpm_imerg", "chirps"):
+    for sid in PREFERENCE:
         try:
             ser = _fetch_source(sid, lat, lon, start, end)
             if ser.notna().sum() < 365 * MIN_OVERLAP_YEARS:

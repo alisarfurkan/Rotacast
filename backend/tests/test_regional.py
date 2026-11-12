@@ -7,14 +7,15 @@ import numpy as np
 from rotacast import regional as R
 
 
+def _hz(w, t, extra=0.0):
+    return {"water_m3_ha": {k: v + extra for k, v in w.items()}, "crop_t_ha_yr": t}
+
+
 def _cell(irr_ha, base_w, strat_w, base_t, strat_t, trend_extra=0.0):
-    def hz(w, t):
-        return {"water_m3_ha": w, "crop_t_ha_yr": t}
-    now = {"baseline": hz(base_w, base_t), "water_saver": hz(strat_w, strat_t)}
-    trend = {"baseline": hz(base_w, base_t),
-             "water_saver": hz({k: v + trend_extra for k, v in strat_w.items()}, strat_t)}
-    return {"irrigated_ha": irr_ha, "strategies": {
-        a: {"horizons": {"now": now[a]["water_m3_ha"] and now[a], "trend": trend[a]}} for a in now}}
+    return {"irrigated_ha": irr_ha,
+            "baseline": [{"id": "r1", "weight": 1.0, "horizons": {"now": _hz(base_w, base_t), "trend": _hz(base_w, base_t)}}],
+            "strategies": {"water_saver": {"horizons": {"now": _hz(strat_w, strat_t),
+                                                        "trend": _hz(strat_w, strat_t, trend_extra)}}}}
 
 
 def _params():
@@ -95,3 +96,31 @@ def test_grace_summary_trend(monkeypatch):
     assert lo < g["trend_cm_yr"] < hi
     # 1 cm/yr over ~44,000 km2 = 440 Mm3/yr
     assert math.isclose(g["volume_change_mm3_yr"] / g["trend_cm_yr"], g["area_km2"] / 100.0, rel_tol=1e-9)
+
+
+def test_baseline_mix_weighted_and_bounded():
+    # two baseline rotations (30 % beet-rotation, 70 % other); strategy has no beet -> beet loss bounded by baseline beet
+    w = {"p10": 100.0, "p50": 100.0, "p90": 100.0}
+    cell = {"irrigated_ha": 1000.0,
+            "baseline": [
+                {"weight": 0.3, "horizons": {t: _hz({"p10": 6000.0, "p50": 6000.0, "p90": 6000.0}, {"sugar_beet": 20.0}) for t in ("now", "trend")}},
+                {"weight": 0.7, "horizons": {t: _hz({"p10": 2000.0, "p50": 2000.0, "p90": 2000.0}, {"wheat": 4.0}) for t in ("now", "trend")}}],
+            "strategies": {"water_saver": {"horizons": {t: _hz(w, {"wheat": 3.0}) for t in ("now", "trend")}}}}
+    agg = R.aggregate([cell], _params())
+    assert math.isclose(agg["baseline"]["irrigation_demand_mm3_yr"]["p50"], 1000 * (0.3 * 6000 + 0.7 * 2000) / 1e6)
+    h = agg["scenarios"]["water_saver"]["0.5"]["5"]
+    assert math.isclose(h["irrigation_change_mm3_yr"]["p50"], 0.5 * 1000 * (100 - 3200) / 1e6)
+    prod = {x["crop_id"]: x["change_t_yr"] for x in h["production_change_t_yr"]}
+    assert math.isclose(prod["sugar_beet"], -0.5 * 1000 * 0.3 * 20.0)   # bounded by baseline beet area share
+    assert math.isclose(prod["wheat"], 0.5 * 1000 * (3.0 - 0.7 * 4.0))
+    assert prod["sugar_beet"] >= -0.5 * 1000 * 0.3 * 20.0 - 1e-9
+
+
+def test_calibrate_mix_matches_statistics():
+    m = R.calibrate_mix()
+    assert math.isclose(sum(m["weights"].values()), 1.0, rel_tol=1e-9)
+    assert all(v >= 0 for v in m["weights"].values())
+    assert m["rmse"] < 0.02
+    assert math.isclose(sum(m["target"].values()), 1.0, rel_tol=1e-9)
+    for k, t in m["target"].items():
+        assert abs(m["achieved"][k] - t) < 0.03

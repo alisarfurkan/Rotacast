@@ -490,13 +490,13 @@ def build_field_report(req: dict | None = None) -> dict:
     wx0 = power.fetch_daily(lat, lon, date(WEATHER_START_YEAR, 1, 1), date(last_year, 12, 31))
     pcorr, extra_gaps = None, []
     try:  # POWER's 0.5 deg cell is too wet for many plains: rescale it month by month to satellite rain
-        sat = precip.fetch_precip_daily(lat, lon, date(2001, 1, 1), date(last_year, 12, 31))
+        sat = precip.fetch_precip_daily(lat, lon, date(WEATHER_START_YEAR, 1, 1), date(last_year, 12, 31))
         wx0 = precip.bias_correct_power(wx0, sat)
         pcorr = wx0.attrs["precip_correction"]
         extra_gaps.append({"text": {
-            "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (about 10 km); a single storm over your "
+            "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (5–10 km pixels); a single storm over your "
                   "field can still differ.",
-            "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (yaklaşık 10 km) göre ölçeklenmiş hâli; "
+            "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (5–10 km piksel) göre ölçeklenmiş hâli; "
                   "tarlanıza düşen tek bir sağanak yine de farklı olabilir."}})
     except Exception:  # degrade gracefully: raw POWER rain, say so
         extra_gaps.append({"text": {

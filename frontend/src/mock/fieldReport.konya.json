@@ -13,6 +13,12 @@
    "url": "https://power.larc.nasa.gov/"
   },
   {
+   "id": "chirps",
+   "name": "CHIRPS v2.0 (via SERVIR ClimateSERV)",
+   "detail": "Satellite-gauge rain, 0.05° daily; used to bias-correct POWER rain",
+   "url": "https://www.chc.ucsb.edu/data/chirps"
+  },
+  {
    "id": "modis_mod13q1",
    "name": "MODIS MOD13Q1 NDVI",
    "detail": "16-day composites, 250 m pixel",
@@ -45,7 +51,7 @@
   "annual": [
    {
     "year": 1991,
-    "precip_mm": 459.1,
+    "precip_mm": 267.2,
     "et0_mm": 1152.3,
     "tmean_c": 11.0,
     "gdd0": 4218.0,
@@ -54,7 +60,7 @@
    },
    {
     "year": 1992,
-    "precip_mm": 283.1,
+    "precip_mm": 183.6,
     "et0_mm": 1119.8,
     "tmean_c": 9.56,
     "gdd0": 3833.0,
@@ -63,7 +69,7 @@
    },
    {
     "year": 1993,
-    "precip_mm": 344.5,
+    "precip_mm": 210.4,
     "et0_mm": 1177.5,
     "tmean_c": 10.73,
     "gdd0": 4125.0,
@@ -72,7 +78,7 @@
    },
    {
     "year": 1994,
-    "precip_mm": 453.3,
+    "precip_mm": 256.3,
     "et0_mm": 1229.1,
     "tmean_c": 11.95,
     "gdd0": 4446.0,
@@ -81,7 +87,7 @@
    },
    {
     "year": 1995,
-    "precip_mm": 440.1,
+    "precip_mm": 265.1,
     "et0_mm": 1133.0,
     "tmean_c": 11.05,
     "gdd0": 4114.0,
@@ -90,7 +96,7 @@
    },
    {
     "year": 1996,
-    "precip_mm": 501.2,
+    "precip_mm": 278.8,
     "et0_mm": 1144.4,
     "tmean_c": 11.46,
     "gdd0": 4254.0,
@@ -99,7 +105,7 @@
    },
    {
     "year": 1997,
-    "precip_mm": 572.4,
+    "precip_mm": 388.4,
     "et0_mm": 1081.9,
     "tmean_c": 10.42,
     "gdd0": 3935.0,
@@ -108,7 +114,7 @@
    },
    {
     "year": 1998,
-    "precip_mm": 695.1,
+    "precip_mm": 394.3,
     "et0_mm": 1203.8,
     "tmean_c": 11.81,
     "gdd0": 4384.0,
@@ -117,7 +123,7 @@
    },
    {
     "year": 1999,
-    "precip_mm": 489.6,
+    "precip_mm": 253.9,
     "et0_mm": 1170.3,
     "tmean_c": 11.95,
     "gdd0": 4400.0,
@@ -126,7 +132,7 @@
    },
    {
     "year": 2000,
-    "precip_mm": 621.0,
+    "precip_mm": 373.5,
     "et0_mm": 1168.6,
     "tmean_c": 10.69,
     "gdd0": 4102.0,
@@ -135,7 +141,7 @@
    },
    {
     "year": 2001,
-    "precip_mm": 854.9,
+    "precip_mm": 453.1,
     "et0_mm": 1245.8,
     "tmean_c": 12.25,
     "gdd0": 4528.0,
@@ -144,7 +150,7 @@
    },
    {
     "year": 2002,
-    "precip_mm": 598.9,
+    "precip_mm": 334.6,
     "et0_mm": 1100.2,
     "tmean_c": 10.85,
     "gdd0": 4204.0,
@@ -153,7 +159,7 @@
    },
    {
     "year": 2003,
-    "precip_mm": 628.9,
+    "precip_mm": 349.5,
     "et0_mm": 1145.3,
     "tmean_c": 10.86,
     "gdd0": 4091.0,
@@ -162,7 +168,7 @@
    },
    {
     "year": 2004,
-    "precip_mm": 523.5,
+    "precip_mm": 270.9,
     "et0_mm": 1196.8,
     "tmean_c": 11.16,
     "gdd0": 4259.0,
@@ -171,7 +177,7 @@
    },
    {
     "year": 2005,
-    "precip_mm": 436.1,
+    "precip_mm": 233.9,
     "et0_mm": 1175.8,
     "tmean_c": 11.09,
     "gdd0": 4161.0,
@@ -180,7 +186,7 @@
    },
    {
     "year": 2006,
-    "precip_mm": 639.5,
+    "precip_mm": 389.3,
     "et0_mm": 1177.3,
     "tmean_c": 11.31,
     "gdd0": 4300.0,
@@ -189,7 +195,7 @@
    },
    {
     "year": 2007,
-    "precip_mm": 460.4,
+    "precip_mm": 245.8,
     "et0_mm": 1239.6,
     "tmean_c": 11.9,
     "gdd0": 4447.0,
@@ -198,7 +204,7 @@
    },
    {
     "year": 2008,
-    "precip_mm": 365.8,
+    "precip_mm": 202.4,
     "et0_mm": 1252.6,
     "tmean_c": 11.6,
     "gdd0": 4435.0,
@@ -207,7 +213,7 @@
    },
    {
     "year": 2009,
-    "precip_mm": 756.2,
+    "precip_mm": 413.3,
     "et0_mm": 1118.6,
     "tmean_c": 11.34,
     "gdd0": 4193.0,
@@ -216,7 +222,7 @@
    },
    {
     "year": 2010,
-    "precip_mm": 581.8,
+    "precip_mm": 329.4,
     "et0_mm": 1218.1,
     "tmean_c": 13.17,
     "gdd0": 4857.0,
@@ -225,7 +231,7 @@
    },
    {
     "year": 2011,
-    "precip_mm": 604.8,
+    "precip_mm": 391.0,
     "et0_mm": 1064.7,
     "tmean_c": 10.19,
     "gdd0": 3810.0,
@@ -234,7 +240,7 @@
    },
    {
     "year": 2012,
-    "precip_mm": 720.1,
+    "precip_mm": 378.1,
     "et0_mm": 1181.2,
     "tmean_c": 11.41,
     "gdd0": 4353.0,
@@ -243,7 +249,7 @@
    },
    {
     "year": 2013,
-    "precip_mm": 331.4,
+    "precip_mm": 201.4,
     "et0_mm": 1229.6,
     "tmean_c": 11.56,
     "gdd0": 4322.0,
@@ -252,7 +258,7 @@
    },
    {
     "year": 2014,
-    "precip_mm": 593.0,
+    "precip_mm": 358.0,
     "et0_mm": 1199.9,
     "tmean_c": 12.55,
     "gdd0": 4601.0,
@@ -261,7 +267,7 @@
    },
    {
     "year": 2015,
-    "precip_mm": 535.2,
+    "precip_mm": 323.0,
     "et0_mm": 1111.1,
     "tmean_c": 11.43,
     "gdd0": 4285.0,
@@ -270,7 +276,7 @@
    },
    {
     "year": 2016,
-    "precip_mm": 472.5,
+    "precip_mm": 253.3,
     "et0_mm": 1252.9,
     "tmean_c": 12.08,
     "gdd0": 4607.0,
@@ -279,7 +285,7 @@
    },
    {
     "year": 2017,
-    "precip_mm": 526.5,
+    "precip_mm": 312.3,
     "et0_mm": 1178.1,
     "tmean_c": 11.49,
     "gdd0": 4395.0,
@@ -288,7 +294,7 @@
    },
    {
     "year": 2018,
-    "precip_mm": 574.9,
+    "precip_mm": 329.2,
     "et0_mm": 1208.1,
     "tmean_c": 12.89,
     "gdd0": 4767.0,
@@ -297,7 +303,7 @@
    },
    {
     "year": 2019,
-    "precip_mm": 670.2,
+    "precip_mm": 351.1,
     "et0_mm": 1139.0,
     "tmean_c": 11.84,
     "gdd0": 4382.0,
@@ -306,7 +312,7 @@
    },
    {
     "year": 2020,
-    "precip_mm": 485.2,
+    "precip_mm": 272.3,
     "et0_mm": 1223.1,
     "tmean_c": 12.11,
     "gdd0": 4559.0,
@@ -315,7 +321,7 @@
    },
    {
     "year": 2021,
-    "precip_mm": 457.4,
+    "precip_mm": 240.0,
     "et0_mm": 1220.4,
     "tmean_c": 11.78,
     "gdd0": 4425.0,
@@ -324,7 +330,7 @@
    },
    {
     "year": 2022,
-    "precip_mm": 532.8,
+    "precip_mm": 267.4,
     "et0_mm": 1176.1,
     "tmean_c": 11.56,
     "gdd0": 4433.0,
@@ -333,7 +339,7 @@
    },
    {
     "year": 2023,
-    "precip_mm": 527.8,
+    "precip_mm": 339.5,
     "et0_mm": 1185.8,
     "tmean_c": 12.68,
     "gdd0": 4724.0,
@@ -342,7 +348,7 @@
    },
    {
     "year": 2024,
-    "precip_mm": 557.3,
+    "precip_mm": 280.7,
     "et0_mm": 1248.2,
     "tmean_c": 13.52,
     "gdd0": 4981.0,
@@ -351,7 +357,7 @@
    },
    {
     "year": 2025,
-    "precip_mm": 346.9,
+    "precip_mm": 209.5,
     "et0_mm": 1278.2,
     "tmean_c": 13.08,
     "gdd0": 4859.0,
@@ -362,7 +368,7 @@
   "monthly_normals": [
    {
     "month": 1,
-    "precip_mm": 88.9,
+    "precip_mm": 31.0,
     "et0_mm": 20.5,
     "tmean_c": -0.11,
     "tmin_c": -3.88,
@@ -370,7 +376,7 @@
    },
    {
     "month": 2,
-    "precip_mm": 56.8,
+    "precip_mm": 27.6,
     "et0_mm": 30.9,
     "tmean_c": 1.09,
     "tmin_c": -3.19,
@@ -378,7 +384,7 @@
    },
    {
     "month": 3,
-    "precip_mm": 49.3,
+    "precip_mm": 27.7,
     "et0_mm": 59.4,
     "tmean_c": 4.69,
     "tmin_c": -0.57,
@@ -386,7 +392,7 @@
    },
    {
     "month": 4,
-    "precip_mm": 42.5,
+    "precip_mm": 33.8,
     "et0_mm": 91.1,
     "tmean_c": 9.69,
     "tmin_c": 3.57,
@@ -394,7 +400,7 @@
    },
    {
     "month": 5,
-    "precip_mm": 38.0,
+    "precip_mm": 34.3,
     "et0_mm": 132.0,
     "tmean_c": 14.96,
     "tmin_c": 8.33,
@@ -402,7 +408,7 @@
    },
    {
     "month": 6,
-    "precip_mm": 21.4,
+    "precip_mm": 23.2,
     "et0_mm": 168.6,
     "tmean_c": 19.79,
     "tmin_c": 12.24,
@@ -410,7 +416,7 @@
    },
    {
     "month": 7,
-    "precip_mm": 6.8,
+    "precip_mm": 3.5,
     "et0_mm": 211.0,
     "tmean_c": 23.6,
     "tmin_c": 15.39,
@@ -418,7 +424,7 @@
    },
    {
     "month": 8,
-    "precip_mm": 4.4,
+    "precip_mm": 1.3,
     "et0_mm": 195.2,
     "tmean_c": 23.92,
     "tmin_c": 16.15,
@@ -426,7 +432,7 @@
    },
    {
     "month": 9,
-    "precip_mm": 17.5,
+    "precip_mm": 9.3,
     "et0_mm": 135.1,
     "tmean_c": 19.31,
     "tmin_c": 12.31,
@@ -434,7 +440,7 @@
    },
    {
     "month": 10,
-    "precip_mm": 45.1,
+    "precip_mm": 34.4,
     "et0_mm": 79.3,
     "tmean_c": 13.09,
     "tmin_c": 7.42,
@@ -442,7 +448,7 @@
    },
    {
     "month": 11,
-    "precip_mm": 63.6,
+    "precip_mm": 33.6,
     "et0_mm": 37.7,
     "tmean_c": 6.68,
     "tmin_c": 2.02,
@@ -450,7 +456,7 @@
    },
    {
     "month": 12,
-    "precip_mm": 98.4,
+    "precip_mm": 43.2,
     "et0_mm": 20.6,
     "tmean_c": 1.96,
     "tmin_c": -1.75,
@@ -475,8 +481,8 @@
    }
   },
   "water_balance": {
-   "aridity_index": 0.451,
-   "annual_deficit_mm": 648.7
+   "aridity_index": 0.256,
+   "annual_deficit_mm": 878.5
   },
   "shift": {
    "early": [
@@ -560,11 +566,11 @@
       "tr": "Yıllık yağış"
      },
      "unit": "mm",
-     "early": 526.77,
-     "late": 529.06,
-     "delta": 2.29,
-     "trend_per_decade": 12.088,
-     "p_value": 0.6092
+     "early": 300.89,
+     "late": 300.45,
+     "delta": -0.43,
+     "trend_per_decade": -1.907,
+     "p_value": 0.9095
     },
     {
      "id": "et0_mm",
@@ -599,11 +605,11 @@
       "tr": "İlkbahar (MAM) yağışı"
      },
      "unit": "mm",
-     "early": 137.94,
-     "late": 131.11,
-     "delta": -6.83,
-     "trend_per_decade": -6.352,
-     "p_value": 0.4101
+     "early": 102.66,
+     "late": 96.66,
+     "delta": -6.0,
+     "trend_per_decade": -5.593,
+     "p_value": 0.3342
     },
     {
      "id": "summer_tmax_c",
@@ -4162,24 +4168,24 @@
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 420.9703901156541,
-     "p50": 454.666892193879,
-     "p90": 503.1582802620878
+     "p10": 437.03749130330743,
+     "p50": 482.8525347595349,
+     "p90": 513.3486066180453
     },
     "water_m3_ha_yr": {
-     "p10": 4209.703901156541,
-     "p50": 4546.66892193879,
-     "p90": 5031.582802620878
+     "p10": 4370.374913033074,
+     "p50": 4828.525347595349,
+     "p90": 5133.486066180453
     },
     "yield_ratio": {
-     "p10": 0.8111436699136237,
-     "p50": 0.8647307725942088,
-     "p90": 0.9223291577144969
+     "p10": 0.7837288458283435,
+     "p50": 0.8261090033668528,
+     "p90": 0.8695740925880749
     },
     "stress_days_yr": {
-     "p10": 22.06666666666667,
-     "p50": 33.666666666666664,
-     "p90": 40.26666666666667
+     "p10": 33.63333333333333,
+     "p50": 44.33333333333333,
+     "p90": 58.40000000000002
     },
     "frost_risk": 0.0,
     "heat_risk": 0.5606060606060606,
@@ -4189,9 +4195,9 @@
     "erosion_rel": 1.0,
     "pest_break": 0.6666666666666666,
     "income_usd_ha_yr": {
-     "p10": 1676.7810231694734,
-     "p50": 2052.020840497735,
-     "p90": 2287.781994712229
+     "p10": 1624.4576786535683,
+     "p50": 1978.4569296175382,
+     "p90": 2181.0328471780435
     }
    },
    "score": 50.0,
@@ -4239,8 +4245,8 @@
        "tr": "Bu, sizin girdiğiniz rotasyon; diğer seçeneklerin hepsi buna göre karşılaştırılıyor."
       },
       "facts": [
-       "f9",
-       "f10"
+       "f10",
+       "f11"
       ]
      },
      {
@@ -4249,7 +4255,8 @@
        "tr": "Bölgenizde büyük bir su açığı var; bu yüzden rotasyondaki sulu ürünler kuyu veya kanal suyuna bağlıdır."
       },
       "facts": [
-       "f1"
+       "f1",
+       "f9"
       ]
      },
      {
@@ -4287,6 +4294,12 @@
        "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
        "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
       }
+     },
+     {
+      "text": {
+       "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (5–10 km pixels); a single storm over your field can still differ.",
+       "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (5–10 km piksel) göre ölçeklenmiş hâli; tarlanıza düşen tek bir sağanak yine de farklı olabilir."
+      }
      }
     ],
     "risks": [
@@ -4296,7 +4309,7 @@
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f11"
+       "f12"
       ],
       "check_with": "agronomist"
      },
@@ -4321,30 +4334,42 @@
    "calendar": [
     {
      "year": 1,
-     "crop_id": "wheat_winter",
+     "crop_id": "lentil",
      "crop_name": {
-      "en": "Winter wheat",
-      "tr": "Kışlık buğday"
+      "en": "Lentil",
+      "tr": "Mercimek"
      },
      "irrigation": "none",
-     "sow": "10-21",
-     "harvest": "07-05",
+     "sow": "03-04",
+     "harvest": "07-12",
      "kind": "main"
     },
     {
      "year": 2,
+     "crop_id": "sunflower",
+     "crop_name": {
+      "en": "Sunflower",
+      "tr": "Ayçiçeği"
+     },
+     "irrigation": "none",
+     "sow": "04-19",
+     "harvest": "08-23",
+     "kind": "main"
+    },
+    {
+     "year": 3,
      "crop_id": "chickpea",
      "crop_name": {
       "en": "Chickpea",
       "tr": "Nohut"
      },
      "irrigation": "none",
-     "sow": "03-23",
+     "sow": "03-19",
      "harvest": "07-21",
      "kind": "main"
     },
     {
-     "year": 3,
+     "year": 4,
      "crop_id": "maize_grain",
      "crop_name": {
       "en": "Grain maize",
@@ -4354,61 +4379,49 @@
      "sow": "04-29",
      "harvest": "10-04",
      "kind": "main"
-    },
-    {
-     "year": 4,
-     "crop_id": "sunflower",
-     "crop_name": {
-      "en": "Sunflower",
-      "tr": "Ayçiçeği"
-     },
-     "irrigation": "none",
-     "sow": "04-18",
-     "harvest": "08-22",
-     "kind": "main"
     }
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 95.87193145824692,
-     "p50": 116.6470349498946,
-     "p90": 134.403391588159
+     "p10": 99.54999004634503,
+     "p50": 120.55311262642661,
+     "p90": 137.58544325800028
     },
     "water_m3_ha_yr": {
-     "p10": 958.7193145824692,
-     "p50": 1166.470349498946,
-     "p90": 1344.03391588159
+     "p10": 995.4999004634503,
+     "p50": 1205.531126264266,
+     "p90": 1375.8544325800026
     },
     "yield_ratio": {
-     "p10": 0.5676473835840593,
-     "p50": 0.6124851544329524,
-     "p90": 0.6700193942463362
+     "p10": 0.5346045112998536,
+     "p50": 0.5742917157762014,
+     "p90": 0.6065740914374691
     },
     "stress_days_yr": {
-     "p10": 66.5,
-     "p50": 75.25,
-     "p90": 87.85
+     "p10": 65.55,
+     "p50": 72.5,
+     "p90": 80.15
     },
     "frost_risk": 0.0,
     "heat_risk": 0.35,
-    "n_balance_kg_ha_yr": 6.25,
-    "residue_index": 0.6375,
-    "soil_cover_days_yr": 129.31,
-    "erosion_rel": 1.0190264830508475,
+    "n_balance_kg_ha_yr": 11.25,
+    "residue_index": 0.525,
+    "soil_cover_days_yr": 88.94,
+    "erosion_rel": 1.15121875,
     "pest_break": 0.8,
     "income_usd_ha_yr": {
-     "p10": 1043.6652888944557,
-     "p50": 1253.0672189614131,
-     "p90": 1450.3119890643784
+     "p10": 1018.5949171840832,
+     "p50": 1187.3850195208447,
+     "p90": 1282.812358579887
     }
    },
-   "score": 56.29,
+   "score": 55.1,
    "score_breakdown": {
-    "water": 87.17,
-    "soil": 53.23,
-    "income": 30.53,
-    "erosion": 49.05,
-    "risk": 42.98
+    "water": 87.52,
+    "soil": 51.27,
+    "income": 30.01,
+    "erosion": 42.44,
+    "risk": 42.84
    },
    "feasibility": {
     "fraction": 1.0,
@@ -4417,40 +4430,40 @@
     "issues": []
    },
    "rotation_name": {
-    "en": "Winter wheat > Chickpea > Grain maize > Sunflower",
-    "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği"
+    "en": "Lentil > Sunflower > Chickpea > Grain maize",
+    "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
    },
    "steps": [
     {
-     "crop_id": "wheat_winter",
+     "crop_id": "lentil",
      "year": 1,
      "irrigation": "none"
     },
     {
-     "crop_id": "chickpea",
+     "crop_id": "sunflower",
      "year": 2,
      "irrigation": "none"
     },
     {
-     "crop_id": "maize_grain",
+     "crop_id": "chickpea",
      "year": 3,
-     "irrigation": "deficit"
+     "irrigation": "none"
     },
     {
-     "crop_id": "sunflower",
+     "crop_id": "maize_grain",
      "year": 4,
-     "irrigation": "none"
+     "irrigation": "deficit"
     }
    ],
    "evidence": {
     "why": [
      {
       "text": {
-       "en": "Crops chosen here (Winter wheat → Chickpea → Grain maize → Sunflower) need less irrigation water than your current rotation.",
-       "tr": "Burada seçilen ürünler (Kışlık buğday → Nohut → Dane mısır → Ayçiçeği) mevcut rotasyonunuza göre daha fazla sulama suyu istiyor."
+       "en": "Crops chosen here (Lentil → Sunflower → Chickpea → Grain maize) need less irrigation water than your current rotation.",
+       "tr": "Burada seçilen ürünler (Mercimek → Ayçiçeği → Nohut → Dane mısır) mevcut rotasyonunuza göre daha fazla sulama suyu istiyor."
       },
       "facts": [
-       "f13"
+       "f14"
       ]
      },
      {
@@ -4460,6 +4473,7 @@
       },
       "facts": [
        "f1",
+       "f9",
        "f3"
       ]
      },
@@ -4469,7 +4483,7 @@
        "tr": "Daha az su stresi günü, ürünlerin kurak yıllarla daha iyi başa çıkması demek."
       },
       "facts": [
-       "f18"
+       "f19"
       ]
      }
     ],
@@ -4480,7 +4494,16 @@
        "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
       },
       "facts": [
-       "f13"
+       "f14"
+      ]
+     },
+     {
+      "text": {
+       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
+       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
+      },
+      "facts": [
+       "f16"
       ]
      },
      {
@@ -4489,7 +4512,7 @@
        "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
       },
       "facts": [
-       "f19"
+       "f20"
       ]
      }
     ],
@@ -4517,13 +4540,19 @@
        "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
        "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
       }
+     },
+     {
+      "text": {
+       "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (5–10 km pixels); a single storm over your field can still differ.",
+       "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (5–10 km piksel) göre ölçeklenmiş hâli; tarlanıza düşen tek bir sağanak yine de farklı olabilir."
+      }
      }
     ],
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Chickpea, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Nohut, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+       "en": "New crops for you (Chickpea, Lentil, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Nohut, Mercimek, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
       },
       "check_with": "market"
      },
@@ -4547,7 +4576,7 @@
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f20"
+       "f21"
       ],
       "check_with": "agronomist"
      },
@@ -4557,7 +4586,7 @@
        "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
       },
       "facts": [
-       "f14"
+       "f15"
       ],
       "check_with": "market"
      },
@@ -4582,18 +4611,6 @@
    "calendar": [
     {
      "year": 1,
-     "crop_id": "safflower",
-     "crop_name": {
-      "en": "Safflower",
-      "tr": "Aspir"
-     },
-     "irrigation": "none",
-     "sow": "03-23",
-     "harvest": "08-12",
-     "kind": "main"
-    },
-    {
-     "year": 2,
      "crop_id": "wheat_winter",
      "crop_name": {
       "en": "Winter wheat",
@@ -4601,35 +4618,11 @@
      },
      "irrigation": "none",
      "sow": "10-21",
-     "harvest": "07-04",
+     "harvest": "07-05",
      "kind": "main"
     },
     {
-     "year": 2,
-     "crop_id": "vetch_cover",
-     "crop_name": {
-      "en": "Common vetch (cover crop)",
-      "tr": "Adi fiğ (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "09-24",
-     "harvest": "03-07",
-     "kind": "cover"
-    },
-    {
-     "year": 3,
-     "crop_id": "chickpea",
-     "crop_name": {
-      "en": "Chickpea",
-      "tr": "Nohut"
-     },
-     "irrigation": "none",
-     "sow": "03-19",
-     "harvest": "07-21",
-     "kind": "main"
-    },
-    {
-     "year": 3,
+     "year": 1,
      "crop_id": "vetch_cover",
      "crop_name": {
       "en": "Common vetch (cover crop)",
@@ -4637,75 +4630,111 @@
      },
      "irrigation": "none",
      "sow": "09-20",
-     "harvest": "04-23",
+     "harvest": "03-10",
      "kind": "cover"
     },
     {
-     "year": 4,
-     "crop_id": "sorghum",
+     "year": 2,
+     "crop_id": "chickpea",
      "crop_name": {
-      "en": "Grain sorghum",
-      "tr": "Dane sorgum"
+      "en": "Chickpea",
+      "tr": "Nohut"
      },
      "irrigation": "none",
-     "sow": "05-15",
-     "harvest": "10-17",
+     "sow": "03-23",
+     "harvest": "07-21",
      "kind": "main"
     },
     {
-     "year": 4,
+     "year": 2,
      "crop_id": "rye_cover",
      "crop_name": {
       "en": "Winter rye (cover crop)",
       "tr": "Çavdar (örtü bitkisi)"
      },
      "irrigation": "none",
-     "sow": "10-21",
-     "harvest": "03-15",
+     "sow": "10-07",
+     "harvest": "04-19",
      "kind": "cover"
+    },
+    {
+     "year": 3,
+     "crop_id": "maize_grain",
+     "crop_name": {
+      "en": "Grain maize",
+      "tr": "Dane mısır"
+     },
+     "irrigation": "deficit",
+     "sow": "04-29",
+     "harvest": "10-04",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "vetch_cover",
+     "crop_name": {
+      "en": "Common vetch (cover crop)",
+      "tr": "Adi fiğ (örtü bitkisi)"
+     },
+     "irrigation": "none",
+     "sow": "10-06",
+     "harvest": "04-12",
+     "kind": "cover"
+    },
+    {
+     "year": 4,
+     "crop_id": "sunflower",
+     "crop_name": {
+      "en": "Sunflower",
+      "tr": "Ayçiçeği"
+     },
+     "irrigation": "none",
+     "sow": "04-18",
+     "harvest": "08-22",
+     "kind": "main"
     }
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 0.0,
-     "p50": 0.0,
-     "p90": 0.0
+     "p10": 119.15047355684506,
+     "p50": 137.9087891728763,
+     "p90": 160.87700427676344
     },
     "water_m3_ha_yr": {
-     "p10": 0.0,
-     "p50": 0.0,
-     "p90": 0.0
+     "p10": 1191.5047355684505,
+     "p50": 1379.0878917287632,
+     "p90": 1608.7700427676343
     },
     "yield_ratio": {
-     "p10": 0.47159878550285406,
-     "p50": 0.552843255525779,
-     "p90": 0.6103472122112883
+     "p10": 0.4711403730899524,
+     "p50": 0.5338051162122474,
+     "p90": 0.5865257125599282
     },
     "stress_days_yr": {
-     "p10": 77.5,
-     "p50": 89.25,
-     "p90": 102.95
+     "p10": 87.2,
+     "p50": 102.0,
+     "p90": 110.9
     },
     "frost_risk": 0.0,
-    "heat_risk": 0.09,
-    "n_balance_kg_ha_yr": 37.45,
-    "residue_index": 0.6642857142857144,
-    "soil_cover_days_yr": 193.44,
-    "erosion_rel": 0.5598056144067797,
+    "heat_risk": 0.35,
+    "n_balance_kg_ha_yr": 29.65,
+    "residue_index": 0.692857142857143,
+    "soil_cover_days_yr": 192.19,
+    "erosion_rel": 0.5894834745762713,
     "pest_break": 0.8,
     "income_usd_ha_yr": {
-     "p10": 761.5576265232955,
-     "p50": 930.9530834782526,
-     "p90": 1013.9258394004182
+     "p10": 850.211224528007,
+     "p50": 1058.1764707690138,
+     "p90": 1210.0925102756469
     }
    },
-   "score": 69.92,
+   "score": 65.29,
    "score_breakdown": {
-    "water": 100.0,
-    "soil": 87.74,
-    "income": 22.68,
-    "erosion": 72.01,
-    "risk": 51.1
+    "water": 85.72,
+    "soil": 88.21,
+    "income": 26.74,
+    "erosion": 70.53,
+    "risk": 37.86
    },
    "feasibility": {
     "fraction": 1.0,
@@ -4714,34 +4743,34 @@
     "issues": []
    },
    "rotation_name": {
-    "en": "Safflower > Winter wheat > Chickpea > Grain sorghum (+cover)",
-    "tr": "Aspir > Kışlık buğday > Nohut > Dane sorgum (+cover)"
+    "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
+    "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
    },
    "steps": [
     {
-     "crop_id": "safflower",
-     "year": 1,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "vetch_cover",
-     "year": 1,
-     "irrigation": "none"
-    },
-    {
      "crop_id": "wheat_winter",
-     "year": 2,
+     "year": 1,
      "irrigation": "none"
     },
     {
      "crop_id": "vetch_cover",
-     "year": 2,
+     "year": 1,
      "irrigation": "none"
     },
     {
      "crop_id": "chickpea",
-     "year": 3,
+     "year": 2,
      "irrigation": "none"
+    },
+    {
+     "crop_id": "rye_cover",
+     "year": 2,
+     "irrigation": "none"
+    },
+    {
+     "crop_id": "maize_grain",
+     "year": 3,
+     "irrigation": "deficit"
     },
     {
      "crop_id": "vetch_cover",
@@ -4749,12 +4778,7 @@
      "irrigation": "none"
     },
     {
-     "crop_id": "sorghum",
-     "year": 4,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "rye_cover",
+     "crop_id": "sunflower",
      "year": 4,
      "irrigation": "none"
     }
@@ -4763,12 +4787,12 @@
     "why": [
      {
       "text": {
-       "en": "The sequence (Safflower → Common vetch (cover crop) → Winter wheat → Common vetch (cover crop) → Chickpea → Common vetch (cover crop) → Grain sorghum → Winter rye (cover crop)) returns more organic matter and nitrogen to the soil.",
-       "tr": "Bu sıralama (Aspir → Adi fiğ (örtü bitkisi) → Kışlık buğday → Adi fiğ (örtü bitkisi) → Nohut → Adi fiğ (örtü bitkisi) → Dane sorgum → Çavdar (örtü bitkisi)) toprağa daha fazla organik madde ve azot bırakıyor."
+       "en": "The sequence (Winter wheat → Common vetch (cover crop) → Chickpea → Winter rye (cover crop) → Grain maize → Common vetch (cover crop) → Sunflower) returns more organic matter and nitrogen to the soil.",
+       "tr": "Bu sıralama (Kışlık buğday → Adi fiğ (örtü bitkisi) → Nohut → Çavdar (örtü bitkisi) → Dane mısır → Adi fiğ (örtü bitkisi) → Ayçiçeği) toprağa daha fazla organik madde ve azot bırakıyor."
       },
       "facts": [
-       "f25",
-       "f27"
+       "f26",
+       "f28"
       ]
      },
      {
@@ -4786,8 +4810,8 @@
        "tr": "Daha fazla toprak örtüsü ve daha az çıplak gün, erozyonu azaltır."
       },
       "facts": [
-       "f26",
-       "f27"
+       "f27",
+       "f28"
       ]
      }
     ],
@@ -4798,7 +4822,7 @@
        "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
       },
       "facts": [
-       "f23"
+       "f24"
       ]
      },
      {
@@ -4807,7 +4831,7 @@
        "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
       },
       "facts": [
-       "f25"
+       "f26"
       ]
      },
      {
@@ -4816,7 +4840,7 @@
        "tr": "Toprak erozyonunu azaltır."
       },
       "facts": [
-       "f26"
+       "f27"
       ]
      },
      {
@@ -4825,7 +4849,7 @@
        "tr": "Toprağı daha fazla gün kapalı tutar."
       },
       "facts": [
-       "f27"
+       "f28"
       ]
      },
      {
@@ -4834,7 +4858,7 @@
        "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
       },
       "facts": [
-       "f29"
+       "f30"
       ]
      }
     ],
@@ -4862,13 +4886,19 @@
        "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
        "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
       }
+     },
+     {
+      "text": {
+       "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (5–10 km pixels); a single storm over your field can still differ.",
+       "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (5–10 km piksel) göre ölçeklenmiş hâli; tarlanıza düşen tek bir sağanak yine de farklı olabilir."
+      }
      }
     ],
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Chickpea, Winter rye (cover crop), Safflower, Grain sorghum, Common vetch (cover crop)): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Nohut, Çavdar (örtü bitkisi), Aspir, Dane sorgum, Adi fiğ (örtü bitkisi)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+       "en": "New crops for you (Chickpea, Winter rye (cover crop), Sunflower, Common vetch (cover crop)): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Nohut, Çavdar (örtü bitkisi), Ayçiçeği, Adi fiğ (örtü bitkisi)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
       },
       "check_with": "market"
      },
@@ -4888,13 +4918,30 @@
      },
      {
       "text": {
+       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
+       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
+      },
+      "facts": [
+       "f31"
+      ],
+      "check_with": "agronomist"
+     },
+     {
+      "text": {
        "en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
        "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
       },
       "facts": [
-       "f24"
+       "f25"
       ],
       "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
+       "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
+      },
+      "check_with": "extension_service"
      }
     ]
    }
@@ -4971,24 +5018,24 @@
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 151.36632839241992,
-     "p50": 174.73568352909936,
-     "p90": 189.5791989110714
+     "p10": 159.88992853136125,
+     "p50": 184.31979710160968,
+     "p90": 197.44710521783585
     },
     "water_m3_ha_yr": {
-     "p10": 1513.6632839241993,
-     "p50": 1747.3568352909936,
-     "p90": 1895.7919891107138
+     "p10": 1598.8992853136124,
+     "p50": 1843.1979710160967,
+     "p90": 1974.4710521783584
     },
     "yield_ratio": {
-     "p10": 0.7255993915051732,
-     "p50": 0.7842446261992905,
-     "p90": 0.8837831829491175
+     "p10": 0.679750421165582,
+     "p50": 0.7128242719013617,
+     "p90": 0.8177347387108072
     },
     "stress_days_yr": {
-     "p10": 41.333333333333336,
-     "p50": 51.0,
-     "p90": 61.733333333333334
+     "p10": 50.666666666666664,
+     "p50": 65.33333333333333,
+     "p90": 80.66666666666667
     },
     "frost_risk": 0.02666666666666667,
     "heat_risk": 0.3466666666666667,
@@ -4998,18 +5045,18 @@
     "erosion_rel": 0.549263559322034,
     "pest_break": 1.0,
     "income_usd_ha_yr": {
-     "p10": 2751.9143087243465,
-     "p50": 2851.5062164083065,
-     "p90": 3065.7223104067416
+     "p10": 2691.0294412081357,
+     "p50": 2781.7266457565916,
+     "p90": 2968.6553591945685
     }
    },
-   "score": 75.28,
+   "score": 75.36,
    "score_breakdown": {
-    "water": 80.78,
+    "water": 80.91,
     "soil": 83.9,
-    "income": 69.48,
+    "income": 70.3,
     "erosion": 72.54,
-    "risk": 54.51
+    "risk": 52.86
    },
    "feasibility": {
     "fraction": 1.0,
@@ -5056,8 +5103,8 @@
        "tr": "Bu sıralama (Adi fiğ (yem) → Adi fiğ (örtü bitkisi) → Patates → Kışlık arpa → Çavdar (örtü bitkisi)) geliri mevcut düzeyin yakınında veya üstünde tutarken diğer maliyetleri düşürüyor."
       },
       "facts": [
-       "f34",
-       "f33"
+       "f35",
+       "f34"
       ]
      },
      {
@@ -5086,7 +5133,7 @@
        "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
       },
       "facts": [
-       "f33"
+       "f34"
       ]
      },
      {
@@ -5095,7 +5142,7 @@
        "tr": "Hektar başına ortanca geliri artırır."
       },
       "facts": [
-       "f34"
+       "f35"
       ]
      },
      {
@@ -5104,7 +5151,7 @@
        "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
       },
       "facts": [
-       "f35"
+       "f36"
       ]
      },
      {
@@ -5113,7 +5160,7 @@
        "tr": "Toprak erozyonunu azaltır."
       },
       "facts": [
-       "f36"
+       "f37"
       ]
      },
      {
@@ -5122,7 +5169,7 @@
        "tr": "Toprağı daha fazla gün kapalı tutar."
       },
       "facts": [
-       "f37"
+       "f38"
       ]
      },
      {
@@ -5131,7 +5178,7 @@
        "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
       },
       "facts": [
-       "f39"
+       "f40"
       ]
      }
     ],
@@ -5158,6 +5205,12 @@
       "text": {
        "en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the market in the year you sell.",
        "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız yıldaki piyasaya bağlıdır."
+      }
+     },
+     {
+      "text": {
+       "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (5–10 km pixels); a single storm over your field can still differ.",
+       "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (5–10 km piksel) göre ölçeklenmiş hâli; tarlanıza düşen tek bir sağanak yine de farklı olabilir."
       }
      }
     ],
@@ -5189,7 +5242,7 @@
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f40"
+       "f41"
       ],
       "check_with": "agronomist"
      },
@@ -5208,10 +5261,10 @@
   {
    "id": "f1",
    "text": {
-    "en": "On average 533 mm of rain falls per year but the atmosphere demands 1,181 mm (reference ET0): a deficit of 649 mm.",
-    "tr": "Yılda ortalama 533 mm yağmur düşüyor, ancak bitkilerin ihtiyacı (referans ET0) 1.181 mm; açık 649 mm."
+    "en": "On average 303 mm of rain falls per year but the atmosphere demands 1,181 mm (reference ET0): a deficit of 878 mm.",
+    "tr": "Yılda ortalama 303 mm yağmur düşüyor, ancak bitkilerin ihtiyacı (referans ET0) 1.181 mm; açık 878 mm."
    },
-   "value": 648.7,
+   "value": 878.5,
    "unit": "mm",
    "source_id": "nasa_power"
   },
@@ -5288,25 +5341,35 @@
   {
    "id": "f9",
    "text": {
-    "en": "Your current rotation uses 4,547 m³/ha of irrigation water per year.",
-    "tr": "Mevcut rotasyonunuz yılda 4.547 m³/ha sulama suyu kullanıyor."
+    "en": "Satellite rain (CHIRPS 0.05°) shows 302 mm/yr versus 533 mm/yr in the coarse POWER grid; we corrected POWER month by month.",
+    "tr": "Uydu yağışı (CHIRPS 0.05°) yılda 302 mm gösteriyor; iri NASA POWER ızgarasında 533 mm/yıl. POWER verisini ay ay düzelttik."
    },
-   "value": 4547.0,
-   "unit": "m3/ha/yr",
-   "source_id": "fao56"
+   "value": 301.7,
+   "unit": "mm/yr",
+   "source_id": "chirps"
   },
   {
    "id": "f10",
    "text": {
-    "en": "Its median gross margin is 2,052 USD/ha per year.",
-    "tr": "Ortanca brüt kârı yılda 2.052 USD/ha."
+    "en": "Your current rotation uses 4,829 m³/ha of irrigation water per year.",
+    "tr": "Mevcut rotasyonunuz yılda 4.829 m³/ha sulama suyu kullanıyor."
    },
-   "value": 2052.0,
-   "unit": "USD/ha/yr",
+   "value": 4829.0,
+   "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f11",
+   "text": {
+    "en": "Its median gross margin is 1,978 USD/ha per year.",
+    "tr": "Ortanca brüt kârı yılda 1.978 USD/ha."
+   },
+   "value": 1978.0,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f12",
    "text": {
     "en": "In 56% of simulated years a crop in the current rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %56 kadarında mevcut rotasyondaki bir ürün sıcak zararı görüyor."
@@ -5316,7 +5379,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f12",
+   "id": "f13",
    "text": {
     "en": "In 0% of simulated years a crop in the current rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %0 kadarında mevcut rotasyondaki bir ürün don zararı görüyor."
@@ -5326,67 +5389,67 @@
    "source_id": "fao56"
   },
   {
-   "id": "f13",
-   "text": {
-    "en": "Irrigation water use is 1,166 m³/ha per year versus 4,547 in the current rotation (3,380 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.166 m³/ha; mevcut rotasyonda 4.547 (3.380 m³/ha daha az)."
-   },
-   "value": -3380.199,
-   "unit": "m3/ha/yr",
-   "source_id": "fao56"
-  },
-  {
    "id": "f14",
    "text": {
-    "en": "Median gross margin is 1,253 USD/ha per year versus 2,052 now (799 USD/ha lower).",
-    "tr": "Ortanca brüt kâr yılda 1.253 USD/ha; şimdiki rotasyonda 2.052 (799 USD/ha düşük)."
+    "en": "Irrigation water use is 1,206 m³/ha per year versus 4,829 in the current rotation (3,623 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.206 m³/ha; mevcut rotasyonda 4.829 (3.623 m³/ha daha az)."
    },
-   "value": -798.954,
-   "unit": "USD/ha/yr",
+   "value": -3622.994,
+   "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f15",
    "text": {
-    "en": "Nitrogen left for the next crop is 6 kg/ha per year versus 0 now.",
-    "tr": "Sonraki ürüne kalan azot yılda 6 kg/ha; şimdi 0."
+    "en": "Median gross margin is 1,187 USD/ha per year versus 1,978 now (791 USD/ha lower).",
+    "tr": "Ortanca brüt kâr yılda 1.187 USD/ha; şimdiki rotasyonda 1.978 (791 USD/ha düşük)."
    },
-   "value": 6.25,
-   "unit": "kg/ha/yr",
+   "value": -791.072,
+   "unit": "USD/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f16",
    "text": {
-    "en": "Modelled erosion is 102% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %102 düzeyinde."
+    "en": "Nitrogen left for the next crop is 11 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 11 kg/ha; şimdi 0."
    },
-   "value": 0.019,
-   "unit": "ratio",
+   "value": 11.25,
+   "unit": "kg/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f17",
    "text": {
-    "en": "The soil is covered by crop canopy 129 days per year versus 161 now.",
-    "tr": "Toprak yılda 129 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+    "en": "Modelled erosion is 115% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %115 düzeyinde."
    },
-   "value": -31.417,
-   "unit": "days/yr",
+   "value": 0.151,
+   "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f18",
    "text": {
-    "en": "Water-stress days are 75 per year versus 34 now.",
-    "tr": "Su stresi günleri yılda 75; şimdi 34."
+    "en": "The soil is covered by crop canopy 89 days per year versus 161 now.",
+    "tr": "Toprak yılda 89 gün bitki örtüsüyle kaplı; şimdi 161 gün."
    },
-   "value": 41.583,
+   "value": -71.787,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f19",
+   "text": {
+    "en": "Water-stress days are 72 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 72; şimdi 44."
+   },
+   "value": 28.167,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f20",
    "text": {
     "en": "The disease and pest break index is 0.80 versus 0.67 now.",
     "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
@@ -5396,7 +5459,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f20",
+   "id": "f21",
    "text": {
     "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
@@ -5406,7 +5469,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f21",
+   "id": "f22",
    "text": {
     "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5416,77 +5479,77 @@
    "source_id": "fao56"
   },
   {
-   "id": "f22",
+   "id": "f23",
    "text": {
-    "en": "Median relative yield is 61% of potential versus 86% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %61'i; şimdi %86."
+    "en": "Median relative yield is 57% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %57'i; şimdi %83."
    },
    "value": -0.252,
    "unit": "ratio",
    "source_id": "fao56"
   },
   {
-   "id": "f23",
-   "text": {
-    "en": "Irrigation water use is 0 m³/ha per year versus 4,547 in the current rotation (4,547 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 0 m³/ha; mevcut rotasyonda 4.547 (4.547 m³/ha daha az)."
-   },
-   "value": -4546.669,
-   "unit": "m3/ha/yr",
-   "source_id": "fao56"
-  },
-  {
    "id": "f24",
    "text": {
-    "en": "Median gross margin is 931 USD/ha per year versus 2,052 now (1,121 USD/ha lower).",
-    "tr": "Ortanca brüt kâr yılda 931 USD/ha; şimdiki rotasyonda 2.052 (1.121 USD/ha düşük)."
+    "en": "Irrigation water use is 1,379 m³/ha per year versus 4,829 in the current rotation (3,449 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.379 m³/ha; mevcut rotasyonda 4.829 (3.449 m³/ha daha az)."
    },
-   "value": -1121.068,
-   "unit": "USD/ha/yr",
+   "value": -3449.437,
+   "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f25",
    "text": {
-    "en": "Nitrogen left for the next crop is 37 kg/ha per year versus 0 now.",
-    "tr": "Sonraki ürüne kalan azot yılda 37 kg/ha; şimdi 0."
+    "en": "Median gross margin is 1,058 USD/ha per year versus 1,978 now (920 USD/ha lower).",
+    "tr": "Ortanca brüt kâr yılda 1.058 USD/ha; şimdiki rotasyonda 1.978 (920 USD/ha düşük)."
    },
-   "value": 37.45,
-   "unit": "kg/ha/yr",
+   "value": -920.28,
+   "unit": "USD/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f26",
    "text": {
-    "en": "Modelled erosion is 56% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %56 düzeyinde."
+    "en": "Nitrogen left for the next crop is 30 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 30 kg/ha; şimdi 0."
    },
-   "value": -0.44,
-   "unit": "ratio",
+   "value": 29.65,
+   "unit": "kg/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f27",
    "text": {
-    "en": "The soil is covered by crop canopy 193 days per year versus 161 now.",
-    "tr": "Toprak yılda 193 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+    "en": "Modelled erosion is 59% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %59 düzeyinde."
    },
-   "value": 32.713,
-   "unit": "days/yr",
+   "value": -0.411,
+   "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f28",
    "text": {
-    "en": "Water-stress days are 89 per year versus 34 now.",
-    "tr": "Su stresi günleri yılda 89; şimdi 34."
+    "en": "The soil is covered by crop canopy 192 days per year versus 161 now.",
+    "tr": "Toprak yılda 192 gün bitki örtüsüyle kaplı; şimdi 161 gün."
    },
-   "value": 55.583,
+   "value": 31.463,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f29",
+   "text": {
+    "en": "Water-stress days are 102 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 102; şimdi 44."
+   },
+   "value": 57.667,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f30",
    "text": {
     "en": "The disease and pest break index is 0.80 versus 0.67 now.",
     "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
@@ -5496,17 +5559,17 @@
    "source_id": "fao56"
   },
   {
-   "id": "f30",
+   "id": "f31",
    "text": {
-    "en": "In 9% of simulated years a crop in this rotation suffers heat damage.",
-    "tr": "Simüle edilen yılların %9 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+    "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
    },
-   "value": 0.09,
+   "value": 0.35,
    "unit": "probability",
    "source_id": "fao56"
   },
   {
-   "id": "f31",
+   "id": "f32",
    "text": {
     "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5516,37 +5579,37 @@
    "source_id": "fao56"
   },
   {
-   "id": "f32",
-   "text": {
-    "en": "Median relative yield is 55% of potential versus 86% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %55'i; şimdi %86."
-   },
-   "value": -0.312,
-   "unit": "ratio",
-   "source_id": "fao56"
-  },
-  {
    "id": "f33",
    "text": {
-    "en": "Irrigation water use is 1,747 m³/ha per year versus 4,547 in the current rotation (2,799 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.747 m³/ha; mevcut rotasyonda 4.547 (2.799 m³/ha daha az)."
+    "en": "Median relative yield is 53% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %53'i; şimdi %83."
    },
-   "value": -2799.312,
-   "unit": "m3/ha/yr",
+   "value": -0.292,
+   "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f34",
    "text": {
-    "en": "Median gross margin is 2,852 USD/ha per year versus 2,052 now (799 USD/ha higher).",
-    "tr": "Ortanca brüt kâr yılda 2.852 USD/ha; şimdiki rotasyonda 2.052 (799 USD/ha yüksek)."
+    "en": "Irrigation water use is 1,843 m³/ha per year versus 4,829 in the current rotation (2,985 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.843 m³/ha; mevcut rotasyonda 4.829 (2.985 m³/ha daha az)."
    },
-   "value": 799.485,
-   "unit": "USD/ha/yr",
+   "value": -2985.327,
+   "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f35",
+   "text": {
+    "en": "Median gross margin is 2,782 USD/ha per year versus 1,978 now (803 USD/ha higher).",
+    "tr": "Ortanca brüt kâr yılda 2.782 USD/ha; şimdiki rotasyonda 1.978 (803 USD/ha yüksek)."
+   },
+   "value": 803.27,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f36",
    "text": {
     "en": "Nitrogen left for the next crop is 33 kg/ha per year versus 0 now.",
     "tr": "Sonraki ürüne kalan azot yılda 33 kg/ha; şimdi 0."
@@ -5556,7 +5619,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f36",
+   "id": "f37",
    "text": {
     "en": "Modelled erosion is 55% of the current rotation's level.",
     "tr": "Hesaplanan erozyon, mevcut rotasyonun %55 düzeyinde."
@@ -5566,7 +5629,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f37",
+   "id": "f38",
    "text": {
     "en": "The soil is covered by crop canopy 191 days per year versus 161 now.",
     "tr": "Toprak yılda 191 gün bitki örtüsüyle kaplı; şimdi 161 gün."
@@ -5576,17 +5639,17 @@
    "source_id": "fao56"
   },
   {
-   "id": "f38",
+   "id": "f39",
    "text": {
-    "en": "Water-stress days are 51 per year versus 34 now.",
-    "tr": "Su stresi günleri yılda 51; şimdi 34."
+    "en": "Water-stress days are 65 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 65; şimdi 44."
    },
-   "value": 17.333,
+   "value": 21.0,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
-   "id": "f39",
+   "id": "f40",
    "text": {
     "en": "The disease and pest break index is 1.00 versus 0.67 now.",
     "tr": "Hastalık-zararlı kırma endeksi 1,00; şimdi 0,67."
@@ -5596,7 +5659,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f40",
+   "id": "f41",
    "text": {
     "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
@@ -5606,7 +5669,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f41",
+   "id": "f42",
    "text": {
     "en": "In 3% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %3 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5616,12 +5679,12 @@
    "source_id": "fao56"
   },
   {
-   "id": "f42",
+   "id": "f43",
    "text": {
-    "en": "Median relative yield is 78% of potential versus 86% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %78'i; şimdi %86."
+    "en": "Median relative yield is 71% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %71'i; şimdi %83."
    },
-   "value": -0.08,
+   "value": -0.113,
    "unit": "ratio",
    "source_id": "fao56"
   }
@@ -5633,5 +5696,25 @@
  "scenario": {
   "delta_t_c": 0.0,
   "precip_change_pct": 0.0
+ },
+ "precip_correction": {
+  "source_id": "chirps",
+  "factors_by_month": {
+   "1": 0.348,
+   "2": 0.486,
+   "3": 0.563,
+   "4": 0.796,
+   "5": 0.902,
+   "6": 1.086,
+   "7": 0.516,
+   "8": 0.3,
+   "9": 0.53,
+   "10": 0.763,
+   "11": 0.528,
+   "12": 0.439
+  },
+  "power_mean_mm": 532.6,
+  "sat_mean_mm": 301.7,
+  "overlap_years": 35
  }
 }
