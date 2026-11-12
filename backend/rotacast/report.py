@@ -11,7 +11,7 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-from .connectors import modis, power, soil as soil_mod, terrain as terrain_mod
+from .connectors import modis, power, precip, soil as soil_mod, terrain as terrain_mod
 from .engine.climate import add_et0, climate_profile
 from .engine.phenology import analyze_ndvi
 from .engine.rotations import Rotation, RotationStep, generate_candidates, pick_strategies, simulate_rotation
@@ -30,6 +30,10 @@ DEFAULT_ROTATION = [
 
 SOURCES = {
     "nasa_power": {"name": "NASA POWER", "detail": "Daily weather, 0.5°×0.625° grid", "url": "https://power.larc.nasa.gov/"},
+    "gpm_imerg": {"name": "NASA GPM IMERG (via SERVIR ClimateSERV)", "detail": "Satellite rain, 0.1° daily; used to bias-correct POWER rain",
+                  "url": "https://gpm.nasa.gov/data/imerg"},
+    "chirps": {"name": "CHIRPS v2.0 (via SERVIR ClimateSERV)", "detail": "Satellite-gauge rain, 0.05° daily; used to bias-correct POWER rain",
+               "url": "https://www.chc.ucsb.edu/data/chirps"},
     "modis_mod13q1": {"name": "MODIS MOD13Q1 NDVI", "detail": "16-day composites, 250 m pixel",
                       "url": "https://modis.ornl.gov/data/modis_webservice.html"},
     "fao56": {"name": "FAO Irrigation and Drainage Paper 56", "detail": "ET0, crop coefficients, root-zone water balance",
@@ -231,6 +235,18 @@ def _climate_facts(F: Facts, climate: dict, fm: dict, soil: dict, lat_label: str
     return ids
 
 
+def _precip_fact(F: Facts, pc: dict | None, ids: dict) -> None:
+    if not pc:
+        return
+    nm = {"gpm_imerg": "GPM IMERG 0.1°", "chirps": "CHIRPS 0.05°"}.get(pc["source_id"], pc["source_id"])
+    s_, p_ = pc["sat_mean_mm"], pc["power_mean_mm"]
+    ids["precip"] = F.add(
+        "precip_corr", f"Satellite rain ({nm}) shows {_num(s_, 0, 'en')} mm/yr versus {_num(p_, 0, 'en')} mm/yr in the coarse "
+                       f"POWER grid; we corrected POWER month by month.",
+        f"Uydu yağışı ({nm}) yılda {_num(s_, 0, 'tr')} mm gösteriyor; iri NASA POWER ızgarasında {_num(p_, 0, 'tr')} mm/yıl. "
+        f"POWER verisini ay ay düzelttik.", round(s_, 1), "mm/yr", pc["source_id"])
+
+
 def _crop_chain(strategy: dict, crops: dict, lang: str) -> str:
     names = [crops[s["crop_id"]].name[lang] for s in strategy.get("steps", [])]
     return " → ".join(names)
@@ -356,7 +372,7 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
                         [g("water"), g("income")]))
         why.append(item("Your area has a large water deficit, so irrigated crops in the rotation depend on well or canal water.",
                         "Bölgenizde büyük bir su açığı var; bu yüzden rotasyondaki sulu ürünler kuyu veya kanal suyuna bağlıdır.",
-                        [ids.get("deficit")]))
+                        [ids.get("deficit"), ids.get("precip")]))
         if ids.get("pattern"):
             why.append(item("Satellite greenness records show what has actually been grown here.",
                             "Uydu yeşillik kayıtları buraya gerçekte ne ekildiğini gösteriyor.", [ids["pattern"]]))
@@ -370,7 +386,7 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
                     [w[0]]))
             why.append(item("Your area loses far more water to evaporation than it receives as rain, so every cubic metre saved counts.",
                             "Bölgenizde buharlaşmayla kaybedilen su yağmurdan çok fazla; tasarruf edilen her metreküp önemli.",
-                            [ids.get("deficit"), ids.get("et0")]))
+                            [ids.get("deficit"), ids.get("precip"), ids.get("et0")]))
             if "stress" in d:
                 why.append(item("Fewer days of water stress mean the crops cope better in dry years.",
                                 "Daha az su stresi günü, ürünlerin kurak yıllarla daha iyi başa çıkması demek.", [d["stress"][0]]))
@@ -472,6 +488,20 @@ def build_field_report(req: dict | None = None) -> dict:
     last_year = date.today().year - 1
 
     wx0 = power.fetch_daily(lat, lon, date(WEATHER_START_YEAR, 1, 1), date(last_year, 12, 31))
+    pcorr, extra_gaps = None, []
+    try:  # POWER's 0.5 deg cell is too wet for many plains: rescale it month by month to satellite rain
+        sat = precip.fetch_precip_daily(lat, lon, date(2001, 1, 1), date(last_year, 12, 31))
+        wx0 = precip.bias_correct_power(wx0, sat)
+        pcorr = wx0.attrs["precip_correction"]
+        extra_gaps.append({"text": {
+            "en": "Rain is POWER's daily pattern rescaled month by month to satellite totals (about 10 km); a single storm over your "
+                  "field can still differ.",
+            "tr": "Yağış, NASA POWER'ın günlük deseninin aylık uydu toplamlarına (yaklaşık 10 km) göre ölçeklenmiş hâli; "
+                  "tarlanıza düşen tek bir sağanak yine de farklı olabilir."}})
+    except Exception:  # degrade gracefully: raw POWER rain, say so
+        extra_gaps.append({"text": {
+            "en": "Satellite rainfall was unavailable, so rain is raw NASA POWER and may be too high on dry plains.",
+            "tr": "Uydu yağış verisine ulaşılamadı; yağış ham NASA POWER değeri ve kurak ovalarda gerçekte olandan yüksek olabilir."}})
     elev_p = float(wx0.attrs.get("elevation_m") or 0.0)
     wx_obs = add_et0(wx0, lat, elev_p)
     wx_obs.attrs = dict(wx0.attrs)
@@ -506,6 +536,7 @@ def build_field_report(req: dict | None = None) -> dict:
     # facts + evidence
     F = Facts()
     ids = _climate_facts(F, climate, fm, soil, "")
+    _precip_fact(F, pcorr, ids)
     base_s = picked[0]
     base_crops = {s["crop_id"] for s in base_s["steps"]}
     ordered = [picked[0]] + [s for a in ARCH_ORDER for s in picked[1:] if s["archetype"] == a]
@@ -513,6 +544,7 @@ def build_field_report(req: dict | None = None) -> dict:
     for st in ordered:
         deltas = _strategy_deltas(F, st, base_s, ids)
         ev = _evidence(st, base_s, deltas, ids, crops, base_crops)
+        ev["gaps"] = ev["gaps"] + copy.deepcopy(extra_gaps)
         out = {k: st[k] for k in ("id", "archetype", "name", "cycle_years", "calendar", "indicators", "score",
                                    "score_breakdown", "feasibility") if k in st}
         out["rotation_name"] = cand_names.get(st.get("rotation_id"), st["name"]) if st["archetype"] != "baseline" else \
@@ -522,6 +554,8 @@ def build_field_report(req: dict | None = None) -> dict:
         strategies.append(out)
 
     used = {f["source_id"] for f in F.items} | {"nasa_power", "fao56", soil["source_id"], "srtm_terrain_tiles"}
+    if pcorr:
+        used.add(pcorr["source_id"])
     if fm.get("years"):
         used.add("modis_mod13q1")
     sources = [{"id": k, **SOURCES[k]} for k in SOURCES if k in used]
@@ -539,6 +573,7 @@ def build_field_report(req: dict | None = None) -> dict:
         "facts": F.items,
         "disclaimer": DISCLAIMER,
         "scenario": r["scenario"],
+        "precip_correction": pcorr,
     }
     return _clean(report)
 

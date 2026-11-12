@@ -1,4 +1,5 @@
-import type { FieldReport, FieldRequest } from './types'
+import type { BasinReport, FieldReport, FieldRequest } from './types'
+import mockBasin from './mock/basinReport.konya.json'
 import mockReport from './mock/fieldReport.konya.json'
 
 export interface AnalyzeResult { report: FieldReport; source: 'live' | 'mock-forced' | 'mock-fallback' }
@@ -50,4 +51,17 @@ export async function analyzeField(req: FieldRequest): Promise<AnalyzeResult> {
     await new Promise((r) => setTimeout(r, 2600))
     return { report: scoreMock(req), source: 'mock-fallback' }
   }
+}
+
+export async function getBasin(): Promise<{ report: BasinReport; mock: boolean }> {
+  if (!isMockForced()) {
+    try {
+      const res = await fetch('/api/basin/konya')
+      if (!res.ok) throw new Error('HTTP ' + res.status)
+      const report = (await res.json()) as BasinReport
+      if (!report || !report.scenarios) throw new Error('bad payload')
+      return { report, mock: false }
+    } catch { /* fall through to mock */ }
+  }
+  return { report: mockBasin as unknown as BasinReport, mock: true }
 }

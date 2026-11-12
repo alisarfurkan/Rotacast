@@ -1,6 +1,7 @@
 """FastAPI app: POST /api/field/analyze, GET /api/crops, GET /api/health. Run: uvicorn rotacast.api.main:app --port 8000"""
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -69,6 +70,17 @@ def analyze(req: AnalyzeRequest):
         raise HTTPException(status_code=422, detail=str(e))
     except Exception as e:  # data source failure
         raise HTTPException(status_code=502, detail=f"analysis failed: {type(e).__name__}: {e}")
+
+
+_BASIN = Path(__file__).resolve().parents[3] / "data" / "demo" / "basin_report_konya.json"
+
+
+@app.get("/api/basin/konya")
+def basin_konya():
+    """Precomputed Konya Closed Basin scenario report (scripts/build_basin_report.py; schema CONTRACTS.md §5)."""
+    if not _BASIN.is_file():
+        raise HTTPException(status_code=404, detail="basin report not built")
+    return JSONResponse(json.loads(_BASIN.read_text(encoding="utf-8")))
 
 
 _DIST = Path(__file__).resolve().parents[3] / "frontend" / "dist"

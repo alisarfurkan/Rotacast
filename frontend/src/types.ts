@@ -113,3 +113,38 @@ export interface FieldReport {
   facts: Fact[]
   disclaimer: I18nText
 }
+
+// BasinReport (docs/CONTRACTS.md section 5)
+export interface BasinCellStrategy {
+  score: number; rotation_name: I18nText; water_m3_ha: Band; water_change_m3_ha_p50: number
+}
+export interface BasinCell {
+  id: string; lat: number; lon: number; bounds: number[]; clip: number[]; area_km2: number
+  cropland_ha: number; irrigated_ha: number; baseline_water_m3_ha: number
+  best_strategy: { archetype: string; name: I18nText; score: number }
+  strategies: Record<string, BasinCellStrategy>
+}
+export interface BasinScenario {
+  climate: string
+  irrigation_change_mm3_yr: Band
+  grace_offset_pct: Band | null
+  production_change_t_yr: { crop_id: string; name: I18nText; change_t_yr: number }[]
+}
+export interface BasinReport {
+  scenario_notice: I18nText
+  region: { id: string; name: I18nText; bbox: number[]; bbox_area_km2: number }
+  totals: { n_cells: number; cropland_ha: number; irrigated_ha: number }
+  strategies: { id: string; name: I18nText }[]
+  adoption_rates: number[]
+  horizons: number[]
+  cells: BasinCell[]
+  scenarios: Record<string, Record<string, Record<string, BasinScenario>>>
+  grace: {
+    available: boolean; trend_cm_yr: number | null; trend_ci95_cm_yr: number[] | null
+    volume_change_mm3_yr: number | null; volume_change_ci95_mm3_yr: number[] | null
+    loss_mm3_yr: number | null; series: { date: string; tws_cm: number }[]; note: I18nText
+  }
+  assumptions: { id: string; label: I18nText; value: unknown; source: string }[]
+  limitations: I18nText[]
+  sources: { id: string; name: string; url: string }[]
+}

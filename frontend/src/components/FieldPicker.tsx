@@ -9,7 +9,7 @@ maplibregl.setWorkerUrl(workerUrl)
 export interface Point { lat: number; lon: number }
 export const KONYA: Point = { lat: 37.6, lon: 32.75 }
 
-const style: maplibregl.StyleSpecification = {
+export const style: maplibregl.StyleSpecification = {
   version: 8,
   sources: {
     esri: {

@@ -10,7 +10,7 @@ import { FieldMemory } from './components/FieldMemory'
 import { ClimateShift } from './components/ClimateShift'
 import { Strategies } from './components/Strategies'
 import { EvidenceDrawer } from './components/EvidenceDrawer'
-import { BasinPlaceholder } from './components/BasinPlaceholder'
+import { BasinView } from './components/BasinView'
 import { Footer } from './components/Footer'
 
 const initialLang = (): Lang => {
@@ -96,7 +96,7 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
       <Header lang={lang} setLang={setLang} tab={tab} setTab={setTab} />
       <div className="bg-sunsoft text-ink text-xs md:text-[13px] text-center px-4 py-1.5 border-b border-line">{t('supportNote')}</div>
       <main className="mx-auto max-w-[1500px] px-4 md:px-8 py-5">
-        {tab === 'basin' ? <BasinPlaceholder /> : (
+        {tab === 'basin' ? <BasinView /> : (
           <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[340px_minmax(0,1fr)] gap-6 items-start">
             <div className="lg:sticky lg:top-3 lg:max-h-[calc(100vh-24px)] lg:overflow-y-auto lg:pr-1">
               <InputPanel point={point} onPick={setPoint} rotation={rotation} setRotation={setRotation}
