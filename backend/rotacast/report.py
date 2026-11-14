@@ -800,8 +800,10 @@ def build_field_report(req: dict | None = None) -> dict:
     cons = dict(r["constraints"])
     if details.get("excluded_crops"):
         cons["exclude_crops"] = sorted(details["excluded_crops"])
-    if quota:
-        cons["water_access"] = "full" if quota["quota_m3_ha_yr"] > 0 else "none"
+    if quota:  # the quota replaces water access: it alone bounds irrigation (CONTRACTS 6.2)
+        has_water = quota["quota_m3_ha_yr"] > 0
+        cons["water_access"] = "full" if has_water else "none"
+        cons["max_irrigated_share"] = 1.0 if has_water else 0.0
     cands = generate_candidates(crops, climate, fm, cons)
     sims = _simulate_all(cands, wx_sim, sp, crops, last_year, base_idx, eff)
     if quota:  # drop candidates above the per-ha quota; keep them (marked) if fewer than 3 would remain

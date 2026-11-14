@@ -304,6 +304,15 @@ def test_quota_without_polygon_is_per_ha():
         assert all(x["irrigation"] == "none" for x in s["steps"])
 
 
+def test_quota_replaces_water_access_and_irrigated_share():
+    """A quota bounds irrigation on its own: water_access 'none' / share 0 in the request no longer apply."""
+    req = {**REQ, "constraints": {"water_access": "none", "max_irrigated_share": 0.0},
+           "field_details": {"water_quota_m3_yr": 20000}}
+    rep = get_field_report(req)
+    assert rep["quota"]["basis"] == "per_ha"
+    assert any(x["irrigation"] != "none" for s in rep["strategies"][1:] for x in s["steps"])
+
+
 # ---------------------------------------------------------------- declared yields
 def test_yields_scale_income_and_do_not_mutate_cache(default):
     crops_before = load_crops()["wheat_winter"].economics.yield_t_ha.copy()
