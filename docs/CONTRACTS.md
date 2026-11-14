@@ -376,10 +376,10 @@ Every user value that is used becomes a fact with `source_id: "user"`; `sources`
   ],
   "irrigation": {"method": "drip", "efficiency": 0.9, "source_id": "irrigation_efficiency"},   // only with irrigation_method
   "quota": {"quota_m3_yr": 40000, "quota_m3_ha_yr": 8281.6, "basis": "field_total",           // basis: field_total | per_ha
-            "baseline_exceeds": false, "n_candidates_excluded": 12},                            // only with water_quota_m3_yr
+            "baseline_exceeds": false, "n_candidates_excluded": 12, "relaxed": false},          // only with water_quota_m3_yr; relaxed: < 3 options fit, so over-quota ones were kept (marked)
   "strategies": [{"...": "...", "exceeds_quota": false}],                                       // key only with water_quota_m3_yr
   "yield_check": [{"crop_id": "wheat_winter", "declared_t_ha": 4.2, "regional_t_ha": 5.5, "factor": 0.764}],
-  "history_check": {"n_years": 3, "n_agree": 2, "agreement": 0.667,
+  "history_check": {"n_years": 3, "n_agree": 2, "agreement": 0.667,   // agreement null when n_years is 0
                     "years": [{"year": 2024, "crop_id": "maize_grain", "declared_pattern": "summer_crop",
                                "satellite_pattern": "summer_crop", "agree": true}]},   // years without satellite data: satellite_pattern null, agree null, not counted
   "irrigation_check": [{"crop_id": "maize_grain", "declared_m3_ha": 6500, "modelled_m3_ha": 7120, "diff_pct": -8.7}]

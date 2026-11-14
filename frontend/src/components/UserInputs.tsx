@@ -51,7 +51,7 @@ export function UserInputs({ report }: { report: FieldReport }) {
           {hc && (
             <div className="min-w-0">
               <h3 className="text-sm font-bold mb-1.5">{t('hcTitle')}</h3>
-              <p className="text-sm">{t('hcLine', { agree: hc.n_agree, n: hc.n_years })}</p>
+              <p className="text-sm">{hc.n_years ? t('hcLine', { agree: hc.n_agree, n: hc.n_years }) : t('hcNone')}</p>
               <ul className="mt-1.5 flex flex-wrap gap-1.5">
                 {hc.years.map((y) => (
                   <li key={y.year} title={cn(y.crop_id)}

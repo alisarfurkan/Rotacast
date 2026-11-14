@@ -48,8 +48,8 @@ SOURCES = {
     "srtm_terrain_tiles": {"name": "SRTM terrain tiles", "detail": "AWS Open Data terrain tiles, SRTM-derived",
                            "url": "https://registry.opendata.aws/terrain-tiles/"},
     "irrigation_efficiency": {"name": "FAO Irrigation Water Management Training Manual No. 5: Irrigation Methods (Brouwer, Prins, Kay, Heibloem, 1989)",
-                              "detail": "Typical field application efficiencies by irrigation method (flood 0.55, furrow 0.65, "
-                                        "sprinkler 0.75, drip 0.90); rounded typical values, not measured on the field",
+                              "detail": "Typical field application efficiency: surface ~0.60, sprinkler ~0.75, drip ~0.90. Surface is "
+                                        "split into flood 0.55 and furrow 0.65 by our assumption; rounded values, not measured on the field",
                               "url": "https://www.fao.org/4/s8684e/s8684e00.htm"},
     "user": {"name": "User-provided field data / Kullanıcı beyanı",
              "detail": "Values typed in by the user (field boundary, soil, crops, water); not verified", "url": ""},
@@ -723,6 +723,15 @@ def _user_evidence(ev: dict, st: dict, deltas: dict, ufid: dict, quota: dict | N
                 tr = (f"Bu seçenek yılda yaklaşık {_num(w, 0, 'tr')} m³/ha su istiyor; kotanız {_num(qh, 0, 'tr')} m³/ha'nın üzerinde. "
                       f"Kotaya sığan seçenek yeterince olmadığı için gösteriliyor.")
             ev["risks"].append({"text": {"en": en, "tr": tr}, "facts": facts, "check_with": "extension_service"})
+    # make every user value reachable from the evidence drawer (facts with source_id "user")
+    used = [ufid[k] for k in ("polygon", "soil", "irrigation_method", "water_quota", "yields") if k in ufid]
+    if used:
+        ev["why"].append({"text": {"en": "Calculated with the field data you entered.",
+                                   "tr": "Girdiğiniz tarla bilgileriyle hesaplandı."}, "facts": used})
+    checks = [ufid[k] for k in ("history", "irrigation_applied") if k in ufid]
+    if base and checks:
+        ev["why"].append({"text": {"en": "Your own records, compared with the satellite and the model (they do not change the result).",
+                                   "tr": "Kendi kayıtlarınız uydu ve modelle karşılaştırıldı (sonucu değiştirmez)."}, "facts": checks})
 
 
 # ------------------------------------------------------------------ main builder

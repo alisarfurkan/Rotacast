@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from ..field_inputs import FieldDetails, FieldPolygon
 from ..knowledge.crops import load_crops
@@ -52,6 +52,11 @@ class AnalyzeRequest(BaseModel):
     lang: str = "tr"
     field_polygon: FieldPolygon | None = None   # CONTRACTS section 6.1
     field_details: FieldDetails | None = None
+
+    @field_validator("field_polygon", "field_details", mode="before")
+    @classmethod
+    def _empty_is_none(cls, v):  # CONTRACTS 6.1: null, {} and [] mean "not given"
+        return None if v in ({}, []) else v
 
 
 @app.get("/api/health")

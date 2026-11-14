@@ -131,7 +131,7 @@ export interface UserInput {
 }
 export interface YieldCheck { crop_id: string; declared_t_ha: number; regional_t_ha: number; factor: number }
 export interface HistoryCheck {
-  n_years: number; n_agree: number; agreement: number
+  n_years: number; n_agree: number; agreement: number | null // null when no declared year has satellite data
   years: { year: number; crop_id: string; declared_pattern: string; satellite_pattern: string | null; agree: boolean | null }[]
 }
 export interface IrrigationCheck { crop_id: string; declared_m3_ha: number; modelled_m3_ha: number | null; diff_pct: number | null }
@@ -140,7 +140,7 @@ export interface FieldReport {
   location: { lat: number; lon: number; elevation_m: number; label: string; area_ha?: number; polygon?: FieldPolygon }
   user_inputs?: UserInput[]
   irrigation?: { method: string; efficiency: number; source_id: string }
-  quota?: { quota_m3_yr: number; quota_m3_ha_yr: number; basis: 'field_total' | 'per_ha'; baseline_exceeds: boolean; n_candidates_excluded: number }
+  quota?: { quota_m3_yr: number; quota_m3_ha_yr: number; basis: 'field_total' | 'per_ha'; baseline_exceeds: boolean; n_candidates_excluded: number; relaxed?: boolean }
   yield_check?: YieldCheck[]
   history_check?: HistoryCheck
   irrigation_check?: IrrigationCheck[]

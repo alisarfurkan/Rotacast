@@ -199,12 +199,33 @@ def test_excluded_crops(combo):
     assert rest
     for s in rest:
         assert not {"sunflower", "maize_grain"} & {x["crop_id"] for x in s["steps"]}
-        last = s["evidence"]["why"][-1]
+        last = next(w for w in s["evidence"]["why"] if "Left out" in w["text"]["en"])
         assert "Sunflower" in last["text"]["en"] and "no buyer" in last["text"]["en"]
         assert "Ayçiçeği" in last["text"]["tr"]
-        assert len(s["evidence"]["why"]) <= 4
+        assert len(s["evidence"]["why"]) <= 5
         assert next(f for f in rep["facts"] if f["id"] == last["facts"][0])["source_id"] == "user"
     assert not any("Left out" in w["text"]["en"] for w in base["evidence"]["why"])
+
+
+def test_excluded_cover_crops_never_used():
+    rep = get_field_report({**REQ, "field_details": {"excluded_crops": ["rye_cover", "vetch_cover"]}})
+    for s in rep["strategies"][1:]:
+        assert not {"rye_cover", "vetch_cover"} & {x["crop_id"] for x in s["steps"]}
+        assert not {"rye_cover", "vetch_cover"} & {c["crop_id"] for c in s["calendar"]}
+
+
+def test_user_facts_reachable_from_evidence(combo):
+    """Every fact with source_id 'user' is referenced by some evidence item (the drawer shows referenced facts)."""
+    rep, _ = combo
+    user = {f["id"] for f in rep["facts"] if f["source_id"] == "user"}
+    refs = {fid for s in rep["strategies"] for k in ("why", "benefits", "risks")
+            for it in s["evidence"][k] for fid in it.get("facts", [])}
+    assert user and user <= refs | {next(f["id"] for f in rep["facts"] if f["text"]["en"].startswith("The soil is"))}
+
+
+def test_empty_polygon_object_is_not_given():
+    c = TestClient(app)
+    assert c.post("/api/field/analyze", json={**REQ, "field_polygon": {}}).status_code == 200
 
 
 def test_history_check(combo):

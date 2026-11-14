@@ -177,6 +177,9 @@ export function computeScales(list: Strategy[]): Scales {
   return { water: rng((s) => s.indicators.water_m3_ha_yr), income: rng((s) => s.indicators.income_usd_ha_yr), yield: [0, 1.05] }
 }
 
+/** Field totals are rough (per-ha model x area): show 3 significant figures, e.g. 4 189 221 -> 4 190 000. */
+const round3 = (v: number) => { if (!v) return 0; const p = 10 ** (Math.floor(Math.log10(Math.abs(v))) - 2); return Math.round(v / p) * p }
+
 export function StrategyCard({ s, base, scales, top, onOpen, areaHa }: { s: Strategy; base: Strategy; scales: Scales; top: boolean; onOpen: () => void; areaHa?: number }) {
   const t = useT()
   const lang = useLang()
@@ -230,14 +233,14 @@ export function StrategyCard({ s, base, scales, top, onOpen, areaHa }: { s: Stra
             <span className="font-display text-4xl font-black text-water tabular-nums leading-none">{fmt(i.water_m3_ha_yr.p50, 0, lang)}</span>
             <span className="text-xs text-muted">{t('waterUnit')}</span>
           </div>
-          {areaHa !== undefined && <div className="mt-1 text-xs font-semibold text-water">{t('fieldWater', { area: fmt(areaHa, areaHa < 10 ? 2 : 1, lang), total: fmt(i.water_m3_ha_yr.p50 * areaHa, 0, lang) })}</div>}
+          {areaHa !== undefined && <div className="mt-1 text-xs font-semibold text-water">{t('fieldWater', { area: fmt(areaHa, areaHa < 10 ? 2 : 1, lang), total: fmt(round3(i.water_m3_ha_yr.p50 * areaHa), 0, lang) })}</div>}
           {!isBase && <div className="mt-1.5"><Delta good={dWater < 0 ? true : dWater > 0 ? false : null} text={`${signed(dWater, 0, lang)} ${t('waterUnit')}`} /> <span className="text-[10.5px] text-muted">{t('vsCurrent')}</span></div>}
           <div className="mt-2"><BandRow label={<Term k="band">{t('water')}</Term>} band={i.water_m3_ha_yr} scale={[0, Math.max(scales.water[1], 1)]} unit="" higherBetter={null} /></div>
         </div>
 
         <div className="grid gap-3.5">
           <BandRow label={t('income')} band={i.income_usd_ha_yr} scale={scales.income} unit={t('incomeUnit')} higherBetter />
-          {areaHa !== undefined && <div className="-mt-2 text-xs font-semibold text-muted">{t('fieldIncome', { total: fmt(i.income_usd_ha_yr.p50 * areaHa, 0, lang) })}</div>}
+          {areaHa !== undefined && <div className="-mt-2 text-xs font-semibold text-muted">{t('fieldIncome', { total: fmt(round3(i.income_usd_ha_yr.p50 * areaHa), 0, lang) })}</div>}
           {!isBase && <div className="-mt-2"><Delta good={dInc > 0 ? true : dInc < 0 ? false : null} text={`${signed(dInc, 0, lang)} USD/ha`} /></div>}
           <BandRow label={<Term k="yield">{t('yieldRatio')}</Term>} band={i.yield_ratio} scale={scales.yield} unit="" higherBetter decimals={2} />
           <MeterRow label={<Term k="nbalance">{t('nBalance')}</Term>} value={i.n_balance_kg_ha_yr} max={60} unit={t('nUnit')}

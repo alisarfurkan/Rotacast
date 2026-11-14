@@ -208,7 +208,7 @@ against `tests/fixtures/konya_default_strategies.json`). Every value the user ty
   silty clay loam 33/10, silty clay 47/7, loam 18/42, silt loam 13/22, sandy loam 10/65, sandy clay loam 27/61, sandy clay 41/52,
   loamy sand 6/82, sand 3/92, silt 5/8 (clay %/sand %). If only one of clay/sand is given, the other comes from the class (if given) or SoilGrids and is capped so that clay + sand <= 100.
 - **Excluded crops** go to `constraints.exclude_crops` of candidate generation. The user's own current rotation is never changed.
-- **Irrigation method**: gross water = net crop irrigation / field application efficiency. Typical efficiencies: flood 0.55, furrow 0.65, sprinkler 0.75, drip 0.90
+- **Irrigation method**: gross water = net crop irrigation / field application efficiency. Typical efficiencies: flood 0.55, furrow 0.65, sprinkler 0.75, drip 0.90 (FAO training-manual typical values are surface ~0.60, sprinkler ~0.75, drip ~0.90; the flood/furrow split of surface irrigation is our assumption)
   (`IRRIGATION_EFFICIENCY` in `engine/rotations.py`; source id `irrigation_efficiency`, FAO Irrigation Water Management Training Manual No. 5, *Irrigation Methods*, Brouwer et al. 1989).
   These are rounded typical values, not field measurements. `water_m3_ha_yr` and the water cost inside income are gross; `irrigation_mm_yr` stays net crop irrigation.
 - **Water quota**: per-ha quota = quota / polygon area (or the number itself without a polygon). Candidates are generated with `water_access` "full" (quota 0: "none"), those with p50 gross

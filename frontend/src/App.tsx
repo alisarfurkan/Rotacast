@@ -155,7 +155,8 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
   useEffect(() => {
     if (!report || loading || handled.current === tick) return
     const req = buildRequest(currentInputs(), mode, lang)
-    if (!req || requestKey(req) === sentKey.current) { handled.current = tick; return }
+    // never send invalid inputs on a quiet re-run: the user fixes the fields and presses Analyze
+    if (!req || blocker || requestKey(req) === sentKey.current) { handled.current = tick; return }
     const id = setTimeout(() => { handled.current = tick; run(true) }, 500)
     return () => clearTimeout(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
