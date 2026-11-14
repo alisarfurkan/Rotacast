@@ -1,7 +1,8 @@
 ---
 name: explorer
 description: Fast read-only worker for searching and mapping the project. Use to find files, functions, usages, config values or patterns across many files when only the conclusion is needed, not the file dumps. Never edits anything.
-model: haiku
+model: sonnet
+effort: medium
 tools: Read, Grep, Glob
 ---
 
