@@ -1,4 +1,4 @@
-import type { ZoneInfo, ZoneStation } from '../types'
+import type { ZoneCrops, ZoneInfo, ZoneStation } from '../types'
 import { Term } from './Term'
 import { useLang, useT } from '../ctx'
 import { fmt, pick } from '../util'
@@ -40,6 +40,66 @@ function Station({ s }: { s: ZoneStation }) {
   )
 }
 
+const GROUP_ORDER = ['field', 'special', 'protected', 'method', 'tech'] as const
+
+function Crops({ c }: { c: ZoneCrops }) {
+  const t = useT()
+  const lang = useLang()
+  const num = (id: string) => c.sources.findIndex((s) => s.id === id) + 1
+  return (
+    <div className="mt-5">
+      <h3 className="text-sm font-bold mb-1">{t('zoneCropsTitle')}</h3>
+      <p className="text-xs text-muted mb-3">{t('zoneCropsNote')} {pick(c.caveat, lang)}</p>
+      {c.notes.map((n, i) => (
+        <p key={i} className="text-sm rounded-lg border border-line bg-surface2 px-3 py-2 mb-3">
+          ⚠ {pick(n, lang)}{n.sources.map((s) => <sup key={s} className="text-muted ml-0.5">[{num(s)}]</sup>)}
+        </p>
+      ))}
+      {GROUP_ORDER.map((g) => {
+        const items = c.crops.filter((x) => x.group === g)
+        if (!items.length) return null
+        return (
+          <div key={g} className="mb-3">
+            <div className="text-[11px] uppercase tracking-wide text-muted mb-1.5">{pick(c.groups[g], lang)}</div>
+            <ul className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-2">
+              {items.map((x) => (
+                <li key={x.name.en} className={`rounded-lg border px-3 py-2 text-sm min-w-0 ${x.status === 'pilot' ? 'border-dashed border-line' : 'border-line bg-surface2'}`}>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="font-semibold">{pick(x.name, lang)}</span>
+                    {x.status === 'pilot' && (
+                      <span title={t('zoneCropPilotTip')} className="text-[11px] rounded-full border border-line px-1.5">🧪 {t('zoneCropPilot')}</span>
+                    )}
+                    {x.caution && (
+                      <span title={t('zoneCropCautionTip')} className="text-[11px] rounded-full border border-line px-1.5">⚠ {t('zoneCropCaution')}</span>
+                    )}
+                    {x.sources.map((s) => <sup key={s} className="text-muted">[{num(s)}]</sup>)}
+                  </div>
+                  {(x.districts?.length || x.note) && (
+                    <div className="text-xs text-muted mt-0.5">
+                      {x.districts?.join(', ')}{x.districts?.length && x.note ? ' · ' : ''}{x.note && pick(x.note, lang)}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      })}
+      <details className="text-xs text-muted mt-2">
+        <summary className="cursor-pointer">{t('zoneCropSources')} ({c.sources.length})</summary>
+        <ol className="list-decimal pl-5 mt-1.5 flex flex-col gap-1">
+          {c.sources.map((s) => (
+            <li key={s.id}>
+              {s.url ? <a className="underline" href={s.url} target="_blank" rel="noreferrer">{s.title} ↗</a>
+                : <>{s.title} <span className="italic">({t('zoneCropNoUrl')})</span></>}
+            </li>
+          ))}
+        </ol>
+      </details>
+    </div>
+  )
+}
+
 export function ZoneCard({ zone }: { zone: ZoneInfo }) {
   const t = useT()
   const lang = useLang()
@@ -74,6 +134,7 @@ export function ZoneCard({ zone }: { zone: ZoneInfo }) {
         {nasa && <> · {t('zoneSrcNasa')}</>}
       </p>
       {lang === 'en' && <p className="text-xs text-muted mt-1">{t('zoneTypesNote')}</p>}
+      {zone.crops && zone.crops.crops.length > 0 && <Crops c={zone.crops} />}
     </section>
   )
 }

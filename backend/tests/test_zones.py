@@ -122,3 +122,43 @@ def test_analyze_rejects_outside_konya_and_lakes():
     assert r.status_code == 422 and r.json()["detail"]["code"] == "outside_konya"
     r = client.post("/api/field/analyze", json={"lat": 37.75, "lon": 31.55})  # Beyşehir Gölü
     assert r.status_code == 422 and r.json()["detail"]["code"] == "on_lake"
+
+
+# --- zone crop whitelist (data/zones/zone_crops.json) -----------------------------------------------------------
+from rotacast.api.main import field_zone  # noqa: E402
+from rotacast.knowledge.crops import load_crops  # noqa: E402
+
+BANNED = ["kivi", "yaban mersini", "kuşkonmaz", "salicornia", "kapari", "aloe", "ginseng", "teff", "goji", "kinoa",
+          "ahududu", "böğürtlen", "yağ gülü", "atriplex", "safran"]
+
+
+def _whitelist():
+    return json.loads((lookup.ZONES_DIR / "zone_crops.json").read_text(encoding="utf-8"))
+
+
+def test_whitelist_integrity():
+    d = _whitelist()
+    keys = {f["properties"]["key"] for f in lookup.zones_geojson()["features"]}
+    assert set(d["zones"]) == keys
+    engine_ids = set(load_crops())
+    for key, z in d["zones"].items():
+        assert z["crops"] and z["excluded"]
+        for c in z["crops"]:
+            assert c["status"] in d["meta"]["status"], (key, c)
+            assert c["group"] in d["meta"]["groups"], (key, c)
+            assert c["name"]["tr"] and c["name"]["en"]
+            assert all(s in d["sources"] for s in c["sources"]), (key, c)
+            assert set(c.get("engine", [])) <= engine_ids, (key, c)
+            assert not any(b in c["name"]["tr"].lower() for b in BANNED), (key, c)
+        assert all(s in d["sources"] for n in z["notes"] for s in n["sources"])
+
+
+def test_field_zone_carries_whitelist():
+    z = field_zone(37.6, 32.75, 1010.0)  # Çumra, central plain
+    crops = z["crops"]
+    assert z["key"] == "central" and crops["crops"]
+    assert {c["status"] for c in crops["crops"]} == {"verified", "pilot"}
+    assert any(c.get("caution") for c in crops["crops"])
+    ids = {s["id"] for s in crops["sources"]}
+    assert {"bugem_su_kisiti", "ilt_aromatik"} <= ids
+    assert "excluded" not in crops

@@ -341,6 +341,13 @@ Files: `data/zones/konya_zones.geojson`, `konya_boundary.geojson`, `konya_lakes.
 "zone": {"id": 5, "key": "central", "color": "", "name": {"tr": "", "en": ""}, "desc": {"tr": "", "en": ""},
          "elevation_m": {"p10": 0, "p50": 0, "p90": 0}, "field_elevation_m": 0,
          "elevation_position": "low|mid|high",   // vs. the zone band; null if the field elevation is unknown
-         "stations": [/* as above */]}
+         "stations": [/* as above */],
+         "crops": {                              // data/zones/zone_crops.json (METHODS §10.1); null if the file is missing
+           "version": "2026-11-14", "caveat": {"tr": "", "en": ""}, "groups": {"field": {"tr": "", "en": ""}},
+           "crops": [{"name": {"tr": "", "en": ""}, "status": "verified|pilot",
+                      "group": "field|special|protected|method|tech", "caution"?: true, "districts"?: [""],
+                      "note"?: {"tr": "", "en": ""}, "sources": ["ilt_aromatik"], "engine"?: ["wheat_winter"]}],
+           "notes": [{"tr": "", "en": "", "sources": [""]}],
+           "sources": [{"id": "", "title": "", "url": "" /* or null */}]}}  // excluded crops are never returned
 // Points outside Konya or on a lake: HTTP 422, detail = {"code": "outside_konya" | "on_lake", "message": "", "lake"?: ""}
 ```

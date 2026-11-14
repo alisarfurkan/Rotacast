@@ -62,3 +62,24 @@ def zone_at(lat: float, lon: float, zones_dir: Path = ZONES_DIR) -> dict | None:
             return props
     best = min(zones_geojson(zones_dir)["features"], key=lambda f: shape(f["geometry"]).distance(p))
     return best["properties"]
+
+
+def zone_crops(key: str, zones_dir: Path = ZONES_DIR) -> dict | None:
+    """Evidence-tiered crop whitelist of one zone (``data/zones/zone_crops.json``; METHODS §10.1).
+
+    Excluded crops stay in the file for traceability but are never returned. Source ids are resolved to
+    ``{id, title, url}`` so the client can link every crop to its primary source.
+    """
+    path = zones_dir / "zone_crops.json"
+    if not path.exists():
+        return None
+    d = _load(str(path))
+    z = d["zones"].get(key)
+    if z is None:
+        return None
+    src = d["sources"]
+    used = sorted({s for c in z["crops"] for s in c["sources"]} | {s for n in z["notes"] for s in n["sources"]})
+    meta = d["meta"]
+    return {"version": meta["version"], "caveat": meta["caveat"], "groups": meta["groups"],
+            "crops": [c for c in z["crops"] if c["status"] in ("verified", "pilot")],
+            "notes": z["notes"], "sources": [{"id": s, **src[s]} for s in used]}

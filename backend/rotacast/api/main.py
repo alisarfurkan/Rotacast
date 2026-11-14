@@ -99,7 +99,7 @@ def field_zone(lat: float, lon: float, field_elevation_m: float | None) -> dict:
     return {"id": z["id"], "key": z["key"], "color": z["color"],
             "name": {"tr": z["name_tr"], "en": z["name_en"]}, "desc": {"tr": z["desc_tr"], "en": z["desc_en"]},
             "elevation_m": band, "field_elevation_m": field_elevation_m, "elevation_position": position,
-            "stations": z["stations"]}
+            "stations": z["stations"], "crops": zone_lookup.zone_crops(z["key"])}
 
 
 @app.post("/api/field/analyze")

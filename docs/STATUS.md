@@ -38,7 +38,11 @@
 - Frontend: coloured zone layer + legend, Konya-only click check, zone line under the map, `ZoneCard` in the results.
 - Fixed: `.mjs` served as text/plain on Windows, which broke the MapLibre worker (GeoJSON layers did not draw).
 - An earlier attempt to derive zones by clustering MODIS LST/PET (AppEEARS) was dropped: hours of server-side queue.
-- Next (owner @selejder): zone-specific crop advice (calendar, frost/heat risk, suitable crops per zone).
+- Zone crop whitelist (`data/zones/zone_crops.json`, METHODS §10.1): crops manually verified against official sources
+  per zone (verified / pilot / caution; excluded crops never shown). Returned in `zone.crops`, shown in `ZoneCard`
+  with source links. The rotation engine does not filter by it yet.
+- Next (owner @selejder): use the whitelist in the engine (decision chain: zone evidence → climate → water → soil →
+  market); calendar and frost/heat risk per zone.
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.

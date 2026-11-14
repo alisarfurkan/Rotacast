@@ -214,6 +214,27 @@ can share traits of both zones. NASA POWER is a ~50 km grid, so nearby stations 
 and Ereğli) get the same POWER values; the MGM indices separate them. Akşehir Gölü is mostly dry and not mapped.
 The sub-label "irrigated plain microclimate" is not mapped; irrigation is a field input instead.
 
+### 10.1 Zone crop whitelist (`data/zones/zone_crops.json`)
+
+Each zone carries a list of crops **documented in that zone by an official or primary source**, manually verified
+by the team on 2026-11-14. No crop is added from agronomic inference or analogy with other regions.
+
+| Status | Rule | In the app |
+|---|---|---|
+| `verified` | District production record (MEVKA 2019 reports, TÜİK 2018 data), geographical indication (TÜRKPATENT) or official Konya study (İl Tarım medicinal-aromatic survey) | Listed |
+| `pilot` | Official trial or support project in the zone (İl Tarım, Büyükşehir, TAGEM) | Listed with a "Pilot" tag; never a recommendation |
+| excluded | No local evidence found (e.g. kiwi, blueberry, asparagus, Salicornia, caper, aloe vera, ginseng, teff, goji, quinoa) | Kept in the file for traceability, never returned by the API |
+
+`caution: true` marks crops that are really grown in the zone but should not be expanded because of water or
+environmental risk (groundwater restriction in the central plain and Karapınar–Ereğli, Beyşehir lake budget).
+Zone-level notes carry these warnings with their source.
+
+**Verified is not a recommendation.** Many comparable district records come from 2019 MEVKA reports based on 2018
+TÜİK data: "verified" means the crop is documented in the area, not that 2026 area or profit is known. A crop may
+enter a strategy card only after this chain: zone evidence → field climate → water budget → soil/salinity →
+market/processing. Today the list is shown in the zone card only; the rotation engine does not yet filter by it.
+Each crop's `engine` field maps it to the engine crop ids where one exists (e.g. wheat → `wheat_winter`).
+
 ## 11. Limitations
 
 Please read these before quoting any number.

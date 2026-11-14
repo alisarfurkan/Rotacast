@@ -118,6 +118,16 @@ export interface ZoneInfo {
   id: number; key: string; color: string; name: I18nText; desc: I18nText
   elevation_m: Band; field_elevation_m: number; elevation_position: 'low' | 'mid' | 'high'
   stations: ZoneStation[]
+  crops?: ZoneCrops | null
+}
+export interface ZoneCrop {
+  name: I18nText; status: 'verified' | 'pilot'; group: 'field' | 'special' | 'protected' | 'method' | 'tech'
+  caution?: boolean; districts?: string[]; note?: I18nText; sources: string[]; engine?: string[]
+}
+export interface ZoneCrops {
+  version: string; caveat: I18nText; groups: Record<string, I18nText>; crops: ZoneCrop[]
+  notes: { tr: string; en: string; sources: string[] }[]
+  sources: { id: string; title: string; url: string | null }[]
 }
 
 export interface ZoneProps {
