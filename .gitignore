@@ -15,3 +15,6 @@ data/cache/grace_csr_mascon/*.nc
 data/cache/**/*.part
 data/cache/**/*.tmp
 frontend/*.tsbuildinfo
+
+# Large raw downloads for the zoning pipeline (CHIRPS, AppEEARS bundles, boundaries)
+data/cache/_raw/

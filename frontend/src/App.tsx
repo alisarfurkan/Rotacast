@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { LangContext, useT } from './ctx'
-import { analyzeField, type AnalyzeResult } from './api'
+import { analyzeField, AnalyzeError, type AnalyzeResult } from './api'
 import type { FieldReport, Lang, Priorities, RotationStep, WaterAccess } from './types'
 import { Header, type Tab } from './components/Header'
 import { InputPanel, type Scenario } from './components/InputPanel'
 import { KONYA, type Point } from './components/FieldPicker'
 import { Loading } from './components/Loading'
+import { ZoneCard } from './components/ZoneCard'
 import { FieldMemory } from './components/FieldMemory'
 import { ClimateShift } from './components/ClimateShift'
 import { Strategies } from './components/Strategies'
@@ -75,8 +76,10 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
       setReport(res.report)
       setSource(res.source)
       if (!quiet) setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
-    } catch {
-      if (my === seq.current) setError(t('error'))
+    } catch (e) {
+      if (my === seq.current) {
+        setError(e instanceof AnalyzeError ? t(e.code === 'on_lake' ? 'onLake' : 'outsideKonya') : t('error'))
+      }
     } finally {
       if (my === seq.current) setLoading(false)
     }
@@ -130,6 +133,7 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
                   )}
                   <div className="text-xs text-muted">📍 {report.location.label} · {Math.round(report.location.elevation_m)} m</div>
                   <Strategies strategies={report.strategies} onOpen={setOpenId} />
+                  {report.zone && <ZoneCard zone={report.zone} />}
                   <FieldMemory fm={report.field_memory} />
                   <ClimateShift climate={report.climate} />
                 </>

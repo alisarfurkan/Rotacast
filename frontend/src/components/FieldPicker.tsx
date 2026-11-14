@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
-import { useT } from '../ctx'
+import { useLang, useT } from '../ctx'
+import { getZones } from '../api'
+import { inGeometry } from '../geo'
+import type { ZoneProps, ZonesData } from '../types'
 
 maplibregl.setWorkerUrl(workerUrl)
 
@@ -29,8 +32,30 @@ export const style: maplibregl.StyleSpecification = {
   ],
 }
 
+const KONYA_BBOX = [31.26, 36.75, 34.44, 39.31] as const
+const PAD = 0.5
+
+/** Zone containing the point, or why the point is not usable. */
+export function locate(z: ZonesData | null, p: Point): { zone: ZoneProps | null; problem: 'outside' | 'lake' | null } {
+  if (!z) return { zone: null, problem: null }
+  if (!z.boundary.features.some((f) => inGeometry(p.lon, p.lat, f.geometry))) return { zone: null, problem: 'outside' }
+  if (z.lakes.features.some((f) => inGeometry(p.lon, p.lat, f.geometry))) return { zone: null, problem: 'lake' }
+  const f = z.zones.features.find((x) => inGeometry(p.lon, p.lat, x.geometry))
+  return { zone: f?.properties ?? null, problem: null }
+}
+
 export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p: Point) => void }) {
   const t = useT()
+  const lang = useLang()
+  const [zones, setZones] = useState<ZonesData | null>(null)
+  const [mapReady, setMapReady] = useState(false)
+  const [notice, setNotice] = useState<'outsideKonya' | 'onLake' | null>(null)
+  const [hoverId, setHoverId] = useState<number | null>(null)
+  const [legendOpen, setLegendOpen] = useState(() => typeof window === 'undefined' || window.innerWidth >= 640)
+  const zonesRef = useRef<ZonesData | null>(null)
+  zonesRef.current = zones
+  useEffect(() => { getZones().then(setZones).catch(() => { /* map still works without zones */ }) }, [])
+  const zname = (z: ZoneProps) => (lang === 'tr' ? z.name_tr : z.name_en)
   const el = useRef<HTMLDivElement>(null)
   const map = useRef<maplibregl.Map | null>(null)
   const marker = useRef<maplibregl.Marker | null>(null)
@@ -40,12 +65,40 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
 
   useEffect(() => {
     if (!el.current) return
-    const m = new maplibregl.Map({ container: el.current, style, center: [32.75, 38.2], zoom: 5.2, attributionControl: { compact: true } })
+    const [w, s, e, n] = KONYA_BBOX
+    const m = new maplibregl.Map({
+      container: el.current, style, bounds: [[w, s], [e, n]], fitBoundsOptions: { padding: 10 },
+      minZoom: 6, maxBounds: [[w - PAD, s - PAD], [e + PAD, n + PAD]], attributionControl: { compact: true },
+    })
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
-    m.on('click', (e) => onPickRef.current({ lat: +e.lngLat.lat.toFixed(4), lon: +e.lngLat.lng.toFixed(4) }))
+    m.on('load', () => setMapReady(true))
+    m.on('click', (ev) => {
+      const p = { lat: +ev.lngLat.lat.toFixed(4), lon: +ev.lngLat.lng.toFixed(4) }
+      const { problem } = locate(zonesRef.current, p)
+      if (problem) { setNotice(problem === 'lake' ? 'onLake' : 'outsideKonya'); return }
+      setNotice(null)
+      onPickRef.current(p)
+    })
     map.current = m
-    return () => { m.remove(); map.current = null }
+    return () => { m.remove(); map.current = null; setMapReady(false) }
   }, [])
+
+  useEffect(() => {
+    const m = map.current
+    if (!m || !mapReady || !zones || m.getSource('zones')) return
+    m.addSource('zones', { type: 'geojson', data: zones.zones as never })
+    m.addSource('lakes', { type: 'geojson', data: zones.lakes as never })
+    m.addSource('boundary', { type: 'geojson', data: zones.boundary as never })
+    m.addLayer({ id: 'zones-fill', type: 'fill', source: 'zones', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.35 } })
+    m.addLayer({ id: 'zones-line', type: 'line', source: 'zones', paint: { 'line-color': ['get', 'color'], 'line-width': 1, 'line-opacity': 0.9 } })
+    m.addLayer({ id: 'lakes-fill', type: 'fill', source: 'lakes', paint: { 'fill-color': '#3b8fd1', 'fill-opacity': 0.75 } })
+    m.addLayer({ id: 'boundary-line', type: 'line', source: 'boundary', paint: { 'line-color': '#ffffff', 'line-width': 2.5, 'line-opacity': 0.95 } })
+    m.on('mousemove', 'zones-fill', (ev) => {
+      const id = ev.features?.[0]?.properties?.id
+      setHoverId(typeof id === 'number' ? id : null)
+    })
+    m.on('mouseleave', 'zones-fill', () => setHoverId(null))
+  }, [mapReady, zones])
 
   useEffect(() => {
     const m = map.current
@@ -69,7 +122,9 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
     if (z < 9) m.flyTo({ center: [point.lon, point.lat], zoom: 11, duration: 1400 })
   }, [point])
 
-  const fly = () => onPick(KONYA)
+  const fly = () => { setNotice(null); onPick(KONYA) }
+  const here = point ? locate(zones, point).zone : null
+  const hover = hoverId != null ? zones?.zones.features.find((f) => f.properties.id === hoverId)?.properties : null
   return (
     <div>
       <div className="relative rounded-2xl overflow-hidden border border-line">
@@ -82,7 +137,30 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
             </button>
           ))}
         </div>
+        {hover && (
+          <div className="absolute left-2 top-11 rounded-lg bg-white/90 text-[#2b1f16] text-xs font-semibold px-2.5 py-1.5 shadow pointer-events-none flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: hover.color }} />{zname(hover)}
+          </div>
+        )}
+        {zones && (
+          <div className="absolute left-2 bottom-6 max-w-[80%] rounded-lg bg-white/90 text-[#2b1f16] text-xs shadow">
+            <button onClick={() => setLegendOpen((o) => !o)} aria-expanded={legendOpen} className="px-2.5 py-1.5 font-semibold w-full text-left">
+              {t('zoneLegend')} {legendOpen ? '▾' : '▸'}
+            </button>
+            {legendOpen && (
+              <ul className="px-2.5 pb-2 flex flex-col gap-1">
+                {zones.zones.features.map((f) => (
+                  <li key={f.properties.id} className="flex items-center gap-1.5">
+                    <span className="w-3 h-3 rounded-sm shrink-0" style={{ background: f.properties.color }} />
+                    <span>{zname(f.properties)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
+      {notice && <p role="alert" className="mt-2 rounded-lg bg-sunsoft border border-sun px-3 py-2 text-sm">{t(notice)}</p>}
       <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
         <button onClick={fly} className="text-sm font-semibold rounded-full border border-line bg-surface2 hover:bg-leafsoft px-3 py-1.5">
           📍 {t('konyaDemo')}
@@ -91,6 +169,12 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
           {t('coords')}: {point ? `${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E` : t('noPoint')}
         </p>
       </div>
+      {here && (
+        <p className="text-sm mt-1.5 flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full shrink-0" style={{ background: here.color }} />
+          <span><span className="text-muted">{t('zoneOfPoint')}:</span> <strong>{zname(here)}</strong></span>
+        </p>
+      )}
       <p className="text-xs text-muted mt-1">{t('mapHint')}</p>
     </div>
   )

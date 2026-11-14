@@ -311,3 +311,36 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
 ```
 
 Notes: the baseline is a weighted mix of representative irrigated rotations calibrated to Konya crop-area statistics. A fraction of the *irrigated* area of every cell (irrigated = cropland × `irrigated_share`), taken proportionally from each baseline rotation, moves to the cell's own archetype rotation, so a crop can lose at most its baseline area share. `assumptions[id=plausibility_irrigation]` compares the modelled baseline demand with published basin irrigation figures. Results are steady-state annual rates at the horizon (no ramp-up). The p10/p50/p90 water band sums same-quantile differences across cells (weather assumed perfectly correlated).
+
+## 6. Konya zones — `GET /api/zones` and `FieldReport.zone`
+
+Files: `data/zones/konya_zones.geojson`, `konya_boundary.geojson`, `konya_lakes.geojson`, `konya_districts.geojson`
+(built by `backend/scripts/build_konya_zones.py`; method in METHODS.md §10).
+
+```jsonc
+// GET /api/zones
+{
+  "zones": {"type": "FeatureCollection", "meta": {"built": "", "method": "", "rules": {}, "sources": {}},
+    "features": [{"type": "Feature", "geometry": {},          // Polygon | MultiPolygon, lakes cut out
+      "properties": {
+        "id": 1, "key": "toros", "color": "#4E79A7", "name_tr": "", "name_en": "", "desc_tr": "", "desc_en": "",
+        "area_km2": 0, "districts": [{"name": "", "share": 0.0}],      // share of the zone's area, >= 1 %
+        "elevation_m": {"p10": 0, "p50": 0, "p90": 0},
+        "stations": [{
+          "station": "HADIM", "name": "Hadim", "period": "1991-2020", "url": "", "lat": 0, "lon": 0,
+          "aydeniz": {"index": 0, "type": ""}, "erinc": {"index": 0, "type": ""}, "de_martonne": {"index": 0, "type": ""},
+          "trewartha_winter": {"type": "", "mean_temp_c": 0}, "trewartha_summer": {"type": "", "mean_temp_c": 0},
+          "thornthwaite": {"class": "", "explanation": ""},
+          "nasa_power": {"period": "2001-2025", "grid": "", "t2m_mean_c": 0, "frost_days_yr": 0, "spring_frost_days": 0,
+                         "autumn_frost_days": 0, "hottest_month_mean_c": 0, "coldest_month_mean_c": 0, "rh2m_pct": 0}}]}}]},
+  "boundary": {"type": "FeatureCollection", "features": [/* Konya province */]},
+  "lakes": {"type": "FeatureCollection", "features": [/* properties.name */]}
+}
+
+// POST /api/field/analyze adds:
+"zone": {"id": 5, "key": "central", "color": "", "name": {"tr": "", "en": ""}, "desc": {"tr": "", "en": ""},
+         "elevation_m": {"p10": 0, "p50": 0, "p90": 0}, "field_elevation_m": 0,
+         "elevation_position": "low|mid|high",   // vs. the zone band; null if the field elevation is unknown
+         "stations": [/* as above */]}
+// Points outside Konya or on a lake: HTTP 422, detail = {"code": "outside_konya" | "on_lake", "message": "", "lake"?: ""}
+```

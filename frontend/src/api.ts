@@ -1,6 +1,13 @@
-import type { BasinReport, FieldReport, FieldRequest } from './types'
+import type { BasinReport, FieldReport, FieldRequest, ZonesData } from './types'
 import mockBasin from './mock/basinReport.konya.json'
 import mockReport from './mock/fieldReport.konya.json'
+import mockZones from './mock/zones.konya.json'
+
+/** Rejection from the API that is the user's input problem (outside Konya, on a lake), not an outage. */
+export class AnalyzeError extends Error {
+  code: string
+  constructor(code: string, message: string) { super(message); this.code = code }
+}
 
 export interface AnalyzeResult { report: FieldReport; source: 'live' | 'mock-forced' | 'mock-fallback' }
 
@@ -43,11 +50,19 @@ export async function analyzeField(req: FieldRequest): Promise<AnalyzeResult> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
     })
+    if (res.status === 422) {
+      const body = await res.json().catch(() => null)
+      const d = body?.detail
+      if (d && typeof d === 'object' && (d.code === 'outside_konya' || d.code === 'on_lake')) {
+        throw new AnalyzeError(d.code, String(d.message ?? ''))
+      }
+    }
     if (!res.ok) throw new Error('HTTP ' + res.status)
     const report = (await res.json()) as FieldReport
     if (!report || !Array.isArray(report.strategies)) throw new Error('bad payload')
     return { report, source: 'live' }
-  } catch {
+  } catch (e) {
+    if (e instanceof AnalyzeError) throw e
     await new Promise((r) => setTimeout(r, 2600))
     return { report: scoreMock(req), source: 'mock-fallback' }
   }
@@ -64,4 +79,25 @@ export async function getBasin(): Promise<{ report: BasinReport; mock: boolean }
     } catch { /* fall through to mock */ }
   }
   return { report: mockBasin as unknown as BasinReport, mock: true }
+}
+
+let zonesCache: Promise<ZonesData> | null = null
+
+/** Konya agro-microclimate zones, boundary and lakes; falls back to the bundled copy when the API is unreachable. */
+export function getZones(): Promise<ZonesData> {
+  if (!zonesCache) {
+    zonesCache = (async () => {
+      if (!isMockForced()) {
+        try {
+          const res = await fetch('/api/zones')
+          if (!res.ok) throw new Error('HTTP ' + res.status)
+          const d = (await res.json()) as ZonesData
+          if (!d?.zones?.features?.length) throw new Error('bad payload')
+          return d
+        } catch { /* fall through to mock */ }
+      }
+      return mockZones as unknown as ZonesData
+    })()
+  }
+  return zonesCache
 }

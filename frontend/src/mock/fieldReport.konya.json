@@ -5716,5 +5716,113 @@
   "power_mean_mm": 532.6,
   "sat_mean_mm": 301.7,
   "overlap_years": 35
+ },
+ "zone": {
+  "id": 5,
+  "key": "central",
+  "color": "#EDC948",
+  "name": {
+   "tr": "Merkez ova (Konya–Çumra)",
+   "en": "Central plain (Konya–Çumra)"
+  },
+  "desc": {
+   "tr": "Karasal yarı kurak step. Sıcak ve kurak yaz, soğuk kış, düşük yağış ve yüksek buharlaşma. Geceleri hızlı sıcaklık kaybı. Sulanan geniş parseller çevrelerine göre daha serin ve nemli.",
+   "en": "Continental semi-arid steppe: hot dry summers, cold winters, low rain and high evaporation, fast night-time cooling. Large irrigated parcels are locally cooler and moister."
+  },
+  "elevation_m": {
+   "p10": 1002,
+   "p50": 1053,
+   "p90": 1475
+  },
+  "field_elevation_m": 1011.67578125,
+  "elevation_position": "low",
+  "stations": [
+   {
+    "aydeniz": {
+     "index": 1.51,
+     "type": "Çok Kurak"
+    },
+    "erinc": {
+     "index": 18.08,
+     "type": "Yarı kurak"
+    },
+    "de_martonne": {
+     "index": 8.55,
+     "type": "Yarı Kurak"
+    },
+    "trewartha_winter": {
+     "type": "Kışları soğuk",
+     "mean_temp_c": -0.28
+    },
+    "trewartha_summer": {
+     "type": "Yazları sıcak",
+     "mean_temp_c": 24.14
+    },
+    "thornthwaite": {
+     "class": "D,B'2,d,b'2",
+     "explanation": "D : Yarı Kurak B'2 : 2. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'2 : Yaz Buharlaşma Oranı : %56.5"
+    },
+    "station": "KONYA",
+    "name": "Konya",
+    "period": "1991-2020",
+    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=KONYA",
+    "lat": 37.872734,
+    "lon": 32.4924376,
+    "nasa_power": {
+     "period": "2001-2025",
+     "grid": "0.5 x 0.625 deg (~50 km)",
+     "t2m_mean_c": 11.31,
+     "frost_days_yr": 103.1,
+     "spring_frost_days": 21.0,
+     "autumn_frost_days": 11.6,
+     "hottest_month_mean_c": 23.4,
+     "coldest_month_mean_c": -0.6,
+     "rh2m_pct": 62.42
+    }
+   },
+   {
+    "aydeniz": {
+     "index": 1.51,
+     "type": "Çok Kurak"
+    },
+    "erinc": {
+     "index": 16.77,
+     "type": "Yarı kurak"
+    },
+    "de_martonne": {
+     "index": 7.87,
+     "type": "Yarı Kurak"
+    },
+    "trewartha_winter": {
+     "type": "Kışları serin",
+     "mean_temp_c": 0.29
+    },
+    "trewartha_summer": {
+     "type": "Yazları sıcak",
+     "mean_temp_c": 23.45
+    },
+    "thornthwaite": {
+     "class": "D,B'1,d,b'3",
+     "explanation": "D : Yarı Kurak B'1 : 1. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'3 : Yaz Buharlaşma Oranı : %55.1"
+    },
+    "station": "CUMRA",
+    "name": "Çumra",
+    "period": "1991-2020",
+    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=CUMRA",
+    "lat": 37.5720111,
+    "lon": 32.7845981,
+    "nasa_power": {
+     "period": "2001-2025",
+     "grid": "0.5 x 0.625 deg (~50 km)",
+     "t2m_mean_c": 11.65,
+     "frost_days_yr": 98.4,
+     "spring_frost_days": 19.2,
+     "autumn_frost_days": 10.6,
+     "hottest_month_mean_c": 24.03,
+     "coldest_month_mean_c": -0.43,
+     "rh2m_pct": 63.45
+    }
+   }
+  ]
  }
 }

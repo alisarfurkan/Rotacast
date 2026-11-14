@@ -102,7 +102,39 @@ export interface Strategy {
 }
 export interface Fact { id: string; text: I18nText; value: number; unit: string; source_id: string }
 
+export interface TypedIndex { index: number; type: string }
+export interface ZoneStation {
+  station: string; name: string; period: string; url: string; lat: number; lon: number
+  aydeniz?: TypedIndex; erinc?: TypedIndex; de_martonne?: TypedIndex
+  trewartha_winter?: { type: string; mean_temp_c: number }
+  trewartha_summer?: { type: string; mean_temp_c: number }
+  thornthwaite?: { class: string; explanation: string }
+  nasa_power?: {
+    period: string; grid: string; t2m_mean_c: number; frost_days_yr: number; spring_frost_days: number
+    autumn_frost_days: number; hottest_month_mean_c: number; coldest_month_mean_c: number; rh2m_pct: number
+  }
+}
+export interface ZoneInfo {
+  id: number; key: string; color: string; name: I18nText; desc: I18nText
+  elevation_m: Band; field_elevation_m: number; elevation_position: 'low' | 'mid' | 'high'
+  stations: ZoneStation[]
+}
+
+export interface ZoneProps {
+  id: number; key: string; color: string; name_tr: string; name_en: string; desc_tr: string; desc_en: string
+  area_km2: number; elevation_m: Band; stations: ZoneStation[]
+}
+export type Geom = { type: 'Polygon'; coordinates: number[][][] } | { type: 'MultiPolygon'; coordinates: number[][][][] }
+export interface GeoFeature<P> { type: 'Feature'; geometry: Geom; properties: P }
+export interface GeoCollection<P> { type: 'FeatureCollection'; features: GeoFeature<P>[] }
+export interface ZonesData {
+  zones: GeoCollection<ZoneProps>
+  boundary: GeoCollection<Record<string, unknown>>
+  lakes: GeoCollection<{ name: string }>
+}
+
 export interface FieldReport {
+  zone?: ZoneInfo
   location: { lat: number; lon: number; elevation_m: number; label: string }
   sources: SourceInfo[]
   climate: Climate

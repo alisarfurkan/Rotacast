@@ -173,7 +173,48 @@ dW(q) = sum_cells  irrigated_ha * a * ( W_strategy(q) - W_baseline_mix(q) )     
 10. **Offset %.** `offset = - groundwater_share * dW / |GRACE loss| * 100` with `groundwater_share = 1` (assume all demand change is groundwater). Reported as a band (p10-p90).
 11. **Plausibility check.** The modelled baseline demand is shown next to published basin figures (about 1.9 to 3.7 bcm/yr, secondary sources). Model value is crop *net* requirement, so it is lower than real abstraction.
 
-## 10. Limitations
+## 10. Konya agro-microclimate zones
+
+Rotacast covers **Konya province only**. The field API rejects points outside the province or on a lake
+(HTTP 422, `outside_konya` / `on_lake`). The province is split into **7 agro-microclimate zones**
+(`data/zones/konya_zones.geojson`, built by `backend/scripts/build_konya_zones.py`, code in `backend/rotacast/zones/`).
+
+**Why expert zones and not clustering.** Zone *boundaries* change slowly and are already described by official
+climate classifications and the regional literature. Deriving them from raw multi-year satellite grids (MODIS LST,
+PET) needs hours of server-side processing and adds little for a 7-class map. So the boundaries are expert-defined
+and physically refined; the data is used to **profile and check** each zone. Every field is still analysed with its
+own satellite data (NDVI, CHIRPS, SoilGrids, POWER, SRTM).
+
+1. **Districts.** The 31 districts (geoBoundaries ADM2) are grouped into 7 zones (`zones/definitions.py`):
+   Southern Taurus highlands; Seydişehir–Suğla humid transition basin; Beyşehir lake district; western transition
+   belt (Akşehir–Ilgın–Yunak); central plain (Konya–Çumra); northern steppe and Tuz Gölü fringe; Karapınar–Ereğli
+   very dry belt.
+2. **Taurus rule.** On a 0.01° grid (~1 km), cells at or above **1500 m** and south of **37.75° N** in the districts
+   bordering the Taurus (Seydişehir, Akören, Meram, Güneysınır, Halkapınar, Ereğli, Beyşehir) move to the Taurus
+   zone. Elevation is from SRTM-derived terrain tiles (zoom 9). The mask is smoothed (~2 km closing and opening,
+   patches < 25 km² dropped, holes < 25 km² filled) so the line follows mountains, not single pixels.
+3. **Lake rule.** Land within **8 km** of Beyşehir Gölü joins the Beyşehir zone (applied after the Taurus rule).
+4. **Lakes.** Beyşehir Gölü, Tuz Gölü and Suğla Gölü (OpenStreetMap) are cut out of all zones.
+5. **Profiles.** Each zone carries the **MGM 1991–2020 climate classifications** of its stations (12 MGM stations
+   in Konya: Aydeniz drought coefficient, Erinç precipitation-effectiveness index, De Martonne index, Trewartha
+   winter/summer means, Thornthwaite class) and a **NASA POWER 2001–2025 climatology** at each station (frost days,
+   spring/autumn frost days, warmest/coldest month mean, humidity). Zone elevation band = p10/p50/p90 of the grid.
+6. **Field position.** The field report's `zone.elevation_position` compares the field elevation with the zone band:
+   below the p10–p50 midpoint = `low` (valley floor / plain), above the p50–p90 midpoint = `high` (upper slopes).
+
+**How the official data supports the zones.** Erinç index (higher = wetter): Seydişehir 42.3, Hadim 37.5,
+Beyşehir 29.6, Akşehir 28.8, Yunak 25.8, Ilgın 23.8, Kulu 21.0, Konya 18.1, Cihanbeyli 17.4, Çumra 16.8,
+Ereğli 15.7, Karapınar 15.4. Thornthwaite puts Konya, Çumra, Karapınar, Ereğli and Cihanbeyli in D (semi-arid),
+the western and northern stations in C1, Hadim in C2 and Seydişehir in B1 (humid). NASA POWER frost days range from
+about 86/yr (Cihanbeyli) to 118/yr (Hadim). This is why Yunak sits in the western transition belt and Kulu/Cihanbeyli
+form their own northern zone instead of joining the central plain.
+
+**Limitations.** Zone lines follow district borders except where the two physical rules apply; a field near a line
+can share traits of both zones. NASA POWER is a ~50 km grid, so nearby stations (Seydişehir and Beyşehir; Karapınar
+and Ereğli) get the same POWER values; the MGM indices separate them. Akşehir Gölü is mostly dry and not mapped.
+The sub-label "irrigated plain microclimate" is not mapped; irrigation is a field input instead.
+
+## 11. Limitations
 
 Please read these before quoting any number.
 
