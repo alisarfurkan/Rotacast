@@ -60,8 +60,8 @@
 - Gap: still not modelled: kişniş, çörekotu, rezene (Kc exists, no local calendar), anason (no Kc), buckwheat,
   perennials; no specialty has income, yield response (Ky) or frost/heat risk. Rain-fed ETa of the specialties is
   conservative (roots capped at Table 8 depth).
-- Next (owner @selejder): Regional development screen ("Bölge kalkınması"), scope to agree first.
-- Open: ask the organisers about pre-event commit dates; commits 0f7141d and 25daeb6 are not pushed yet.
+- Next: nothing assigned on this branch; regional development screen ("Bölge kalkınması") postponed.
+- Open: ask the organisers about pre-event commit dates. Branch pushed (2026-11-14). Regional development screen postponed by @selejder.
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.
