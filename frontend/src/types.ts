@@ -91,7 +91,7 @@ export interface Evidence {
 }
 export interface CardCrop {
   name: I18nText; status: 'verified' | 'pilot'; group: string; districts: string[]; note?: I18nText | null
-  sources: string[]; engine_ids: string[]; modeled: boolean
+  sources: string[]; engine_ids: string[]; modeled: boolean; perennial?: boolean
 }
 export interface StrategyPart {
   share: number; kind: 'rotation' | 'specialty'; modeled: boolean

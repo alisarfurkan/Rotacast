@@ -44,6 +44,12 @@
 - Field cards replaced (METHODS §7.1, `engine/cards.py`): Balanced transition (default), Low risk and resilient,
   Innovative crop opportunity. Whitelist-only crops, hard water/erosion limits, area split, pilot trial rows.
   Basin view unchanged (old archetypes, same headline).
+- Sample fields (cached, open in ~15 s, also offline): Çumra (central), Hadim (toros), Seydişehir, Beyşehir. Buttons
+  under the map; a new point shows a "first analysis downloads 25 years of data" note. For demos run the server
+  offline: `ROTACAST_OFFLINE=1` (launch config `rotacast-offline`, port 8003); online mode still queries slow NASA
+  services even for cached points. Decision 2026-11-14: no further data downloads (west/north/karapinar not cached).
+  MODIS NDVI is complete only for Çumra (Seydişehir ~40 %, Toros ~2 %, Beyşehir 0 % of chunks): the other sample
+  fields show a "field history unavailable" note instead of Field Memory; cards still work.
 - Gap: no specialty crop (cumin, anise, fenugreek, coriander, black cumin, buckwheat, fennel; perennials) has engine
   parameters yet, so the specialty share is listed but "not in the numbers yet" (`coverage` < 1).
 - Next (owner @selejder): sourced engine parameters for the annual specialty crops; perennial module or info cards;

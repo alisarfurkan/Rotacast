@@ -65,8 +65,9 @@ def test_pick_cards_and_notes():
     out, notes = pick_cards([base, over, safe, good], None, pol, {}, {"sorghum": sorghum})
     by = {s["archetype"]: s for s in out}
     assert list(by) == ["baseline", "balanced_transition", "low_risk", "innovative"]
-    assert by["low_risk"]["rotation_id"] == "c2"  # lowest risk within the limits
-    assert by["balanced_transition"]["rotation_id"] == "c3"
+    # low risk first looks among candidates keeping >= 80 % of the current income: c2 (75 %) drops out, c3 stays
+    assert by["low_risk"]["rotation_id"] == "c3"
+    assert by["balanced_transition"]["rotation_id"] == "c2"  # best other candidate within the limits
     assert by["balanced_transition"]["coverage"] == pytest.approx(0.75)  # specialty crop not modelled
     assert by["innovative"]["trials"][0]["modeled"] and by["innovative"]["trials"][0]["water_m3_ha_yr"]["p50"] == 800
     assert "c1" not in {s.get("rotation_id") for s in out}

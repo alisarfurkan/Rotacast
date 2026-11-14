@@ -11,6 +11,19 @@ const NB = Math.ceil(366 / BIN)
 
 export function FieldMemory({ fm }: { fm: FM }) {
   const t = useT()
+  if (!fm.years?.length || !fm.ndvi?.length) {
+    return (
+      <section className="card p-5 md:p-6 rise">
+        <h2 className="font-display text-2xl md:text-3xl font-extrabold text-soil mb-2">{t('fmTitle')}</h2>
+        <p className="rounded-xl bg-surface2 px-4 py-3 text-sm">ⓘ {t('fmUnavailable')}</p>
+      </section>
+    )
+  }
+  return <FieldMemoryChart fm={fm} />
+}
+
+function FieldMemoryChart({ fm }: { fm: FM }) {
+  const t = useT()
   const lang = useLang()
   const muted = useCssVar('--muted')
   const bad = useCssVar('--bad')

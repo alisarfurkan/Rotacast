@@ -155,7 +155,8 @@ archetypes above (`engine/cards.py`). The basin view (§9) keeps the archetypes,
 - **Hard limits for every card.** p50 irrigation water ≤ the current rotation's, erosion ≤ the current rotation's.
   The user's priorities rank what passes; they cannot lift the limits. Candidates should also keep ≥ 60 % of the
   current income (soft: dropped if nothing passes).
-- **Low risk and resilient:** whole field, lowest risk sub-score (frost, heat, low-yield years), ties by total score.
+- **Low risk and resilient:** whole field, lowest risk sub-score (frost, heat, low-yield years), ties by total score;
+  first among candidates keeping ≥ 80 % of the current income (income risk), then ≥ 60 %.
 - **Balanced transition (default card):** 75 % on the best-scoring candidate within the limits (or the current
   rotation if none passes) + 25 % on a `verified` specialty crop of the zone (shown range 20–30 %).
 - **Innovative crop opportunity:** 80 % current rotation + 20 % specialty crop (range 10–30 %), preferring a

@@ -4,22 +4,53 @@
     "reviewed_by": "Manual verification against official/primary sources by the Rotacast team (2026-11-14)",
     "rule": "Only crops with an official production record, geographical indication or official Konya study (verified) or an official trial/support project (pilot) are listed. Crops without local evidence are excluded and never shown.",
     "status": {
-      "verified": {"tr": "Kanıtlı: ilçe üretim kaydı, coğrafi işaret veya resmî Konya araştırmasında yerel üretim", "en": "Verified: district production record, geographical indication or official Konya study"},
-      "pilot": {"tr": "Pilot: resmî kurum denemesi/desteği var; öneri değil", "en": "Pilot: official trial or support project; not a recommendation"}
+      "verified": {
+        "tr": "Kanıtlı: ilçe üretim kaydı, coğrafi işaret veya resmî Konya araştırmasında yerel üretim",
+        "en": "Verified: district production record, geographical indication or official Konya study"
+      },
+      "pilot": {
+        "tr": "Pilot: resmî kurum denemesi/desteği var; öneri değil",
+        "en": "Pilot: official trial or support project; not a recommendation"
+      }
     },
-    "caution": {"tr": "Bölgede yetişiyor, ancak su/çevre riski nedeniyle genişletilmemeli", "en": "Grown here, but should not be expanded (water or environmental risk)"},
+    "caution": {
+      "tr": "Bölgede yetişiyor, ancak su/çevre riski nedeniyle genişletilmemeli",
+      "en": "Grown here, but should not be expanded (water or environmental risk)"
+    },
     "groups": {
-      "field": {"tr": "Geleneksel ürünler", "en": "Traditional crops"},
-      "special": {"tr": "Özel ürünler (tıbbi-aromatik vb.)", "en": "Specialty crops (medicinal-aromatic etc.)"},
-      "protected": {"tr": "Örtü altı", "en": "Greenhouse"},
-      "method": {"tr": "Katma değer modeli", "en": "Value-added model"},
-      "tech": {"tr": "Araştırma teknolojisi", "en": "Research technology"}
+      "field": {
+        "tr": "Geleneksel ürünler",
+        "en": "Traditional crops"
+      },
+      "special": {
+        "tr": "Özel ürünler (tıbbi-aromatik vb.)",
+        "en": "Specialty crops (medicinal-aromatic etc.)"
+      },
+      "protected": {
+        "tr": "Örtü altı",
+        "en": "Greenhouse"
+      },
+      "method": {
+        "tr": "Katma değer modeli",
+        "en": "Value-added model"
+      },
+      "tech": {
+        "tr": "Araştırma teknolojisi",
+        "en": "Research technology"
+      }
     },
     "caveat": {
       "tr": "Kanıtlı = ürün yörede belgelenmiş demektir. İlçeler arası karşılaştırmalı kayıtların çoğu 2018 TÜİK verisine dayanan 2019 MEVKA raporlarından gelir; 2026'daki güncel alanı veya kârlılığı garanti etmez. Bu liste tarlanıza öneri değildir: öneri için iklim, su bütçesi, toprak/tuzluluk ve pazar koşulu ayrıca kontrol edilir.",
       "en": "Verified = documented in the area. Most comparable district records come from 2019 MEVKA reports based on 2018 TÜİK data; they do not guarantee 2026 area or profitability. This list is not advice for your field: climate, water budget, soil/salinity and market are checked separately."
     },
-    "decision_chain": ["zone_evidence", "field_climate", "water_budget", "soil_salinity", "market_processing", "strategy_card"]
+    "decision_chain": [
+      "zone_evidence",
+      "field_climate",
+      "water_budget",
+      "soil_salinity",
+      "market_processing",
+      "strategy_card"
+    ]
   },
   "sources": {
     "mevka2019": {"title": "MEVKA (Mevlana Kalkınma Ajansı) 2019 ilçe raporları, TÜİK 2018 bitkisel üretim verisi", "url": null},
@@ -51,23 +82,26 @@
         {"name": {"tr": "Kuru fasulye", "en": "Dry bean"}, "status": "verified", "group": "field", "districts": ["Derebucak"], "note": {"tr": "Özellikle Derebucak/Gembos ova uzantılarında", "en": "Mainly the Derebucak/Gembos plain extensions"}, "sources": ["mevka2019"], "engine": ["dry_bean"]},
         {"name": {"tr": "Patates", "en": "Potato"}, "status": "verified", "group": "field", "note": {"tr": "Vadi tabanlarında", "en": "Valley floors"}, "sources": ["mevka2019"], "engine": ["potato"]},
         {"name": {"tr": "Sarımsak", "en": "Garlic"}, "status": "verified", "group": "field", "note": {"tr": "Vadi tabanlarında", "en": "Valley floors"}, "sources": ["mevka2019"]},
-        {"name": {"tr": "Korunga", "en": "Sainfoin"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["sainfoin"]},
+        {"name": {"tr": "Korunga", "en": "Sainfoin"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["sainfoin"], "perennial": true},
         {"name": {"tr": "Fiğ", "en": "Vetch"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["vetch_forage"]},
-        {"name": {"tr": "Üzüm", "en": "Grape"}, "status": "verified", "group": "field", "districts": ["Hadim", "Bozkır"], "note": {"tr": "Hadim ve Bozkır vadilerinde", "en": "Hadim and Bozkır valleys"}, "sources": ["mevka2019"]},
-        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
-        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
-        {"name": {"tr": "Geç kiraz", "en": "Late cherry"}, "status": "verified", "group": "field", "districts": ["Hadim", "Taşkent"], "note": {"tr": "Yerleşik yüksek değerli ürün; Taşkent'te 2026 son turfanda hasat ve ihracat belgeli", "en": "Established high-value crop; Taşkent late-season harvest and export documented in 2026"}, "sources": ["mevka2019", "ilt_taskent_kiraz"]},
-        {"name": {"tr": "Çilek", "en": "Strawberry"}, "status": "verified", "group": "field", "districts": ["Derebucak", "Bozkır"], "note": {"tr": "Derebucak, Bozkır ve bazı uygun vadilerde", "en": "Derebucak, Bozkır and some suitable valleys"}, "sources": ["mevka2019"]},
-        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Hadim", "Taşkent", "Derebucak"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Taşkent", "Derebucak"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Hadim", "Derebucak", "Güneysınır"], "note": {"tr": "Güneysınır'da yalnız yakın kesimler", "en": "Only the nearby parts of Güneysınır"}, "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Taşkent"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Antep fıstığı", "en": "Pistachio"}, "status": "pilot", "group": "field", "districts": ["Bozkır", "Hadim", "Taşkent"], "note": {"tr": "Belediye pilotu; ticari bahçe sonucu henüz yayımlanmadı", "en": "Municipal pilot; no commercial orchard result published yet"}, "sources": ["kbb_fistik"]},
-        {"name": {"tr": "Zeytin", "en": "Olive"}, "status": "pilot", "group": "field", "districts": ["Hadim", "Güneysınır"], "note": {"tr": "30 dekarlık resmî pilot", "en": "30-decare official pilot"}, "sources": ["kbb_zeytin"]}
+        {"name": {"tr": "Üzüm", "en": "Grape"}, "status": "verified", "group": "field", "districts": ["Hadim", "Bozkır"], "note": {"tr": "Hadim ve Bozkır vadilerinde", "en": "Hadim and Bozkır valleys"}, "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Geç kiraz", "en": "Late cherry"}, "status": "verified", "group": "field", "districts": ["Hadim", "Taşkent"], "note": {"tr": "Yerleşik yüksek değerli ürün; Taşkent'te 2026 son turfanda hasat ve ihracat belgeli", "en": "Established high-value crop; Taşkent late-season harvest and export documented in 2026"}, "sources": ["mevka2019", "ilt_taskent_kiraz"], "perennial": true},
+        {"name": {"tr": "Çilek", "en": "Strawberry"}, "status": "verified", "group": "field", "districts": ["Derebucak", "Bozkır"], "note": {"tr": "Derebucak, Bozkır ve bazı uygun vadilerde", "en": "Derebucak, Bozkır and some suitable valleys"}, "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Hadim", "Taşkent", "Derebucak"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Taşkent", "Derebucak"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Hadim", "Derebucak", "Güneysınır"], "note": {"tr": "Güneysınır'da yalnız yakın kesimler", "en": "Only the nearby parts of Güneysınır"}, "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Bozkır", "Taşkent"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Antep fıstığı", "en": "Pistachio"}, "status": "pilot", "group": "field", "districts": ["Bozkır", "Hadim", "Taşkent"], "note": {"tr": "Belediye pilotu; ticari bahçe sonucu henüz yayımlanmadı", "en": "Municipal pilot; no commercial orchard result published yet"}, "sources": ["kbb_fistik"], "perennial": true},
+        {"name": {"tr": "Zeytin", "en": "Olive"}, "status": "pilot", "group": "field", "districts": ["Hadim", "Güneysınır"], "note": {"tr": "30 dekarlık resmî pilot", "en": "30-decare official pilot"}, "sources": ["kbb_zeytin"], "perennial": true}
       ],
       "excluded": [
-        {"tr": "Goji berry", "en": "Goji berry"}, {"tr": "Dağ çayı", "en": "Mountain tea"}, {"tr": "Safran", "en": "Saffron"},
-        {"tr": "Tohumluk patates", "en": "Seed potato"}, {"tr": "Kuşburnu, mahlep, alıç (ticari)", "en": "Rosehip, mahaleb, hawthorn (commercial)"}
+        {"tr": "Goji berry", "en": "Goji berry"},
+        {"tr": "Dağ çayı", "en": "Mountain tea"},
+        {"tr": "Safran", "en": "Saffron"},
+        {"tr": "Tohumluk patates", "en": "Seed potato"},
+        {"tr": "Kuşburnu, mahlep, alıç (ticari)", "en": "Rosehip, mahaleb, hawthorn (commercial)"}
       ]
     },
     "seydisehir": {
@@ -85,13 +119,17 @@
         {"name": {"tr": "Susam", "en": "Sesame"}, "status": "verified", "group": "field", "districts": ["Akören"], "sources": ["mevka2019"]},
         {"name": {"tr": "Seydişehir karpuzu", "en": "Seydişehir watermelon"}, "status": "verified", "group": "field", "districts": ["Seydişehir"], "note": {"tr": "Coğrafi işaret (2025)", "en": "Geographical indication (2025)"}, "sources": ["tp_seydisehir_karpuz"]},
         {"name": {"tr": "Çörekotu", "en": "Black cumin"}, "status": "verified", "group": "special", "districts": ["Akören"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Akören"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Akören", "Seydişehir"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Akören", "Seydişehir"], "note": {"tr": "Küçük ölçekte; güncel alan, verim ve alıcı bilgisi yok", "en": "Small scale; no current area, yield or buyer data"}, "sources": ["ilt_aromatik"]}
+        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Akören"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Akören", "Seydişehir"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Akören", "Seydişehir"], "note": {"tr": "Küçük ölçekte; güncel alan, verim ve alıcı bilgisi yok", "en": "Small scale; no current area, yield or buyer data"}, "sources": ["ilt_aromatik"], "perennial": true}
       ],
       "excluded": [
-        {"tr": "Karabuğday", "en": "Buckwheat"}, {"tr": "Kinoa", "en": "Quinoa"}, {"tr": "Aspir", "en": "Safflower"},
-        {"tr": "Yağlık keten", "en": "Oil flax"}, {"tr": "Kivi", "en": "Kiwi"}, {"tr": "Ahududu ve böğürtlen", "en": "Raspberry and blackberry"}
+        {"tr": "Karabuğday", "en": "Buckwheat"},
+        {"tr": "Kinoa", "en": "Quinoa"},
+        {"tr": "Aspir", "en": "Safflower"},
+        {"tr": "Yağlık keten", "en": "Oil flax"},
+        {"tr": "Kivi", "en": "Kiwi"},
+        {"tr": "Ahududu ve böğürtlen", "en": "Raspberry and blackberry"}
       ]
     },
     "beysehir": {
@@ -103,22 +141,24 @@
         {"name": {"tr": "Mercimek", "en": "Lentil"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["lentil"]},
         {"name": {"tr": "Kuru fasulye", "en": "Dry bean"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["dry_bean"]},
         {"name": {"tr": "Patates", "en": "Potato"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["potato"]},
-        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "caution": true, "note": {"tr": "Yeni geniş alan açılmamalı", "en": "No new large plantings"}, "sources": ["mevka2019", "tubitak_beysehir"]},
+        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "caution": true, "note": {"tr": "Yeni geniş alan açılmamalı", "en": "No new large plantings"}, "sources": ["mevka2019", "tubitak_beysehir"], "perennial": true},
         {"name": {"tr": "Mısır (silajlık dahil)", "en": "Maize (incl. silage)"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "tubitak_beysehir"], "engine": ["maize_grain", "maize_silage"]},
-        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "tubitak_beysehir"], "engine": ["alfalfa"]},
+        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "tubitak_beysehir"], "engine": ["alfalfa"], "perennial": true},
         {"name": {"tr": "Şeker pancarı", "en": "Sugar beet"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "tubitak_beysehir"], "engine": ["sugar_beet"]},
-        {"name": {"tr": "Hüyük çileği", "en": "Hüyük strawberry"}, "status": "verified", "group": "field", "districts": ["Hüyük"], "caution": true, "note": {"tr": "TR ve AB coğrafi işaretli; yeni geniş alan açılmamalı", "en": "Turkish and EU geographical indication; no new large plantings"}, "sources": ["tp_huyuk_cilek", "tubitak_beysehir"]},
+        {"name": {"tr": "Hüyük çileği", "en": "Hüyük strawberry"}, "status": "verified", "group": "field", "districts": ["Hüyük"], "caution": true, "note": {"tr": "TR ve AB coğrafi işaretli; yeni geniş alan açılmamalı", "en": "Turkish and EU geographical indication; no new large plantings"}, "sources": ["tp_huyuk_cilek", "tubitak_beysehir"], "perennial": true},
         {"name": {"tr": "Akçabelen Şeker Fasulyesi", "en": "Akçabelen sugar bean"}, "status": "verified", "group": "field", "districts": ["Beyşehir"], "note": {"tr": "Menşe adı, yalnız Akçabelen Mahallesi", "en": "Designation of origin, Akçabelen neighbourhood only"}, "sources": ["tp_akcabelen"]},
-        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Beyşehir", "Hüyük"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Sarı kantaron", "en": "St John's wort"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Beyşehir", "Hüyük"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"]},
+        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Beyşehir", "Hüyük"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Sarı kantaron", "en": "St John's wort"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Beyşehir"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Beyşehir", "Hüyük"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"], "perennial": true},
         {"name": {"tr": "Örtü altı domates ve hıyar", "en": "Greenhouse tomato and cucumber"}, "status": "verified", "group": "protected", "districts": ["Beyşehir"], "note": {"tr": "2026'da faal seralar", "en": "Active greenhouses in 2026"}, "sources": ["ilt_ortualti"]}
       ],
       "excluded": [
-        {"tr": "Ahududu", "en": "Raspberry"}, {"tr": "Böğürtlen", "en": "Blackberry"}, {"tr": "Yaban mersini (topraksız dahil)", "en": "Blueberry (incl. soilless)"}
+        {"tr": "Ahududu", "en": "Raspberry"},
+        {"tr": "Böğürtlen", "en": "Blackberry"},
+        {"tr": "Yaban mersini (topraksız dahil)", "en": "Blueberry (incl. soilless)"}
       ]
     },
     "west": {
@@ -133,26 +173,29 @@
         {"name": {"tr": "Ayçiçeği", "en": "Sunflower"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["sunflower"]},
         {"name": {"tr": "Kanola", "en": "Canola"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["canola_winter"]},
         {"name": {"tr": "Haşhaş", "en": "Opium poppy (licensed)"}, "status": "verified", "group": "field", "districts": ["Akşehir"], "sources": ["mevka2019"]},
-        {"name": {"tr": "Akşehir kirazı", "en": "Akşehir cherry"}, "status": "verified", "group": "field", "districts": ["Akşehir"], "sources": ["mevka2019"]},
-        {"name": {"tr": "Vişne", "en": "Sour cherry"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
-        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
-        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "note": {"tr": "Mevcut; yeni geniş bahçe ve Chandler/Fernor çeşit önerisi kanıtsız", "en": "Present; new large orchards and Chandler/Fernor varieties are unverified"}, "sources": ["mevka2019"]},
-        {"name": {"tr": "Badem", "en": "Almond"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
+        {"name": {"tr": "Akşehir kirazı", "en": "Akşehir cherry"}, "status": "verified", "group": "field", "districts": ["Akşehir"], "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Vişne", "en": "Sour cherry"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Elma", "en": "Apple"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "note": {"tr": "Mevcut; yeni geniş bahçe ve Chandler/Fernor çeşit önerisi kanıtsız", "en": "Present; new large orchards and Chandler/Fernor varieties are unverified"}, "sources": ["mevka2019"], "perennial": true},
+        {"name": {"tr": "Badem", "en": "Almond"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "perennial": true},
         {"name": {"tr": "Kuru soğan ve sebzeler", "en": "Dry onion and vegetables"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
         {"name": {"tr": "Kimyon", "en": "Cumin"}, "status": "verified", "group": "special", "districts": ["Kadınhanı", "Yunak", "Ilgın", "Tuzlukçu"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Çörekotu", "en": "Black cumin"}, "status": "verified", "group": "special", "districts": ["Akşehir", "Kadınhanı", "Yunak", "Çeltik"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Anason", "en": "Anise"}, "status": "verified", "group": "special", "districts": ["Çeltik", "Yunak", "Tuzlukçu", "Kadınhanı"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Rezene", "en": "Fennel"}, "status": "verified", "group": "special", "districts": ["Çeltik", "Yunak"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Karabuğday", "en": "Buckwheat"}, "status": "verified", "group": "special", "districts": ["Yunak", "Çeltik"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Akşehir", "Doğanhisar", "Derbent"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Ilgın", "Tuzlukçu"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Ilgın", "Tuzlukçu"], "sources": ["ilt_aromatik"]},
+        {"name": {"tr": "Aronya", "en": "Aronia"}, "status": "verified", "group": "special", "districts": ["Akşehir", "Doğanhisar", "Derbent"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Ilgın", "Tuzlukçu"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Ilgın", "Tuzlukçu"], "sources": ["ilt_aromatik"], "perennial": true},
         {"name": {"tr": "Sorgum ve sorgum melezleri", "en": "Sorghum and sorghum hybrids"}, "status": "pilot", "group": "field", "districts": ["Kadınhanı"], "note": {"tr": "Resmî Konya sorgum projesi", "en": "Official Konya sorghum project"}, "sources": ["ilt_sorgum"], "engine": ["sorghum"]},
         {"name": {"tr": "Örtü altı domates ve hıyar", "en": "Greenhouse tomato and cucumber"}, "status": "pilot", "group": "protected", "districts": ["Kadınhanı", "Doğanhisar"], "note": {"tr": "Faal seralar belgeli", "en": "Active greenhouses documented"}, "sources": ["ilt_ortualti"]}
       ],
       "excluded": [
-        {"tr": "Kuşkonmaz", "en": "Asparagus"}, {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"}, {"tr": "Yağ gülü", "en": "Oil rose"},
-        {"tr": "Yağlık papatya", "en": "Oil chamomile"}, {"tr": "Chandler/Fernor ceviz önerisi", "en": "Chandler/Fernor walnut varieties"}
+        {"tr": "Kuşkonmaz", "en": "Asparagus"},
+        {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"},
+        {"tr": "Yağ gülü", "en": "Oil rose"},
+        {"tr": "Yağlık papatya", "en": "Oil chamomile"},
+        {"tr": "Chandler/Fernor ceviz önerisi", "en": "Chandler/Fernor walnut varieties"}
       ]
     },
     "central": {
@@ -165,30 +208,34 @@
         {"name": {"tr": "Mısır (dane ve silajlık)", "en": "Maize (grain and silage)"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["maize_grain", "maize_silage"]},
         {"name": {"tr": "Şeker pancarı", "en": "Sugar beet"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["sugar_beet"]},
         {"name": {"tr": "Ayçiçeği", "en": "Sunflower"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["sunflower"]},
-        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["alfalfa"]},
+        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["alfalfa"], "perennial": true},
         {"name": {"tr": "Patates", "en": "Potato"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["potato"]},
         {"name": {"tr": "Havuç", "en": "Carrot"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
         {"name": {"tr": "Çerezlik kabak", "en": "Snack pumpkin (seeds)"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
         {"name": {"tr": "Kavun ve karpuz", "en": "Melon and watermelon"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
-        {"name": {"tr": "Üzüm", "en": "Grape"}, "status": "verified", "group": "field", "districts": ["Güneysınır"], "sources": ["mevka2019"]},
+        {"name": {"tr": "Üzüm", "en": "Grape"}, "status": "verified", "group": "field", "districts": ["Güneysınır"], "sources": ["mevka2019"], "perennial": true},
         {"name": {"tr": "Kültür mantarı", "en": "Cultivated mushroom"}, "status": "verified", "group": "protected", "districts": ["Selçuklu", "Sarayönü"], "sources": ["mevka2019"]},
         {"name": {"tr": "Çemen", "en": "Fenugreek"}, "status": "verified", "group": "special", "districts": ["Çumra", "Selçuklu"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Çörekotu", "en": "Black cumin"}, "status": "verified", "group": "special", "districts": ["Çumra", "Meram", "Sarayönü", "Selçuklu"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Karabuğday", "en": "Buckwheat"}, "status": "verified", "group": "special", "districts": ["Karatay", "Çumra", "Meram"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Kimyon", "en": "Cumin"}, "status": "verified", "group": "special", "districts": ["Sarayönü", "Karatay"], "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Kişniş", "en": "Coriander"}, "status": "verified", "group": "special", "districts": ["Selçuklu"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Çumra", "Meram", "Sarayönü", "Selçuklu"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Güneysınır", "Çumra", "Meram", "Sarayönü", "Selçuklu"], "note": {"tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi", "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"}, "sources": ["ilt_aromatik", "kbb_lavanta"]},
-        {"name": {"tr": "Tıbbi nane ve melisa", "en": "Peppermint and lemon balm"}, "status": "verified", "group": "special", "districts": ["Meram", "Selçuklu"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Meram", "Selçuklu", "Çumra"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"]},
+        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Çumra", "Meram", "Sarayönü", "Selçuklu"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Güneysınır", "Çumra", "Meram", "Sarayönü", "Selçuklu"], "note": {"tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi", "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"}, "sources": ["ilt_aromatik", "kbb_lavanta"], "perennial": true},
+        {"name": {"tr": "Tıbbi nane ve melisa", "en": "Peppermint and lemon balm"}, "status": "verified", "group": "special", "districts": ["Meram", "Selçuklu"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Meram", "Selçuklu", "Çumra"], "note": {"tr": "Küçük ölçekte", "en": "Small scale"}, "sources": ["ilt_aromatik"], "perennial": true},
         {"name": {"tr": "Sözleşmeli tohumluk üretimi", "en": "Contract seed production"}, "status": "verified", "group": "method", "note": {"tr": "Ayrı ürün değil, üretim yöntemi: sertifikalı hububat, hibrit ayçiçeği, aspir ve baklagil tohumu", "en": "A production method, not a crop: certified cereal, hybrid sunflower, safflower and pulse seed"}, "sources": []},
         {"name": {"tr": "Sorgum ve sorgum melezleri", "en": "Sorghum and sorghum hybrids"}, "status": "pilot", "group": "field", "districts": ["Karatay", "Sarayönü"], "sources": ["ilt_sorgum"], "engine": ["sorghum"]},
         {"name": {"tr": "Agrivoltaik üretim", "en": "Agrivoltaics"}, "status": "pilot", "group": "tech", "note": {"tr": "TAGEM araştırması, silajlık mısır üzerine", "en": "TAGEM research on silage maize"}, "sources": ["tagem_agrivoltaik"]},
         {"name": {"tr": "Örtü altı domates ve hıyar", "en": "Greenhouse tomato and cucumber"}, "status": "pilot", "group": "protected", "districts": ["Çumra"], "note": {"tr": "Faal üretim belgeli", "en": "Active production documented"}, "sources": ["ilt_ortualti"]}
       ],
       "excluded": [
-        {"tr": "Jeotermal ısıtmalı sera", "en": "Geothermal greenhouse"}, {"tr": "Silajlık soya", "en": "Silage soybean"}, {"tr": "Kinoa", "en": "Quinoa"},
-        {"tr": "Aronya", "en": "Aronia"}, {"tr": "Atalık buğday (yüksek kârlı ticari)", "en": "Heritage wheat (as high-profit crop)"}, {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"}
+        {"tr": "Jeotermal ısıtmalı sera", "en": "Geothermal greenhouse"},
+        {"tr": "Silajlık soya", "en": "Silage soybean"},
+        {"tr": "Kinoa", "en": "Quinoa"},
+        {"tr": "Aronya", "en": "Aronia"},
+        {"tr": "Atalık buğday (yüksek kârlı ticari)", "en": "Heritage wheat (as high-profit crop)"},
+        {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"}
       ]
     },
     "north": {
@@ -206,12 +253,17 @@
         {"name": {"tr": "Anason", "en": "Anise"}, "status": "verified", "group": "special", "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Çemen", "en": "Fenugreek"}, "status": "verified", "group": "special", "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Çörekotu", "en": "Black cumin"}, "status": "verified", "group": "special", "districts": ["Cihanbeyli"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Altınekin", "Kulu"], "note": {"tr": "Belirli alanlarda", "en": "In specific areas"}, "sources": ["ilt_aromatik"]},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Altınekin", "Kulu"], "note": {"tr": "Belirli alanlarda", "en": "In specific areas"}, "sources": ["ilt_aromatik"], "perennial": true},
         {"name": {"tr": "Örtü altı domates ve hıyar", "en": "Greenhouse tomato and cucumber"}, "status": "verified", "group": "protected", "districts": ["Cihanbeyli"], "note": {"tr": "Faal sera üretimi", "en": "Active greenhouse production"}, "sources": ["ilt_ortualti"]}
       ],
       "excluded": [
-        {"tr": "Salicornia (deniz börülcesi)", "en": "Salicornia (samphire)"}, {"tr": "Kapari", "en": "Caper"}, {"tr": "Atriplex (tuz çalısı)", "en": "Atriplex (saltbush)"},
-        {"tr": "Kinoa", "en": "Quinoa"}, {"tr": "Safran", "en": "Saffron"}, {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"}, {"tr": "Ketencik", "en": "Camelina"}
+        {"tr": "Salicornia (deniz börülcesi)", "en": "Salicornia (samphire)"},
+        {"tr": "Kapari", "en": "Caper"},
+        {"tr": "Atriplex (tuz çalısı)", "en": "Atriplex (saltbush)"},
+        {"tr": "Kinoa", "en": "Quinoa"},
+        {"tr": "Safran", "en": "Saffron"},
+        {"tr": "Endüstriyel kenevir", "en": "Industrial hemp"},
+        {"tr": "Ketencik", "en": "Camelina"}
       ]
     },
     "karapinar": {
@@ -224,28 +276,33 @@
         {"name": {"tr": "Fiğ ve burçak", "en": "Vetch and bitter vetch"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["vetch_forage"]},
         {"name": {"tr": "Mısır", "en": "Maize"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["maize_grain", "maize_silage"]},
         {"name": {"tr": "Şeker pancarı", "en": "Sugar beet"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["sugar_beet"]},
-        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["alfalfa"]},
+        {"name": {"tr": "Yonca", "en": "Alfalfa"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["alfalfa"], "perennial": true},
         {"name": {"tr": "Patates", "en": "Potato"}, "status": "verified", "group": "field", "caution": true, "sources": ["mevka2019", "bugem_su_kisiti"], "engine": ["potato"]},
         {"name": {"tr": "Ayçiçeği", "en": "Sunflower"}, "status": "verified", "group": "field", "sources": ["mevka2019"], "engine": ["sunflower"]},
         {"name": {"tr": "Kavun", "en": "Melon"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
         {"name": {"tr": "Domates", "en": "Tomato"}, "status": "verified", "group": "field", "sources": ["mevka2019"]},
         {"name": {"tr": "Ereğli Siyah Havucu", "en": "Ereğli black carrot"}, "status": "verified", "group": "field", "districts": ["Ereğli"], "caution": true, "note": {"tr": "Coğrafi işaret, ~10 bin dekar, ihracat ve işleme; yeni büyük sulu alan açılmamalı", "en": "Geographical indication, ~10,000 decares, export and processing; no new large irrigated areas"}, "sources": ["tp_eregli_havuc"]},
-        {"name": {"tr": "Ereğli Beyaz Kirazı", "en": "Ereğli white cherry"}, "status": "verified", "group": "field", "districts": ["Ereğli"], "note": {"tr": "Coğrafi işaret, üretim ve ihracat belgeli", "en": "Geographical indication, documented production and export"}, "sources": ["tp_eregli_kiraz"]},
-        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "districts": ["Halkapınar", "Ereğli"], "sources": ["mevka2019"]},
+        {"name": {"tr": "Ereğli Beyaz Kirazı", "en": "Ereğli white cherry"}, "status": "verified", "group": "field", "districts": ["Ereğli"], "note": {"tr": "Coğrafi işaret, üretim ve ihracat belgeli", "en": "Geographical indication, documented production and export"}, "sources": ["tp_eregli_kiraz"], "perennial": true},
+        {"name": {"tr": "Ceviz", "en": "Walnut"}, "status": "verified", "group": "field", "districts": ["Halkapınar", "Ereğli"], "sources": ["mevka2019"], "perennial": true},
         {"name": {"tr": "Kimyon", "en": "Cumin"}, "status": "verified", "group": "special", "districts": ["Ereğli", "Emirgazi", "Halkapınar"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Ereğli"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Ereğli", "Emirgazi"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Ereğli", "Emirgazi"], "sources": ["ilt_aromatik"]},
-        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Ereğli"], "note": {"tr": "Yalnız sulanabilir parsellerde", "en": "Irrigable plots only"}, "sources": ["ilt_aromatik"]},
+        {"name": {"tr": "Kekik", "en": "Thyme"}, "status": "verified", "group": "special", "districts": ["Ereğli"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Tıbbi adaçayı", "en": "Sage"}, "status": "verified", "group": "special", "districts": ["Ereğli", "Emirgazi"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Lavanta", "en": "Lavender"}, "status": "verified", "group": "special", "districts": ["Ereğli", "Emirgazi"], "sources": ["ilt_aromatik"], "perennial": true},
+        {"name": {"tr": "Tıbbi nane", "en": "Peppermint"}, "status": "verified", "group": "special", "districts": ["Ereğli"], "note": {"tr": "Yalnız sulanabilir parsellerde", "en": "Irrigable plots only"}, "sources": ["ilt_aromatik"], "perennial": true},
         {"name": {"tr": "Karabuğday", "en": "Buckwheat"}, "status": "verified", "group": "special", "districts": ["Karapınar"], "note": {"tr": "Küçük üretim kaydı", "en": "Small production record"}, "sources": ["ilt_aromatik"]},
         {"name": {"tr": "Sorgum ve sorgum melezleri", "en": "Sorghum and sorghum hybrids"}, "status": "pilot", "group": "field", "districts": ["Ereğli", "Karapınar"], "note": {"tr": "Resmî projenin uygulama ilçeleri; henüz kanıtlanmış mısır ikamesi değil", "en": "Implementation districts of the official project; not yet a proven maize substitute"}, "sources": ["ilt_sorgum"], "engine": ["sorghum"]},
-        {"name": {"tr": "Antep fıstığı", "en": "Pistachio"}, "status": "pilot", "group": "field", "districts": ["Emirgazi"], "note": {"tr": "Belediye pilot destek alanı", "en": "Municipal pilot support area"}, "sources": ["kbb_destek"]},
+        {"name": {"tr": "Antep fıstığı", "en": "Pistachio"}, "status": "pilot", "group": "field", "districts": ["Emirgazi"], "note": {"tr": "Belediye pilot destek alanı", "en": "Municipal pilot support area"}, "sources": ["kbb_destek"], "perennial": true},
         {"name": {"tr": "Agrivoltaik üretim", "en": "Agrivoltaics"}, "status": "pilot", "group": "tech", "note": {"tr": "Karapınar–Çumra alt havzasında araştırma (silajlık mısır)", "en": "Research in the Karapınar–Çumra sub-basin (silage maize)"}, "sources": ["tagem_agrivoltaik"]},
         {"name": {"tr": "Örtü altı domates ve hıyar", "en": "Greenhouse tomato and cucumber"}, "status": "pilot", "group": "protected", "districts": ["Ereğli", "Karapınar"], "note": {"tr": "Faal seralar", "en": "Active greenhouses"}, "sources": ["ilt_ortualti"]}
       ],
       "excluded": [
-        {"tr": "Aloe vera (agrivoltaik altında)", "en": "Aloe vera (under agrivoltaics)"}, {"tr": "Ginseng", "en": "Ginseng"}, {"tr": "Teff", "en": "Teff"},
-        {"tr": "Ferragnes/Ferraduel badem önerisi", "en": "Ferragnes/Ferraduel almond varieties"}, {"tr": "Aronya", "en": "Aronia"}, {"tr": "Kinoa", "en": "Quinoa"}, {"tr": "Kapari", "en": "Caper"}
+        {"tr": "Aloe vera (agrivoltaik altında)", "en": "Aloe vera (under agrivoltaics)"},
+        {"tr": "Ginseng", "en": "Ginseng"},
+        {"tr": "Teff", "en": "Teff"},
+        {"tr": "Ferragnes/Ferraduel badem önerisi", "en": "Ferragnes/Ferraduel almond varieties"},
+        {"tr": "Aronya", "en": "Aronia"},
+        {"tr": "Kinoa", "en": "Quinoa"},
+        {"tr": "Kapari", "en": "Caper"}
       ]
     }
   }

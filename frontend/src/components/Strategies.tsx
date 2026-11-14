@@ -198,9 +198,14 @@ function Parts({ s, accent }: { s: Strategy; accent: string }) {
             {p.kind === 'rotation'
               ? <>{t(p.role === 'current_rotation' ? 'partCurrent' : 'partVerified')}{p.rotation_name && <span className="text-muted"> · {pick(p.rotation_name, lang)}</span>}</>
               : <>{t('partSpecialty')}: {p.crop ? <b>{pick(p.crop.name, lang)}</b> : <span className="italic text-muted">{t('partNotModeled')}</span>}
-                {!p.crop && p.options && p.options.length > 0 && (
-                  <div className="text-muted">{t('partOptions', { list: p.options.map((o) => pick(o.name, lang)).join(', ') })}</div>
-                )}</>}
+                {!p.crop && p.options && ([false, true] as const).map((per) => {
+                  const list = p.options!.filter((o) => !!o.perennial === per)
+                  return list.length > 0 && (
+                    <div key={String(per)} className="text-muted">
+                      {t(per ? 'partOptionsPerennial' : 'partOptionsAnnual', { list: list.map((o) => pick(o.name, lang)).join(', ') })}
+                    </div>
+                  )
+                })}</>}
           </li>
         ))}
       </ul>

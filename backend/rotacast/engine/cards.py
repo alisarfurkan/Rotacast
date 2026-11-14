@@ -28,6 +28,7 @@ SPECIAL_SHARE = {"balanced_transition": 0.25, "innovative": 0.20}
 SPECIAL_RANGE = {"balanced_transition": [0.20, 0.30], "innovative": [0.10, 0.30]}
 PILOT_RANGE = [0.05, 0.10]
 INCOME_FLOOR = 0.6  # share of baseline income a card's field rotation should keep (soft: falls back if none)
+LOW_RISK_INCOME = 0.8  # the low-risk card first looks among candidates keeping this share of the current income
 
 
 def zone_policy(whitelist: dict | None, crops: dict, baseline_ids: set) -> dict | None:
@@ -38,7 +39,8 @@ def zone_policy(whitelist: dict | None, crops: dict, baseline_ids: set) -> dict 
     for c in whitelist["crops"]:
         eng = [e for e in c.get("engine", []) if e in crops]
         rec = {"name": c["name"], "status": c["status"], "group": c["group"], "districts": c.get("districts", []),
-               "note": c.get("note"), "sources": c["sources"], "engine_ids": eng, "modeled": bool(eng)}
+               "note": c.get("note"), "sources": c["sources"], "engine_ids": eng, "modeled": bool(eng),
+               "perennial": bool(c.get("perennial"))}
         if c["status"] == "pilot":
             if c["group"] in ("field", "special"):
                 pilots.append(rec)
@@ -114,7 +116,9 @@ def pick_cards(results: list[dict], priorities: dict | None, policy: dict,
         return b_inc <= 0 or dimension_values(r["indicators"])["income"] >= INCOME_FLOOR * b_inc
 
     pool = [r for r in ok if keeps_income(r)] or ok
-    low = min(pool, key=lambda r: (round(dimension_values(r["indicators"])["risk"], 3), -r["score"])) if pool else None
+    # low risk includes income risk: prefer candidates keeping >= 80 % of the current income, then >= 60 %
+    low_pool = [r for r in ok if b_inc <= 0 or dimension_values(r["indicators"])["income"] >= LOW_RISK_INCOME * b_inc] or pool
+    low = min(low_pool, key=lambda r: (round(dimension_values(r["indicators"])["risk"], 3), -r["score"])) if low_pool else None
     by_score = sorted(pool, key=lambda r: -r["score"])
     best = next((r for r in by_score if low is None or _seq_key(r) != _seq_key(low)), low)
     field_part = best or out[0]  # no candidate within the limits: the transition keeps the current rotation

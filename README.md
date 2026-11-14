@@ -1,10 +1,12 @@
 # Rotacast
 
 **Rotacast shows a farmer what their own field has been through and which crop rotation fits a drier, hotter future.**
-Pick a field and Rotacast reads 25 years of NASA satellite and weather data, remembers how the field behaved (NDVI "Field
-Memory"), simulates dozens of rotations against real historical weather, and recommends three strategies (water saver,
-soil builder, balanced income) with uncertainty bands and plain-language reasons. A Basin View scales the same engine to
-the Konya Closed Basin and compares an adoption scenario with the GRACE groundwater-storage decline. Built for the NASA
+Pick a field in Konya and Rotacast reads 25 years of NASA satellite and weather data, remembers how the field behaved
+(NDVI "Field Memory"), simulates dozens of rotations against real historical weather, and shows three strategy cards
+(balanced transition, low risk and resilient, innovative crop opportunity) with uncertainty bands and plain-language
+reasons. Only crops documented in the field's agro-climate zone by an official source are used, and no card may use
+more irrigation water or cause more erosion than the current rotation. A Basin View scales the engine to the Konya
+Closed Basin and compares water-focused adoption scenarios with the GRACE groundwater-storage decline. Built for the NASA
 Space Apps 2026 challenge "Field Shift: Adapting Farms with NASA Data".
 
 ![Rotacast screenshot](docs/screenshot.png)
@@ -16,7 +18,10 @@ Space Apps 2026 challenge "Field Shift: Adapting Farms with NASA Data".
 - **Field Memory** from MODIS NDVI: crop pattern per year, green-up/senescence, bare-soil windows, stress years.
 - **Rain bias correction**: NASA POWER rain rescaled monthly to CHIRPS (Cumra: 533 to 302 mm/yr).
 - **Rotation engine**: seeded candidate generation (agronomic rules, legumes, cover crops), FAO-56 daily water balance, 21-crop knowledge base.
-- **Strategies**: Pareto-based picks scored against your current rotation; p10/p50/p90 from 20 historical start years.
+- **Konya zones**: 7 agro-microclimate zones (MGM 1991–2020 classifications, NASA POWER frost climatology) with a
+  manually verified crop whitelist per zone (verified / pilot / do-not-expand), each crop linked to its source.
+- **Strategy cards**: whitelist-only rotations within hard water and erosion limits, split fields with a specialty
+  crop share, official pilot crops as trial rows; p10/p50/p90 from 20 historical start years.
 - **Basin View (Konya)**: 19 POWER cells, MODIS cropland, calibrated irrigated baseline, adoption scenarios, GRACE comparison.
 - **Evidence trail**: every fact in a report links to a source id; assumptions and limitations are listed in the report.
 - Turkish and English UI.
@@ -80,7 +85,8 @@ URLs: [docs/SOURCES.md](docs/SOURCES.md).
 ## Use of SI (AI) tools
 
 This project was built with Claude Code (Anthropic) as a coding assistant, used for code generation, documentation and
-review. Humans set the design and direction, chose the data sources and methods, and verified the results. Details in
+review, and for literature searches. Humans set the design and direction, chose the data sources and methods, and
+verified the results; the zone crop whitelist was verified manually against official sources by the team. Details in
 the SI tools section of [docs/SOURCES.md](docs/SOURCES.md).
 
 ## License

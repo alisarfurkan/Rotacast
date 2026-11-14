@@ -4460,7 +4460,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -4480,7 +4481,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -4499,7 +4501,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -4517,7 +4520,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -4534,7 +4538,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -4554,7 +4559,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -4579,7 +4585,8 @@
         "kbb_lavanta"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -4597,7 +4604,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -4619,7 +4627,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       }
      ]
     }
@@ -4785,30 +4794,6 @@
    "calendar": [
     {
      "year": 1,
-     "crop_id": "barley_winter",
-     "crop_name": {
-      "en": "Winter barley",
-      "tr": "Kışlık arpa"
-     },
-     "irrigation": "none",
-     "sow": "10-15",
-     "harvest": "06-24",
-     "kind": "main"
-    },
-    {
-     "year": 2,
-     "crop_id": "sunflower",
-     "crop_name": {
-      "en": "Sunflower",
-      "tr": "Ayçiçeği"
-     },
-     "irrigation": "deficit",
-     "sow": "04-19",
-     "harvest": "08-23",
-     "kind": "main"
-    },
-    {
-     "year": 3,
      "crop_id": "wheat_winter",
      "crop_name": {
       "en": "Winter wheat",
@@ -4816,7 +4801,31 @@
      },
      "irrigation": "deficit",
      "sow": "10-21",
-     "harvest": "07-04",
+     "harvest": "07-05",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "potato",
+     "crop_name": {
+      "en": "Potato",
+      "tr": "Patates"
+     },
+     "irrigation": "deficit",
+     "sow": "04-07",
+     "harvest": "08-17",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "barley_winter",
+     "crop_name": {
+      "en": "Winter barley",
+      "tr": "Kışlık arpa"
+     },
+     "irrigation": "none",
+     "sow": "10-15",
+     "harvest": "06-23",
      "kind": "main"
     },
     {
@@ -4834,45 +4843,45 @@
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 127.70677515648154,
-     "p50": 148.32600108412993,
-     "p90": 176.044943246024
+     "p10": 150.95017759282558,
+     "p50": 200.54997238519613,
+     "p90": 225.3398152630015
     },
     "water_m3_ha_yr": {
-     "p10": 1277.0677515648154,
-     "p50": 1483.2600108412994,
-     "p90": 1760.44943246024
+     "p10": 1509.5017759282557,
+     "p50": 2005.4997238519613,
+     "p90": 2253.398152630015
     },
     "yield_ratio": {
-     "p10": 0.6622090194361041,
-     "p50": 0.7046293595574318,
-     "p90": 0.736999175750235
+     "p10": 0.6813971325160265,
+     "p50": 0.7228284896839021,
+     "p90": 0.7709135481674165
     },
     "stress_days_yr": {
-     "p10": 69.35,
-     "p50": 82.25,
-     "p90": 95.9
+     "p10": 68.1,
+     "p50": 77.0,
+     "p90": 97.10000000000001
     },
     "frost_risk": 0.02,
-    "heat_risk": 0.18,
+    "heat_risk": 0.27,
     "n_balance_kg_ha_yr": 6.25,
-    "residue_index": 0.5625,
-    "soil_cover_days_yr": 160.54,
-    "erosion_rel": 0.8698215042372882,
+    "residue_index": 0.4625,
+    "soil_cover_days_yr": 164.99,
+    "erosion_rel": 0.861332627118644,
     "pest_break": 0.8,
     "income_usd_ha_yr": {
-     "p10": 1134.2069443200967,
-     "p50": 1193.470595224598,
-     "p90": 1285.7164643992287
+     "p10": 2517.411844190293,
+     "p50": 2615.7847800387362,
+     "p90": 2767.1682698626655
     }
    },
-   "score": 58.15,
+   "score": 64.42,
    "score_breakdown": {
-    "water": 84.64,
-    "soil": 53.6,
-    "income": 30.16,
-    "erosion": 56.51,
-    "risk": 61.7
+    "water": 79.23,
+    "soil": 50.55,
+    "income": 66.11,
+    "erosion": 56.93,
+    "risk": 57.9
    },
    "feasibility": {
     "fraction": 1.0,
@@ -4881,8 +4890,8 @@
     "issues": []
    },
    "rotation_name": {
-    "en": "Winter barley > Sunflower > Winter wheat > Chickpea",
-    "tr": "Kışlık arpa > Ayçiçeği > Kışlık buğday > Nohut"
+    "en": "Winter wheat > Potato > Winter barley > Chickpea",
+    "tr": "Kışlık buğday > Patates > Kışlık arpa > Nohut"
    },
    "coverage": 1.0,
    "parts": [
@@ -4890,29 +4899,29 @@
      "share": 1.0,
      "kind": "rotation",
      "role": "verified_rotation",
-     "rotation_id": "cand_079",
+     "rotation_id": "cand_015",
      "modeled": true,
      "rotation_name": {
-      "en": "Winter barley > Sunflower > Winter wheat > Chickpea",
-      "tr": "Kışlık arpa > Ayçiçeği > Kışlık buğday > Nohut"
+      "en": "Winter wheat > Potato > Winter barley > Chickpea",
+      "tr": "Kışlık buğday > Patates > Kışlık arpa > Nohut"
      }
     }
    ],
    "steps": [
     {
-     "crop_id": "barley_winter",
+     "crop_id": "wheat_winter",
      "year": 1,
-     "irrigation": "none"
+     "irrigation": "deficit"
     },
     {
-     "crop_id": "sunflower",
+     "crop_id": "potato",
      "year": 2,
      "irrigation": "deficit"
     },
     {
-     "crop_id": "wheat_winter",
+     "crop_id": "barley_winter",
      "year": 3,
-     "irrigation": "deficit"
+     "irrigation": "none"
     },
     {
      "crop_id": "chickpea",
@@ -4924,8 +4933,8 @@
     "why": [
      {
       "text": {
-       "en": "Every crop in this rotation (Winter barley → Sunflower → Winter wheat → Chickpea) is documented in your zone by an official source.",
-       "tr": "Bu rotasyondaki her ürün (Kışlık arpa → Ayçiçeği → Kışlık buğday → Nohut) bölgenizde resmî bir kaynakla belgelenmiş."
+       "en": "Every crop in this rotation (Winter wheat → Potato → Winter barley → Chickpea) is documented in your zone by an official source.",
+       "tr": "Bu rotasyondaki her ürün (Kışlık buğday → Patates → Kışlık arpa → Nohut) bölgenizde resmî bir kaynakla belgelenmiş."
       },
       "facts": [
        "f25",
@@ -4952,6 +4961,15 @@
       },
       "facts": [
        "f24"
+      ]
+     },
+     {
+      "text": {
+       "en": "Raises the median income per hectare.",
+       "tr": "Hektar başına ortanca geliri artırır."
+      },
+      "facts": [
+       "f25"
       ]
      },
      {
@@ -5008,8 +5026,8 @@
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Winter barley, Chickpea, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Kışlık arpa, Nohut, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+       "en": "New crops for you (Winter barley, Chickpea, Potato): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Kışlık arpa, Nohut, Patates): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
       },
       "check_with": "market"
      },
@@ -5029,13 +5047,13 @@
      },
      {
       "text": {
-       "en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
-       "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
+       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
+       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f25"
+       "f31"
       ],
-      "check_with": "market"
+      "check_with": "agronomist"
      },
      {
       "text": {
@@ -5168,7 +5186,8 @@
       "engine_ids": [
        "sorghum"
       ],
-      "modeled": true
+      "modeled": true,
+      "perennial": false
      },
      "share_range": [
       0.05,
@@ -5225,7 +5244,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -5245,7 +5265,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -5264,7 +5285,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -5282,7 +5304,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -5299,7 +5322,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": false
       },
       {
        "name": {
@@ -5319,7 +5343,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -5344,7 +5369,8 @@
         "kbb_lavanta"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -5362,7 +5388,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       },
       {
        "name": {
@@ -5384,7 +5411,8 @@
         "ilt_aromatik"
        ],
        "engine_ids": [],
-       "modeled": false
+       "modeled": false,
+       "perennial": true
       }
      ]
     }
@@ -5737,20 +5765,20 @@
   {
    "id": "f24",
    "text": {
-    "en": "Irrigation water use is 1,483 m³/ha per year versus 4,829 in the current rotation (3,345 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.483 m³/ha; mevcut rotasyonda 4.829 (3.345 m³/ha daha az)."
+    "en": "Irrigation water use is 2,005 m³/ha per year versus 4,829 in the current rotation (2,823 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 2.005 m³/ha; mevcut rotasyonda 4.829 (2.823 m³/ha daha az)."
    },
-   "value": -3345.265,
+   "value": -2823.026,
    "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f25",
    "text": {
-    "en": "Median gross margin is 1,193 USD/ha per year versus 1,978 now (785 USD/ha lower).",
-    "tr": "Ortanca brüt kâr yılda 1.193 USD/ha; şimdiki rotasyonda 1.978 (785 USD/ha düşük)."
+    "en": "Median gross margin is 2,616 USD/ha per year versus 1,978 now (637 USD/ha higher).",
+    "tr": "Ortanca brüt kâr yılda 2.616 USD/ha; şimdiki rotasyonda 1.978 (637 USD/ha yüksek)."
    },
-   "value": -784.986,
+   "value": 637.328,
    "unit": "USD/ha/yr",
    "source_id": "fao56"
   },
@@ -5767,30 +5795,30 @@
   {
    "id": "f27",
    "text": {
-    "en": "Modelled erosion is 87% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %87 düzeyinde."
+    "en": "Modelled erosion is 86% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %86 düzeyinde."
    },
-   "value": -0.13,
+   "value": -0.139,
    "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f28",
    "text": {
-    "en": "The soil is covered by crop canopy 161 days per year versus 161 now.",
-    "tr": "Toprak yılda 161 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+    "en": "The soil is covered by crop canopy 165 days per year versus 161 now.",
+    "tr": "Toprak yılda 165 gün bitki örtüsüyle kaplı; şimdi 161 gün."
    },
-   "value": -0.187,
+   "value": 4.263,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f29",
    "text": {
-    "en": "Water-stress days are 82 per year versus 44 now.",
-    "tr": "Su stresi günleri yılda 82; şimdi 44."
+    "en": "Water-stress days are 77 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 77; şimdi 44."
    },
-   "value": 37.917,
+   "value": 32.667,
    "unit": "days/yr",
    "source_id": "fao56"
   },
@@ -5807,10 +5835,10 @@
   {
    "id": "f31",
    "text": {
-    "en": "In 18% of simulated years a crop in this rotation suffers heat damage.",
-    "tr": "Simüle edilen yılların %18 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+    "en": "In 27% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %27 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
    },
-   "value": 0.18,
+   "value": 0.27,
    "unit": "probability",
    "source_id": "fao56"
   },
@@ -5827,10 +5855,10 @@
   {
    "id": "f33",
    "text": {
-    "en": "Median relative yield is 70% of potential versus 83% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %70'i; şimdi %83."
+    "en": "Median relative yield is 72% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %72'i; şimdi %83."
    },
-   "value": -0.121,
+   "value": -0.103,
    "unit": "ratio",
    "source_id": "fao56"
   },

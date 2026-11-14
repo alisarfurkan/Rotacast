@@ -11,6 +11,14 @@ maplibregl.setWorkerUrl(workerUrl)
 
 export interface Point { lat: number; lon: number }
 export const KONYA: Point = { lat: 37.6, lon: 32.75 }
+/** Sample fields whose satellite data is already cached: they open in seconds, also offline. */
+export const SAMPLES: (Point & { zone: string })[] = [
+  { zone: 'central', ...KONYA },
+  { zone: 'toros', lat: 36.99, lon: 32.46 },
+  { zone: 'seydisehir', lat: 37.42, lon: 31.85 },
+  { zone: 'beysehir', lat: 37.68, lon: 31.75 },
+]
+export const isSample = (p: Point | null) => !!p && SAMPLES.some((s) => Math.abs(s.lat - p.lat) < 1e-6 && Math.abs(s.lon - p.lon) < 1e-6)
 
 export const style: maplibregl.StyleSpecification = {
   version: 8,
@@ -122,7 +130,6 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
     if (z < 9) m.flyTo({ center: [point.lon, point.lat], zoom: 11, duration: 1400 })
   }, [point])
 
-  const fly = () => { setNotice(null); onPick(KONYA) }
   const here = point ? locate(zones, point).zone : null
   const hover = hoverId != null ? zones?.zones.features.find((f) => f.properties.id === hoverId)?.properties : null
   return (
@@ -162,9 +169,19 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
       </div>
       {notice && <p role="alert" className="mt-2 rounded-lg bg-sunsoft border border-sun px-3 py-2 text-sm">{t(notice)}</p>}
       <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
-        <button onClick={fly} className="text-sm font-semibold rounded-full border border-line bg-surface2 hover:bg-leafsoft px-3 py-1.5">
-          📍 {t('konyaDemo')}
-        </button>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-xs font-bold text-muted">{t('samplesLabel')}</span>
+          {SAMPLES.map((s) => {
+            const f = zones?.zones.features.find((x) => x.properties.key === s.zone)
+            return (
+              <button key={s.zone} onClick={() => { setNotice(null); onPick({ lat: s.lat, lon: s.lon }) }}
+                className="text-xs font-semibold rounded-full border border-line bg-surface2 hover:bg-leafsoft px-2.5 py-1 flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ background: f?.properties.color ?? '#888' }} />
+                {f ? zname(f.properties) : s.zone}
+              </button>
+            )
+          })}
+        </div>
         <p className="text-xs text-muted tabular-nums" aria-live="polite">
           {t('coords')}: {point ? `${point.lat.toFixed(4)}°N, ${point.lon.toFixed(4)}°E` : t('noPoint')}
         </p>
@@ -176,6 +193,9 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
         </p>
       )}
       <p className="text-xs text-muted mt-1">{t('mapHint')}</p>
+      {point && !isSample(point) && (
+        <p className="text-xs mt-1 rounded-lg bg-surface2 px-2.5 py-1.5">⏳ {t('newPointNote')}</p>
+      )}
     </div>
   )
 }

@@ -124,6 +124,7 @@ export function BasinView() {
       <section className="card p-4 md:p-6" aria-labelledby="bs-title">
         <h2 id="bs-title" className="font-display text-2xl md:text-3xl font-extrabold text-soil">{t('bsTitle')} · {pick(rep.region.name, lang)}</h2>
         <p className="text-sm text-muted mb-1">{t('bsSub')}</p>
+        <p className="text-xs rounded-lg bg-surface2 px-3 py-2 mb-2">ⓘ {t('bsCardsNote')}</p>
         <p className="text-xs text-muted mb-4">{t('bsCells', { n: rep.totals.n_cells, ha: fmt(rep.totals.cropland_ha, 0, lang), irr: fmt(rep.totals.irrigated_ha, 0, lang) })}</p>
         {data?.mock && <p className="text-xs text-sun mb-3">{t('bsMock')}</p>}
 

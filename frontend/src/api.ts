@@ -35,8 +35,7 @@ function scoreMock(req: FieldRequest): FieldReport {
     s.indicators.water_m3_ha_yr = { p10: bd.p10 * k, p50: bd.p50 * k, p90: bd.p90 * k }
     s.indicators.heat_risk = Math.min(1, s.indicators.heat_risk * (1 + 0.12 * dT))
   }
-  rep.location = { ...rep.location, lat: req.lat, lon: req.lon }
-  return rep
+  return rep  // location stays Çumra: the demo numbers never belong to another point
 }
 
 export async function analyzeField(req: FieldRequest): Promise<AnalyzeResult> {
