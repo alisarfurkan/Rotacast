@@ -52,8 +52,12 @@
   fields show a "field history unavailable" note instead of Field Memory; cards still work.
 - Gap: no specialty crop (cumin, anise, fenugreek, coriander, black cumin, buckwheat, fennel; perennials) has engine
   parameters yet, so the specialty share is listed but "not in the numbers yet" (`coverage` < 1).
-- Next (owner @selejder): sourced engine parameters for the annual specialty crops; perennial module or info cards;
-  calendar and frost/heat risk per zone.
+- Next (owner @selejder), in this order: (1) show documented yields of specialty crops on the innovative card
+  (kimyon ~50 kg/da, anason ~72 kg/da, TÜİK 2024; çemen 147 kg/da after checking its source), income "not computed"
+  (no verified farmer price); fix the sorghum trial row (engine has grain sorghum, the Konya pilot is silage sorghum:
+  drop its numbers). (2) Regional development screen ("Bölge kalkınması"), scope to agree first. (3) If time: water
+  need for kimyon/çemen via the engine (Kc sources in research_notes/ozel_urun_parametreleri.md).
+- Open: ask the organisers about pre-event commit dates; commits 0f7141d and 25daeb6 are not pushed yet.
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.
