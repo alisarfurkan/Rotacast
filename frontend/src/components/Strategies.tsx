@@ -1,12 +1,12 @@
-import type { Band, CalendarEntry, Strategy } from '../types'
+import type { Band, CalendarEntry, CardsInfo, Strategy } from '../types'
 import { CAT_COLOR, CROP_BY_ID } from '../crops'
 import { Term } from './Term'
 import { useLang, useT } from '../ctx'
 import type { Key } from '../i18n'
 import { fmt, mdToDoy, monthNames, pick, signed, to100 } from '../util'
 
-const ICON: Record<string, string> = { baseline: '🌾', water_saver: '💧', soil_builder: '🌱', balanced_income: '⚖️' }
-const ACCENT: Record<string, string> = { baseline: '#7a6652', water_saver: '#1f6a93', soil_builder: '#4f8a35', balanced_income: '#c98a12' }
+const ICON: Record<string, string> = { baseline: '🌾', balanced_transition: '⚖️', low_risk: '🛡️', innovative: '🌿', water_saver: '💧', soil_builder: '🌱', balanced_income: '⚖️' }
+const ACCENT: Record<string, string> = { baseline: '#7a6652', balanced_transition: '#c98a12', low_risk: '#1f6a93', innovative: '#4f8a35', water_saver: '#1f6a93', soil_builder: '#4f8a35', balanced_income: '#c98a12' }
 
 /* ---------- planting calendar (rows = years of the cycle, columns = months) ---------- */
 interface Seg { row: number; a: number; b: number; e: CalendarEntry; head: boolean }
@@ -177,6 +177,64 @@ export function computeScales(list: Strategy[]): Scales {
   return { water: rng((s) => s.indicators.water_m3_ha_yr), income: rng((s) => s.indicators.income_usd_ha_yr), yield: [0, 1.05] }
 }
 
+function Parts({ s, accent }: { s: Strategy; accent: string }) {
+  const t = useT()
+  const lang = useLang()
+  const parts = s.parts ?? []
+  if (parts.length < 2) return null
+  const pct = (x: number) => fmt(x * 100, 0, lang)
+  return (
+    <div>
+      <div className="flex h-3 rounded-full overflow-hidden border border-line">
+        {parts.map((p, k) => (
+          <div key={k} style={{ width: p.share * 100 + '%', background: p.kind === 'rotation' ? accent : 'var(--leaf)',
+            opacity: p.modeled ? 1 : 0.35 }} />
+        ))}
+      </div>
+      <ul className="mt-1.5 grid gap-1 text-[11.5px]">
+        {parts.map((p, k) => (
+          <li key={k} className="min-w-0">
+            <span className="font-bold tabular-nums">%{pct(p.share)}</span>{' '}
+            {p.kind === 'rotation'
+              ? <>{t(p.role === 'current_rotation' ? 'partCurrent' : 'partVerified')}{p.rotation_name && <span className="text-muted"> · {pick(p.rotation_name, lang)}</span>}</>
+              : <>{t('partSpecialty')}: {p.crop ? <b>{pick(p.crop.name, lang)}</b> : <span className="italic text-muted">{t('partNotModeled')}</span>}
+                {!p.crop && p.options && p.options.length > 0 && (
+                  <div className="text-muted">{t('partOptions', { list: p.options.map((o) => pick(o.name, lang)).join(', ') })}</div>
+                )}</>}
+          </li>
+        ))}
+      </ul>
+      {s.coverage !== undefined && s.coverage < 0.999 && (
+        <p className="mt-1.5 text-[11px] rounded-lg bg-surface2 px-2 py-1">ⓘ {t('coverageNote', { p: pct(s.coverage) })}</p>
+      )}
+    </div>
+  )
+}
+
+function Trials({ s }: { s: Strategy }) {
+  const t = useT()
+  const lang = useLang()
+  if (!s.trials?.length) return null
+  return (
+    <div className="rounded-xl border border-dashed border-line p-3">
+      <div className="text-xs font-bold">🧪 {t('trialsTitle')}</div>
+      <p className="text-[11px] text-muted mb-1.5">{t('trialLabel')}</p>
+      <ul className="grid gap-1.5 text-[11.5px]">
+        {s.trials.map((tr, k) => (
+          <li key={k}>
+            <b>{pick(tr.crop.name, lang)}</b>
+            <span className="text-muted"> · {t('trialShare', { a: fmt(tr.share_range[0] * 100, 0, lang), b: fmt(tr.share_range[1] * 100, 0, lang) })}
+              {tr.crop.districts.length > 0 && <> · {tr.crop.districts.join(', ')}</>}</span>
+            <div className="text-muted">{tr.modeled && tr.water_m3_ha_yr && tr.income_usd_ha_yr
+              ? t('trialWater', { w: fmt(tr.water_m3_ha_yr.p50, 0, lang), i: fmt(tr.income_usd_ha_yr.p50, 0, lang) })
+              : t('trialNoModel')}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; base: Strategy; scales: Scales; top: boolean; onOpen: () => void }) {
   const t = useT()
   const lang = useLang()
@@ -199,7 +257,7 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
             <div className="text-[11px] uppercase tracking-widest opacity-85">{isBase ? t('stBaselineTag') : t('cycle', { n: s.cycle_years })}</div>
             <h3 className="font-display text-xl font-extrabold leading-tight mt-0.5">{ICON[s.archetype] ?? '🌾'} {pick(s.name, lang)}</h3>
           </div>
-          {top && <span className="text-[10px] font-bold bg-white text-ink rounded-full px-2 py-0.5 shrink-0">★ {t('stTopPick')}</span>}
+          {top && <span className="text-[10px] font-bold bg-white text-ink rounded-full px-2 py-0.5 shrink-0">★ {t(s.archetype === 'balanced_transition' ? 'stDefaultPick' : 'stTopPick')}</span>}
         </div>
       </div>
 
@@ -215,6 +273,8 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
             ))}
           </div>
         </div>
+
+        <Parts s={s} accent={accent} />
 
         <div>
           <div className="text-xs font-bold mb-1">{t('calendar')}</div>
@@ -251,6 +311,8 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
           </div>
         </div>
 
+        <Trials s={s} />
+
         <button onClick={onOpen} className="btn-primary mt-auto py-2.5 text-sm" aria-haspopup="dialog">
           📋 {t('openEvidence')}
         </button>
@@ -259,14 +321,19 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
   )
 }
 
-export function Strategies({ strategies, onOpen }: { strategies: Strategy[]; onOpen: (id: string) => void }) {
+const NOTE_KEY: Record<string, Key> = {
+  no_candidate_within_limits: 'noteNoCandidate', no_verified_specialty: 'noteNoSpecialty', no_local_evidence: 'noteNoLocal',
+}
+
+export function Strategies({ strategies, onOpen, cards }: { strategies: Strategy[]; onOpen: (id: string) => void; cards?: CardsInfo | null }) {
   const t = useT()
   const lang = useLang()
   const base = strategies.find((s) => s.archetype === 'baseline') ?? strategies[0]
   const ordered = [base, ...strategies.filter((s) => s !== base)]
   const scales = computeScales(ordered)
   const alts = ordered.filter((s) => s !== base)
-  const top = alts.length ? alts.reduce((a, b) => (b.score > a.score ? b : a)) : null
+  const top = alts.find((s) => s.archetype === 'balanced_transition')
+    ?? (alts.length ? alts.reduce((a, b) => (b.score > a.score ? b : a)) : null)
   const saver = alts.length ? alts.reduce((a, b) => (b.indicators.water_m3_ha_yr.p50 < a.indicators.water_m3_ha_yr.p50 ? b : a)) : null
   const saved = saver ? base.indicators.water_m3_ha_yr.p50 - saver.indicators.water_m3_ha_yr.p50 : 0
   return (
@@ -278,7 +345,11 @@ export function Strategies({ strategies, onOpen }: { strategies: Strategy[]; onO
       <p className="font-display text-lg md:text-xl leading-snug mb-4 rounded-xl bg-watersoft px-4 py-3 border-l-4 border-water">
         {saver && saved > 0 ? t('headlineSave', { name: pick(saver.name, lang), amount: fmt(saved, 0, lang) }) : t('headlineNone')}
       </p>
-      <p className="text-xs text-muted mb-3">{t('rangeHint')}</p>
+      <p className="text-xs text-muted mb-1">{t('rangeHint')}</p>
+      {cards && <p className="text-xs text-muted mb-3">{t('limitsNote', { w: fmt(cards.limits.water_m3_ha_yr_max, 0, lang) })}</p>}
+      {cards && Object.values(cards.notes).map((n) => NOTE_KEY[n] && (
+        <p key={n} className="text-sm rounded-lg border border-line bg-surface2 px-3 py-2 mb-3">ⓘ {t(NOTE_KEY[n])}</p>
+      ))}
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         {ordered.map((s) => (
           <StrategyCard key={s.id} s={s} base={base} scales={scales} top={s === top} onOpen={() => onOpen(s.id)} />

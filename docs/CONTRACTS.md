@@ -244,6 +244,23 @@ Clarifications (v1.1):
 - `calendar[].year` is the cycle year in which the crop is **harvested**. A `sow` date later in the year than `harvest` means the crop was sown in the autumn of the previous cycle year (winter crops). Cover crops are separate entries with `kind: "cover"` and the `year` of the main crop they follow.
 - `risks[].check_with` enum: `agronomist` | `extension_service` | `market`.
 - `location.label` is always a non-empty string (falls back to formatted coordinates).
+- **Zone cards (v1.2, METHODS §7.1).** For a point inside a Konya zone the strategies are
+  `baseline, balanced_transition, low_risk, innovative` (a card is left out when it cannot be built; the reason is in
+  `cards.notes`). Outside a zone the old `water_saver, soil_builder, balanced_income` archetypes are returned; the
+  basin report always uses them. Extra keys:
+  ```jsonc
+  "cards": {"zone": "central", "notes": {"low_risk": "no_candidate_within_limits" | "...", "balanced_transition": "no_verified_specialty",
+            "innovative": "no_local_evidence"}, "allowed_crops": [""], "caution_crops": [""],
+            "limits": {"water_m3_ha_yr_max": 0, "erosion_rel_max": 1.0}},
+  // per card strategy:
+  "coverage": 0.75,                       // share of the field the numbers cover (< 1 when a specialty crop is not modelled)
+  "parts": [{"share": 0.75, "kind": "rotation", "role": "verified_rotation|current_rotation", "rotation_id": "",
+             "rotation_name": {"en": "", "tr": ""}, "modeled": true},
+            {"share": 0.25, "kind": "specialty", "modeled": false, "share_range": [0.2, 0.3],
+             "crop": {/* whitelist record + engine_ids, modeled */} | null, "options": [/* unmodelled specialty crops */]}],
+  "trials": [{"crop": {}, "share_range": [0.05, 0.1], "modeled": true,
+              "water_m3_ha_yr": {"p10": 0, "p50": 0, "p90": 0}, "income_usd_ha_yr": {}}]   // innovative card only
+  ```
 - `field_memory.bare_probability` is reported per 16-day composite bin (`doy` = bin start); `bare_windows` that wrap the new year may appear as two windows (end of year and start of year).
 
 

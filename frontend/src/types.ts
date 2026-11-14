@@ -89,10 +89,27 @@ export interface Evidence {
   gaps: { text: I18nText }[]
   risks: { text: I18nText; check_with?: string }[]
 }
+export interface CardCrop {
+  name: I18nText; status: 'verified' | 'pilot'; group: string; districts: string[]; note?: I18nText | null
+  sources: string[]; engine_ids: string[]; modeled: boolean
+}
+export interface StrategyPart {
+  share: number; kind: 'rotation' | 'specialty'; modeled: boolean
+  role?: 'verified_rotation' | 'current_rotation'; rotation_id?: string; rotation_name?: I18nText
+  crop?: CardCrop | null; options?: CardCrop[]; share_range?: [number, number]
+}
+export interface Trial { crop: CardCrop; share_range: [number, number]; modeled: boolean; water_m3_ha_yr?: Band; income_usd_ha_yr?: Band }
+export interface CardsInfo {
+  zone: string; notes: Record<string, string>; allowed_crops: string[]; caution_crops: string[]
+  limits: { water_m3_ha_yr_max: number; erosion_rel_max: number }
+}
 export interface Strategy {
   id: string
-  archetype: 'baseline' | 'water_saver' | 'soil_builder' | 'balanced_income' | string
+  archetype: 'baseline' | 'balanced_transition' | 'low_risk' | 'innovative' | 'water_saver' | 'soil_builder' | 'balanced_income' | string
   name: I18nText
+  parts?: StrategyPart[]
+  coverage?: number
+  trials?: Trial[]
   cycle_years: number
   calendar: CalendarEntry[]
   indicators: Indicators
@@ -145,6 +162,7 @@ export interface ZonesData {
 
 export interface FieldReport {
   zone?: ZoneInfo
+  cards?: CardsInfo | null
   location: { lat: number; lon: number; elevation_m: number; label: string }
   sources: SourceInfo[]
   climate: Climate

@@ -1,4 +1,600 @@
 {
+ "zone": {
+  "id": 5,
+  "key": "central",
+  "color": "#EDC948",
+  "name": {
+   "tr": "Merkez ova (Konya–Çumra)",
+   "en": "Central plain (Konya–Çumra)"
+  },
+  "desc": {
+   "tr": "Karasal yarı kurak step. Sıcak ve kurak yaz, soğuk kış, düşük yağış ve yüksek buharlaşma. Geceleri hızlı sıcaklık kaybı. Sulanan geniş parseller çevrelerine göre daha serin ve nemli.",
+   "en": "Continental semi-arid steppe: hot dry summers, cold winters, low rain and high evaporation, fast night-time cooling. Large irrigated parcels are locally cooler and moister."
+  },
+  "elevation_m": {
+   "p10": 1002,
+   "p50": 1053,
+   "p90": 1475
+  },
+  "field_elevation_m": 1011.67578125,
+  "elevation_position": "low",
+  "stations": [
+   {
+    "aydeniz": {
+     "index": 1.51,
+     "type": "Çok Kurak"
+    },
+    "erinc": {
+     "index": 18.08,
+     "type": "Yarı kurak"
+    },
+    "de_martonne": {
+     "index": 8.55,
+     "type": "Yarı Kurak"
+    },
+    "trewartha_winter": {
+     "type": "Kışları soğuk",
+     "mean_temp_c": -0.28
+    },
+    "trewartha_summer": {
+     "type": "Yazları sıcak",
+     "mean_temp_c": 24.14
+    },
+    "thornthwaite": {
+     "class": "D,B'2,d,b'2",
+     "explanation": "D : Yarı Kurak B'2 : 2. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'2 : Yaz Buharlaşma Oranı : %56.5"
+    },
+    "station": "KONYA",
+    "name": "Konya",
+    "period": "1991-2020",
+    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=KONYA",
+    "lat": 37.872734,
+    "lon": 32.4924376,
+    "nasa_power": {
+     "period": "2001-2025",
+     "grid": "0.5 x 0.625 deg (~50 km)",
+     "t2m_mean_c": 11.31,
+     "frost_days_yr": 103.1,
+     "spring_frost_days": 21.0,
+     "autumn_frost_days": 11.6,
+     "hottest_month_mean_c": 23.4,
+     "coldest_month_mean_c": -0.6,
+     "rh2m_pct": 62.42
+    }
+   },
+   {
+    "aydeniz": {
+     "index": 1.51,
+     "type": "Çok Kurak"
+    },
+    "erinc": {
+     "index": 16.77,
+     "type": "Yarı kurak"
+    },
+    "de_martonne": {
+     "index": 7.87,
+     "type": "Yarı Kurak"
+    },
+    "trewartha_winter": {
+     "type": "Kışları serin",
+     "mean_temp_c": 0.29
+    },
+    "trewartha_summer": {
+     "type": "Yazları sıcak",
+     "mean_temp_c": 23.45
+    },
+    "thornthwaite": {
+     "class": "D,B'1,d,b'3",
+     "explanation": "D : Yarı Kurak B'1 : 1. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'3 : Yaz Buharlaşma Oranı : %55.1"
+    },
+    "station": "CUMRA",
+    "name": "Çumra",
+    "period": "1991-2020",
+    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=CUMRA",
+    "lat": 37.5720111,
+    "lon": 32.7845981,
+    "nasa_power": {
+     "period": "2001-2025",
+     "grid": "0.5 x 0.625 deg (~50 km)",
+     "t2m_mean_c": 11.65,
+     "frost_days_yr": 98.4,
+     "spring_frost_days": 19.2,
+     "autumn_frost_days": 10.6,
+     "hottest_month_mean_c": 24.03,
+     "coldest_month_mean_c": -0.43,
+     "rh2m_pct": 63.45
+    }
+   }
+  ],
+  "crops": {
+   "version": "2026-11-14",
+   "caveat": {
+    "tr": "Kanıtlı = ürün yörede belgelenmiş demektir. İlçeler arası karşılaştırmalı kayıtların çoğu 2018 TÜİK verisine dayanan 2019 MEVKA raporlarından gelir; 2026'daki güncel alanı veya kârlılığı garanti etmez. Bu liste tarlanıza öneri değildir: öneri için iklim, su bütçesi, toprak/tuzluluk ve pazar koşulu ayrıca kontrol edilir.",
+    "en": "Verified = documented in the area. Most comparable district records come from 2019 MEVKA reports based on 2018 TÜİK data; they do not guarantee 2026 area or profitability. This list is not advice for your field: climate, water budget, soil/salinity and market are checked separately."
+   },
+   "groups": {
+    "field": {
+     "tr": "Geleneksel ürünler",
+     "en": "Traditional crops"
+    },
+    "special": {
+     "tr": "Özel ürünler (tıbbi-aromatik vb.)",
+     "en": "Specialty crops (medicinal-aromatic etc.)"
+    },
+    "protected": {
+     "tr": "Örtü altı",
+     "en": "Greenhouse"
+    },
+    "method": {
+     "tr": "Katma değer modeli",
+     "en": "Value-added model"
+    },
+    "tech": {
+     "tr": "Araştırma teknolojisi",
+     "en": "Research technology"
+    }
+   },
+   "crops": [
+    {
+     "name": {
+      "tr": "Buğday",
+      "en": "Wheat"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "wheat_winter"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Arpa",
+      "en": "Barley"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "barley_winter"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Nohut",
+      "en": "Chickpea"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "chickpea"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kuru fasulye",
+      "en": "Dry bean"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "dry_bean"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Mısır (dane ve silajlık)",
+      "en": "Maize (grain and silage)"
+     },
+     "status": "verified",
+     "group": "field",
+     "caution": true,
+     "sources": [
+      "mevka2019",
+      "bugem_su_kisiti"
+     ],
+     "engine": [
+      "maize_grain",
+      "maize_silage"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Şeker pancarı",
+      "en": "Sugar beet"
+     },
+     "status": "verified",
+     "group": "field",
+     "caution": true,
+     "sources": [
+      "mevka2019",
+      "bugem_su_kisiti"
+     ],
+     "engine": [
+      "sugar_beet"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Ayçiçeği",
+      "en": "Sunflower"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "sunflower"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Yonca",
+      "en": "Alfalfa"
+     },
+     "status": "verified",
+     "group": "field",
+     "caution": true,
+     "sources": [
+      "mevka2019",
+      "bugem_su_kisiti"
+     ],
+     "engine": [
+      "alfalfa"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Patates",
+      "en": "Potato"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ],
+     "engine": [
+      "potato"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Havuç",
+      "en": "Carrot"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Çerezlik kabak",
+      "en": "Snack pumpkin (seeds)"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kavun ve karpuz",
+      "en": "Melon and watermelon"
+     },
+     "status": "verified",
+     "group": "field",
+     "sources": [
+      "mevka2019"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Üzüm",
+      "en": "Grape"
+     },
+     "status": "verified",
+     "group": "field",
+     "districts": [
+      "Güneysınır"
+     ],
+     "sources": [
+      "mevka2019"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kültür mantarı",
+      "en": "Cultivated mushroom"
+     },
+     "status": "verified",
+     "group": "protected",
+     "districts": [
+      "Selçuklu",
+      "Sarayönü"
+     ],
+     "sources": [
+      "mevka2019"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Çemen",
+      "en": "Fenugreek"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Çumra",
+      "Selçuklu"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Çörekotu",
+      "en": "Black cumin"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Çumra",
+      "Meram",
+      "Sarayönü",
+      "Selçuklu"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Karabuğday",
+      "en": "Buckwheat"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Karatay",
+      "Çumra",
+      "Meram"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kimyon",
+      "en": "Cumin"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Sarayönü",
+      "Karatay"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kişniş",
+      "en": "Coriander"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Selçuklu"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Kekik",
+      "en": "Thyme"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Çumra",
+      "Meram",
+      "Sarayönü",
+      "Selçuklu"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Lavanta",
+      "en": "Lavender"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Güneysınır",
+      "Çumra",
+      "Meram",
+      "Sarayönü",
+      "Selçuklu"
+     ],
+     "note": {
+      "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
+      "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
+     },
+     "sources": [
+      "ilt_aromatik",
+      "kbb_lavanta"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Tıbbi nane ve melisa",
+      "en": "Peppermint and lemon balm"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Meram",
+      "Selçuklu"
+     ],
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Adaçayı",
+      "en": "Sage"
+     },
+     "status": "verified",
+     "group": "special",
+     "districts": [
+      "Meram",
+      "Selçuklu",
+      "Çumra"
+     ],
+     "note": {
+      "tr": "Küçük ölçekte",
+      "en": "Small scale"
+     },
+     "sources": [
+      "ilt_aromatik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Sözleşmeli tohumluk üretimi",
+      "en": "Contract seed production"
+     },
+     "status": "verified",
+     "group": "method",
+     "note": {
+      "tr": "Ayrı ürün değil, üretim yöntemi: sertifikalı hububat, hibrit ayçiçeği, aspir ve baklagil tohumu",
+      "en": "A production method, not a crop: certified cereal, hybrid sunflower, safflower and pulse seed"
+     },
+     "sources": []
+    },
+    {
+     "name": {
+      "tr": "Sorgum ve sorgum melezleri",
+      "en": "Sorghum and sorghum hybrids"
+     },
+     "status": "pilot",
+     "group": "field",
+     "districts": [
+      "Karatay",
+      "Sarayönü"
+     ],
+     "sources": [
+      "ilt_sorgum"
+     ],
+     "engine": [
+      "sorghum"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Agrivoltaik üretim",
+      "en": "Agrivoltaics"
+     },
+     "status": "pilot",
+     "group": "tech",
+     "note": {
+      "tr": "TAGEM araştırması, silajlık mısır üzerine",
+      "en": "TAGEM research on silage maize"
+     },
+     "sources": [
+      "tagem_agrivoltaik"
+     ]
+    },
+    {
+     "name": {
+      "tr": "Örtü altı domates ve hıyar",
+      "en": "Greenhouse tomato and cucumber"
+     },
+     "status": "pilot",
+     "group": "protected",
+     "districts": [
+      "Çumra"
+     ],
+     "note": {
+      "tr": "Faal üretim belgeli",
+      "en": "Active production documented"
+     },
+     "sources": [
+      "ilt_ortualti"
+     ]
+    }
+   ],
+   "notes": [
+    {
+     "tr": "Altı merkez ova ilçesinin tamamı tarımsal yeraltı su kısıtı kapsamında; damlama kullanılmayan dane mısıra destek verilmiyor.",
+     "en": "All six central-plain districts are under the agricultural groundwater restriction; grain maize without drip irrigation gets no support.",
+     "sources": [
+      "bugem_su_kisiti"
+     ]
+    }
+   ],
+   "sources": [
+    {
+     "id": "bugem_su_kisiti",
+     "title": "T.C. Tarım ve Orman Bakanlığı BÜGEM, Tarımsal Yeraltı Su Kısıtı Bilgi Notu",
+     "url": "https://www.tarimorman.gov.tr/BUGEM/Belgeler/Tar%C4%B1m%20Havzalar%C4%B1/Tar%C4%B1msal%20Yeralt%C4%B1%20Su%20K%C4%B1s%C4%B1t%C4%B1%20Bilgi%20Notu.pdf"
+    },
+    {
+     "id": "ilt_aromatik",
+     "title": "Konya İl Tarım ve Orman Müdürlüğü, ilçe bazlı çevre dostu tarımsal ürün (tıbbi-aromatik) araştırması",
+     "url": "https://konya.tarimorman.gov.tr/Belgeler/cevredostutarimsalurun.pdf"
+    },
+    {
+     "id": "ilt_ortualti",
+     "title": "Konya İl Tarım: KOP Bölgesinde Örtü Altı Tarımın Geliştirilmesi Projesi (2026)",
+     "url": "https://konya.tarimorman.gov.tr/Sayfalar/Detay.aspx?TermId=f3406001-c8b2-4b80-9897-25b2576926e6&TermSetId=317d0ab5-aeb7-4b91-96d8-641d30c9b97c&TermStoreId=368e785b-af33-487d-a98d-c11d5495130b&UrlSuffix=1199%2FKop-Bolgesinde-Ortualti-Tarimin-Gelistirilmesi-Projesi-Basariyla-Devam-Ediyor"
+    },
+    {
+     "id": "ilt_sorgum",
+     "title": "Konya İl Tarım: Su kısıtı ilçelerinde silajlık mısıra alternatif sorgum türleri yaygınlaştırma projesi",
+     "url": "https://konya.tarimorman.gov.tr/Haber/1176/Su-Kisiti-Ilcelerinde-Silajlik-Misira-Alternatif-Sorgum-Turleri-Yetistiriciliginin-Yayginlastirilmasi-Projesi-Acilisi-Yapildi"
+    },
+    {
+     "id": "kbb_lavanta",
+     "title": "Konya Büyükşehir Belediyesi: Güneysınır lavanta hasadı ve damıtma tesisi (1,3 milyon m² fide desteği)",
+     "url": "https://www.konya.bel.tr/haber/konya-buyuksehirin-destegiyle-guneysinirda-uretilen-lavantalarin-hasadi-yapildi"
+    },
+    {
+     "id": "mevka2019",
+     "title": "MEVKA (Mevlana Kalkınma Ajansı) 2019 ilçe raporları, TÜİK 2018 bitkisel üretim verisi",
+     "url": null
+    },
+    {
+     "id": "tagem_agrivoltaik",
+     "title": "TAGEM agrivoltaik araştırması (silajlık mısır, Karapınar–Çumra alt havzası)",
+     "url": null
+    }
+   ]
+  }
+ },
  "location": {
   "lat": 37.6,
   "lon": 32.75,
@@ -4324,104 +4920,92 @@
    }
   },
   {
-   "id": "water_saver",
-   "archetype": "water_saver",
+   "id": "balanced_transition",
+   "archetype": "balanced_transition",
    "name": {
-    "en": "Water saver",
-    "tr": "Su koruyucu"
+    "en": "Balanced transition",
+    "tr": "Dengeli dönüşüm"
    },
-   "cycle_years": 4,
+   "cycle_years": 3,
    "calendar": [
     {
      "year": 1,
-     "crop_id": "lentil",
-     "crop_name": {
-      "en": "Lentil",
-      "tr": "Mercimek"
-     },
-     "irrigation": "none",
-     "sow": "03-04",
-     "harvest": "07-12",
-     "kind": "main"
-    },
-    {
-     "year": 2,
-     "crop_id": "sunflower",
-     "crop_name": {
-      "en": "Sunflower",
-      "tr": "Ayçiçeği"
-     },
-     "irrigation": "none",
-     "sow": "04-19",
-     "harvest": "08-23",
-     "kind": "main"
-    },
-    {
-     "year": 3,
      "crop_id": "chickpea",
      "crop_name": {
       "en": "Chickpea",
       "tr": "Nohut"
      },
      "irrigation": "none",
-     "sow": "03-19",
+     "sow": "03-23",
      "harvest": "07-21",
      "kind": "main"
     },
     {
-     "year": 4,
-     "crop_id": "maize_grain",
+     "year": 2,
+     "crop_id": "potato",
      "crop_name": {
-      "en": "Grain maize",
-      "tr": "Dane mısır"
+      "en": "Potato",
+      "tr": "Patates"
      },
      "irrigation": "deficit",
-     "sow": "04-29",
-     "harvest": "10-04",
+     "sow": "04-07",
+     "harvest": "08-17",
+     "kind": "main"
+    },
+    {
+     "year": 3,
+     "crop_id": "wheat_winter",
+     "crop_name": {
+      "en": "Winter wheat",
+      "tr": "Kışlık buğday"
+     },
+     "irrigation": "none",
+     "sow": "10-21",
+     "harvest": "07-03",
      "kind": "main"
     }
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 99.54999004634503,
-     "p50": 120.55311262642661,
-     "p90": 137.58544325800028
+     "p10": 150.86958547600847,
+     "p50": 178.64942879370003,
+     "p90": 188.56583428227876
     },
     "water_m3_ha_yr": {
-     "p10": 995.4999004634503,
-     "p50": 1205.531126264266,
-     "p90": 1375.8544325800026
+     "p10": 1508.6958547600846,
+     "p50": 1786.4942879370003,
+     "p90": 1885.6583428227875
     },
     "yield_ratio": {
-     "p10": 0.5346045112998536,
-     "p50": 0.5742917157762014,
-     "p90": 0.6065740914374691
+     "p10": 0.6386504207234307,
+     "p50": 0.6638951197131551,
+     "p90": 0.7365354751395612
     },
     "stress_days_yr": {
-     "p10": 65.55,
-     "p50": 72.5,
-     "p90": 80.15
+     "p10": 64.53333333333333,
+     "p50": 76.66666666666667,
+     "p90": 93.4
     },
     "frost_risk": 0.0,
-    "heat_risk": 0.35,
-    "n_balance_kg_ha_yr": 11.25,
-    "residue_index": 0.525,
-    "soil_cover_days_yr": 88.94,
-    "erosion_rel": 1.15121875,
-    "pest_break": 0.8,
+    "heat_risk": 0.3466666666666667,
+    "n_balance_kg_ha_yr": 8.333333333333334,
+    "residue_index": 0.4166666666666667,
+    "soil_cover_days_yr": 139.84,
+    "erosion_rel": 0.9561532485875706,
+    "pest_break": 1.0,
     "income_usd_ha_yr": {
-     "p10": 1018.5949171840832,
-     "p50": 1187.3850195208447,
-     "p90": 1282.812358579887
+     "p10": 2991.446050009388,
+     "p50": 3068.4965508433156,
+     "p90": 3283.853126866793
     }
    },
-   "score": 55.1,
+   "score": 66.42,
    "score_breakdown": {
-    "water": 87.52,
-    "soil": 51.27,
-    "income": 30.01,
-    "erosion": 42.44,
-    "risk": 42.84
+    "water": 81.5,
+    "soil": 48.98,
+    "income": 77.55,
+    "erosion": 52.19,
+    "risk": 51.21
    },
    "feasibility": {
     "fraction": 1.0,
@@ -4430,60 +5014,249 @@
     "issues": []
    },
    "rotation_name": {
-    "en": "Lentil > Sunflower > Chickpea > Grain maize",
-    "tr": "Mercimek > Ayçiçeği > Nohut > Dane mısır"
+    "en": "Chickpea > Potato > Winter wheat",
+    "tr": "Nohut > Patates > Kışlık buğday"
    },
+   "coverage": 0.75,
+   "parts": [
+    {
+     "share": 0.75,
+     "kind": "rotation",
+     "role": "verified_rotation",
+     "rotation_id": "cand_034",
+     "modeled": true,
+     "rotation_name": {
+      "en": "Chickpea > Potato > Winter wheat",
+      "tr": "Nohut > Patates > Kışlık buğday"
+     }
+    },
+    {
+     "share": 0.25,
+     "kind": "specialty",
+     "crop": null,
+     "modeled": false,
+     "share_range": [
+      0.2,
+      0.3
+     ],
+     "options": [
+      {
+       "name": {
+        "tr": "Çemen",
+        "en": "Fenugreek"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Çörekotu",
+        "en": "Black cumin"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Karabuğday",
+        "en": "Buckwheat"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Karatay",
+        "Çumra",
+        "Meram"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kimyon",
+        "en": "Cumin"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Sarayönü",
+        "Karatay"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kişniş",
+        "en": "Coriander"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kekik",
+        "en": "Thyme"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Lavanta",
+        "en": "Lavender"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Güneysınır",
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": {
+        "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
+        "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
+       },
+       "sources": [
+        "ilt_aromatik",
+        "kbb_lavanta"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Tıbbi nane ve melisa",
+        "en": "Peppermint and lemon balm"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Meram",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Adaçayı",
+        "en": "Sage"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Meram",
+        "Selçuklu",
+        "Çumra"
+       ],
+       "note": {
+        "tr": "Küçük ölçekte",
+        "en": "Small scale"
+       },
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      }
+     ]
+    }
+   ],
    "steps": [
     {
-     "crop_id": "lentil",
+     "crop_id": "chickpea",
      "year": 1,
      "irrigation": "none"
     },
     {
-     "crop_id": "sunflower",
+     "crop_id": "potato",
      "year": 2,
-     "irrigation": "none"
+     "irrigation": "deficit"
     },
     {
-     "crop_id": "chickpea",
+     "crop_id": "wheat_winter",
      "year": 3,
      "irrigation": "none"
-    },
-    {
-     "crop_id": "maize_grain",
-     "year": 4,
-     "irrigation": "deficit"
     }
    ],
    "evidence": {
     "why": [
      {
       "text": {
-       "en": "Crops chosen here (Lentil → Sunflower → Chickpea → Grain maize) need less irrigation water than your current rotation.",
-       "tr": "Burada seçilen ürünler (Mercimek → Ayçiçeği → Nohut → Dane mısır) mevcut rotasyonunuza göre daha fazla sulama suyu istiyor."
+       "en": "About 75 % of the field stays on Chickpea → Potato → Winter wheat; about 25 % is set aside for a specialty crop documented in your zone.",
+       "tr": "Tarlanın yaklaşık %75'i Nohut → Patates → Kışlık buğday rotasyonunda kalıyor; %25'i bölgenizde belgelenmiş bir özel ürüne ayrılıyor."
       },
       "facts": [
+       "f15",
        "f14"
       ]
      },
      {
       "text": {
-       "en": "Your area loses far more water to evaporation than it receives as rain, so every cubic metre saved counts.",
-       "tr": "Bölgenizde buharlaşmayla kaybedilen su yağmurdan çok fazla; tasarruf edilen her metreküp önemli."
+       "en": "Water is the scarce input in your area, so no part of the plan may use more irrigation water than today.",
+       "tr": "Bölgenizde kıt olan girdi su; bu yüzden planın hiçbir parçası bugünkünden fazla sulama suyu kullanamaz."
       },
       "facts": [
        "f1",
-       "f9",
-       "f3"
-      ]
-     },
-     {
-      "text": {
-       "en": "Fewer days of water stress mean the crops cope better in dry years.",
-       "tr": "Daha az su stresi günü, ürünlerin kurak yıllarla daha iyi başa çıkması demek."
-      },
-      "facts": [
-       "f19"
+       "f14"
       ]
      }
     ],
@@ -4499,11 +5272,11 @@
      },
      {
       "text": {
-       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
-       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
+       "en": "Raises the median income per hectare.",
+       "tr": "Hektar başına ortanca geliri artırır."
       },
       "facts": [
-       "f16"
+       "f15"
       ]
      },
      {
@@ -4551,8 +5324,8 @@
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Chickpea, Lentil, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Nohut, Mercimek, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+       "en": "New crops for you (Chickpea, Potato): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Nohut, Patates): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
       },
       "check_with": "market"
      },
@@ -4582,18 +5355,15 @@
      },
      {
       "text": {
-       "en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
-       "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."
+       "en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
+       "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
       },
-      "facts": [
-       "f15"
-      ],
-      "check_with": "market"
+      "check_with": "extension_service"
      },
      {
       "text": {
-       "en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
-       "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
+       "en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
+       "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."
       },
       "check_with": "extension_service"
      }
@@ -4601,140 +5371,104 @@
    }
   },
   {
-   "id": "soil_builder",
-   "archetype": "soil_builder",
+   "id": "low_risk",
+   "archetype": "low_risk",
    "name": {
-    "en": "Soil builder",
-    "tr": "Toprak kurucu"
+    "en": "Low risk and resilient",
+    "tr": "Düşük riskli ve dayanıklı"
    },
    "cycle_years": 4,
    "calendar": [
     {
      "year": 1,
+     "crop_id": "barley_winter",
+     "crop_name": {
+      "en": "Winter barley",
+      "tr": "Kışlık arpa"
+     },
+     "irrigation": "none",
+     "sow": "10-15",
+     "harvest": "06-24",
+     "kind": "main"
+    },
+    {
+     "year": 2,
+     "crop_id": "sunflower",
+     "crop_name": {
+      "en": "Sunflower",
+      "tr": "Ayçiçeği"
+     },
+     "irrigation": "deficit",
+     "sow": "04-19",
+     "harvest": "08-23",
+     "kind": "main"
+    },
+    {
+     "year": 3,
      "crop_id": "wheat_winter",
      "crop_name": {
       "en": "Winter wheat",
       "tr": "Kışlık buğday"
      },
-     "irrigation": "none",
+     "irrigation": "deficit",
      "sow": "10-21",
-     "harvest": "07-05",
+     "harvest": "07-04",
      "kind": "main"
     },
     {
-     "year": 1,
-     "crop_id": "vetch_cover",
-     "crop_name": {
-      "en": "Common vetch (cover crop)",
-      "tr": "Adi fiğ (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "09-20",
-     "harvest": "03-10",
-     "kind": "cover"
-    },
-    {
-     "year": 2,
+     "year": 4,
      "crop_id": "chickpea",
      "crop_name": {
       "en": "Chickpea",
       "tr": "Nohut"
      },
      "irrigation": "none",
-     "sow": "03-23",
-     "harvest": "07-21",
-     "kind": "main"
-    },
-    {
-     "year": 2,
-     "crop_id": "rye_cover",
-     "crop_name": {
-      "en": "Winter rye (cover crop)",
-      "tr": "Çavdar (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "10-07",
-     "harvest": "04-19",
-     "kind": "cover"
-    },
-    {
-     "year": 3,
-     "crop_id": "maize_grain",
-     "crop_name": {
-      "en": "Grain maize",
-      "tr": "Dane mısır"
-     },
-     "irrigation": "deficit",
-     "sow": "04-29",
-     "harvest": "10-04",
-     "kind": "main"
-    },
-    {
-     "year": 3,
-     "crop_id": "vetch_cover",
-     "crop_name": {
-      "en": "Common vetch (cover crop)",
-      "tr": "Adi fiğ (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "10-06",
-     "harvest": "04-12",
-     "kind": "cover"
-    },
-    {
-     "year": 4,
-     "crop_id": "sunflower",
-     "crop_name": {
-      "en": "Sunflower",
-      "tr": "Ayçiçeği"
-     },
-     "irrigation": "none",
-     "sow": "04-18",
-     "harvest": "08-22",
+     "sow": "03-18",
+     "harvest": "07-20",
      "kind": "main"
     }
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 119.15047355684506,
-     "p50": 137.9087891728763,
-     "p90": 160.87700427676344
+     "p10": 127.70677515648154,
+     "p50": 148.32600108412993,
+     "p90": 176.044943246024
     },
     "water_m3_ha_yr": {
-     "p10": 1191.5047355684505,
-     "p50": 1379.0878917287632,
-     "p90": 1608.7700427676343
+     "p10": 1277.0677515648154,
+     "p50": 1483.2600108412994,
+     "p90": 1760.44943246024
     },
     "yield_ratio": {
-     "p10": 0.4711403730899524,
-     "p50": 0.5338051162122474,
-     "p90": 0.5865257125599282
+     "p10": 0.6622090194361041,
+     "p50": 0.7046293595574318,
+     "p90": 0.736999175750235
     },
     "stress_days_yr": {
-     "p10": 87.2,
-     "p50": 102.0,
-     "p90": 110.9
+     "p10": 69.35,
+     "p50": 82.25,
+     "p90": 95.9
     },
-    "frost_risk": 0.0,
-    "heat_risk": 0.35,
-    "n_balance_kg_ha_yr": 29.65,
-    "residue_index": 0.692857142857143,
-    "soil_cover_days_yr": 192.19,
-    "erosion_rel": 0.5894834745762713,
+    "frost_risk": 0.02,
+    "heat_risk": 0.18,
+    "n_balance_kg_ha_yr": 6.25,
+    "residue_index": 0.5625,
+    "soil_cover_days_yr": 160.54,
+    "erosion_rel": 0.8698215042372882,
     "pest_break": 0.8,
     "income_usd_ha_yr": {
-     "p10": 850.211224528007,
-     "p50": 1058.1764707690138,
-     "p90": 1210.0925102756469
+     "p10": 1134.2069443200967,
+     "p50": 1193.470595224598,
+     "p90": 1285.7164643992287
     }
    },
-   "score": 65.29,
+   "score": 58.15,
    "score_breakdown": {
-    "water": 85.72,
-    "soil": 88.21,
-    "income": 26.74,
-    "erosion": 70.53,
-    "risk": 37.86
+    "water": 84.64,
+    "soil": 53.6,
+    "income": 30.16,
+    "erosion": 56.51,
+    "risk": 61.7
    },
    "feasibility": {
     "fraction": 1.0,
@@ -4743,42 +5477,41 @@
     "issues": []
    },
    "rotation_name": {
-    "en": "Winter wheat > Chickpea > Grain maize > Sunflower (+cover)",
-    "tr": "Kışlık buğday > Nohut > Dane mısır > Ayçiçeği (+cover)"
+    "en": "Winter barley > Sunflower > Winter wheat > Chickpea",
+    "tr": "Kışlık arpa > Ayçiçeği > Kışlık buğday > Nohut"
    },
+   "coverage": 1.0,
+   "parts": [
+    {
+     "share": 1.0,
+     "kind": "rotation",
+     "role": "verified_rotation",
+     "rotation_id": "cand_079",
+     "modeled": true,
+     "rotation_name": {
+      "en": "Winter barley > Sunflower > Winter wheat > Chickpea",
+      "tr": "Kışlık arpa > Ayçiçeği > Kışlık buğday > Nohut"
+     }
+    }
+   ],
    "steps": [
     {
-     "crop_id": "wheat_winter",
+     "crop_id": "barley_winter",
      "year": 1,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "vetch_cover",
-     "year": 1,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "chickpea",
-     "year": 2,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "rye_cover",
-     "year": 2,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "maize_grain",
-     "year": 3,
-     "irrigation": "deficit"
-    },
-    {
-     "crop_id": "vetch_cover",
-     "year": 3,
      "irrigation": "none"
     },
     {
      "crop_id": "sunflower",
+     "year": 2,
+     "irrigation": "deficit"
+    },
+    {
+     "crop_id": "wheat_winter",
+     "year": 3,
+     "irrigation": "deficit"
+    },
+    {
+     "crop_id": "chickpea",
      "year": 4,
      "irrigation": "none"
     }
@@ -4787,31 +5520,23 @@
     "why": [
      {
       "text": {
-       "en": "The sequence (Winter wheat → Common vetch (cover crop) → Chickpea → Winter rye (cover crop) → Grain maize → Common vetch (cover crop) → Sunflower) returns more organic matter and nitrogen to the soil.",
-       "tr": "Bu sıralama (Kışlık buğday → Adi fiğ (örtü bitkisi) → Nohut → Çavdar (örtü bitkisi) → Dane mısır → Adi fiğ (örtü bitkisi) → Ayçiçeği) toprağa daha fazla organik madde ve azot bırakıyor."
+       "en": "Every crop in this rotation (Winter barley → Sunflower → Winter wheat → Chickpea) is documented in your zone by an official source.",
+       "tr": "Bu rotasyondaki her ürün (Kışlık arpa → Ayçiçeği → Kışlık buğday → Nohut) bölgenizde resmî bir kaynakla belgelenmiş."
       },
       "facts": [
-       "f26",
-       "f28"
+       "f25",
+       "f24"
       ]
      },
      {
       "text": {
-       "en": "Your field sits bare for a long stretch each year; keeping it covered protects the soil.",
-       "tr": "Tarlanız her yıl uzun süre boş kalıyor; üzerini kapalı tutmak toprağı korur."
+       "en": "It is the option with the lowest weather and yield risk among those that stay within your current water use and erosion.",
+       "tr": "Mevcut su kullanımınızı ve erozyon düzeyinizi aşmayan seçenekler içinde hava ve verim riski en düşük olanı."
       },
       "facts": [
-       "f7"
-      ]
-     },
-     {
-      "text": {
-       "en": "More ground cover and a lower share of bare days reduce erosion.",
-       "tr": "Daha fazla toprak örtüsü ve daha az çıplak gün, erozyonu azaltır."
-      },
-      "facts": [
-       "f27",
-       "f28"
+       "f33",
+       "f29",
+       "f31"
       ]
      }
     ],
@@ -4827,29 +5552,11 @@
      },
      {
       "text": {
-       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
-       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
-      },
-      "facts": [
-       "f26"
-      ]
-     },
-     {
-      "text": {
        "en": "Lowers soil erosion.",
        "tr": "Toprak erozyonunu azaltır."
       },
       "facts": [
        "f27"
-      ]
-     },
-     {
-      "text": {
-       "en": "Keeps the soil covered for more days.",
-       "tr": "Toprağı daha fazla gün kapalı tutar."
-      },
-      "facts": [
-       "f28"
       ]
      },
      {
@@ -4897,8 +5604,8 @@
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Chickpea, Winter rye (cover crop), Sunflower, Common vetch (cover crop)): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Nohut, Çavdar (örtü bitkisi), Ayçiçeği, Adi fiğ (örtü bitkisi)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
+       "en": "New crops for you (Winter barley, Chickpea, Sunflower): confirm there is a buyer, a delivery point and a fair price nearby.",
+       "tr": "Sizin için yeni ürünler (Kışlık arpa, Nohut, Ayçiçeği): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
       },
       "check_with": "market"
      },
@@ -4914,16 +5621,6 @@
        "en": "A new crop brings new diseases and weeds; ask an agronomist about the spray and weed-control plan.",
        "tr": "Yeni ürün yeni hastalık ve yabancı otlar getirir; ilaçlama ve yabancı ot mücadele planı için ziraat mühendisine danışın."
       },
-      "check_with": "agronomist"
-     },
-     {
-      "text": {
-       "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
-       "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
-      },
-      "facts": [
-       "f31"
-      ],
       "check_with": "agronomist"
      },
      {
@@ -4947,241 +5644,386 @@
    }
   },
   {
-   "id": "balanced_income",
-   "archetype": "balanced_income",
+   "id": "innovative",
+   "archetype": "innovative",
    "name": {
-    "en": "Balanced income",
-    "tr": "Dengeli gelir"
+    "en": "Innovative crop opportunity",
+    "tr": "Yenilikçi mahsul fırsatı"
    },
    "cycle_years": 3,
    "calendar": [
     {
      "year": 1,
-     "crop_id": "vetch_forage",
+     "crop_id": "wheat_winter",
      "crop_name": {
-      "en": "Common vetch (forage)",
-      "tr": "Adi fiğ (yem)"
+      "en": "Winter wheat",
+      "tr": "Kışlık buğday"
      },
      "irrigation": "none",
-     "sow": "03-07",
-     "harvest": "06-20",
+     "sow": "10-21",
+     "harvest": "07-03",
      "kind": "main"
-    },
-    {
-     "year": 1,
-     "crop_id": "vetch_cover",
-     "crop_name": {
-      "en": "Common vetch (cover crop)",
-      "tr": "Adi fiğ (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "09-24",
-     "harvest": "03-30",
-     "kind": "cover"
     },
     {
      "year": 2,
-     "crop_id": "potato",
+     "crop_id": "sugar_beet",
      "crop_name": {
-      "en": "Potato",
-      "tr": "Patates"
+      "en": "Sugar beet",
+      "tr": "Şeker pancarı"
      },
-     "irrigation": "deficit",
-     "sow": "04-07",
-     "harvest": "08-17",
+     "irrigation": "full",
+     "sow": "04-04",
+     "harvest": "09-14",
      "kind": "main"
     },
     {
      "year": 3,
-     "crop_id": "barley_winter",
+     "crop_id": "maize_grain",
      "crop_name": {
-      "en": "Winter barley",
-      "tr": "Kışlık arpa"
+      "en": "Grain maize",
+      "tr": "Dane mısır"
      },
-     "irrigation": "none",
-     "sow": "10-15",
-     "harvest": "06-23",
+     "irrigation": "full",
+     "sow": "04-25",
+     "harvest": "10-01",
      "kind": "main"
-    },
-    {
-     "year": 3,
-     "crop_id": "rye_cover",
-     "crop_name": {
-      "en": "Winter rye (cover crop)",
-      "tr": "Çavdar (örtü bitkisi)"
-     },
-     "irrigation": "none",
-     "sow": "10-07",
-     "harvest": "02-28",
-     "kind": "cover"
     }
    ],
    "indicators": {
     "irrigation_mm_yr": {
-     "p10": 159.88992853136125,
-     "p50": 184.31979710160968,
-     "p90": 197.44710521783585
+     "p10": 437.03749130330743,
+     "p50": 482.8525347595349,
+     "p90": 513.3486066180453
     },
     "water_m3_ha_yr": {
-     "p10": 1598.8992853136124,
-     "p50": 1843.1979710160967,
-     "p90": 1974.4710521783584
+     "p10": 4370.374913033074,
+     "p50": 4828.525347595349,
+     "p90": 5133.486066180453
     },
     "yield_ratio": {
-     "p10": 0.679750421165582,
-     "p50": 0.7128242719013617,
-     "p90": 0.8177347387108072
+     "p10": 0.7837288458283435,
+     "p50": 0.8261090033668528,
+     "p90": 0.8695740925880749
     },
     "stress_days_yr": {
-     "p10": 50.666666666666664,
-     "p50": 65.33333333333333,
-     "p90": 80.66666666666667
+     "p10": 33.63333333333333,
+     "p50": 44.33333333333333,
+     "p90": 58.40000000000002
     },
-    "frost_risk": 0.02666666666666667,
-    "heat_risk": 0.3466666666666667,
-    "n_balance_kg_ha_yr": 33.333333333333336,
-    "residue_index": 0.56,
-    "soil_cover_days_yr": 191.13333333333333,
-    "erosion_rel": 0.549263559322034,
-    "pest_break": 1.0,
+    "frost_risk": 0.0,
+    "heat_risk": 0.5606060606060606,
+    "n_balance_kg_ha_yr": 0.0,
+    "residue_index": 0.6666666666666666,
+    "soil_cover_days_yr": 160.72727272727272,
+    "erosion_rel": 1.0,
+    "pest_break": 0.6666666666666666,
     "income_usd_ha_yr": {
-     "p10": 2691.0294412081357,
-     "p50": 2781.7266457565916,
-     "p90": 2968.6553591945685
+     "p10": 1624.4576786535683,
+     "p50": 1978.4569296175382,
+     "p90": 2181.0328471780435
     }
    },
-   "score": 75.36,
+   "score": 50.0,
    "score_breakdown": {
-    "water": 80.91,
-    "soil": 83.9,
-    "income": 70.3,
-    "erosion": 72.54,
-    "risk": 52.86
+    "water": 50.0,
+    "soil": 50.0,
+    "income": 50.0,
+    "erosion": 50.0,
+    "risk": 50.0
    },
    "feasibility": {
-    "fraction": 1.0,
-    "n_members": 25,
+    "fraction": 0.88,
+    "n_members": 22,
     "n_requested": 25,
-    "issues": []
+    "issues": [
+     "wheat_winter (next cycle): sowing delayed in 3 start years"
+    ]
    },
    "rotation_name": {
-    "en": "Common vetch (forage) > Potato > Winter barley (+cover)",
-    "tr": "Adi fiğ (yem) > Patates > Kışlık arpa (+cover)"
+    "en": "Winter wheat → Sugar beet → Grain maize",
+    "tr": "Kışlık buğday → Şeker pancarı → Dane mısır"
    },
+   "coverage": 0.8,
+   "trials": [
+    {
+     "crop": {
+      "name": {
+       "tr": "Sorgum ve sorgum melezleri",
+       "en": "Sorghum and sorghum hybrids"
+      },
+      "status": "pilot",
+      "group": "field",
+      "districts": [
+       "Karatay",
+       "Sarayönü"
+      ],
+      "note": null,
+      "sources": [
+       "ilt_sorgum"
+      ],
+      "engine_ids": [
+       "sorghum"
+      ],
+      "modeled": true
+     },
+     "share_range": [
+      0.05,
+      0.1
+     ],
+     "modeled": true,
+     "water_m3_ha_yr": {
+      "p10": 0.0,
+      "p50": 0.0,
+      "p90": 0.0
+     },
+     "income_usd_ha_yr": {
+      "p10": 509.5758373799314,
+      "p50": 581.8518983746958,
+      "p90": 676.0590894713364
+     }
+    }
+   ],
+   "parts": [
+    {
+     "share": 0.8,
+     "kind": "rotation",
+     "role": "current_rotation",
+     "rotation_id": "baseline",
+     "modeled": true,
+     "rotation_name": {
+      "en": "Winter wheat → Sugar beet → Grain maize",
+      "tr": "Kışlık buğday → Şeker pancarı → Dane mısır"
+     }
+    },
+    {
+     "share": 0.2,
+     "kind": "specialty",
+     "crop": null,
+     "modeled": false,
+     "share_range": [
+      0.1,
+      0.3
+     ],
+     "options": [
+      {
+       "name": {
+        "tr": "Çemen",
+        "en": "Fenugreek"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Çörekotu",
+        "en": "Black cumin"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Karabuğday",
+        "en": "Buckwheat"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Karatay",
+        "Çumra",
+        "Meram"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kimyon",
+        "en": "Cumin"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Sarayönü",
+        "Karatay"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kişniş",
+        "en": "Coriander"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Kekik",
+        "en": "Thyme"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Lavanta",
+        "en": "Lavender"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Güneysınır",
+        "Çumra",
+        "Meram",
+        "Sarayönü",
+        "Selçuklu"
+       ],
+       "note": {
+        "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
+        "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
+       },
+       "sources": [
+        "ilt_aromatik",
+        "kbb_lavanta"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Tıbbi nane ve melisa",
+        "en": "Peppermint and lemon balm"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Meram",
+        "Selçuklu"
+       ],
+       "note": null,
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      },
+      {
+       "name": {
+        "tr": "Adaçayı",
+        "en": "Sage"
+       },
+       "status": "verified",
+       "group": "special",
+       "districts": [
+        "Meram",
+        "Selçuklu",
+        "Çumra"
+       ],
+       "note": {
+        "tr": "Küçük ölçekte",
+        "en": "Small scale"
+       },
+       "sources": [
+        "ilt_aromatik"
+       ],
+       "engine_ids": [],
+       "modeled": false
+      }
+     ]
+    }
+   ],
    "steps": [
     {
-     "crop_id": "vetch_forage",
+     "crop_id": "wheat_winter",
      "year": 1,
      "irrigation": "none"
     },
     {
-     "crop_id": "vetch_cover",
-     "year": 1,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "potato",
+     "crop_id": "sugar_beet",
      "year": 2,
-     "irrigation": "deficit"
+     "irrigation": "full"
     },
     {
-     "crop_id": "barley_winter",
+     "crop_id": "maize_grain",
      "year": 3,
-     "irrigation": "none"
-    },
-    {
-     "crop_id": "rye_cover",
-     "year": 3,
-     "irrigation": "none"
+     "irrigation": "full"
     }
    ],
    "evidence": {
     "why": [
      {
       "text": {
-       "en": "The sequence (Common vetch (forage) → Common vetch (cover crop) → Potato → Winter barley → Winter rye (cover crop)) keeps income close to, or above, your current level while cutting other costs.",
-       "tr": "Bu sıralama (Adi fiğ (yem) → Adi fiğ (örtü bitkisi) → Patates → Kışlık arpa → Çavdar (örtü bitkisi)) geliri mevcut düzeyin yakınında veya üstünde tutarken diğer maliyetleri düşürüyor."
+       "en": "About 80 % of the field stays on Winter wheat → Sugar beet → Grain maize; about 20 % is set aside for a specialty crop documented in your zone.",
+       "tr": "Tarlanın yaklaşık %80'i Kışlık buğday → Şeker pancarı → Dane mısır rotasyonunda kalıyor; %20'i bölgenizde belgelenmiş bir özel ürüne ayrılıyor."
       },
       "facts": [
-       "f35",
        "f34"
       ]
      },
      {
       "text": {
-       "en": "Water is the scarce input in your area, so income per cubic metre matters.",
-       "tr": "Bölgenizde kıt olan girdi su; bu yüzden metreküp başına gelir önemli."
+       "en": "Water is the scarce input in your area, so no part of the plan may use more irrigation water than today.",
+       "tr": "Bölgenizde kıt olan girdi su; bu yüzden planın hiçbir parçası bugünkünden fazla sulama suyu kullanamaz."
       },
       "facts": [
        "f1"
       ]
-     },
-     {
-      "text": {
-       "en": "Summer heat days are increasing, so spreading crops across different seasons lowers the risk.",
-       "tr": "Yaz sıcak günleri artıyor; ürünleri farklı mevsimlere yaymak riski azaltır."
-      },
-      "facts": [
-       "f2"
-      ]
      }
     ],
-    "benefits": [
-     {
-      "text": {
-       "en": "Saves irrigation water compared with your current rotation.",
-       "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
-      },
-      "facts": [
-       "f34"
-      ]
-     },
-     {
-      "text": {
-       "en": "Raises the median income per hectare.",
-       "tr": "Hektar başına ortanca geliri artırır."
-      },
-      "facts": [
-       "f35"
-      ]
-     },
-     {
-      "text": {
-       "en": "Leaves more nitrogen for the following crop, so less fertiliser is needed.",
-       "tr": "Sonraki ürün için daha fazla azot bırakır; böylece daha az gübre gerekir."
-      },
-      "facts": [
-       "f36"
-      ]
-     },
-     {
-      "text": {
-       "en": "Lowers soil erosion.",
-       "tr": "Toprak erozyonunu azaltır."
-      },
-      "facts": [
-       "f37"
-      ]
-     },
-     {
-      "text": {
-       "en": "Keeps the soil covered for more days.",
-       "tr": "Toprağı daha fazla gün kapalı tutar."
-      },
-      "facts": [
-       "f38"
-      ]
-     },
-     {
-      "text": {
-       "en": "Breaks disease and pest cycles better by changing crop families.",
-       "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
-      },
-      "facts": [
-       "f40"
-      ]
-     }
-    ],
+    "benefits": [],
     "gaps": [
      {
       "text": {
@@ -5217,32 +6059,11 @@
     "risks": [
      {
       "text": {
-       "en": "New crops for you (Winter barley, Potato, Winter rye (cover crop), Common vetch (cover crop), Common vetch (forage)): confirm there is a buyer, a delivery point and a fair price nearby.",
-       "tr": "Sizin için yeni ürünler (Kışlık arpa, Patates, Çavdar (örtü bitkisi), Adi fiğ (örtü bitkisi), Adi fiğ (yem)): yakınlarda alıcı, teslim noktası ve uygun fiyat olduğundan emin olun."
-      },
-      "check_with": "market"
-     },
-     {
-      "text": {
-       "en": "Check that certified seed of suitable varieties is available locally and on time.",
-       "tr": "Uygun çeşitlerin sertifikalı tohumunun yerelde ve zamanında bulunabildiğini kontrol edin."
-      },
-      "check_with": "extension_service"
-     },
-     {
-      "text": {
-       "en": "A new crop brings new diseases and weeds; ask an agronomist about the spray and weed-control plan.",
-       "tr": "Yeni ürün yeni hastalık ve yabancı otlar getirir; ilaçlama ve yabancı ot mücadele planı için ziraat mühendisine danışın."
-      },
-      "check_with": "agronomist"
-     },
-     {
-      "text": {
        "en": "Heat damage is likely in a notable share of years for at least one crop; consider earlier sowing or heat-tolerant varieties.",
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f41"
+       "f40"
       ],
       "check_with": "agronomist"
      },
@@ -5252,6 +6073,27 @@
        "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."
       },
       "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
+       "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."
+      },
+      "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "Pilot crops are at the official pilot stage; commercial success is not yet verified. Try them only on 5–10 % of the field.",
+       "tr": "Pilot ürünler resmî pilot aşamasında; ticari başarı henüz doğrulanmadı. Yalnızca tarlanın %5–10'unda deneyin."
+      },
+      "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "In some historical years the sowing and harvest dates of this sequence did not fit; timing may be tight.",
+       "tr": "Geçmiş yılların bir kısmında bu sıralamanın ekim ve hasat tarihleri birbirine uymadı; zamanlama sıkışık olabilir."
+      },
+      "check_with": "agronomist"
      }
     ]
    }
@@ -5391,70 +6233,70 @@
   {
    "id": "f14",
    "text": {
-    "en": "Irrigation water use is 1,206 m³/ha per year versus 4,829 in the current rotation (3,623 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.206 m³/ha; mevcut rotasyonda 4.829 (3.623 m³/ha daha az)."
+    "en": "Irrigation water use is 1,786 m³/ha per year versus 4,829 in the current rotation (3,042 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.786 m³/ha; mevcut rotasyonda 4.829 (3.042 m³/ha daha az)."
    },
-   "value": -3622.994,
+   "value": -3042.031,
    "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f15",
    "text": {
-    "en": "Median gross margin is 1,187 USD/ha per year versus 1,978 now (791 USD/ha lower).",
-    "tr": "Ortanca brüt kâr yılda 1.187 USD/ha; şimdiki rotasyonda 1.978 (791 USD/ha düşük)."
+    "en": "Median gross margin is 3,068 USD/ha per year versus 1,978 now (1,090 USD/ha higher).",
+    "tr": "Ortanca brüt kâr yılda 3.068 USD/ha; şimdiki rotasyonda 1.978 (1.090 USD/ha yüksek)."
    },
-   "value": -791.072,
+   "value": 1090.04,
    "unit": "USD/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f16",
    "text": {
-    "en": "Nitrogen left for the next crop is 11 kg/ha per year versus 0 now.",
-    "tr": "Sonraki ürüne kalan azot yılda 11 kg/ha; şimdi 0."
+    "en": "Nitrogen left for the next crop is 8 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 8 kg/ha; şimdi 0."
    },
-   "value": 11.25,
+   "value": 8.333,
    "unit": "kg/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f17",
    "text": {
-    "en": "Modelled erosion is 115% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %115 düzeyinde."
+    "en": "Modelled erosion is 96% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %96 düzeyinde."
    },
-   "value": 0.151,
+   "value": -0.044,
    "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f18",
    "text": {
-    "en": "The soil is covered by crop canopy 89 days per year versus 161 now.",
-    "tr": "Toprak yılda 89 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+    "en": "The soil is covered by crop canopy 140 days per year versus 161 now.",
+    "tr": "Toprak yılda 140 gün bitki örtüsüyle kaplı; şimdi 161 gün."
    },
-   "value": -71.787,
+   "value": -20.887,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f19",
    "text": {
-    "en": "Water-stress days are 72 per year versus 44 now.",
-    "tr": "Su stresi günleri yılda 72; şimdi 44."
+    "en": "Water-stress days are 77 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 77; şimdi 44."
    },
-   "value": 28.167,
+   "value": 32.333,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f20",
    "text": {
-    "en": "The disease and pest break index is 0.80 versus 0.67 now.",
-    "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
+    "en": "The disease and pest break index is 1.00 versus 0.67 now.",
+    "tr": "Hastalık-zararlı kırma endeksi 1,00; şimdi 0,67."
    },
-   "value": 0.133,
+   "value": 0.333,
    "unit": "index",
    "source_id": "fao56"
   },
@@ -5464,7 +6306,7 @@
     "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
    },
-   "value": 0.35,
+   "value": 0.347,
    "unit": "probability",
    "source_id": "fao56"
   },
@@ -5481,70 +6323,70 @@
   {
    "id": "f23",
    "text": {
-    "en": "Median relative yield is 57% of potential versus 83% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %57'i; şimdi %83."
+    "en": "Median relative yield is 66% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %66'i; şimdi %83."
    },
-   "value": -0.252,
+   "value": -0.162,
    "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f24",
    "text": {
-    "en": "Irrigation water use is 1,379 m³/ha per year versus 4,829 in the current rotation (3,449 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.379 m³/ha; mevcut rotasyonda 4.829 (3.449 m³/ha daha az)."
+    "en": "Irrigation water use is 1,483 m³/ha per year versus 4,829 in the current rotation (3,345 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.483 m³/ha; mevcut rotasyonda 4.829 (3.345 m³/ha daha az)."
    },
-   "value": -3449.437,
+   "value": -3345.265,
    "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f25",
    "text": {
-    "en": "Median gross margin is 1,058 USD/ha per year versus 1,978 now (920 USD/ha lower).",
-    "tr": "Ortanca brüt kâr yılda 1.058 USD/ha; şimdiki rotasyonda 1.978 (920 USD/ha düşük)."
+    "en": "Median gross margin is 1,193 USD/ha per year versus 1,978 now (785 USD/ha lower).",
+    "tr": "Ortanca brüt kâr yılda 1.193 USD/ha; şimdiki rotasyonda 1.978 (785 USD/ha düşük)."
    },
-   "value": -920.28,
+   "value": -784.986,
    "unit": "USD/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f26",
    "text": {
-    "en": "Nitrogen left for the next crop is 30 kg/ha per year versus 0 now.",
-    "tr": "Sonraki ürüne kalan azot yılda 30 kg/ha; şimdi 0."
+    "en": "Nitrogen left for the next crop is 6 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 6 kg/ha; şimdi 0."
    },
-   "value": 29.65,
+   "value": 6.25,
    "unit": "kg/ha/yr",
    "source_id": "fao56"
   },
   {
    "id": "f27",
    "text": {
-    "en": "Modelled erosion is 59% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %59 düzeyinde."
+    "en": "Modelled erosion is 87% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %87 düzeyinde."
    },
-   "value": -0.411,
+   "value": -0.13,
    "unit": "ratio",
    "source_id": "fao56"
   },
   {
    "id": "f28",
    "text": {
-    "en": "The soil is covered by crop canopy 192 days per year versus 161 now.",
-    "tr": "Toprak yılda 192 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+    "en": "The soil is covered by crop canopy 161 days per year versus 161 now.",
+    "tr": "Toprak yılda 161 gün bitki örtüsüyle kaplı; şimdi 161 gün."
    },
-   "value": 31.463,
+   "value": -0.187,
    "unit": "days/yr",
    "source_id": "fao56"
   },
   {
    "id": "f29",
    "text": {
-    "en": "Water-stress days are 102 per year versus 44 now.",
-    "tr": "Su stresi günleri yılda 102; şimdi 44."
+    "en": "Water-stress days are 82 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 82; şimdi 44."
    },
-   "value": 57.667,
+   "value": 37.917,
    "unit": "days/yr",
    "source_id": "fao56"
   },
@@ -5561,15 +6403,105 @@
   {
    "id": "f31",
    "text": {
-    "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
-    "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+    "en": "In 18% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %18 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
    },
-   "value": 0.35,
+   "value": 0.18,
    "unit": "probability",
    "source_id": "fao56"
   },
   {
    "id": "f32",
+   "text": {
+    "en": "In 2% of simulated years a crop in this rotation suffers frost damage.",
+    "tr": "Simüle edilen yılların %2 kadarında bu rotasyondaki bir ürün don zararı görüyor."
+   },
+   "value": 0.02,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f33",
+   "text": {
+    "en": "Median relative yield is 70% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %70'i; şimdi %83."
+   },
+   "value": -0.121,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f34",
+   "text": {
+    "en": "Median gross margin is 1,978 USD/ha per year versus 1,978 now (0 USD/ha higher).",
+    "tr": "Ortanca brüt kâr yılda 1.978 USD/ha; şimdiki rotasyonda 1.978 (0 USD/ha yüksek)."
+   },
+   "value": 0.0,
+   "unit": "USD/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f35",
+   "text": {
+    "en": "Nitrogen left for the next crop is 0 kg/ha per year versus 0 now.",
+    "tr": "Sonraki ürüne kalan azot yılda 0 kg/ha; şimdi 0."
+   },
+   "value": 0.0,
+   "unit": "kg/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f36",
+   "text": {
+    "en": "Modelled erosion is 100% of the current rotation's level.",
+    "tr": "Hesaplanan erozyon, mevcut rotasyonun %100 düzeyinde."
+   },
+   "value": 0.0,
+   "unit": "ratio",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f37",
+   "text": {
+    "en": "The soil is covered by crop canopy 161 days per year versus 161 now.",
+    "tr": "Toprak yılda 161 gün bitki örtüsüyle kaplı; şimdi 161 gün."
+   },
+   "value": 0.0,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f38",
+   "text": {
+    "en": "Water-stress days are 44 per year versus 44 now.",
+    "tr": "Su stresi günleri yılda 44; şimdi 44."
+   },
+   "value": 0.0,
+   "unit": "days/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f39",
+   "text": {
+    "en": "The disease and pest break index is 0.67 versus 0.67 now.",
+    "tr": "Hastalık-zararlı kırma endeksi 0,67; şimdi 0,67."
+   },
+   "value": 0.0,
+   "unit": "index",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f40",
+   "text": {
+    "en": "In 56% of simulated years a crop in this rotation suffers heat damage.",
+    "tr": "Simüle edilen yılların %56 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
+   },
+   "value": 0.561,
+   "unit": "probability",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f41",
    "text": {
     "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5579,112 +6511,12 @@
    "source_id": "fao56"
   },
   {
-   "id": "f33",
-   "text": {
-    "en": "Median relative yield is 53% of potential versus 83% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %53'i; şimdi %83."
-   },
-   "value": -0.292,
-   "unit": "ratio",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f34",
-   "text": {
-    "en": "Irrigation water use is 1,843 m³/ha per year versus 4,829 in the current rotation (2,985 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.843 m³/ha; mevcut rotasyonda 4.829 (2.985 m³/ha daha az)."
-   },
-   "value": -2985.327,
-   "unit": "m3/ha/yr",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f35",
-   "text": {
-    "en": "Median gross margin is 2,782 USD/ha per year versus 1,978 now (803 USD/ha higher).",
-    "tr": "Ortanca brüt kâr yılda 2.782 USD/ha; şimdiki rotasyonda 1.978 (803 USD/ha yüksek)."
-   },
-   "value": 803.27,
-   "unit": "USD/ha/yr",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f36",
-   "text": {
-    "en": "Nitrogen left for the next crop is 33 kg/ha per year versus 0 now.",
-    "tr": "Sonraki ürüne kalan azot yılda 33 kg/ha; şimdi 0."
-   },
-   "value": 33.333,
-   "unit": "kg/ha/yr",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f37",
-   "text": {
-    "en": "Modelled erosion is 55% of the current rotation's level.",
-    "tr": "Hesaplanan erozyon, mevcut rotasyonun %55 düzeyinde."
-   },
-   "value": -0.451,
-   "unit": "ratio",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f38",
-   "text": {
-    "en": "The soil is covered by crop canopy 191 days per year versus 161 now.",
-    "tr": "Toprak yılda 191 gün bitki örtüsüyle kaplı; şimdi 161 gün."
-   },
-   "value": 30.406,
-   "unit": "days/yr",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f39",
-   "text": {
-    "en": "Water-stress days are 65 per year versus 44 now.",
-    "tr": "Su stresi günleri yılda 65; şimdi 44."
-   },
-   "value": 21.0,
-   "unit": "days/yr",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f40",
-   "text": {
-    "en": "The disease and pest break index is 1.00 versus 0.67 now.",
-    "tr": "Hastalık-zararlı kırma endeksi 1,00; şimdi 0,67."
-   },
-   "value": 0.333,
-   "unit": "index",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f41",
-   "text": {
-    "en": "In 35% of simulated years a crop in this rotation suffers heat damage.",
-    "tr": "Simüle edilen yılların %35 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
-   },
-   "value": 0.347,
-   "unit": "probability",
-   "source_id": "fao56"
-  },
-  {
    "id": "f42",
    "text": {
-    "en": "In 3% of simulated years a crop in this rotation suffers frost damage.",
-    "tr": "Simüle edilen yılların %3 kadarında bu rotasyondaki bir ürün don zararı görüyor."
+    "en": "Median relative yield is 83% of potential versus 83% now.",
+    "tr": "Ortanca bağıl verim potansiyelin %83'i; şimdi %83."
    },
-   "value": 0.027,
-   "unit": "probability",
-   "source_id": "fao56"
-  },
-  {
-   "id": "f43",
-   "text": {
-    "en": "Median relative yield is 71% of potential versus 83% now.",
-    "tr": "Ortanca bağıl verim potansiyelin %71'i; şimdi %83."
-   },
-   "value": -0.113,
+   "value": 0.0,
    "unit": "ratio",
    "source_id": "fao56"
   }
@@ -5715,602 +6547,35 @@
   },
   "power_mean_mm": 532.6,
   "sat_mean_mm": 301.7,
-  "overlap_years": 35
+  "overlap_years": 35,
+  "coverage": {
+   "requested_years": 35,
+   "obtained_years": 35,
+   "missing_years": []
+  }
  },
- "zone": {
-  "id": 5,
-  "key": "central",
-  "color": "#EDC948",
-  "name": {
-   "tr": "Merkez ova (Konya–Çumra)",
-   "en": "Central plain (Konya–Çumra)"
-  },
-  "desc": {
-   "tr": "Karasal yarı kurak step. Sıcak ve kurak yaz, soğuk kış, düşük yağış ve yüksek buharlaşma. Geceleri hızlı sıcaklık kaybı. Sulanan geniş parseller çevrelerine göre daha serin ve nemli.",
-   "en": "Continental semi-arid steppe: hot dry summers, cold winters, low rain and high evaporation, fast night-time cooling. Large irrigated parcels are locally cooler and moister."
-  },
-  "elevation_m": {
-   "p10": 1002,
-   "p50": 1053,
-   "p90": 1475
-  },
-  "field_elevation_m": 1011.67578125,
-  "elevation_position": "low",
-  "stations": [
-   {
-    "aydeniz": {
-     "index": 1.51,
-     "type": "Çok Kurak"
-    },
-    "erinc": {
-     "index": 18.08,
-     "type": "Yarı kurak"
-    },
-    "de_martonne": {
-     "index": 8.55,
-     "type": "Yarı Kurak"
-    },
-    "trewartha_winter": {
-     "type": "Kışları soğuk",
-     "mean_temp_c": -0.28
-    },
-    "trewartha_summer": {
-     "type": "Yazları sıcak",
-     "mean_temp_c": 24.14
-    },
-    "thornthwaite": {
-     "class": "D,B'2,d,b'2",
-     "explanation": "D : Yarı Kurak B'2 : 2. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'2 : Yaz Buharlaşma Oranı : %56.5"
-    },
-    "station": "KONYA",
-    "name": "Konya",
-    "period": "1991-2020",
-    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=KONYA",
-    "lat": 37.872734,
-    "lon": 32.4924376,
-    "nasa_power": {
-     "period": "2001-2025",
-     "grid": "0.5 x 0.625 deg (~50 km)",
-     "t2m_mean_c": 11.31,
-     "frost_days_yr": 103.1,
-     "spring_frost_days": 21.0,
-     "autumn_frost_days": 11.6,
-     "hottest_month_mean_c": 23.4,
-     "coldest_month_mean_c": -0.6,
-     "rh2m_pct": 62.42
-    }
-   },
-   {
-    "aydeniz": {
-     "index": 1.51,
-     "type": "Çok Kurak"
-    },
-    "erinc": {
-     "index": 16.77,
-     "type": "Yarı kurak"
-    },
-    "de_martonne": {
-     "index": 7.87,
-     "type": "Yarı Kurak"
-    },
-    "trewartha_winter": {
-     "type": "Kışları serin",
-     "mean_temp_c": 0.29
-    },
-    "trewartha_summer": {
-     "type": "Yazları sıcak",
-     "mean_temp_c": 23.45
-    },
-    "thornthwaite": {
-     "class": "D,B'1,d,b'3",
-     "explanation": "D : Yarı Kurak B'1 : 1. Derece Mezotermal d : Su fazlası olamayan veya pek az olan b'3 : Yaz Buharlaşma Oranı : %55.1"
-    },
-    "station": "CUMRA",
-    "name": "Çumra",
-    "period": "1991-2020",
-    "url": "https://www.mgm.gov.tr/iklim/iklim-siniflandirmalari.aspx?m=CUMRA",
-    "lat": 37.5720111,
-    "lon": 32.7845981,
-    "nasa_power": {
-     "period": "2001-2025",
-     "grid": "0.5 x 0.625 deg (~50 km)",
-     "t2m_mean_c": 11.65,
-     "frost_days_yr": 98.4,
-     "spring_frost_days": 19.2,
-     "autumn_frost_days": 10.6,
-     "hottest_month_mean_c": 24.03,
-     "coldest_month_mean_c": -0.43,
-     "rh2m_pct": 63.45
-    }
-   }
+ "cards": {
+  "zone": "central",
+  "notes": {},
+  "allowed_crops": [
+   "barley_winter",
+   "chickpea",
+   "dry_bean",
+   "maize_grain",
+   "potato",
+   "sugar_beet",
+   "sunflower",
+   "wheat_winter"
   ],
-  "crops": {
-   "version": "2026-11-14",
-   "caveat": {
-    "tr": "Kanıtlı = ürün yörede belgelenmiş demektir. İlçeler arası karşılaştırmalı kayıtların çoğu 2018 TÜİK verisine dayanan 2019 MEVKA raporlarından gelir; 2026'daki güncel alanı veya kârlılığı garanti etmez. Bu liste tarlanıza öneri değildir: öneri için iklim, su bütçesi, toprak/tuzluluk ve pazar koşulu ayrıca kontrol edilir.",
-    "en": "Verified = documented in the area. Most comparable district records come from 2019 MEVKA reports based on 2018 TÜİK data; they do not guarantee 2026 area or profitability. This list is not advice for your field: climate, water budget, soil/salinity and market are checked separately."
-   },
-   "groups": {
-    "field": {
-     "tr": "Geleneksel ürünler",
-     "en": "Traditional crops"
-    },
-    "special": {
-     "tr": "Özel ürünler (tıbbi-aromatik vb.)",
-     "en": "Specialty crops (medicinal-aromatic etc.)"
-    },
-    "protected": {
-     "tr": "Örtü altı",
-     "en": "Greenhouse"
-    },
-    "method": {
-     "tr": "Katma değer modeli",
-     "en": "Value-added model"
-    },
-    "tech": {
-     "tr": "Araştırma teknolojisi",
-     "en": "Research technology"
-    }
-   },
-   "crops": [
-    {
-     "name": {
-      "tr": "Buğday",
-      "en": "Wheat"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "wheat_winter"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Arpa",
-      "en": "Barley"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "barley_winter"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Nohut",
-      "en": "Chickpea"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "chickpea"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kuru fasulye",
-      "en": "Dry bean"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "dry_bean"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Mısır (dane ve silajlık)",
-      "en": "Maize (grain and silage)"
-     },
-     "status": "verified",
-     "group": "field",
-     "caution": true,
-     "sources": [
-      "mevka2019",
-      "bugem_su_kisiti"
-     ],
-     "engine": [
-      "maize_grain",
-      "maize_silage"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Şeker pancarı",
-      "en": "Sugar beet"
-     },
-     "status": "verified",
-     "group": "field",
-     "caution": true,
-     "sources": [
-      "mevka2019",
-      "bugem_su_kisiti"
-     ],
-     "engine": [
-      "sugar_beet"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Ayçiçeği",
-      "en": "Sunflower"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "sunflower"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Yonca",
-      "en": "Alfalfa"
-     },
-     "status": "verified",
-     "group": "field",
-     "caution": true,
-     "sources": [
-      "mevka2019",
-      "bugem_su_kisiti"
-     ],
-     "engine": [
-      "alfalfa"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Patates",
-      "en": "Potato"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ],
-     "engine": [
-      "potato"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Havuç",
-      "en": "Carrot"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Çerezlik kabak",
-      "en": "Snack pumpkin (seeds)"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kavun ve karpuz",
-      "en": "Melon and watermelon"
-     },
-     "status": "verified",
-     "group": "field",
-     "sources": [
-      "mevka2019"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Üzüm",
-      "en": "Grape"
-     },
-     "status": "verified",
-     "group": "field",
-     "districts": [
-      "Güneysınır"
-     ],
-     "sources": [
-      "mevka2019"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kültür mantarı",
-      "en": "Cultivated mushroom"
-     },
-     "status": "verified",
-     "group": "protected",
-     "districts": [
-      "Selçuklu",
-      "Sarayönü"
-     ],
-     "sources": [
-      "mevka2019"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Çemen",
-      "en": "Fenugreek"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Çumra",
-      "Selçuklu"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Çörekotu",
-      "en": "Black cumin"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Çumra",
-      "Meram",
-      "Sarayönü",
-      "Selçuklu"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Karabuğday",
-      "en": "Buckwheat"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Karatay",
-      "Çumra",
-      "Meram"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kimyon",
-      "en": "Cumin"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Sarayönü",
-      "Karatay"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kişniş",
-      "en": "Coriander"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Selçuklu"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Kekik",
-      "en": "Thyme"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Çumra",
-      "Meram",
-      "Sarayönü",
-      "Selçuklu"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Lavanta",
-      "en": "Lavender"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Güneysınır",
-      "Çumra",
-      "Meram",
-      "Sarayönü",
-      "Selçuklu"
-     ],
-     "note": {
-      "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
-      "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
-     },
-     "sources": [
-      "ilt_aromatik",
-      "kbb_lavanta"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Tıbbi nane ve melisa",
-      "en": "Peppermint and lemon balm"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Meram",
-      "Selçuklu"
-     ],
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Adaçayı",
-      "en": "Sage"
-     },
-     "status": "verified",
-     "group": "special",
-     "districts": [
-      "Meram",
-      "Selçuklu",
-      "Çumra"
-     ],
-     "note": {
-      "tr": "Küçük ölçekte",
-      "en": "Small scale"
-     },
-     "sources": [
-      "ilt_aromatik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Sözleşmeli tohumluk üretimi",
-      "en": "Contract seed production"
-     },
-     "status": "verified",
-     "group": "method",
-     "note": {
-      "tr": "Ayrı ürün değil, üretim yöntemi: sertifikalı hububat, hibrit ayçiçeği, aspir ve baklagil tohumu",
-      "en": "A production method, not a crop: certified cereal, hybrid sunflower, safflower and pulse seed"
-     },
-     "sources": []
-    },
-    {
-     "name": {
-      "tr": "Sorgum ve sorgum melezleri",
-      "en": "Sorghum and sorghum hybrids"
-     },
-     "status": "pilot",
-     "group": "field",
-     "districts": [
-      "Karatay",
-      "Sarayönü"
-     ],
-     "sources": [
-      "ilt_sorgum"
-     ],
-     "engine": [
-      "sorghum"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Agrivoltaik üretim",
-      "en": "Agrivoltaics"
-     },
-     "status": "pilot",
-     "group": "tech",
-     "note": {
-      "tr": "TAGEM araştırması, silajlık mısır üzerine",
-      "en": "TAGEM research on silage maize"
-     },
-     "sources": [
-      "tagem_agrivoltaik"
-     ]
-    },
-    {
-     "name": {
-      "tr": "Örtü altı domates ve hıyar",
-      "en": "Greenhouse tomato and cucumber"
-     },
-     "status": "pilot",
-     "group": "protected",
-     "districts": [
-      "Çumra"
-     ],
-     "note": {
-      "tr": "Faal üretim belgeli",
-      "en": "Active production documented"
-     },
-     "sources": [
-      "ilt_ortualti"
-     ]
-    }
-   ],
-   "notes": [
-    {
-     "tr": "Altı merkez ova ilçesinin tamamı tarımsal yeraltı su kısıtı kapsamında; damlama kullanılmayan dane mısıra destek verilmiyor.",
-     "en": "All six central-plain districts are under the agricultural groundwater restriction; grain maize without drip irrigation gets no support.",
-     "sources": [
-      "bugem_su_kisiti"
-     ]
-    }
-   ],
-   "sources": [
-    {
-     "id": "bugem_su_kisiti",
-     "title": "T.C. Tarım ve Orman Bakanlığı BÜGEM, Tarımsal Yeraltı Su Kısıtı Bilgi Notu",
-     "url": "https://www.tarimorman.gov.tr/BUGEM/Belgeler/Tar%C4%B1m%20Havzalar%C4%B1/Tar%C4%B1msal%20Yeralt%C4%B1%20Su%20K%C4%B1s%C4%B1t%C4%B1%20Bilgi%20Notu.pdf"
-    },
-    {
-     "id": "ilt_aromatik",
-     "title": "Konya İl Tarım ve Orman Müdürlüğü, ilçe bazlı çevre dostu tarımsal ürün (tıbbi-aromatik) araştırması",
-     "url": "https://konya.tarimorman.gov.tr/Belgeler/cevredostutarimsalurun.pdf"
-    },
-    {
-     "id": "ilt_ortualti",
-     "title": "Konya İl Tarım: KOP Bölgesinde Örtü Altı Tarımın Geliştirilmesi Projesi (2026)",
-     "url": "https://konya.tarimorman.gov.tr/Sayfalar/Detay.aspx?TermId=f3406001-c8b2-4b80-9897-25b2576926e6&TermSetId=317d0ab5-aeb7-4b91-96d8-641d30c9b97c&TermStoreId=368e785b-af33-487d-a98d-c11d5495130b&UrlSuffix=1199%2FKop-Bolgesinde-Ortualti-Tarimin-Gelistirilmesi-Projesi-Basariyla-Devam-Ediyor"
-    },
-    {
-     "id": "ilt_sorgum",
-     "title": "Konya İl Tarım: Su kısıtı ilçelerinde silajlık mısıra alternatif sorgum türleri yaygınlaştırma projesi",
-     "url": "https://konya.tarimorman.gov.tr/Haber/1176/Su-Kisiti-Ilcelerinde-Silajlik-Misira-Alternatif-Sorgum-Turleri-Yetistiriciliginin-Yayginlastirilmasi-Projesi-Acilisi-Yapildi"
-    },
-    {
-     "id": "kbb_lavanta",
-     "title": "Konya Büyükşehir Belediyesi: Güneysınır lavanta hasadı ve damıtma tesisi (1,3 milyon m² fide desteği)",
-     "url": "https://www.konya.bel.tr/haber/konya-buyuksehirin-destegiyle-guneysinirda-uretilen-lavantalarin-hasadi-yapildi"
-    },
-    {
-     "id": "mevka2019",
-     "title": "MEVKA (Mevlana Kalkınma Ajansı) 2019 ilçe raporları, TÜİK 2018 bitkisel üretim verisi",
-     "url": null
-    },
-    {
-     "id": "tagem_agrivoltaik",
-     "title": "TAGEM agrivoltaik araştırması (silajlık mısır, Karapınar–Çumra alt havzası)",
-     "url": null
-    }
-   ]
+  "caution_crops": [
+   "alfalfa",
+   "maize_grain",
+   "maize_silage",
+   "sugar_beet"
+  ],
+  "limits": {
+   "water_m3_ha_yr_max": 4828.525347595349,
+   "erosion_rel_max": 1.0
   }
  }
 }

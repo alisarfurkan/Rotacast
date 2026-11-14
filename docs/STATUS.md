@@ -41,8 +41,13 @@
 - Zone crop whitelist (`data/zones/zone_crops.json`, METHODS §10.1): crops manually verified against official sources
   per zone (verified / pilot / caution; excluded crops never shown). Returned in `zone.crops`, shown in `ZoneCard`
   with source links. The rotation engine does not filter by it yet.
-- Next (owner @selejder): use the whitelist in the engine (decision chain: zone evidence → climate → water → soil →
-  market); calendar and frost/heat risk per zone.
+- Field cards replaced (METHODS §7.1, `engine/cards.py`): Balanced transition (default), Low risk and resilient,
+  Innovative crop opportunity. Whitelist-only crops, hard water/erosion limits, area split, pilot trial rows.
+  Basin view unchanged (old archetypes, same headline).
+- Gap: no specialty crop (cumin, anise, fenugreek, coriander, black cumin, buckwheat, fennel; perennials) has engine
+  parameters yet, so the specialty share is listed but "not in the numbers yet" (`coverage` < 1).
+- Next (owner @selejder): sourced engine parameters for the annual specialty crops; perennial module or info cards;
+  calendar and frost/heat risk per zone.
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.

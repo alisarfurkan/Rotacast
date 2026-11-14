@@ -132,7 +132,7 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
                     </div>
                   )}
                   <div className="text-xs text-muted">📍 {report.location.label} · {Math.round(report.location.elevation_m)} m</div>
-                  <Strategies strategies={report.strategies} onOpen={setOpenId} />
+                  <Strategies strategies={report.strategies} onOpen={setOpenId} cards={report.cards} />
                   {report.zone && <ZoneCard zone={report.zone} />}
                   <FieldMemory fm={report.field_memory} />
                   <ClimateShift climate={report.climate} />

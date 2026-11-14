@@ -144,6 +144,30 @@ risk down) and returns the baseline plus three **archetypes**, preferring distin
 | `soil_builder` | maximum soil composite |
 | `balanced_income` | best priority-weighted score on the Pareto front, among candidates keeping >= 60 % of baseline income |
 
+### 7.1 Zone cards (field page)
+
+Inside a Konya zone the field page shows three cards built on the zone crop whitelist (§10.1) instead of the
+archetypes above (`engine/cards.py`). The basin view (§9) keeps the archetypes, so its headline is unchanged.
+
+- **Whitelist filter.** Generated candidates use only engine crops of `verified` field crops in the zone. Crops
+  marked `caution` (real but not to be expanded: maize, sugar beet, alfalfa, potato in water-restricted zones) may
+  appear only if they are already in the current rotation. Cover crops only if the species is verified (vetch).
+- **Hard limits for every card.** p50 irrigation water ≤ the current rotation's, erosion ≤ the current rotation's.
+  The user's priorities rank what passes; they cannot lift the limits. Candidates should also keep ≥ 60 % of the
+  current income (soft: dropped if nothing passes).
+- **Low risk and resilient:** whole field, lowest risk sub-score (frost, heat, low-yield years), ties by total score.
+- **Balanced transition (default card):** 75 % on the best-scoring candidate within the limits (or the current
+  rotation if none passes) + 25 % on a `verified` specialty crop of the zone (shown range 20–30 %).
+- **Innovative crop opportunity:** 80 % current rotation + 20 % specialty crop (range 10–30 %), preferring a
+  different crop than the balanced card. Official `pilot` crops are listed as **trial rows (5–10 %)** with their own
+  modelled water and income when the engine has the crop (e.g. sorghum); they never enter the card's numbers.
+- **Split fields.** Card indicators are the area-weighted blend of the parts, percentile by percentile (an
+  approximation). The specialty share is simulated as the same crop every year on its block.
+- **No invention.** A specialty crop without sourced engine parameters is listed with its evidence and marked
+  "not in the numbers yet"; the card's numbers then cover only the modelled share (`coverage`). When no card can be
+  built the report says why (`cards.notes`) instead of filling it.
+- Not modelled: investment, labour, buyer/processing, time to first harvest for perennials.
+
 ## 8. Uncertainty bands
 
 The p10 / p50 / p90 shown for water, income, yield ratio and stress days are percentiles across the **ensemble of

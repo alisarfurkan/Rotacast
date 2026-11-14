@@ -14,9 +14,11 @@ import pandas as pd
 from .connectors import modis, power, precip, soil as soil_mod, terrain as terrain_mod
 from .engine.climate import add_et0, climate_profile
 from .engine.phenology import analyze_ndvi
+from .engine.cards import pick_cards, zone_policy
 from .engine.rotations import Rotation, RotationStep, generate_candidates, pick_strategies, simulate_rotation
 from .engine.scoring import DEFAULT_PRIORITIES, score
 from .knowledge.crops import load_crops
+from .zones import lookup as zone_lookup
 
 WEATHER_START_YEAR = 1991
 NDVI_START = date(2000, 2, 1)
@@ -411,6 +413,29 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
                                 "Tarlanız her yıl uzun süre boş kalıyor; üzerini kapalı tutmak toprağı korur.", [ids["bare"]]))
             why.append(item("More ground cover and a lower share of bare days reduce erosion.",
                             "Daha fazla toprak örtüsü ve daha az çıplak gün, erozyonu azaltır.", [g("erosion"), g("cover")]))
+        elif arch == "low_risk":
+            why.append(item(f"Every crop in this rotation ({chain_en}) is documented in your zone by an official source.",
+                            f"Bu rotasyondaki her ürün ({chain_tr}) bölgenizde resmî bir kaynakla belgelenmiş.",
+                            [g("income"), g("water")]))
+            why.append(item("It is the option with the lowest weather and yield risk among those that stay within your current water use and erosion.",
+                            "Mevcut su kullanımınızı ve erozyon düzeyinizi aşmayan seçenekler içinde hava ve verim riski en düşük olanı.",
+                            [g("yield"), g("stress"), g("heat_risk")]))
+        elif arch in ("balanced_transition", "innovative"):
+            sp = next((p for p in st.get("parts", []) if p["kind"] == "specialty"), None)
+            share = round(100 * (sp["share"] if sp else 0))
+            rest = 100 - share
+            if sp and sp.get("crop"):
+                c_en, c_tr = sp["crop"]["name"]["en"], sp["crop"]["name"]["tr"]
+                why.append(item(f"About {rest} % of the field stays on {chain_en}; about {share} % tries {c_en}, a crop documented in your zone.",
+                                f"Tarlanın yaklaşık %{rest}'i {chain_tr} rotasyonunda kalıyor; %{share}'inde bölgenizde belgelenmiş {c_tr} deneniyor.",
+                                [g("income"), g("water")]))
+            else:
+                why.append(item(f"About {rest} % of the field stays on {chain_en}; about {share} % is set aside for a specialty crop documented in your zone.",
+                                f"Tarlanın yaklaşık %{rest}'i {chain_tr} rotasyonunda kalıyor; %{share}'i bölgenizde belgelenmiş bir özel ürüne ayrılıyor.",
+                                [g("income"), g("water")]))
+            why.append(item("Water is the scarce input in your area, so no part of the plan may use more irrigation water than today.",
+                            "Bölgenizde kıt olan girdi su; bu yüzden planın hiçbir parçası bugünkünden fazla sulama suyu kullanamaz.",
+                            [ids.get("deficit"), g("water")]))
         else:  # balanced_income
             why.append(item(f"The sequence ({chain_en}) keeps income close to, or above, your current level while cutting other costs.",
                             f"Bu sıralama ({chain_tr}) geliri mevcut düzeyin yakınında veya üstünde tutarken diğer maliyetleri düşürüyor.",
@@ -472,6 +497,19 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
         risks.append({"text": {"en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",
                                "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."},
                       "check_with": "extension_service"})
+    for p in st.get("parts", []):
+        if p["kind"] == "specialty" and not p.get("modeled"):
+            risks.append({"text": {"en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
+                                   "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."},
+                          "check_with": "extension_service"})
+        if p["kind"] == "specialty" and p.get("crop"):
+            risks.append({"text": {"en": "Specialty crops need a buyer or processor before sowing; a contract lowers the market risk. Investment and labour are not modelled.",
+                                   "tr": "Özel ürünlerde ekimden önce alıcı veya işleyici bulunmalı; sözleşme pazar riskini azaltır. Yatırım ve işçilik modellenmedi."},
+                          "check_with": "market"})
+    if st.get("trials"):
+        risks.append({"text": {"en": "Pilot crops are at the official pilot stage; commercial success is not yet verified. Try them only on 5–10 % of the field.",
+                               "tr": "Pilot ürünler resmî pilot aşamasında; ticari başarı henüz doğrulanmadı. Yalnızca tarlanın %5–10'unda deneyin."},
+                      "check_with": "extension_service"})
     feas = st.get("feasibility") or {}
     if feas.get("fraction", 1.0) < 0.9:
         risks.append({"text": {"en": "In some historical years the sowing and harvest dates of this sequence did not fit; timing may be tight.",
@@ -487,6 +525,26 @@ def _simulate_all(cands, wx, soil, crops, last_year, base_idx):
         n = _n_main(r.steps, crops)
         ys = _start_years(WEATHER_START_YEAR, last_year, n)
         out.append(simulate_rotation(r, wx, soil, crops, ys, baseline_erosion_index=base_idx))
+    return out
+
+
+def _simulate_single(policy, crops, constraints, wx, soil, last_year, base_idx) -> dict:
+    """One-crop-every-year simulation of each modelled specialty and pilot crop (its share of the field is small,
+    so it is treated as its own block). Rain-fed unless the crop needs irrigation and the farmer has access,
+    then deficit irrigation."""
+    out = {}
+    access = (constraints or {}).get("water_access", "limited")
+    for rec in policy["special"] + policy["pilots"]:
+        if not rec["modeled"]:
+            continue
+        cid = rec["engine_ids"][0]
+        if cid in out:
+            continue
+        need = getattr(crops[cid], "irrigation_typical", "optional") == "required"
+        irr = "deficit" if need and access != "none" else "none"
+        rot = Rotation(id=f"single_{cid}", name=crops[cid].name, archetype="candidate", steps=[RotationStep(cid, 1, irr)])
+        out[cid] = simulate_rotation(rot, wx, soil, crops, _start_years(WEATHER_START_YEAR, last_year, 1),
+                                     baseline_erosion_index=base_idx)
     return out
 
 
@@ -540,9 +598,23 @@ def build_field_report(req: dict | None = None) -> dict:
     base_rot = Rotation(id="baseline", name={"en": "Current rotation", "tr": "Mevcut rotasyon"}, archetype="baseline", steps=steps)
     base = simulate_rotation(base_rot, wx_sim, sp, crops, _start_years(WEATHER_START_YEAR, last_year, _n_main(steps, crops)))
     base_idx = base.get("erosion_index") or None
-    cands = generate_candidates(crops, climate, fm, r["constraints"])
+    zone = zone_lookup.zone_at(lat, lon)
+    policy = zone_policy(zone_lookup.zone_crops(zone["key"]) if zone else None, crops, {s.crop_id for s in steps})
+    cons = dict(r["constraints"])
+    if policy:  # only crops verified in the zone may enter generated candidates
+        cons["exclude_crops"] = sorted(set(cons.get("exclude_crops") or ()) | set(policy["exclude"]))
+    cands = generate_candidates(crops, climate, fm, cons)
     results = [base] + _simulate_all(cands, wx_sim, sp, crops, last_year, base_idx)
-    picked = pick_strategies(results, r["priorities"])
+    card_info = None
+    if policy:
+        extra = _simulate_single(policy, crops, r["constraints"], wx_sim, sp, last_year, base_idx)
+        picked, notes = pick_cards(results, r["priorities"], policy, extra, extra)
+        card_info = {"zone": zone["key"], "notes": notes, "allowed_crops": policy["allowed"],
+                     "caution_crops": policy["caution"],
+                     "limits": {"water_m3_ha_yr_max": base["indicators"]["water_m3_ha_yr"]["p50"],
+                                "erosion_rel_max": max(base["indicators"].get("erosion_rel", 1.0), 1.0)}}
+    else:
+        picked = pick_strategies(results, r["priorities"])
     cand_names = {c.id: c.name for c in cands}
 
     # facts + evidence
@@ -551,7 +623,8 @@ def build_field_report(req: dict | None = None) -> dict:
     _precip_fact(F, pcorr, ids)
     base_s = picked[0]
     base_crops = {s["crop_id"] for s in base_s["steps"]}
-    ordered = [picked[0]] + [s for a in ARCH_ORDER for s in picked[1:] if s["archetype"] == a]
+    ordered = picked if policy else [picked[0]] + [s for a in ARCH_ORDER for s in picked[1:] if s["archetype"] == a]
+    base_chain = {"en": _crop_chain(base_s, crops, "en"), "tr": _crop_chain(base_s, crops, "tr")}
     strategies = []
     for st in ordered:
         deltas = _strategy_deltas(F, st, base_s, ids)
@@ -559,8 +632,16 @@ def build_field_report(req: dict | None = None) -> dict:
         ev["gaps"] = ev["gaps"] + copy.deepcopy(extra_gaps)
         out = {k: st[k] for k in ("id", "archetype", "name", "cycle_years", "calendar", "indicators", "score",
                                    "score_breakdown", "feasibility") if k in st}
-        out["rotation_name"] = cand_names.get(st.get("rotation_id"), st["name"]) if st["archetype"] != "baseline" else \
-            {"en": _crop_chain(st, crops, "en"), "tr": _crop_chain(st, crops, "tr")}
+        if st["archetype"] == "baseline" or st.get("rotation_id") not in cand_names:
+            out["rotation_name"] = {"en": _crop_chain(st, crops, "en"), "tr": _crop_chain(st, crops, "tr")}
+        else:
+            out["rotation_name"] = cand_names[st["rotation_id"]]
+        for k in ("coverage", "trials"):
+            if k in st:
+                out[k] = st[k]
+        if "parts" in st:
+            out["parts"] = [{**p, "rotation_name": cand_names.get(p["rotation_id"], base_chain)} if p["kind"] == "rotation" else p
+                            for p in st["parts"]]
         out["steps"] = st["steps"]
         out["evidence"] = ev
         strategies.append(out)
@@ -586,6 +667,7 @@ def build_field_report(req: dict | None = None) -> dict:
         "disclaimer": DISCLAIMER,
         "scenario": r["scenario"],
         "precip_correction": pcorr,
+        "cards": card_info,
     }
     return _clean(report)
 

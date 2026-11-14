@@ -459,7 +459,8 @@ def generate_candidates(crops: dict, climate: dict, field_memory: dict, constrai
              and cr.id not in excluded]
     if access == "none":
         mains = [cr for cr in mains if getattr(cr, "irrigation_typical", "optional") != "required"]
-    covers = [cr for _, cr in sorted(crops.items()) if _is_cover(cr) and _climate_suitable(cr, climate)]
+    covers = [cr for _, cr in sorted(crops.items())
+              if _is_cover(cr) and _climate_suitable(cr, climate) and cr.id not in excluded]
     if len(mains) < 2:
         return []
     legumes = [cr for cr in mains if _is_legume(cr)]

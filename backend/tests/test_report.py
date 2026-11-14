@@ -31,9 +31,18 @@ def test_contract_keys(report):
         assert s["evidence"]["gaps"]
 
 
-def test_four_distinct_archetypes(report):
+def test_zone_cards(report):
     archs = [s["archetype"] for s in report["strategies"]]
-    assert archs == ["baseline", "water_saver", "soil_builder", "balanced_income"]
+    assert archs == ["baseline", "balanced_transition", "low_risk", "innovative"]
+    cards = report["cards"]
+    assert cards["zone"] == "central"
+    lim = cards["limits"]
+    allowed = set(cards["allowed_crops"]) | {s["crop_id"] for s in report["strategies"][0]["steps"]} | {"vetch_cover"}
+    for s in report["strategies"][1:]:
+        assert {st["crop_id"] for st in s["steps"]} <= allowed  # whitelist only
+        assert s["indicators"]["water_m3_ha_yr"]["p50"] <= lim["water_m3_ha_yr_max"] + 1e-6  # hard water limit
+        assert abs(sum(p["share"] for p in s["parts"]) - 1) < 1e-9
+    assert "trials" in report["strategies"][3]
 
 
 def test_fact_references(report):
