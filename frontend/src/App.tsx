@@ -60,7 +60,10 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
 
   const run = useCallback(async (p: Point, quiet: boolean) => {
     const my = ++seq.current
-    if (!quiet) setLoading(true)
+    if (!quiet) {
+      setLoading(true)
+      setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+    }
     setError(null)
     try {
       const res = await analyzeField({
@@ -97,27 +100,28 @@ function Shell({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
       <div className="bg-sunsoft text-ink text-xs md:text-[13px] text-center px-4 py-1.5 border-b border-line">{t('supportNote')}</div>
       <main className="mx-auto max-w-[1500px] px-4 md:px-8 py-5">
         {tab === 'basin' ? <BasinView /> : (
-          <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[340px_minmax(0,1fr)] gap-6 items-start">
-            <div className="lg:sticky lg:top-3 lg:max-h-[calc(100vh-24px)] lg:overflow-y-auto lg:pr-1">
-              <InputPanel point={point} onPick={setPoint} rotation={rotation} setRotation={setRotation}
-                waterAccess={waterAccess} setWaterAccess={setWaterAccess} priorities={priorities} setPriorities={setPriorities}
-                scenario={scenario} setScenario={setScenario} loading={loading} error={error}
-                onAnalyze={() => point && run(point, false)} />
-            </div>
-            <div ref={resultsRef} className="flex flex-col gap-6 min-w-0 scroll-mt-4">
-              {loading ? <Loading /> : !report ? (
-                <section className="card p-8 md:p-14 text-center mt-2 rise">
-                  <svg viewBox="0 0 320 90" className="mx-auto w-full max-w-sm mb-5" aria-hidden>
+          <div className="flex flex-col gap-8">
+            <div className="mx-auto w-full max-w-[1180px]">
+              {!report && !loading && (
+                <section className="text-center mb-6 rise">
+                  <svg viewBox="0 0 320 50" className="mx-auto w-full max-w-xs mb-3" aria-hidden>
                     {Array.from({ length: 16 }, (_, i) => (
-                      <rect key={i} x={i * 20} y={10} width="18" height="70" rx="3"
+                      <rect key={i} x={i * 20} y={5} width="18" height="40" rx="3"
                         fill={['#6b4a2b', '#a98457', '#d9c78a', '#9fc66b', '#3f8a32', '#3f8a32', '#9fc66b', '#d9c78a', '#a98457', '#6b4a2b', '#6b4a2b', '#6b4a2b', '#a98457', '#d9c78a', '#9fc66b', '#6b4a2b'][i]} opacity={0.9} />
                     ))}
                   </svg>
-                  <h2 className="font-display text-3xl font-extrabold mb-2">{t('emptyTitle')}</h2>
-                  <p className="text-muted max-w-xl mx-auto mb-5">{t('emptyText')}</p>
-                  <button className="btn-primary px-5 py-3" onClick={() => { setPoint(KONYA); run(KONYA, false) }}>📍 {t('emptyBtn')}</button>
+                  <h2 className="font-display text-2xl md:text-3xl font-extrabold mb-2">{t('emptyTitle')}</h2>
+                  <p className="text-muted max-w-2xl mx-auto">{t('emptyText')}</p>
                 </section>
-              ) : (
+              )}
+              <InputPanel point={point} onPick={setPoint} rotation={rotation} setRotation={setRotation}
+                waterAccess={waterAccess} setWaterAccess={setWaterAccess} priorities={priorities} setPriorities={setPriorities}
+                scenario={scenario} setScenario={setScenario} loading={loading} error={error}
+                onAnalyze={() => point && run(point, false)}
+                onDemo={() => { setPoint(KONYA); run(KONYA, false) }} />
+            </div>
+            <div ref={resultsRef} className="flex flex-col gap-6 min-w-0 scroll-mt-4">
+              {loading ? <div className="mx-auto w-full max-w-2xl"><Loading /></div> : !report ? null : (
                 <>
                   {source && source !== 'live' && (
                     <div role="status" className="rounded-xl bg-sunsoft border border-sun px-4 py-2 text-sm">

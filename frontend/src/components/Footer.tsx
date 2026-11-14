@@ -5,7 +5,7 @@ import { pick } from '../util'
 const DEFAULT_SOURCES = [
   { id: 'nasa_power', name: 'NASA POWER', detail: 'Daily weather & solar', url: 'https://power.larc.nasa.gov/' },
   { id: 'nasa_modis', name: 'NASA MODIS MOD13Q1', detail: 'NDVI 250 m, 16-day', url: 'https://lpdaac.usgs.gov/products/mod13q1v061/' },
-  { id: 'nasadem', name: 'NASADEM', detail: 'Elevation & slope', url: 'https://lpdaac.usgs.gov/products/nasadem_hgtv001/' },
+  { id: 'srtm_terrain_tiles', name: 'SRTM (AWS terrain tiles)', detail: 'Elevation & slope', url: 'https://registry.opendata.aws/terrain-tiles/' },
   { id: 'soilgrids', name: 'ISRIC SoilGrids', detail: 'Soil properties', url: 'https://soilgrids.org/' },
 ]
 

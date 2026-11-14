@@ -93,3 +93,8 @@ body {
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .rise { animation: rise .5s ease both; }
 @media (prefers-reduced-motion: reduce) { .rise, .bar-anim { animation: none; } html { scroll-behavior: auto; } }
+
+/* Larger sliders in the input panel (sections 3-4) */
+.big-range { height: 1.75rem; cursor: pointer; }
+.big-range::-webkit-slider-thumb { transform: scale(1.35); }
+.big-range::-moz-range-thumb { transform: scale(1.35); }

@@ -5,7 +5,7 @@ export type Tab = 'field' | 'basin'
 
 export function Header({ lang, setLang, tab, setTab }: { lang: Lang; setLang: (l: Lang) => void; tab: Tab; setTab: (t: Tab) => void }) {
   const t = useT()
-  const chips = ['NASA POWER', 'MODIS NDVI', 'NASADEM', 'SoilGrids']
+  const chips = ['NASA POWER', 'MODIS NDVI', 'SRTM', 'SoilGrids']
   return (
     <header className="bg-soil text-bg" style={{ background: 'linear-gradient(135deg, #3b2616 0%, #5a3b22 55%, #3d5a2c 130%)', color: '#f6efe0' }}>
       <div className="mx-auto max-w-[1500px] px-4 md:px-8 pt-4 pb-5">

@@ -73,7 +73,7 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
   return (
     <div>
       <div className="relative rounded-2xl overflow-hidden border border-line">
-        <div ref={el} className="h-64 md:h-72 w-full" aria-label={t('mapHint')} />
+        <div ref={el} className="h-64 md:h-80 lg:h-[26rem] w-full" aria-label={t('mapHint')} />
         <div className="absolute left-2 top-2 flex rounded-lg overflow-hidden text-xs font-semibold shadow bg-white/90 text-[#2b1f16]">
           {(['esri', 'osm'] as const).map((b) => (
             <button key={b} onClick={() => setBase(b)} aria-pressed={base === b}
