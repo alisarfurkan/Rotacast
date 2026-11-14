@@ -376,9 +376,11 @@ GAPS = [
                     "management.",
               "tr": "Bitki su tüketimi, çeşidinize, ekim sıklığınıza veya yönetiminize değil, genel FAO bitki "
                     "katsayılarına dayanıyor."}},
-    {"text": {"en": "Prices and yields are rough regional averages; real income depends on contracts, quality and the "
-                    "market in the year you sell.",
-              "tr": "Fiyat ve verimler kaba bölgesel ortalamalardır; gerçek gelir sözleşmelere, kaliteye ve sattığınız "
+    {"text": {"en": "Income is estimated GROSS income: rough price x modelled yield minus irrigation water cost. Seed, fertiliser, "
+                    "fuel, labour and rent are not deducted, so it is not profit; real income also depends on contracts, "
+                    "quality and the market in the year you sell.",
+              "tr": "Gelir, tahmini BRÜT gelirdir: kaba fiyat x modellenen verim, eksi sulama suyu maliyeti. Tohum, gübre, yakıt, "
+                    "işçilik ve kira düşülmez, yani kâr değildir; gerçek gelir ayrıca sözleşmelere, kaliteye ve sattığınız "
                     "yıldaki piyasaya bağlıdır."}},
 ]
 
@@ -503,8 +505,8 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
                                "tr": "En az bir ürün için yılların kayda değer bir bölümünde don zararı olası; ekim tarihlerini ve dona dayanıklı çeşitleri gözden geçirin."},
                       "facts": [d["frost_risk"][0]], "check_with": "agronomist"})
     if arch != "baseline" and d["income"][1] < 0:
-        risks.append({"text": {"en": "Median income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
-                               "tr": "Ortanca gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."},
+        risks.append({"text": {"en": "Median gross income is lower than your current rotation; check whether the saving elsewhere is worth it to you.",
+                               "tr": "Ortanca brüt gelir mevcut rotasyonunuzdan düşük; başka alanlardaki kazancın sizin için değip değmediğini değerlendirin."},
                       "facts": [d["income"][0]], "check_with": "market"})
     if arch != "baseline" and any(s.get("irrigation") != "none" for s in st.get("steps", [])):
         risks.append({"text": {"en": "Irrigated years need a reliable water source and permit; confirm your quota for these seasons.",

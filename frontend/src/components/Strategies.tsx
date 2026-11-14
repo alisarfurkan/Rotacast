@@ -320,7 +320,7 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
         </div>
 
         <div className="grid gap-3.5">
-          <BandRow label={t('income')} band={i.income_usd_ha_yr} scale={scales.income} unit={t('incomeUnit')} higherBetter />
+          <BandRow label={<Term k="income">{t('income')}</Term>} band={i.income_usd_ha_yr} scale={scales.income} unit={t('incomeUnit')} higherBetter />
           {!isBase && <div className="-mt-2"><Delta good={dInc > 0 ? true : dInc < 0 ? false : null} text={`${signed(dInc, 0, lang)} USD/ha`} /></div>}
           <BandRow label={<Term k="yield">{t('yieldRatio')}</Term>} band={i.yield_ratio} scale={scales.yield} unit="" higherBetter decimals={2} />
           <MeterRow label={<Term k="nbalance">{t('nBalance')}</Term>} value={i.n_balance_kg_ha_yr} max={60} unit={t('nUnit')}
@@ -372,7 +372,8 @@ export function Strategies({ strategies, onOpen, cards }: { strategies: Strategy
         {saver && saved > 0 ? t('headlineSave', { name: pick(saver.name, lang), amount: fmt(saved, 0, lang) }) : t('headlineNone')}
       </p>
       <p className="text-xs text-muted mb-1">{t('rangeHint')}</p>
-      {cards && <p className="text-xs text-muted mb-3">{t('limitsNote', { w: fmt(cards.limits.water_m3_ha_yr_max, 0, lang) })}</p>}
+      {cards && <p className="text-xs text-muted mb-3">{t('limitsNote', { w: fmt(cards.limits.water_m3_ha_yr_max, 0, lang) })}
+        {ordered.some((s) => s.coverage !== undefined && s.coverage < 0.999 && !s.water_coverage) && <> {t('limitsPartial')}</>}</p>}
       {cards && Object.values(cards.notes).map((n) => NOTE_KEY[n] && (
         <p key={n} className="text-sm rounded-lg border border-line bg-surface2 px-3 py-2 mb-3">ⓘ {t(NOTE_KEY[n])}</p>
       ))}

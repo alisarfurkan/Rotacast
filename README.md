@@ -10,7 +10,6 @@ Closed Basin and compares water-focused adoption scenarios with the GRACE ground
 Space Apps 2026 challenge "Field Shift: Adapting Farms with NASA Data".
 
 ![Rotacast screenshot](docs/screenshot.png)
-<!-- TODO: add docs/screenshot.png (field analysis view and Basin View) -->
 
 ## Features
 
@@ -32,7 +31,7 @@ Requires Python 3.11+ and Node 20+.
 
 ```bash
 # backend
-pip install -r backend/requirements.txt
+pip install -r backend/requirements.lock.txt   # exact tested versions (or requirements.txt for loose bounds)
 uvicorn rotacast.api.main:app --app-dir backend        # http://localhost:8000
 
 # frontend

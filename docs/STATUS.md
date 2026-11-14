@@ -62,6 +62,15 @@
   conservative (roots capped at Table 8 depth).
 - Next: nothing assigned on this branch; regional development screen ("Bölge kalkınması") postponed.
 - Open: ask the organisers about pre-event commit dates. Branch pushed (2026-11-14). Regional development screen postponed by @selejder.
+- Review fixes (2026-11-14, external check of a clean download): all sample-field cache files are now committed
+  (`data/cache`, ~24 MB; Çumra, Toros, Seydişehir, Beyşehir verified offline from a fresh clone). "Income" is labelled
+  "estimated gross income" everywhere (price x modelled yield − water cost; seed, fertiliser, fuel, labour, rent not
+  deducted) with a glossary tooltip. The water-limit sentence is qualified when a specialty share has no water model.
+  Frontend fallbacks refreshed (basin report 13 Nov, field report). `backend/requirements.lock.txt` pins tested
+  versions; `.github/workflows/ci.yml` runs offline pytest + check_offline + frontend build. CHIRPS/IMERG license and
+  DOI checked (SOURCES.md). README screenshot added (800x500, field cards view).
+- Still open from the review: "+" detail-info module (spec needed from @selejder), frontend tests, bundle size
+  (~2.3 MB, MapLibre not code-split), regional development screen (postponed).
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.
@@ -77,6 +86,6 @@
    - Needs: an Anthropic API key from the user.
 2. SMAP + GLDAS validation of the model's soil water (Earthdata access ready); later HLS 30 m field memory,
    ECOSTRESS ET/LST map. Owner: @selejder. Reserved, do not start.
-3. Screenshot for README (`docs/screenshot.png`), UI check of Basin View in browser. Owner: unassigned (ask @selejder).
+3. Done: README screenshot (field cards). Still to do: a Basin View screenshot / UI check. Owner: unassigned (ask @selejder).
 4. Pitch: slides/video script, submission text, SI-usage statement. Owner: unassigned (ask @selejder).
 5. Optional: public deploy (single container). Owner: unassigned (ask @selejder).
