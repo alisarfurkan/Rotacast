@@ -21,7 +21,7 @@ export function Footer({ report }: { report: FieldReport | null }) {
           <h2 className="font-display text-lg font-extrabold mb-2">{t('ftSources')}</h2>
           <ul className="flex flex-col gap-1.5">
             {sources.map((s) => (
-              <li key={s.id}><a className="underline decoration-dotted hover:text-white" href={s.url} target="_blank" rel="noreferrer">{s.name}</a>
+              <li key={s.id}>{s.url ? <a className="underline decoration-dotted hover:text-white" href={s.url} target="_blank" rel="noreferrer">{s.name}</a> : <span>{s.name}</span>}
                 <span className="opacity-70"> — {s.detail}</span></li>
             ))}
             <li className="opacity-70 text-xs mt-1">Esri World Imagery, OpenStreetMap, MapLibre GL JS, Apache ECharts.</li>
