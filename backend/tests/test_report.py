@@ -43,6 +43,9 @@ def test_zone_cards(report):
         assert s["indicators"]["water_m3_ha_yr"]["p50"] <= lim["water_m3_ha_yr_max"] + 1e-6  # hard water limit
         assert abs(sum(p["share"] for p in s["parts"]) - 1) < 1e-9
     assert "trials" in report["strategies"][3]
+    for s in report["strategies"][1:]:  # a water-modelled specialty share must reach the API with water_coverage
+        if any(p.get("water_modeled") for p in s["parts"]):
+            assert s["water_coverage"] == 1.0
 
 
 def test_fact_references(report):

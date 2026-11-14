@@ -5,7 +5,7 @@
 > plan in code, or partially implement them, even if they look next in line. If you are an AI coding assistant,
 > ask your user before touching anything in "Next steps" that is not explicitly assigned to them.
 
-## Done (all committed, 100 tests passing)
+## Done (all committed, 130 tests passing)
 - Connectors: NASA POWER, MODIS NDVI + land cover (ORNL), SoilGrids (+fallback), terrain tiles (SRTM), GRACE CSR mascons (Konya CSV cached), CHIRPS/IMERG via ClimateSERV with monthly POWER rain bias correction (Çumra: POWER 533 → CHIRPS 302 mm/yr). ClimateSERV failures are retried; coverage is recorded and sources with < 80 % of years are rejected.
 - Engine: FAO-56 ET0, climate shift (heat days doubled, ET0 up, rain unchanged), NDVI Field Memory (summer crop 18/26 yrs, bare Dec–Mar), FAO-56 water balance, rotations, Pareto picking, scoring. 21-crop knowledge base.
 - API (`uvicorn rotacast.api.main:app --app-dir backend`): `/api/field/analyze`, `/api/basin/konya`, `/api/crops`; serves `frontend/dist`.
@@ -50,13 +50,17 @@
   services even for cached points. Decision 2026-11-14: no further data downloads (west/north/karapinar not cached).
   MODIS NDVI is complete only for Çumra (Seydişehir ~40 %, Toros ~2 %, Beyşehir 0 % of chunks): the other sample
   fields show a "field history unavailable" note instead of Field Memory; cards still work.
-- Gap: no specialty crop (cumin, anise, fenugreek, coriander, black cumin, buckwheat, fennel; perennials) has engine
-  parameters yet, so the specialty share is listed but "not in the numbers yet" (`coverage` < 1).
-- Next (owner @selejder), in this order: (1) show documented yields of specialty crops on the innovative card
-  (kimyon ~50 kg/da, anason ~72 kg/da, TÜİK 2024; çemen 147 kg/da after checking its source), income "not computed"
-  (no verified farmer price); fix the sorghum trial row (engine has grain sorghum, the Konya pilot is silage sorghum:
-  drop its numbers). (2) Regional development screen ("Bölge kalkınması"), scope to agree first. (3) If time: water
-  need for kimyon/çemen via the engine (Kc sources in research_notes/ozel_urun_parametreleri.md).
+- Done (2026-11-14, later): documented yields on the cards (`documented_yield` in zone_crops.json: kimyon ~50 kg/da,
+  anason ~72 kg/da, Konya mean TÜİK 2024; çemen's 147 kg/da left out, source unverified), specialty income shown as
+  "not computed". Sorghum pilots no longer map to the engine (Konya project = silage, engine = grain sorghum).
+  Water-only model for kimyon and çemen (METHODS §7.2, `engine/specialty_water.py`, `knowledge/specialty_water.yaml`):
+  Kc/root/p from Pereira et al. 2024 T7–T8, fixed calendar from the Ankara-Gölbaşı rain-fed trials (sow 26 Feb,
+  harvest 23 Jul / 2 Aug). Cards: water covers the whole field (`water_coverage` 1, specialty rain-fed = 0 irrigation),
+  every other number covers the field part only. Çumra: kimyon ETc ~486 mm, full-irrigation need ~3,844 m³/ha.
+- Gap: still not modelled: kişniş, çörekotu, rezene (Kc exists, no local calendar), anason (no Kc), buckwheat,
+  perennials; no specialty has income, yield response (Ky) or frost/heat risk. Rain-fed ETa of the specialties is
+  conservative (roots capped at Table 8 depth).
+- Next (owner @selejder): Regional development screen ("Bölge kalkınması"), scope to agree first.
 - Open: ask the organisers about pre-event commit dates; commits 0f7141d and 25daeb6 are not pushed yet.
 
 ## Next steps

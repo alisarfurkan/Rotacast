@@ -41,6 +41,30 @@
    "name": "SRTM terrain tiles",
    "detail": "AWS Open Data terrain tiles, SRTM-derived",
    "url": "https://registry.opendata.aws/terrain-tiles/"
+  },
+  {
+   "id": "pereira2024_kc",
+   "name": "Pereira, Mota, Raziei, Paredes (2024), Irrigation Science 42(6)",
+   "detail": "Crop coefficients, root depth and depletion fraction of cumin and fenugreek (Tables 7 and 8)",
+   "url": "https://doi.org/10.1007/s00271-024-00960-4"
+  },
+  {
+   "id": "ugur_kan2016_kimyon",
+   "name": "Uğur & Kan (2016), Selçuk Tarım Bilimleri Dergisi 3(2):205-209",
+   "detail": "Rain-fed cumin sowing and harvest dates, Central Anatolia (Ankara-Gölbaşı)",
+   "url": "https://dergipark.org.tr/en/download/article-file/3082658"
+  },
+  {
+   "id": "cemen_ankara2016",
+   "name": "Selçuk Tarım Bilimleri Dergisi 3(2):210-214 (2016)",
+   "detail": "Rain-fed fenugreek sowing and harvest dates, Central Anatolia (Ankara-Gölbaşı)",
+   "url": "https://dergipark.org.tr/en/download/article-file/3082673"
+  },
+  {
+   "id": "reyhani2015_kimyon",
+   "name": "Reyhani & Khashei Siuki (2015), Water and Soil 29(5):1047-1056",
+   "detail": "Lysimeter growth-stage lengths of cumin",
+   "url": "https://doi.org/10.22067/jsw.v29i5.24171"
   }
  ],
  "climate": {
@@ -4376,9 +4400,9 @@
      "p90": 188.56583428227876
     },
     "water_m3_ha_yr": {
-     "p10": 1508.6958547600846,
-     "p50": 1786.4942879370003,
-     "p90": 1885.6583428227875
+     "p10": 1131.5218910700635,
+     "p50": 1339.8707159527503,
+     "p90": 1414.2437571170906
     },
     "yield_ratio": {
      "p10": 0.6386504207234307,
@@ -4403,9 +4427,9 @@
      "p90": 3283.853126866793
     }
    },
-   "score": 66.42,
+   "score": 67.81,
    "score_breakdown": {
-    "water": 81.5,
+    "water": 86.13,
     "soil": 48.98,
     "income": 77.55,
     "erosion": 52.19,
@@ -4422,6 +4446,7 @@
     "tr": "Nohut > Patates > Kışlık buğday"
    },
    "coverage": 0.75,
+   "water_coverage": 1.0,
    "parts": [
     {
      "share": 0.75,
@@ -4437,199 +4462,76 @@
     {
      "share": 0.25,
      "kind": "specialty",
-     "crop": null,
+     "crop": {
+      "name": {
+       "tr": "Kimyon",
+       "en": "Cumin"
+      },
+      "status": "verified",
+      "group": "special",
+      "districts": [
+       "Sarayönü",
+       "Karatay"
+      ],
+      "note": null,
+      "sources": [
+       "ilt_aromatik",
+       "ilt_kitap_2026"
+      ],
+      "engine_ids": [],
+      "modeled": false,
+      "perennial": false,
+      "documented_yield": {
+       "kg_da": 50,
+       "year": 2024,
+       "basis": "province_mean",
+       "source": "ilt_kitap_2026",
+       "note": {
+        "tr": "Konya il ortalaması (TÜİK 2024: 3.129 t / 62.210 da); alanın çoğu kuru tarım. Tarlanız için tahmin değildir.",
+        "en": "Konya province mean (TÜİK 2024: 3,129 t / 62,210 da); mostly rain-fed. Not a forecast for your field."
+       }
+      },
+      "water_model": "cumin"
+     },
      "modeled": false,
+     "water_modeled": true,
+     "water": {
+      "etc_mm": {
+       "p10": 448.994339093439,
+       "p50": 486.0507376858196,
+       "p90": 526.6239890789151
+      },
+      "rainfed_eta_mm": {
+       "p10": 125.29559548186411,
+       "p50": 159.9386903396394,
+       "p90": 190.11958405848145
+      },
+      "rain_eff_mm": {
+       "p10": 78.6121735776186,
+       "p50": 125.08824763738033,
+       "p90": 170.35242500904172
+      },
+      "irr_need_full_m3_ha": {
+       "p10": 3089.5119346532206,
+       "p50": 3843.6336574526017,
+       "p90": 4505.863531574524
+      },
+      "season": {
+       "sow_doy": 57,
+       "harvest_doy": 204,
+       "days": 147
+      },
+      "model": "cumin",
+      "practice": "rainfed",
+      "irrigation_m3_ha_yr": {
+       "p10": 0.0,
+       "p50": 0.0,
+       "p90": 0.0
+      }
+     },
      "share_range": [
       0.2,
       0.3
-     ],
-     "options": [
-      {
-       "name": {
-        "tr": "Çemen",
-        "en": "Fenugreek"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Çörekotu",
-        "en": "Black cumin"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Karabuğday",
-        "en": "Buckwheat"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Karatay",
-        "Çumra",
-        "Meram"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kimyon",
-        "en": "Cumin"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Sarayönü",
-        "Karatay"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kişniş",
-        "en": "Coriander"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kekik",
-        "en": "Thyme"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Lavanta",
-        "en": "Lavender"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Güneysınır",
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": {
-        "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
-        "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
-       },
-       "sources": [
-        "ilt_aromatik",
-        "kbb_lavanta"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Tıbbi nane ve melisa",
-        "en": "Peppermint and lemon balm"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Meram",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Adaçayı",
-        "en": "Sage"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Meram",
-        "Selçuklu",
-        "Çumra"
-       ],
-       "note": {
-        "tr": "Küçük ölçekte",
-        "en": "Small scale"
-       },
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      }
      ]
     }
    ],
@@ -4654,8 +4556,8 @@
     "why": [
      {
       "text": {
-       "en": "About 75 % of the field stays on Chickpea → Potato → Winter wheat; about 25 % is set aside for a specialty crop documented in your zone.",
-       "tr": "Tarlanın yaklaşık %75'i Nohut → Patates → Kışlık buğday rotasyonunda kalıyor; %25'i bölgenizde belgelenmiş bir özel ürüne ayrılıyor."
+       "en": "About 75 % of the field stays on Chickpea → Potato → Winter wheat; about 25 % tries Cumin, a crop documented in your zone.",
+       "tr": "Tarlanın yaklaşık %75'i Nohut → Patates → Kışlık buğday rotasyonunda kalıyor; %25'inde bölgenizde belgelenmiş Kimyon deneniyor."
       },
       "facts": [
        "f15",
@@ -4670,6 +4572,15 @@
       "facts": [
        "f1",
        "f14"
+      ]
+     },
+     {
+      "text": {
+       "en": "Cumin uses about 486 mm of water over the season (ETc); in Konya it is grown rain-fed, where rain and soil water supply about 160 mm; full irrigation would need about 3,844 m³/ha more water. Income and yield effects were not computed.",
+       "tr": "Kimyon sezonda yaklaşık 486 mm su tüketir (ETc); Konya'da kuru tarımla yetiştirilir, yağış ve toprak suyu yaklaşık 160 mm karşılar; tam sulamada yaklaşık 3.844 m³/ha ek su gerekir. Gelir ve verim etkisi hesaplanmadı."
+      },
+      "facts": [
+       "f24"
       ]
      }
     ],
@@ -4775,10 +4686,24 @@
      },
      {
       "text": {
-       "en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
-       "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."
+       "en": "Only the water need of the specialty share is in the numbers (the card's water covers the whole field); its income, yield and frost or heat risk are not modelled: there is no verified price or crop parameter.",
+       "tr": "Özel ürün payından yalnızca su ihtiyacı sayılara girdi (kartın su değeri tüm tarlayı kapsar); gelir, verim ile don veya sıcak riski modellenmedi: doğrulanmış fiyat veya bitki parametresi yok."
       },
       "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "Income for the specialty share is not computed: there is no verified farm-gate price, and the yield shown is a Konya province mean, not a forecast for your field.",
+       "tr": "Özel ürün payının geliri hesaplanmadı: doğrulanmış çiftlik kapısı fiyatı yok ve gösterilen verim Konya il ortalamasıdır, tarlanız için tahmin değildir."
+      },
+      "check_with": "market"
+     },
+     {
+      "text": {
+       "en": "Specialty crops need a buyer or processor before sowing; a contract lowers the market risk. Investment and labour are not modelled.",
+       "tr": "Özel ürünlerde ekimden önce alıcı veya işleyici bulunmalı; sözleşme pazar riskini azaltır. Yatırım ve işçilik modellenmedi."
+      },
+      "check_with": "market"
      }
     ]
    }
@@ -4937,8 +4862,8 @@
        "tr": "Bu rotasyondaki her ürün (Kışlık buğday → Patates → Kışlık arpa → Nohut) bölgenizde resmî bir kaynakla belgelenmiş."
       },
       "facts": [
-       "f25",
-       "f24"
+       "f26",
+       "f25"
       ]
      },
      {
@@ -4947,9 +4872,9 @@
        "tr": "Mevcut su kullanımınızı ve erozyon düzeyinizi aşmayan seçenekler içinde hava ve verim riski en düşük olanı."
       },
       "facts": [
-       "f33",
-       "f29",
-       "f31"
+       "f34",
+       "f30",
+       "f32"
       ]
      }
     ],
@@ -4960,7 +4885,7 @@
        "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
       },
       "facts": [
-       "f24"
+       "f25"
       ]
      },
      {
@@ -4969,7 +4894,7 @@
        "tr": "Hektar başına ortanca geliri artırır."
       },
       "facts": [
-       "f25"
+       "f26"
       ]
      },
      {
@@ -4978,7 +4903,7 @@
        "tr": "Toprak erozyonunu azaltır."
       },
       "facts": [
-       "f27"
+       "f28"
       ]
      },
      {
@@ -4987,7 +4912,7 @@
        "tr": "Ürün ailelerini değiştirerek hastalık ve zararlı döngülerini daha iyi keser."
       },
       "facts": [
-       "f30"
+       "f31"
       ]
      }
     ],
@@ -5051,7 +4976,7 @@
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f31"
+       "f32"
       ],
       "check_with": "agronomist"
      },
@@ -5118,9 +5043,9 @@
      "p90": 513.3486066180453
     },
     "water_m3_ha_yr": {
-     "p10": 4370.374913033074,
-     "p50": 4828.525347595349,
-     "p90": 5133.486066180453
+     "p10": 3496.2999304264595,
+     "p50": 3862.820278076279,
+     "p90": 4106.788852944363
     },
     "yield_ratio": {
      "p10": 0.7837288458283435,
@@ -5145,9 +5070,9 @@
      "p90": 2181.0328471780435
     }
    },
-   "score": 50.0,
+   "score": 53.0,
    "score_breakdown": {
-    "water": 50.0,
+    "water": 60.0,
     "soil": 50.0,
     "income": 50.0,
     "erosion": 50.0,
@@ -5166,6 +5091,7 @@
     "tr": "Kışlık buğday → Şeker pancarı → Dane mısır"
    },
    "coverage": 0.8,
+   "water_coverage": 1.0,
    "trials": [
     {
      "crop": {
@@ -5179,31 +5105,24 @@
        "Karatay",
        "Sarayönü"
       ],
-      "note": null,
+      "note": {
+       "tr": "Resmî proje silajlık sorgum üzerine; motordaki dane sorgum parametreleri bu pilotu temsil etmez, sayı gösterilmez.",
+       "en": "The official project is on silage sorghum; the engine's grain-sorghum parameters do not represent it, so no numbers are shown."
+      },
       "sources": [
        "ilt_sorgum"
       ],
-      "engine_ids": [
-       "sorghum"
-      ],
-      "modeled": true,
-      "perennial": false
+      "engine_ids": [],
+      "modeled": false,
+      "perennial": false,
+      "documented_yield": null,
+      "water_model": null
      },
      "share_range": [
       0.05,
       0.1
      ],
-     "modeled": true,
-     "water_m3_ha_yr": {
-      "p10": 0.0,
-      "p50": 0.0,
-      "p90": 0.0
-     },
-     "income_usd_ha_yr": {
-      "p10": 509.5758373799314,
-      "p50": 581.8518983746958,
-      "p90": 676.0590894713364
-     }
+     "modeled": false
     }
    ],
    "parts": [
@@ -5221,199 +5140,66 @@
     {
      "share": 0.2,
      "kind": "specialty",
-     "crop": null,
+     "crop": {
+      "name": {
+       "tr": "Çemen",
+       "en": "Fenugreek"
+      },
+      "status": "verified",
+      "group": "special",
+      "districts": [
+       "Çumra",
+       "Selçuklu"
+      ],
+      "note": null,
+      "sources": [
+       "ilt_aromatik"
+      ],
+      "engine_ids": [],
+      "modeled": false,
+      "perennial": false,
+      "documented_yield": null,
+      "water_model": "fenugreek"
+     },
      "modeled": false,
+     "water_modeled": true,
+     "water": {
+      "etc_mm": {
+       "p10": 566.0146861112676,
+       "p50": 607.1875493550891,
+       "p90": 653.0629789605644
+      },
+      "rainfed_eta_mm": {
+       "p10": 193.5370331596833,
+       "p50": 229.21286542408058,
+       "p90": 282.12785510022877
+      },
+      "rain_eff_mm": {
+       "p10": 78.80322963740696,
+       "p50": 125.38747729682936,
+       "p90": 170.35242500904172
+      },
+      "irr_need_full_m3_ha": {
+       "p10": 3788.9205494277517,
+       "p50": 4921.893409447395,
+       "p90": 5424.911583296312
+      },
+      "season": {
+       "sow_doy": 57,
+       "harvest_doy": 214,
+       "days": 157
+      },
+      "model": "fenugreek",
+      "practice": "rainfed",
+      "irrigation_m3_ha_yr": {
+       "p10": 0.0,
+       "p50": 0.0,
+       "p90": 0.0
+      }
+     },
      "share_range": [
       0.1,
       0.3
-     ],
-     "options": [
-      {
-       "name": {
-        "tr": "Çemen",
-        "en": "Fenugreek"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Çörekotu",
-        "en": "Black cumin"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Karabuğday",
-        "en": "Buckwheat"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Karatay",
-        "Çumra",
-        "Meram"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kimyon",
-        "en": "Cumin"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Sarayönü",
-        "Karatay"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kişniş",
-        "en": "Coriander"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": false
-      },
-      {
-       "name": {
-        "tr": "Kekik",
-        "en": "Thyme"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Lavanta",
-        "en": "Lavender"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Güneysınır",
-        "Çumra",
-        "Meram",
-        "Sarayönü",
-        "Selçuklu"
-       ],
-       "note": {
-        "tr": "Güneysınır'da 1,3 milyon m² fide desteği ve çalışan damıtma tesisi",
-        "en": "1.3 million m² of seedling support and a working distillery in Güneysınır"
-       },
-       "sources": [
-        "ilt_aromatik",
-        "kbb_lavanta"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Tıbbi nane ve melisa",
-        "en": "Peppermint and lemon balm"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Meram",
-        "Selçuklu"
-       ],
-       "note": null,
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      },
-      {
-       "name": {
-        "tr": "Adaçayı",
-        "en": "Sage"
-       },
-       "status": "verified",
-       "group": "special",
-       "districts": [
-        "Meram",
-        "Selçuklu",
-        "Çumra"
-       ],
-       "note": {
-        "tr": "Küçük ölçekte",
-        "en": "Small scale"
-       },
-       "sources": [
-        "ilt_aromatik"
-       ],
-       "engine_ids": [],
-       "modeled": false,
-       "perennial": true
-      }
      ]
     }
    ],
@@ -5438,11 +5224,12 @@
     "why": [
      {
       "text": {
-       "en": "About 80 % of the field stays on Winter wheat → Sugar beet → Grain maize; about 20 % is set aside for a specialty crop documented in your zone.",
-       "tr": "Tarlanın yaklaşık %80'i Kışlık buğday → Şeker pancarı → Dane mısır rotasyonunda kalıyor; %20'i bölgenizde belgelenmiş bir özel ürüne ayrılıyor."
+       "en": "About 80 % of the field stays on Winter wheat → Sugar beet → Grain maize; about 20 % tries Fenugreek, a crop documented in your zone.",
+       "tr": "Tarlanın yaklaşık %80'i Kışlık buğday → Şeker pancarı → Dane mısır rotasyonunda kalıyor; %20'inde bölgenizde belgelenmiş Çemen deneniyor."
       },
       "facts": [
-       "f34"
+       "f36",
+       "f35"
       ]
      },
      {
@@ -5451,11 +5238,31 @@
        "tr": "Bölgenizde kıt olan girdi su; bu yüzden planın hiçbir parçası bugünkünden fazla sulama suyu kullanamaz."
       },
       "facts": [
-       "f1"
+       "f1",
+       "f35"
+      ]
+     },
+     {
+      "text": {
+       "en": "Fenugreek uses about 607 mm of water over the season (ETc); in Konya it is grown rain-fed, where rain and soil water supply about 229 mm; full irrigation would need about 4,922 m³/ha more water. Income and yield effects were not computed.",
+       "tr": "Çemen sezonda yaklaşık 607 mm su tüketir (ETc); Konya'da kuru tarımla yetiştirilir, yağış ve toprak suyu yaklaşık 229 mm karşılar; tam sulamada yaklaşık 4.922 m³/ha ek su gerekir. Gelir ve verim etkisi hesaplanmadı."
+      },
+      "facts": [
+       "f45"
       ]
      }
     ],
-    "benefits": [],
+    "benefits": [
+     {
+      "text": {
+       "en": "Saves irrigation water compared with your current rotation.",
+       "tr": "Mevcut rotasyonunuza göre sulama suyundan tasarruf sağlar."
+      },
+      "facts": [
+       "f35"
+      ]
+     }
+    ],
     "gaps": [
      {
       "text": {
@@ -5495,7 +5302,7 @@
        "tr": "En az bir ürün için yılların kayda değer bir bölümünde sıcak zararı olası; erken ekim veya sıcağa dayanıklı çeşitleri değerlendirin."
       },
       "facts": [
-       "f40"
+       "f42"
       ],
       "check_with": "agronomist"
      },
@@ -5508,10 +5315,17 @@
      },
      {
       "text": {
-       "en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
-       "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."
+       "en": "Only the water need of the specialty share is in the numbers (the card's water covers the whole field); its income, yield and frost or heat risk are not modelled: there is no verified price or crop parameter.",
+       "tr": "Özel ürün payından yalnızca su ihtiyacı sayılara girdi (kartın su değeri tüm tarlayı kapsar); gelir, verim ile don veya sıcak riski modellenmedi: doğrulanmış fiyat veya bitki parametresi yok."
       },
       "check_with": "extension_service"
+     },
+     {
+      "text": {
+       "en": "Specialty crops need a buyer or processor before sowing; a contract lowers the market risk. Investment and labour are not modelled.",
+       "tr": "Özel ürünlerde ekimden önce alıcı veya işleyici bulunmalı; sözleşme pazar riskini azaltır. Yatırım ve işçilik modellenmedi."
+      },
+      "check_with": "market"
      },
      {
       "text": {
@@ -5665,10 +5479,10 @@
   {
    "id": "f14",
    "text": {
-    "en": "Irrigation water use is 1,786 m³/ha per year versus 4,829 in the current rotation (3,042 m³/ha less).",
-    "tr": "Sulama suyu kullanımı yılda 1.786 m³/ha; mevcut rotasyonda 4.829 (3.042 m³/ha daha az)."
+    "en": "Irrigation water use is 1,340 m³/ha per year versus 4,829 in the current rotation (3,489 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 1.340 m³/ha; mevcut rotasyonda 4.829 (3.489 m³/ha daha az)."
    },
-   "value": -3042.031,
+   "value": -3488.655,
    "unit": "m3/ha/yr",
    "source_id": "fao56"
   },
@@ -5765,6 +5579,16 @@
   {
    "id": "f24",
    "text": {
+    "en": "Cumin uses about 486 mm of water over the season (ETc); in Konya it is grown rain-fed, where rain and soil water supply about 160 mm; full irrigation would need about 3,844 m³/ha more water. Income and yield effects were not computed.",
+    "tr": "Kimyon sezonda yaklaşık 486 mm su tüketir (ETc); Konya'da kuru tarımla yetiştirilir, yağış ve toprak suyu yaklaşık 160 mm karşılar; tam sulamada yaklaşık 3.844 m³/ha ek su gerekir. Gelir ve verim etkisi hesaplanmadı."
+   },
+   "value": 486.0,
+   "unit": "mm",
+   "source_id": "pereira2024_kc"
+  },
+  {
+   "id": "f25",
+   "text": {
     "en": "Irrigation water use is 2,005 m³/ha per year versus 4,829 in the current rotation (2,823 m³/ha less).",
     "tr": "Sulama suyu kullanımı yılda 2.005 m³/ha; mevcut rotasyonda 4.829 (2.823 m³/ha daha az)."
    },
@@ -5773,7 +5597,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f25",
+   "id": "f26",
    "text": {
     "en": "Median gross margin is 2,616 USD/ha per year versus 1,978 now (637 USD/ha higher).",
     "tr": "Ortanca brüt kâr yılda 2.616 USD/ha; şimdiki rotasyonda 1.978 (637 USD/ha yüksek)."
@@ -5783,7 +5607,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f26",
+   "id": "f27",
    "text": {
     "en": "Nitrogen left for the next crop is 6 kg/ha per year versus 0 now.",
     "tr": "Sonraki ürüne kalan azot yılda 6 kg/ha; şimdi 0."
@@ -5793,7 +5617,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f27",
+   "id": "f28",
    "text": {
     "en": "Modelled erosion is 86% of the current rotation's level.",
     "tr": "Hesaplanan erozyon, mevcut rotasyonun %86 düzeyinde."
@@ -5803,7 +5627,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f28",
+   "id": "f29",
    "text": {
     "en": "The soil is covered by crop canopy 165 days per year versus 161 now.",
     "tr": "Toprak yılda 165 gün bitki örtüsüyle kaplı; şimdi 161 gün."
@@ -5813,7 +5637,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f29",
+   "id": "f30",
    "text": {
     "en": "Water-stress days are 77 per year versus 44 now.",
     "tr": "Su stresi günleri yılda 77; şimdi 44."
@@ -5823,7 +5647,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f30",
+   "id": "f31",
    "text": {
     "en": "The disease and pest break index is 0.80 versus 0.67 now.",
     "tr": "Hastalık-zararlı kırma endeksi 0,80; şimdi 0,67."
@@ -5833,7 +5657,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f31",
+   "id": "f32",
    "text": {
     "en": "In 27% of simulated years a crop in this rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %27 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
@@ -5843,7 +5667,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f32",
+   "id": "f33",
    "text": {
     "en": "In 2% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %2 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5853,7 +5677,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f33",
+   "id": "f34",
    "text": {
     "en": "Median relative yield is 72% of potential versus 83% now.",
     "tr": "Ortanca bağıl verim potansiyelin %72'i; şimdi %83."
@@ -5863,7 +5687,17 @@
    "source_id": "fao56"
   },
   {
-   "id": "f34",
+   "id": "f35",
+   "text": {
+    "en": "Irrigation water use is 3,863 m³/ha per year versus 4,829 in the current rotation (966 m³/ha less).",
+    "tr": "Sulama suyu kullanımı yılda 3.863 m³/ha; mevcut rotasyonda 4.829 (966 m³/ha daha az)."
+   },
+   "value": -965.705,
+   "unit": "m3/ha/yr",
+   "source_id": "fao56"
+  },
+  {
+   "id": "f36",
    "text": {
     "en": "Median gross margin is 1,978 USD/ha per year versus 1,978 now (0 USD/ha higher).",
     "tr": "Ortanca brüt kâr yılda 1.978 USD/ha; şimdiki rotasyonda 1.978 (0 USD/ha yüksek)."
@@ -5873,7 +5707,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f35",
+   "id": "f37",
    "text": {
     "en": "Nitrogen left for the next crop is 0 kg/ha per year versus 0 now.",
     "tr": "Sonraki ürüne kalan azot yılda 0 kg/ha; şimdi 0."
@@ -5883,7 +5717,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f36",
+   "id": "f38",
    "text": {
     "en": "Modelled erosion is 100% of the current rotation's level.",
     "tr": "Hesaplanan erozyon, mevcut rotasyonun %100 düzeyinde."
@@ -5893,7 +5727,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f37",
+   "id": "f39",
    "text": {
     "en": "The soil is covered by crop canopy 161 days per year versus 161 now.",
     "tr": "Toprak yılda 161 gün bitki örtüsüyle kaplı; şimdi 161 gün."
@@ -5903,7 +5737,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f38",
+   "id": "f40",
    "text": {
     "en": "Water-stress days are 44 per year versus 44 now.",
     "tr": "Su stresi günleri yılda 44; şimdi 44."
@@ -5913,7 +5747,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f39",
+   "id": "f41",
    "text": {
     "en": "The disease and pest break index is 0.67 versus 0.67 now.",
     "tr": "Hastalık-zararlı kırma endeksi 0,67; şimdi 0,67."
@@ -5923,7 +5757,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f40",
+   "id": "f42",
    "text": {
     "en": "In 56% of simulated years a crop in this rotation suffers heat damage.",
     "tr": "Simüle edilen yılların %56 kadarında bu rotasyondaki bir ürün sıcak zararı görüyor."
@@ -5933,7 +5767,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f41",
+   "id": "f43",
    "text": {
     "en": "In 0% of simulated years a crop in this rotation suffers frost damage.",
     "tr": "Simüle edilen yılların %0 kadarında bu rotasyondaki bir ürün don zararı görüyor."
@@ -5943,7 +5777,7 @@
    "source_id": "fao56"
   },
   {
-   "id": "f42",
+   "id": "f44",
    "text": {
     "en": "Median relative yield is 83% of potential versus 83% now.",
     "tr": "Ortanca bağıl verim potansiyelin %83'i; şimdi %83."
@@ -5951,6 +5785,16 @@
    "value": 0.0,
    "unit": "ratio",
    "source_id": "fao56"
+  },
+  {
+   "id": "f45",
+   "text": {
+    "en": "Fenugreek uses about 607 mm of water over the season (ETc); in Konya it is grown rain-fed, where rain and soil water supply about 229 mm; full irrigation would need about 4,922 m³/ha more water. Income and yield effects were not computed.",
+    "tr": "Çemen sezonda yaklaşık 607 mm su tüketir (ETc); Konya'da kuru tarımla yetiştirilir, yağış ve toprak suyu yaklaşık 229 mm karşılar; tam sulamada yaklaşık 4.922 m³/ha ek su gerekir. Gelir ve verim etkisi hesaplanmadı."
+   },
+   "value": 607.0,
+   "unit": "mm",
+   "source_id": "pereira2024_kc"
   }
  ],
  "disclaimer": {

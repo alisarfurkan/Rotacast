@@ -161,13 +161,43 @@ archetypes above (`engine/cards.py`). The basin view (§9) keeps the archetypes,
   rotation if none passes) + 25 % on a `verified` specialty crop of the zone (shown range 20–30 %).
 - **Innovative crop opportunity:** 80 % current rotation + 20 % specialty crop (range 10–30 %), preferring a
   different crop than the balanced card. Official `pilot` crops are listed as **trial rows (5–10 %)** with their own
-  modelled water and income when the engine has the crop (e.g. sorghum); they never enter the card's numbers.
+  modelled water and income when the engine has the crop (none today: the sorghum pilots are unmapped, see §10.1); they never enter the card's numbers.
 - **Split fields.** Card indicators are the area-weighted blend of the parts, percentile by percentile (an
   approximation). The specialty share is simulated as the same crop every year on its block.
 - **No invention.** A specialty crop without sourced engine parameters is listed with its evidence and marked
   "not in the numbers yet"; the card's numbers then cover only the modelled share (`coverage`). When no card can be
   built the report says why (`cards.notes`) instead of filling it.
 - Not modelled: investment, labour, buyer/processing, time to first harvest for perennials.
+
+### 7.2 Water-only specialty crops (cumin, fenugreek)
+
+For two specialty crops only the **water need** is modelled (`engine/specialty_water.py`, parameters in
+`knowledge/specialty_water.yaml`, a source comment on every number). Income, yield ratio and frost/heat risk are
+**not** computed: there is no verified farm-gate price, no Ky and no temperature threshold for them.
+
+- **Engine.** The same FAO-56 daily balance (`waterbalance._season_core`: ET0, Ks, soil TAW of the field, root growth,
+  curve-number effective rain) runs for every weather year with a **fixed calendar** (no GDD scaling): sowing 26 Feb
+  (DOY 57), harvest 23 Jul for cumin (DOY 204) and 2 Aug for fenugreek (DOY 214). Calendar: Central Anatolia
+  rain-fed trials 2013, Ankara-Gölbaşı 1125 m, best yield at the earliest sowing (Uğur & Kan 2016, Selçuk Tarım
+  Bilimleri Dergisi 3(2):205-209; same journal 3(2):210-214 for fenugreek). Soil water at sowing comes from the bare-soil
+  balance since 1 October.
+- **Parameters.** Kc ini/mid/end 0.40/1.00/0.60 (cumin) and 0.60/1.00/0.75 (fenugreek), root depth 0.10–0.40 m and
+  0.30–0.80 m, p 0.40 for both: Pereira, Mota, Raziei & Paredes 2024, Irrigation Science 42(6), Tables 7 and 8.
+  Cumin stage lengths 24/40/31/19 days (Reyhani & Khashei Siuki 2015 lysimeter) scaled to the season; fenugreek has
+  no stage source, so FAO-56 Table 11 lentil proportions 20/30/60/40 are used and marked approximate.
+- **Outputs** (p10/p50/p90 across years): `etc_mm` (unstressed need, Σ Kc·ET0), `rainfed_eta_mm` (water met by rain
+  and stored soil water), `irr_need_full_m3_ha` (net irrigation of a full-irrigation run; 1 mm = 10 m³/ha) and the
+  rain-fed irrigation water of the documented practice (0).
+- **On the cards.** When no fully modelled specialty fits, a specialty with a water model is picked by name (cumin,
+  which has a documented yield, before fenugreek; the innovative card avoids the balanced card's crop). The card's
+  `water_m3_ha_yr` is the area blend of the field part and 0 for the rain-fed specialty, so it covers the **whole
+  field** (`water_coverage` 1.0); every other indicator and the score inputs stay those of the field part
+  (`coverage` = 1 − share). The part is marked `modeled: false`, `water_modeled: true` with its `water` bands. Hard
+  limits apply to the blended water.
+- **Limits.** Rain-fed ETa is limited by the shallow root zone (no capillary rise, roots to 0.4 m), so the rain-fed
+  water use is a lower bound of what the crop gets in deeper soils; the stage lengths of fenugreek are approximate;
+  the calendar is one Central Anatolian site applied to every Konya zone. Coriander, black cumin and fennel (no local
+  calendar) and anise (no Kc) remain unmodelled.
 
 ## 8. Uncertainty bands
 
@@ -258,6 +288,11 @@ Zone-level notes carry these warnings with their source.
 TÜİK data: "verified" means the crop is documented in the area, not that 2026 area or profit is known. A crop may
 enter a strategy card only after this chain: zone evidence → field climate → water budget → soil/salinity →
 market/processing. Today the list is shown in the zone card only; the rotation engine does not yet filter by it.
+A specialty crop may carry a `documented_yield` (`kg_da`, `year`, `basis`, `source`, bilingual `note`): an official
+province mean (today only cumin 50 and anise 72 kg/da, TÜİK 2024 via the İl Tarım "2026 Konya Tarımı" book, Table 6).
+It is shown as documentation only: it is not a forecast for the user's field and no income is computed from it
+because there is no verified farm-gate price. Sorghum pilots carry no `engine` mapping: the official project is on
+silage sorghum while the engine's `sorghum` is grain sorghum, so the trial row is "not modelled" and shows no numbers.
 Each crop's `engine` field maps it to the engine crop ids where one exists (e.g. wheat → `wheat_winter`).
 
 ## 11. Limitations

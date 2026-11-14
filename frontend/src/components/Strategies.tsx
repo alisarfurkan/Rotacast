@@ -188,7 +188,7 @@ function Parts({ s, accent }: { s: Strategy; accent: string }) {
       <div className="flex h-3 rounded-full overflow-hidden border border-line">
         {parts.map((p, k) => (
           <div key={k} style={{ width: p.share * 100 + '%', background: p.kind === 'rotation' ? accent : 'var(--leaf)',
-            opacity: p.modeled ? 1 : 0.35 }} />
+            opacity: p.modeled || p.water_modeled ? 1 : 0.35 }} />
         ))}
       </div>
       <ul className="mt-1.5 grid gap-1 text-[11.5px]">
@@ -198,6 +198,14 @@ function Parts({ s, accent }: { s: Strategy; accent: string }) {
             {p.kind === 'rotation'
               ? <>{t(p.role === 'current_rotation' ? 'partCurrent' : 'partVerified')}{p.rotation_name && <span className="text-muted"> · {pick(p.rotation_name, lang)}</span>}</>
               : <>{t('partSpecialty')}: {p.crop ? <b>{pick(p.crop.name, lang)}</b> : <span className="italic text-muted">{t('partNotModeled')}</span>}
+                {p.water && (
+                  <div className="text-muted">
+                    <div>{t('specWaterNeed', { etc: fmt(p.water.etc_mm.p50, 0, lang) })}</div>
+                    <div>{t('specWaterRainfed', { eta: fmt(p.water.rainfed_eta_mm.p50, 0, lang) })}</div>
+                    <div>{t('specWaterFull', { irr: fmt(p.water.irr_need_full_m3_ha.p50, 0, lang) })}</div>
+                    <div className="text-[10.5px] italic">{t('specWaterNoIncome')}</div>
+                  </div>
+                )}
                 {!p.crop && p.options && ([false, true] as const).map((per) => {
                   const list = p.options!.filter((o) => !!o.perennial === per)
                   return list.length > 0 && (
@@ -205,12 +213,25 @@ function Parts({ s, accent }: { s: Strategy; accent: string }) {
                       {t(per ? 'partOptionsPerennial' : 'partOptionsAnnual', { list: list.map((o) => pick(o.name, lang)).join(', ') })}
                     </div>
                   )
-                })}</>}
+                })}
+                {(() => {
+                  const ys = [p.crop, ...(p.options ?? [])].filter((c): c is NonNullable<typeof c> => !!c?.documented_yield)
+                  return ys.length > 0 && (
+                    <div className="text-muted">
+                      {ys.map((c) => (
+                        <div key={c.name.en} title={pick(c.documented_yield!.note, lang)}>
+                          {pick(c.name, lang)}: {t('docYield', { y: fmt(c.documented_yield!.kg_da, 0, lang), yr: String(c.documented_yield!.year) })}
+                        </div>
+                      ))}
+                      <div className="text-[10.5px] italic">{t('docYieldNoIncome')}</div>
+                    </div>
+                  )
+                })()}</>}
           </li>
         ))}
       </ul>
       {s.coverage !== undefined && s.coverage < 0.999 && (
-        <p className="mt-1.5 text-[11px] rounded-lg bg-surface2 px-2 py-1">ⓘ {t('coverageNote', { p: pct(s.coverage) })}</p>
+        <p className="mt-1.5 text-[11px] rounded-lg bg-surface2 px-2 py-1">ⓘ {t(s.water_coverage ? 'coverageNoteWater' : 'coverageNote', { p: pct(s.coverage) })}</p>
       )}
     </div>
   )

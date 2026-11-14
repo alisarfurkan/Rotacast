@@ -74,6 +74,11 @@ function Crops({ c }: { c: ZoneCrops }) {
                     )}
                     {x.sources.map((s) => <sup key={s} className="text-muted">[{num(s)}]</sup>)}
                   </div>
+                  {x.documented_yield && (
+                    <div className="text-xs text-muted mt-0.5" title={pick(x.documented_yield.note, lang)}>
+                      {t('docYieldZone', { y: fmt(x.documented_yield.kg_da, 0, lang), yr: String(x.documented_yield.year) })}
+                    </div>
+                  )}
                   {(x.districts?.length || x.note) && (
                     <div className="text-xs text-muted mt-0.5">
                       {x.districts?.join(', ')}{x.districts?.length && x.note ? ' · ' : ''}{x.note && pick(x.note, lang)}

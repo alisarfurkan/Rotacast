@@ -22,14 +22,16 @@ Tablolar makale sayfasından okundu (2026-11-14), değerler tablodaki gibi:
 | Ürün | Tablo | Kc ini / mid / end | Kök derinliği (m) | p | Not |
 |---|---|---|---|---|---|
 | Kişniş | T7 standart | 0.60 / 1.10 / 1.05 | 0.30–0.50 (T8) | 0.30 | T4 gözlem (Silva 2013): 0.82 / 1.07 / 0.93 |
-| Çemen | T7 standart | 0.60 / 1.00 / 0.75 | 0.30–0.80 (T8) | 0.40 | |
-| Kimyon | T6 gözlem | 0.65 / 1.21 / 0.85 | – | – | Reyhani & Siuki 2015, Birjand, karasal kurak, drenajlı lizimetre |
-| Çörekotu | T6 gözlem | 0.59 / 1.29 / 0.78 | – | – | Ghamarnia vd. 2014, Kermanshah, yarı kurak |
-| Karabuğday | T6 gözlem | 0.58 / 1.10 / 0.74 | – | – | Yan vd. 2015, Japonya, nemli |
-| Rezene | T6 gözlem | 0.35 / 1.15 / 0.45 | – | – | Mohammed vd. 2020, Mısır, kurak |
+| Çemen | T7 standart | 0.60 / 1.00 / 0.75 | 0.30–0.80 (T8) | 0.40 | T4 gözlem (Abd-Elghany 2017): 0.68 / 1.06 / 0.78 |
+| Kimyon | T7 standart | 0.40 / 1.00 / 0.60 | 0.10–0.40 (T8) | 0.40 | T6 gözlem (Reyhani & Siuki 2015, Birjand): 0.65 / 1.21 / 0.85 |
+| Çörekotu | T7 standart | 0.50 / 1.05 / 0.50 | 0.50–0.80 (T8) | 0.30 | T6 gözlem (Ghamarnia vd. 2014, Kermanshah): 0.59 / 1.29 / 0.78 |
+| Rezene | T7 standart | 0.35 / 1.00 / 0.40 | 0.40–0.80 (T8) | 0.40 | T6 gözlem (Mohammed vd. 2020, Mısır): 0.35 / 1.15 / 0.45 |
+| Karabuğday | T6 gözlem | 0.58 / 1.10 / 0.74 | – | – | Yan vd. 2015, Japonya, nemli; T7'de yok |
 | Anason | yok | | | | Makalede yer almıyor |
 
-Standart (T7) değer yalnız kişniş ve çemen için var; diğerleri tek çalışmalık gözlem. Evre süreleri bu tablolarda yok.
+Düzeltme (2026-11-14, tablolar `/tables/1-8` sayfalarından yeniden okundu): T7 standart değer beş ürün için var
+(kişniş, çemen, kimyon, rezene, çörekotu); T8 kök derinliği ve p de beşi için var. Önceki sürüm yalnız kişniş/çemen
+diyordu, yanlıştı. Evre süreleri makalede yok; makale yerel gözlenen evre sürelerinin kullanılmasını şart koşuyor.
 
 ## Konya verimi (TÜİK 2024, "2026 Konya Tarımı", İl Tarım ve Orman Müdürlüğü, Tablo 6, s. 17)
 https://konya.tarimorman.gov.tr/Belgeler/kitap/%C4%B0l_Tar%C4%B1m_ve_Orman_Ocak_26_4DonemV2.pdf
@@ -57,3 +59,17 @@ verim (Ym) bekliyor; il ortalaması bunun yerine konamaz, yalnız `rainfed` kali
 3. İTB veya Konya TB bülteninden 2024–2025 fiyat → gelir.
 4. ECOCROP → don/sıcak eşikleri.
 Dördü de olan ürün `crops.yaml`'a girer; kartlarda "hesapta yok" uyarısı kendiliğinden kalkar.
+
+## Takvim ve su modeli (kimyon, çemen), 2026-11-14
+
+Yalnız su ihtiyacı modellenir (`backend/rotacast/knowledge/specialty_water.yaml`, METHODS §7.2); gelir, verim oranı, don/sıcak riski hesaplanmaz.
+
+| Ürün | Ekim | Hasat | Kaynak |
+|---|---|---|---|
+| Kimyon | 26 Şub (DOY 57) | 23 Tem (DOY 204) | Uğur & Kan 2016, Selçuk Tarım Bilimleri Dergisi 3(2):205-209, https://dergipark.org.tr/en/download/article-file/3082658 |
+| Çemen | 26 Şub (DOY 57) | 2 Ağu (DOY 214) | Selçuk Tarım Bilimleri Dergisi 3(2):210-214, 2016, https://dergipark.org.tr/en/download/article-file/3082673 |
+
+- İki çalışma da İç Anadolu'da (Ankara-Gölbaşı, 1125 m) 2013'te **kuru tarımla** yürütülmüş; en yüksek verim en erken ekimde (26 Şub). Takvim sabittir, GDD ölçeklemesi yok.
+- Kc (T7 standart), kök derinliği (T8 aralığın alt/üst sınırı) ve p: Pereira, Mota, Raziei, Paredes 2024, Irrig Sci 42(6), doi 10.1007/s00271-024-00960-4. Kimyon 0.40/1.00/0.60, 0.10–0.40 m, p 0.40; çemen 0.60/1.00/0.75, 0.30–0.80 m, p 0.40.
+- Evre oranları: kimyon 24/40/31/19 gün (Reyhani & Khashei Siuki 2015 lizimetre, doi 10.22067/jsw.v29i5.24171), sezona ölçeklenir. Çemen için evre kaynağı bulunamadı: FAO-56 T11 mercimek oranları 20/30/60/40 kullanıldı (yaklaşık; bahar baklagili).
+- Modellenmeyenler: kişniş, çörekotu, rezene (yerel takvim yok); anason (Kc yok). Gelir için doğrulanmış çiftlik kapısı fiyatı hâlâ yok.

@@ -89,7 +89,9 @@ export interface Evidence {
   gaps: { text: I18nText }[]
   risks: { text: I18nText; check_with?: string }[]
 }
+export interface DocumentedYield { kg_da: number; year: number; basis: string; source: string; note: I18nText }
 export interface CardCrop {
+  documented_yield?: DocumentedYield | null
   name: I18nText; status: 'verified' | 'pilot'; group: string; districts: string[]; note?: I18nText | null
   sources: string[]; engine_ids: string[]; modeled: boolean; perennial?: boolean
 }
@@ -97,6 +99,12 @@ export interface StrategyPart {
   share: number; kind: 'rotation' | 'specialty'; modeled: boolean
   role?: 'verified_rotation' | 'current_rotation'; rotation_id?: string; rotation_name?: I18nText
   crop?: CardCrop | null; options?: CardCrop[]; share_range?: [number, number]
+  /** water-only specialty: only its water need is modelled (modeled stays false) */
+  water_modeled?: boolean; water?: SpecialtyWater
+}
+export interface SpecialtyWater {
+  model: string; practice: string; etc_mm: Band; rainfed_eta_mm: Band; rain_eff_mm: Band; irr_need_full_m3_ha: Band
+  irrigation_m3_ha_yr: Band; season: { sow_doy: number; harvest_doy: number; days: number }
 }
 export interface Trial { crop: CardCrop; share_range: [number, number]; modeled: boolean; water_m3_ha_yr?: Band; income_usd_ha_yr?: Band }
 export interface CardsInfo {
@@ -109,6 +117,7 @@ export interface Strategy {
   name: I18nText
   parts?: StrategyPart[]
   coverage?: number
+  water_coverage?: number
   trials?: Trial[]
   cycle_years: number
   calendar: CalendarEntry[]
@@ -139,7 +148,7 @@ export interface ZoneInfo {
 }
 export interface ZoneCrop {
   name: I18nText; status: 'verified' | 'pilot'; group: 'field' | 'special' | 'protected' | 'method' | 'tech'
-  caution?: boolean; districts?: string[]; note?: I18nText; sources: string[]; engine?: string[]
+  caution?: boolean; districts?: string[]; note?: I18nText; sources: string[]; engine?: string[]; documented_yield?: DocumentedYield | null
 }
 export interface ZoneCrops {
   version: string; caveat: I18nText; groups: Record<string, I18nText>; crops: ZoneCrop[]

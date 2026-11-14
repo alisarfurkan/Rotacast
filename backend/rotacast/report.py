@@ -15,6 +15,7 @@ from .connectors import modis, power, precip, soil as soil_mod, terrain as terra
 from .engine.climate import add_et0, climate_profile
 from .engine.phenology import analyze_ndvi
 from .engine.cards import pick_cards, zone_policy
+from .engine.specialty_water import simulate_specialty_water, water_models
 from .engine.rotations import Rotation, RotationStep, generate_candidates, pick_strategies, simulate_rotation
 from .engine.scoring import DEFAULT_PRIORITIES, score
 from .knowledge.crops import load_crops
@@ -45,6 +46,18 @@ SOURCES = {
                      "url": "https://soilgrids.org/"},
     "srtm_terrain_tiles": {"name": "SRTM terrain tiles", "detail": "AWS Open Data terrain tiles, SRTM-derived",
                            "url": "https://registry.opendata.aws/terrain-tiles/"},
+    "pereira2024_kc": {"name": "Pereira, Mota, Raziei, Paredes (2024), Irrigation Science 42(6)",
+                       "detail": "Crop coefficients, root depth and depletion fraction of cumin and fenugreek (Tables 7 and 8)",
+                       "url": "https://doi.org/10.1007/s00271-024-00960-4"},
+    "ugur_kan2016_kimyon": {"name": "Uğur & Kan (2016), Selçuk Tarım Bilimleri Dergisi 3(2):205-209",
+                            "detail": "Rain-fed cumin sowing and harvest dates, Central Anatolia (Ankara-Gölbaşı)",
+                            "url": "https://dergipark.org.tr/en/download/article-file/3082658"},
+    "cemen_ankara2016": {"name": "Selçuk Tarım Bilimleri Dergisi 3(2):210-214 (2016)",
+                         "detail": "Rain-fed fenugreek sowing and harvest dates, Central Anatolia (Ankara-Gölbaşı)",
+                         "url": "https://dergipark.org.tr/en/download/article-file/3082673"},
+    "reyhani2015_kimyon": {"name": "Reyhani & Khashei Siuki (2015), Water and Soil 29(5):1047-1056",
+                           "detail": "Lysimeter growth-stage lengths of cumin",
+                           "url": "https://doi.org/10.22067/jsw.v29i5.24171"},
 }
 
 DISCLAIMER = {
@@ -498,10 +511,18 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
                                "tr": "Sulu yıllar güvenilir bir su kaynağı ve izin gerektirir; bu sezonlar için su payınızı doğrulayın."},
                       "check_with": "extension_service"})
     for p in st.get("parts", []):
-        if p["kind"] == "specialty" and not p.get("modeled"):
+        if p["kind"] == "specialty" and p.get("water_modeled"):
+            risks.append({"text": {"en": "Only the water need of the specialty share is in the numbers (the card's water covers the whole field); its income, yield and frost or heat risk are not modelled: there is no verified price or crop parameter.",
+                                   "tr": "Özel ürün payından yalnızca su ihtiyacı sayılara girdi (kartın su değeri tüm tarlayı kapsar); gelir, verim ile don veya sıcak riski modellenmedi: doğrulanmış fiyat veya bitki parametresi yok."},
+                          "check_with": "extension_service"})
+        elif p["kind"] == "specialty" and not p.get("modeled"):
             risks.append({"text": {"en": "The specialty share is not in the numbers yet: the model has no sourced water and yield parameters for these crops.",
                                    "tr": "Özel ürün payı henüz sayılarda yok: modelde bu ürünler için kaynaklı su ve verim parametresi bulunmuyor."},
                           "check_with": "extension_service"})
+        if p["kind"] == "specialty" and any(c and c.get("documented_yield") for c in [p.get("crop"), *(p.get("options") or [])]):
+            risks.append({"text": {"en": "Income for the specialty share is not computed: there is no verified farm-gate price, and the yield shown is a Konya province mean, not a forecast for your field.",
+                                   "tr": "Özel ürün payının geliri hesaplanmadı: doğrulanmış çiftlik kapısı fiyatı yok ve gösterilen verim Konya il ortalamasıdır, tarlanız için tahmin değildir."},
+                          "check_with": "market"})
         if p["kind"] == "specialty" and p.get("crop"):
             risks.append({"text": {"en": "Specialty crops need a buyer or processor before sowing; a contract lowers the market risk. Investment and labour are not modelled.",
                                    "tr": "Özel ürünlerde ekimden önce alıcı veya işleyici bulunmalı; sözleşme pazar riskini azaltır. Yatırım ve işçilik modellenmedi."},
@@ -546,6 +567,35 @@ def _simulate_single(policy, crops, constraints, wx, soil, last_year, base_idx) 
         out[cid] = simulate_rotation(rot, wx, soil, crops, _start_years(WEATHER_START_YEAR, last_year, 1),
                                      baseline_erosion_index=base_idx)
     return out
+
+
+def _simulate_water(policy, wx, soil, last_year) -> dict:
+    """Water-only bands of the specialty crops of this zone that have a water model (cumin, fenugreek)."""
+    models = water_models()
+    out = {}
+    for rec in policy["special"]:
+        mid = rec.get("water_model")
+        if mid in models and mid not in out:
+            try:
+                out[mid] = simulate_specialty_water(models[mid], wx, soil, _start_years(WEATHER_START_YEAR, last_year, 1))
+            except Exception:  # no covered season: the specialty then stays unmodelled
+                continue
+    return out
+
+
+def _water_fact(F: Facts, p: dict) -> str:
+    """Fact of the water-only specialty part: season water need and what full irrigation would add."""
+    w, c = p["water"], p["crop"]
+    etc, eta, irr = w["etc_mm"]["p50"], w["rainfed_eta_mm"]["p50"], w["irr_need_full_m3_ha"]["p50"]
+    n_en, n_tr = c["name"]["en"], c["name"]["tr"]
+    return F.add(
+        f"specialty_water:{w['model']}",
+        f"{n_en} uses about {_num(etc, 0, 'en')} mm of water over the season (ETc); in Konya it is grown rain-fed, where rain and "
+        f"soil water supply about {_num(eta, 0, 'en')} mm; full irrigation would need about {_num(irr, 0, 'en')} m³/ha more water. "
+        f"Income and yield effects were not computed.",
+        f"{n_tr} sezonda yaklaşık {_num(etc, 0, 'tr')} mm su tüketir (ETc); Konya'da kuru tarımla yetiştirilir, yağış ve toprak "
+        f"suyu yaklaşık {_num(eta, 0, 'tr')} mm karşılar; tam sulamada yaklaşık {_num(irr, 0, 'tr')} m³/ha ek su gerekir. "
+        f"Gelir ve verim etkisi hesaplanmadı.", round(etc, 0), "mm", "pereira2024_kc")
 
 
 def build_field_report(req: dict | None = None) -> dict:
@@ -608,7 +658,8 @@ def build_field_report(req: dict | None = None) -> dict:
     card_info = None
     if policy:
         extra = _simulate_single(policy, crops, r["constraints"], wx_sim, sp, last_year, base_idx)
-        picked, notes = pick_cards(results, r["priorities"], policy, extra, extra)
+        picked, notes = pick_cards(results, r["priorities"], policy, extra, extra,
+                                   _simulate_water(policy, wx_sim, sp, last_year))
         card_info = {"zone": zone["key"], "notes": notes, "allowed_crops": policy["allowed"],
                      "caution_crops": policy["caution"],
                      "limits": {"water_m3_ha_yr_max": base["indicators"]["water_m3_ha_yr"]["p50"],
@@ -626,9 +677,16 @@ def build_field_report(req: dict | None = None) -> dict:
     ordered = picked if policy else [picked[0]] + [s for a in ARCH_ORDER for s in picked[1:] if s["archetype"] == a]
     base_chain = {"en": _crop_chain(base_s, crops, "en"), "tr": _crop_chain(base_s, crops, "tr")}
     strategies = []
+    water_src: set = set()
     for st in ordered:
         deltas = _strategy_deltas(F, st, base_s, ids)
         ev = _evidence(st, base_s, deltas, ids, crops, base_crops)
+        for p in st.get("parts", []):
+            if p.get("water_modeled"):
+                fid = _water_fact(F, p)
+                ev["why"].append({"text": {"en": F.items[int(fid[1:]) - 1]["text"]["en"], "tr": F.items[int(fid[1:]) - 1]["text"]["tr"]},
+                                  "facts": [fid]})
+                water_src.update(water_models()[p["water"]["model"]].sources)
         ev["gaps"] = ev["gaps"] + copy.deepcopy(extra_gaps)
         out = {k: st[k] for k in ("id", "archetype", "name", "cycle_years", "calendar", "indicators", "score",
                                    "score_breakdown", "feasibility") if k in st}
@@ -636,7 +694,7 @@ def build_field_report(req: dict | None = None) -> dict:
             out["rotation_name"] = {"en": _crop_chain(st, crops, "en"), "tr": _crop_chain(st, crops, "tr")}
         else:
             out["rotation_name"] = cand_names[st["rotation_id"]]
-        for k in ("coverage", "trials"):
+        for k in ("coverage", "water_coverage", "trials"):
             if k in st:
                 out[k] = st[k]
         if "parts" in st:
@@ -647,6 +705,7 @@ def build_field_report(req: dict | None = None) -> dict:
         strategies.append(out)
 
     used = {f["source_id"] for f in F.items} | {"nasa_power", "fao56", soil["source_id"], "srtm_terrain_tiles"}
+    used |= water_src
     if pcorr:
         used.add(pcorr["source_id"])
     if fm.get("years"):

@@ -12,6 +12,9 @@ Water and soil are hard limits for every card, not separate cards: a card may no
 Crops marked ``caution`` in the whitelist may stay if already in the current rotation but are never added.
 Nothing is invented: a specialty crop without engine parameters is listed with its evidence and marked
 ``modeled: false``; the card's numbers then cover only the modelled share (``coverage``).
+A specialty crop with a water-only model (``water_model``, engine/specialty_water.py) is the exception for water: the
+card's ``water_m3_ha_yr`` blends the field part with the crop's documented (rain-fed) irrigation water over the
+whole field (``water_coverage`` 1.0), while every other number still covers only the field part (``coverage``).
 """
 from __future__ import annotations
 
@@ -40,7 +43,8 @@ def zone_policy(whitelist: dict | None, crops: dict, baseline_ids: set) -> dict 
         eng = [e for e in c.get("engine", []) if e in crops]
         rec = {"name": c["name"], "status": c["status"], "group": c["group"], "districts": c.get("districts", []),
                "note": c.get("note"), "sources": c["sources"], "engine_ids": eng, "modeled": bool(eng),
-               "perennial": bool(c.get("perennial"))}
+               "perennial": bool(c.get("perennial")), "documented_yield": c.get("documented_yield"),
+               "water_model": c.get("water_model")}
         if c["status"] == "pilot":
             if c["group"] in ("field", "special"):
                 pilots.append(rec)
@@ -95,12 +99,15 @@ def _part(share: float, kind: str, **kw) -> dict:
 
 
 def pick_cards(results: list[dict], priorities: dict | None, policy: dict,
-               special_results: dict[str, dict], pilot_results: dict[str, dict]) -> tuple[list[dict], dict]:
+               special_results: dict[str, dict], pilot_results: dict[str, dict],
+               water_results: dict[str, dict] | None = None) -> tuple[list[dict], dict]:
     """Baseline + up to three cards, and a ``notes`` dict explaining any card that could not be built.
 
     ``results[0]`` is the baseline simulation; the rest are whitelist-filtered candidates.
-    ``special_results`` / ``pilot_results`` map an engine crop id to its single-crop simulation."""
+    ``special_results`` / ``pilot_results`` map an engine crop id to its single-crop simulation;
+    ``water_results`` maps a water-model id (``cumin``) to its ``simulate_specialty_water`` bands."""
     pr = priorities or DEFAULT_PRIORITIES
+    water_results = water_results or {}
     base = results[0]
     bi = base["indicators"]
     bsc = score(bi, bi, pr)
@@ -141,15 +148,34 @@ def pick_cards(results: list[dict], priorities: dict | None, policy: dict,
                 return x
         return ranked[0] if ranked else None
 
+    def water_only(field: dict, share: float, avoid: set):
+        """Specialty with a water-only model (documented yield first); blends only the water of the field part."""
+        opts = [s for s in specials if not s["modeled"] and s.get("water_model") in water_results]
+        opts.sort(key=lambda s: s.get("documented_yield") is None)  # stable: cumin before fenugreek
+        for s in sorted(opts, key=lambda s: s["name"]["en"] in avoid):  # prefer a crop the other card did not use
+            wr = water_results[s["water_model"]]
+            fw, sw = field["indicators"]["water_m3_ha_yr"], wr["rainfed_irrigation_m3_ha"]
+            ind = {**field["indicators"], "water_m3_ha_yr": blend([(1 - share, {"w": fw}), (share, {"w": sw})])["w"]}
+            if within_limits(ind, bi):
+                return s, wr, ind
+        return None
+
     def card(arch: str, field: dict, field_label: str, avoid: set) -> dict | None:
         share = SPECIAL_SHARE[arch]
         pick = best_special(field, share, avoid)
+        wpick = None if pick else water_only(field, share, avoid)
         field_p = _part(1 - share, "rotation", role=field_label, rotation_id=field.get("rotation_id", field["id"]),
                         modeled=True)
         if pick:
             _, s, sim, ind = pick
             sp = _part(share, "specialty", crop=s, modeled=True, share_range=SPECIAL_RANGE[arch])
             c = {**field, "indicators": ind, "coverage": 1.0}
+        elif wpick:
+            s, wr, ind = wpick
+            water = {k: wr[k] for k in ("etc_mm", "rainfed_eta_mm", "rain_eff_mm", "irr_need_full_m3_ha", "season")}
+            water.update(model=s["water_model"], practice="rainfed", irrigation_m3_ha_yr=wr["rainfed_irrigation_m3_ha"])
+            sp = _part(share, "specialty", crop=s, modeled=False, water_modeled=True, water=water, share_range=SPECIAL_RANGE[arch])
+            c = {**field, "indicators": ind, "coverage": 1 - share, "water_coverage": 1.0}
         else:
             sp = _part(share, "specialty", crop=None, modeled=False, share_range=SPECIAL_RANGE[arch],
                        options=[s for s in specials if not s["modeled"]])

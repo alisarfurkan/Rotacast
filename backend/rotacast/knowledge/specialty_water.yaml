@@ -1,0 +1,39 @@
+# Water-only models of specialty crops (docs/METHODS.md section 7.2). Used by engine/specialty_water.py.
+# Only the WATER need is modelled for these crops: no price, no Ky, no frost/heat thresholds are available
+# from verified sources, so income, yield ratio and temperature risk are deliberately NOT computed.
+#
+# Conventions
+# - kc: [ini, mid, end]. Standard (non-stressed) single crop coefficients,
+#   Pereira, Mota, Raziei, Paredes (2024) Irrigation Science 42(6), doi 10.1007/s00271-024-00960-4, Table 7.
+# - root_depth_m: [initial, max]. Table 8 of the same paper gives ranges; the initial depth is the lower bound
+#   of the range and the maximum is the upper bound.
+# - p: depletion fraction for no stress, Table 8 of the same paper.
+# - sow_doy / harvest_doy: fixed calendar (day of year, non-leap), Central Anatolia rain-fed trials 2013 at
+#   Ankara-Golbasi (1125 m); best yield at the earliest sowing, 26 Feb (DOY 57). No GDD scaling.
+# - stage_days: relative stage proportions [ini, dev, mid, late] in days; scaled (largest remainder) to the
+#   season length sow_doy..harvest_doy by the engine.
+# - practice: both calendar sources grew the crop rain-fed, so irrigation water of the crop is 0 in practice.
+
+cumin:
+  name: {en: Cumin, tr: Kimyon}
+  kc: [0.40, 1.00, 0.60]            # Pereira et al. 2024, Table 7 (standard)
+  root_depth_m: [0.10, 0.40]        # Pereira et al. 2024, Table 8 (range 0.10-0.40 m)
+  p: 0.40                           # Pereira et al. 2024, Table 8
+  sow_doy: 57                       # 26 Feb; Ugur & Kan 2016, Selcuk Tarim Bilimleri Dergisi 3(2):205-209
+  harvest_doy: 204                  # 23 Jul; Ugur & Kan 2016 (same paper)
+  stage_days: [24, 40, 31, 19]      # Reyhani & Khashei Siuki 2015, Water and Soil 29(5):1047-1056, doi 10.22067/jsw.v29i5.24171 (lysimeter), scaled
+  stage_basis: lysimeter
+  practice: rainfed                 # Ugur & Kan 2016: rain-fed Central Anatolia
+  sources: [pereira2024_kc, ugur_kan2016_kimyon, reyhani2015_kimyon]
+
+fenugreek:
+  name: {en: Fenugreek, tr: Çemen}
+  kc: [0.60, 1.00, 0.75]            # Pereira et al. 2024, Table 7 (standard)
+  root_depth_m: [0.30, 0.80]        # Pereira et al. 2024, Table 8 (range 0.30-0.80 m)
+  p: 0.40                           # Pereira et al. 2024, Table 8
+  sow_doy: 57                       # 26 Feb; Selcuk Tarim Bilimleri Dergisi 3(2):210-214, 2016
+  harvest_doy: 214                  # 2 Aug; same paper
+  stage_days: [20, 30, 60, 40]      # approx: no fenugreek stage source; FAO-56 Table 11 lentil (spring legume) proportions, scaled
+  stage_basis: approx_fao56_lentil
+  practice: rainfed                 # same paper: rain-fed Central Anatolia
+  sources: [pereira2024_kc, cemen_ankara2016, fao56]

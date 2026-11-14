@@ -185,6 +185,12 @@ def season_lengths(crop, wx: _Weather, sow_idx: np.ndarray, end_idx: np.ndarray 
     expressed as a scale on the reference stage lengths and capped to 1 +/- 0.30."""
     ref = np.asarray(crop.fao56.stage_days, float)
     ref_total = ref.sum()
+    if getattr(crop, "fixed_season", False):  # fixed calendar (specialty_water.py): no GDD scaling
+        lens = np.tile(ref.astype(int), (len(sow_idx), 1))
+        total = lens.sum(axis=1)
+        if end_idx is not None:
+            total = np.minimum(total, np.maximum(end_idx - sow_idx, 0))
+        return lens, total, np.ones(len(sow_idx)), lens.sum(axis=1)
     cum = wx.gdd_cum(crop.t_base_c)
     sow_c = np.clip(sow_idx, 0, wx.n - 1)
     before = np.where(sow_c > 0, cum[np.maximum(sow_c - 1, 0)], 0.0)

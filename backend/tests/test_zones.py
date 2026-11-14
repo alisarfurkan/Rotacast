@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from shapely.geometry import Point, box, mapping, shape
 
 from rotacast.api.main import app
+from rotacast.engine.cards import zone_policy
 from rotacast.zones import build, definitions, lookup, mgm
 
 MGM_SNIPPET = (
@@ -153,6 +154,27 @@ def test_whitelist_integrity():
         assert all(s in d["sources"] for n in z["notes"] for s in n["sources"])
 
 
+def test_documented_yields_and_sorghum_pilots():
+    d = json.loads((lookup.ZONES_DIR / "zone_crops.json").read_text(encoding="utf-8"))
+    n = 0
+    for key, z in d["zones"].items():
+        for c in z["crops"]:
+            if c["name"]["en"] in ("Cumin", "Anise"):
+                y = c["documented_yield"]
+                assert y["kg_da"] == (50 if c["name"]["en"] == "Cumin" else 72) and y["source"] in c["sources"]
+                assert y["source"] in d["sources"] and y["note"]["tr"] and y["note"]["en"]
+                n += 1
+            else:
+                assert "documented_yield" not in c, (key, c["name"])
+            if c["name"]["en"].startswith("Sorghum"):
+                assert c["status"] == "pilot" and not c.get("engine"), (key, c)
+    assert n >= 6
+    for key in ("central", "west", "karapinar"):
+        pol = zone_policy(lookup.zone_crops(key), {"sorghum": object()}, set())
+        sg = [p for p in pol["pilots"] if "Sorgum" in p["name"]["tr"]]
+        assert sg and all(not p["modeled"] and not p["engine_ids"] for p in sg)
+
+
 def test_field_zone_carries_whitelist():
     z = field_zone(37.6, 32.75, 1010.0)  # Çumra, central plain
     crops = z["crops"]
@@ -162,3 +184,17 @@ def test_field_zone_carries_whitelist():
     ids = {s["id"] for s in crops["sources"]}
     assert {"bugem_su_kisiti", "ilt_aromatik"} <= ids
     assert "excluded" not in crops
+
+
+def test_water_model_keys():
+    d = _whitelist()
+    models = {"Cumin": "cumin", "Fenugreek": "fenugreek"}
+    n = 0
+    for key, z in d["zones"].items():
+        for c in z["crops"]:
+            want = models.get(c["name"]["en"])
+            assert c.get("water_model") == want, (key, c["name"])
+            n += want is not None
+    assert n == 6
+    pol = zone_policy(lookup.zone_crops("central"), {}, set())
+    assert {s["name"]["en"]: s["water_model"] for s in pol["special"] if s["water_model"]} == {"Fenugreek": "fenugreek", "Cumin": "cumin"}
