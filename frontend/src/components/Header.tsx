@@ -1,9 +1,11 @@
-import type { Lang } from '../types'
+import type { Lang, Mode } from '../types'
 import { useT } from '../ctx'
 
 export type Tab = 'field' | 'basin'
 
-export function Header({ lang, setLang, tab, setTab }: { lang: Lang; setLang: (l: Lang) => void; tab: Tab; setTab: (t: Tab) => void }) {
+export function Header({ lang, setLang, tab, setTab, mode, setMode }: {
+  lang: Lang; setLang: (l: Lang) => void; tab: Tab; setTab: (t: Tab) => void; mode: Mode; setMode: (m: Mode) => void
+}) {
   const t = useT()
   const chips = ['NASA POWER', 'MODIS NDVI', 'SRTM', 'SoilGrids']
   return (
@@ -37,14 +39,24 @@ export function Header({ lang, setLang, tab, setTab }: { lang: Lang; setLang: (l
             <span key={c} className="text-[11px] font-semibold rounded-full border border-white/30 bg-white/10 px-2.5 py-1">{c}</span>
           ))}
         </div>
-        <nav className="mt-4 flex gap-1" aria-label="Views">
-          {(['field', 'basin'] as Tab[]).map((x) => (
-            <button key={x} onClick={() => setTab(x)} aria-current={tab === x ? 'page' : undefined}
-              className={'px-4 py-2 rounded-t-xl text-sm font-semibold transition ' + (tab === x ? 'bg-[var(--bg)] text-[var(--ink)]' : 'hover:bg-white/10')}>
-              {x === 'field' ? t('tabField') : t('tabBasin')}
-            </button>
-          ))}
-        </nav>
+        <div className="mt-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
+          <nav className="flex gap-1" aria-label="Views">
+            {(mode === 'advanced' ? ['field', 'basin'] as Tab[] : ['field'] as Tab[]).map((x) => (
+              <button key={x} onClick={() => setTab(x)} aria-current={tab === x ? 'page' : undefined}
+                className={'px-4 py-2 rounded-t-xl text-sm font-semibold transition ' + (tab === x ? 'bg-[var(--bg)] text-[var(--ink)]' : 'hover:bg-white/10')}>
+                {x === 'field' ? t('tabField') : t('tabBasin')}
+              </button>
+            ))}
+          </nav>
+          <div role="group" aria-label={t('modeLabel')} className="flex rounded-full border border-white/30 overflow-hidden text-sm font-semibold shrink-0 mb-1">
+            {(['beginner', 'advanced'] as Mode[]).map((m) => (
+              <button key={m} onClick={() => setMode(m)} aria-pressed={mode === m}
+                className={'px-3.5 py-1.5 transition ' + (mode === m ? 'bg-[#f6efe0] text-[#3b2616]' : 'hover:bg-white/10')}>
+                {m === 'beginner' ? t('modeBeginner') : t('modeAdvanced')}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </header>
   )

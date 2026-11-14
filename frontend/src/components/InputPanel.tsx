@@ -2,7 +2,9 @@ import { FieldPicker, type Point } from './FieldPicker'
 import { CROPS, CROP_BY_ID } from '../crops'
 import { useLang, useT } from '../ctx'
 import { pick } from '../util'
-import type { Irrigation, Priorities, RotationStep, WaterAccess } from '../types'
+import type { Irrigation, Mode, Priorities, RotationStep, WaterAccess } from '../types'
+import { DetailsPanel } from './DetailsPanel'
+import type { DetailsForm } from '../fieldDetails'
 import type { Key } from '../i18n'
 
 export interface Scenario { delta_t_c: number; precip_change_pct: number }
@@ -45,6 +47,14 @@ interface Props {
   setPriorities: (p: Priorities) => void
   scenario: Scenario
   setScenario: (s: Scenario) => void
+  mode: Mode
+  polygon: Point[] | null
+  onPolygon: (p: Point[] | null) => void
+  areaHa: number | null
+  details: DetailsForm
+  setDetails: (d: DetailsForm) => void
+  detailErrors: Record<string, string>
+  blocker: string | null
   onAnalyze: () => void
   onDemo?: () => void
   loading: boolean
@@ -65,12 +75,13 @@ export function InputPanel(p: Props) {
   }
   const irrOpts: [Irrigation, Key][] = [['none', 'irrNone'], ['deficit', 'irrLimited'], ['full', 'irrFull']]
   const waterOpts: [WaterAccess, Key][] = [['none', 'waterNone'], ['limited', 'waterLimited'], ['full', 'waterFull']]
-  const canGo = !!p.point && p.rotation.length > 0
+  const advanced = p.mode === 'advanced'
+  const canGo = (!!p.point || (advanced && !!p.polygon)) && p.rotation.length > 0 && !p.blocker
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
       <Section title={t('step1')}>
-        <FieldPicker point={p.point} onPick={p.onPick} />
+        <FieldPicker point={p.point} onPick={p.onPick} mode={p.mode} polygon={p.polygon} onPolygon={p.onPolygon} />
       </Section>
 
       <Section title={t('step2')}>
@@ -137,25 +148,31 @@ export function InputPanel(p: Props) {
         <p className="text-sm text-muted mt-4">{t('prioHint')}</p>
       </Section>
 
-      <Section title={t('step4')}>
-        <label className="block mb-6">
-          <span className="flex justify-between text-base font-medium mb-1">
-            <span>{t('dT')}</span>
-            <span className="tabular-nums font-bold text-lg text-bad">+{p.scenario.delta_t_c.toFixed(1)} °C</span>
-          </span>
-          <input type="range" min={0} max={3} step={0.5} value={p.scenario.delta_t_c}
-            onChange={(e) => p.setScenario({ ...p.scenario, delta_t_c: +e.target.value })} className="w-full big-range" style={{ accentColor: 'var(--bad)' }} />
-        </label>
-        <label className="block">
-          <span className="flex justify-between text-base font-medium mb-1">
-            <span>{t('dP')}</span>
-            <span className="tabular-nums font-bold text-lg text-water">{p.scenario.precip_change_pct > 0 ? '+' : p.scenario.precip_change_pct < 0 ? '−' : ''}{Math.abs(p.scenario.precip_change_pct)}%</span>
-          </span>
-          <input type="range" min={-30} max={10} step={5} value={p.scenario.precip_change_pct}
-            onChange={(e) => p.setScenario({ ...p.scenario, precip_change_pct: +e.target.value })} className="w-full big-range" style={{ accentColor: 'var(--water)' }} />
-        </label>
-        <p className="text-sm text-muted mt-4">{t('scenarioHint')}</p>
-      </Section>
+      {advanced && (
+        <Section title={t('step4')}>
+          <label className="block mb-6">
+            <span className="flex justify-between text-base font-medium mb-1">
+              <span>{t('dT')}</span>
+              <span className="tabular-nums font-bold text-lg text-bad">+{p.scenario.delta_t_c.toFixed(1)} °C</span>
+            </span>
+            <input type="range" min={0} max={3} step={0.5} value={p.scenario.delta_t_c}
+              onChange={(e) => p.setScenario({ ...p.scenario, delta_t_c: +e.target.value })} className="w-full big-range" style={{ accentColor: 'var(--bad)' }} />
+          </label>
+          <label className="block">
+            <span className="flex justify-between text-base font-medium mb-1">
+              <span>{t('dP')}</span>
+              <span className="tabular-nums font-bold text-lg text-water">{p.scenario.precip_change_pct > 0 ? '+' : p.scenario.precip_change_pct < 0 ? '−' : ''}{Math.abs(p.scenario.precip_change_pct)}%</span>
+            </span>
+            <input type="range" min={-30} max={10} step={5} value={p.scenario.precip_change_pct}
+              onChange={(e) => p.setScenario({ ...p.scenario, precip_change_pct: +e.target.value })} className="w-full big-range" style={{ accentColor: 'var(--water)' }} />
+          </label>
+          <p className="text-sm text-muted mt-4">{t('scenarioHint')}</p>
+        </Section>
+      )}
+
+      {advanced && (
+        <DetailsPanel form={p.details} setForm={p.setDetails} rotation={p.rotation} hasArea={p.areaHa !== null} errors={p.detailErrors} />
+      )}
 
       <div className="lg:col-span-2 sticky bottom-3 z-10 mx-auto w-full max-w-xl">
         <div className="flex gap-2">
@@ -169,8 +186,9 @@ export function InputPanel(p: Props) {
             </button>
           )}
         </div>
-        {!p.point && <p className="text-xs text-bad mt-1 text-center bg-surface rounded">{t('needPoint')}</p>}
-        {p.error && <p className="text-xs text-bad mt-1 text-center bg-surface rounded">{p.error}</p>}
+        {!p.point && !(advanced && p.polygon) && <p className="text-xs text-bad mt-1 text-center bg-surface rounded">{t('needPoint')}</p>}
+        {p.blocker && <p role="alert" className="text-xs text-bad mt-1 text-center bg-surface rounded px-2">{p.blocker}</p>}
+        {p.error && <p role="alert" className="text-xs text-bad mt-1 text-center bg-surface rounded px-2 break-words">{p.error}</p>}
       </div>
     </div>
   )
