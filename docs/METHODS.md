@@ -119,7 +119,7 @@ rotation is "feasible" if at least 70 % of start years work.
 Indicators per rotation (cycle totals divided by cycle length): net irrigation (mm and m3/ha/yr), yield ratio, stress
 days, frost / heat hit probability (>= 3 damage days in a season), N balance (crop N-credit table), residue index,
 soil-cover days, relative erosion (RUSLE cover factor C x erosive days; bare soil C = 1), pest-break index, income.
-`income = yield * price - 0.05 USD/m3 * irrigation` (plus cover-crop cost 40 USD/ha).
+`income = yield * price - 0.05 USD/m3 * irrigation` (plus cover-crop cost 40 USD/ha). With the optional irrigation method (section 11) the water in `water_m3_ha_yr` and in this cost is gross water.
 
 ## 7. Scoring and Pareto picking
 
@@ -183,7 +183,7 @@ Please read these before quoting any number.
 - **Trend continuation only.** The 10-year horizon adds the observed temperature trend; no rain change, no CO2 effect, no adaptation, no climate-model projection.
 - **No economic feedback.** Fixed prices, fixed costs, no subsidies, no quota rules, no labour or machinery limits, instant adoption (steady-state rates, no ramp).
 - **Coarse weather.** One POWER cell (about 50 x 60 km) and one soil profile per basin cell; rain is rescaled to satellite monthly totals (5-10 km pixels), so single storms and sub-cell variability are not captured. Rain correction is only as good as CHIRPS in that area.
-- **Simplified crop model.** Single Kc, no capillary rise, 100 % irrigation efficiency, no explicit evaporation layers, no nutrient, pest, disease or variety effects, a heuristic heat/frost yield penalty, and `Ky` values partly approximate. Yields are potential-based and not calibrated to TUIK/FAOSTAT.
+- **Simplified crop model.** Single Kc, no capillary rise, 100 % irrigation efficiency unless an irrigation method is given (section 11), no explicit evaporation layers, no nutrient, pest, disease or variety effects, a heuristic heat/frost yield penalty, and `Ky` values partly approximate. Yields are potential-based and not calibrated to TUIK/FAOSTAT.
 - **Per-crop basin yields** ignore rotation effects on soil water (monoculture runs).
 - **Irrigation demand is net crop requirement**, not abstraction: efficiency losses, return flows, surface-water use and orchards are not modelled.
 - **GRACE** is total water storage (groundwater, soil moisture, surface water, snow) at a ~300 km footprint, not groundwater alone and not field-resolved. The bounding box is not the hydrological basin boundary.
@@ -191,3 +191,30 @@ Please read these before quoting any number.
 - **Field Memory** is from 250 m pixels: a pixel can mix crops, small or fragmented fields are noisy, and the bare-soil threshold is inferred, not measured.
 - **Uncertainty bands** reflect weather variability across start years only.
 - **Not agronomic advice.** Outputs are decision support. The report lists what to check with an agronomist, extension service or market before changing a rotation.
+
+## 11. Optional field inputs (API v1.2; `docs/CONTRACTS.md` section 6)
+
+All inputs are optional; a request without them gives exactly the v1.1 report (checked by `tests/test_field_details.py`
+against `tests/fixtures/konya_default_strategies.json`). Every value the user typed becomes a fact with `source_id: "user"`.
+
+- **Field polygon** (`geometry.py`): ring closed/opened, self-intersection checked on non-adjacent edges, area by the spherical
+  (Chamberlain-Duquette / `@turf/area`) formula with R = 6 378 137 m, allowed 0.01-10 000 ha; lat/lon become the planar
+  centroid (rounded to 6 decimals). The polygon is recorded only: MODIS (250 m) and POWER (0.5 deg) are still sampled at the centroid, which each
+  strategy states in `evidence.gaps` (planned: 30 m HLS).
+- **Soil override**: given clay / sand / SOC / pH replace the SoilGrids values; silt = 100 - clay - sand; fc, wp and TAW are recomputed with Saxton & Rawls (2006)
+  (`saxton_rawls_2006`) and the same profile drives the simulation. If only a USDA texture class is given, the representative clay/sand
+  of that class are used. These are the area centroids of each class in the clay-sand plane of the USDA texture triangle (class
+  boundaries as in `usda_texture_class`, USDA-NRCS soil texture triangle, Soil Survey Manual 2017): clay 63/20, clay loam 33/33,
+  silty clay loam 33/10, silty clay 47/7, loam 18/42, silt loam 13/22, sandy loam 10/65, sandy clay loam 27/61, sandy clay 41/52,
+  loamy sand 6/82, sand 3/92, silt 5/8 (clay %/sand %). If only one of clay/sand is given, the other comes from the class (if given) or SoilGrids and is capped so that clay + sand <= 100.
+- **Excluded crops** go to `constraints.exclude_crops` of candidate generation. The user's own current rotation is never changed.
+- **Irrigation method**: gross water = net crop irrigation / field application efficiency. Typical efficiencies: flood 0.55, furrow 0.65, sprinkler 0.75, drip 0.90
+  (`IRRIGATION_EFFICIENCY` in `engine/rotations.py`; source id `irrigation_efficiency`, FAO Irrigation Water Management Training Manual No. 5, *Irrigation Methods*, Brouwer et al. 1989).
+  These are rounded typical values, not field measurements. `water_m3_ha_yr` and the water cost inside income are gross; `irrigation_mm_yr` stays net crop irrigation.
+- **Water quota**: per-ha quota = quota / polygon area (or the number itself without a polygon). Candidates are generated with `water_access` "full" (quota 0: "none"), those with p50 gross
+  `water_m3_ha_yr` above the quota are dropped before picking; if fewer than 3 feasible candidates remain they stay eligible and are flagged `exceeds_quota`. `quota.relaxed` tells which case happened.
+- **Declared yields**: factor = declared / regional reference (irrigated tier if the crop is irrigated in the current rotation, rainfed otherwise; a crop not in the rotation uses
+  irrigated if its `irrigation_typical` is "required"). Both yield tiers of that crop are scaled in a per-request copy of the knowledge base.
+- **History** is compared with the NDVI pattern of each year (winter crop = `winter_crop`, spring/summer crop = `summer_crop`, a satellite `double_crop` agrees with either); the model is not changed.
+- **Applied irrigation** is compared with the modelled gross irrigation per season of that crop in the current rotation; the model is not changed.
+

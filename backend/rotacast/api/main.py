@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from ..field_inputs import FieldDetails, FieldPolygon
 from ..knowledge.crops import load_crops
 from ..report import DEFAULT_ROTATION, get_field_report
 
@@ -49,6 +50,8 @@ class AnalyzeRequest(BaseModel):
     priorities: Priorities = Priorities()
     scenario: Scenario = Scenario()
     lang: str = "tr"
+    field_polygon: FieldPolygon | None = None   # CONTRACTS section 6.1
+    field_details: FieldDetails | None = None
 
 
 @app.get("/api/health")

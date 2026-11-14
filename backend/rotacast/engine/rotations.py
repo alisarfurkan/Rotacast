@@ -26,6 +26,10 @@ import numpy as np
 from . import waterbalance as wb
 from .scoring import DEFAULT_PRIORITIES, dimension_values, score, soil_composite, risk_index
 
+# Field application efficiency by irrigation method (gross water = net crop irrigation / efficiency).
+# Typical values, FAO Irrigation Water Management Training Manual No. 5, Irrigation Methods (Brouwer et al., 1989) -- docs/METHODS.md.
+IRRIGATION_EFFICIENCY = {"flood": 0.55, "furrow": 0.65, "sprinkler": 0.75, "drip": 0.90}
+
 HARVEST_TO_SOW_GAP_DAYS = 10     # sowing must be >= previous harvest + 10 days
 COVER_TERMINATION_LEAD_DAYS = 7  # cover crop is terminated this many days before the next main sowing
 COVER_MIN_DAYS = 45              # shortest useful cover-crop season
@@ -154,12 +158,15 @@ def _empty_result(rotation, steps, n_requested, reason):
 def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_years: list[int], *,
                       baseline_erosion_index: float | None = None,
                       water_cost_usd_m3: float = DEFAULT_WATER_COST_USD_M3,
-                      cover_cost_usd_ha: float = DEFAULT_COVER_COST_USD_HA) -> dict:
+                      cover_cost_usd_ha: float = DEFAULT_COVER_COST_USD_HA,
+                      irrigation_efficiency: float = 1.0) -> dict:
     """Run the rotation cycle once per start year (ensemble), carrying soil water between seasons.
 
     Returns a strategy-like dict: ``id, archetype, name, cycle_years, calendar, indicators`` (contract
     section 4) plus ``erosion_index`` (raw, so callers can re-normalise), ``feasible``, ``feasibility``,
-    ``steps`` and ``sequence``. Start years whose seasons or sowing windows are not covered by ``weather``,
+    ``steps`` and ``sequence``. ``irrigation_efficiency`` (default 1.0 = net) turns net crop irrigation into
+    gross water: ``water_m3_ha_yr`` and the water cost in income use gross, ``irrigation_mm_yr`` stays net;
+    ``irrigation_m3_ha_by_crop`` is the mean gross m3/ha per season of each main crop. Start years whose seasons or sowing windows are not covered by ``weather``,
     or whose sequencing would force a one-year delay, are excluded from the ensemble (reported in
     ``feasibility``)."""
     wx = wb.prepare_weather(weather)
@@ -240,6 +247,8 @@ def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_year
     irr_tot, stress_tot, bare_days, erosion_sum, cover_days = z(), z(), z(), z(), z()
     income_sum, nbal = z(), z()
     yr_steps, frost_hit, heat_hit = [], [], []
+    irr_gross_tot = z()
+    irr_by_crop: dict[str, list[np.ndarray]] = {}
     cover_applied: dict[int, np.ndarray] = {}
     sow_rec, harv_rec = [], []
     cov_rec: dict[int, tuple] = {}
@@ -283,6 +292,9 @@ def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_year
         sow_rec.append(sow_k)
         harv_rec.append(core["harvest_idx"])
         irr_tot += core["irr"]
+        irr_g = core["irr"] / irrigation_efficiency   # gross irrigation (mm) = net / field application efficiency
+        irr_gross_tot += irr_g
+        irr_by_crop.setdefault(crop.id, []).append(irr_g * 10.0)
         stress_tot += core["stress"]
         cover_days += core["cover_days"]
         erosion_sum += float(crop.rusle_c) * core["erosive_days"]
@@ -296,7 +308,7 @@ def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_year
         # calibration reference for modelled rainfed yields.
         pen = np.clip(DAMAGE_PENALTY_PER_DAY * (core["heat"] + core["frost"]), 0.0, DAMAGE_PENALTY_MAX)
         ya = float(crop.economics.yield_t_ha["irrigated"]) * core["yield_ratio"] * (1.0 - pen)
-        income_sum += ya * float(crop.economics.price_usd_t) - water_cost_usd_m3 * core["irr"] * 10.0  # 1 mm = 10 m3/ha
+        income_sum += ya * float(crop.economics.price_usd_t) - water_cost_usd_m3 * irr_g * 10.0  # 1 mm = 10 m3/ha
 
     # ---------------- phase 3: indicators ----------------
     irr_yr = irr_tot / N
@@ -309,7 +321,7 @@ def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_year
             resid_list.append(float(cc.residue_index))
     indicators = {
         "irrigation_mm_yr": _band(irr_yr),
-        "water_m3_ha_yr": _band(irr_yr * 10.0),
+        "water_m3_ha_yr": _band(irr_gross_tot / N * 10.0),
         "yield_ratio": _band(yr_member),
         "stress_days_yr": _band(stress_tot / N),
         "frost_risk": float(np.mean(np.vstack(frost_hit))),
@@ -355,6 +367,7 @@ def simulate_rotation(rotation: Rotation, weather, soil, crops: dict, start_year
         "feasibility": {"fraction": float(frac), "n_members": int(n_ok), "n_requested": int(M0), "issues": issues},
         "steps": [{"crop_id": s.crop_id, "year": s.year, "irrigation": s.irrigation} for s in rotation.steps],
         "sequence": tuple(s.crop_id for s, _ in mains),
+        "irrigation_m3_ha_by_crop": {cid: float(np.mean(np.mean(np.vstack(v), axis=0))) for cid, v in irr_by_crop.items()},
     }
 
 

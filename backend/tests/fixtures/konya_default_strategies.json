@@ -1,0 +1,289 @@
+[
+ {
+  "archetype": "baseline",
+  "id": "baseline",
+  "indicators": {
+   "erosion_rel": 1.0,
+   "frost_risk": 0.0,
+   "heat_risk": 0.5606060606060606,
+   "income_usd_ha_yr": {
+    "p10": 1624.4576786535683,
+    "p50": 1978.4569296175382,
+    "p90": 2181.0328471780435
+   },
+   "irrigation_mm_yr": {
+    "p10": 437.03749130330743,
+    "p50": 482.8525347595349,
+    "p90": 513.3486066180453
+   },
+   "n_balance_kg_ha_yr": 0.0,
+   "pest_break": 0.6666666666666666,
+   "residue_index": 0.6666666666666666,
+   "soil_cover_days_yr": 160.72727272727272,
+   "stress_days_yr": {
+    "p10": 33.63333333333333,
+    "p50": 44.33333333333333,
+    "p90": 58.40000000000002
+   },
+   "water_m3_ha_yr": {
+    "p10": 4370.374913033074,
+    "p50": 4828.525347595349,
+    "p90": 5133.486066180453
+   },
+   "yield_ratio": {
+    "p10": 0.7837288458283435,
+    "p50": 0.8261090033668528,
+    "p90": 0.8695740925880749
+   }
+  },
+  "score": 50.0,
+  "score_breakdown": {
+   "erosion": 50.0,
+   "income": 50.0,
+   "risk": 50.0,
+   "soil": 50.0,
+   "water": 50.0
+  },
+  "steps": [
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "sugar_beet",
+    "irrigation": "full",
+    "year": 2
+   },
+   {
+    "crop_id": "maize_grain",
+    "irrigation": "full",
+    "year": 3
+   }
+  ]
+ },
+ {
+  "archetype": "water_saver",
+  "id": "water_saver",
+  "indicators": {
+   "erosion_rel": 1.15121875,
+   "frost_risk": 0.0,
+   "heat_risk": 0.35,
+   "income_usd_ha_yr": {
+    "p10": 1018.5949171840831,
+    "p50": 1187.3850195208447,
+    "p90": 1282.812358579887
+   },
+   "irrigation_mm_yr": {
+    "p10": 99.54999004634503,
+    "p50": 120.55311262642661,
+    "p90": 137.58544325800028
+   },
+   "n_balance_kg_ha_yr": 11.25,
+   "pest_break": 0.8,
+   "residue_index": 0.525,
+   "soil_cover_days_yr": 88.94,
+   "stress_days_yr": {
+    "p10": 65.55,
+    "p50": 72.5,
+    "p90": 80.15
+   },
+   "water_m3_ha_yr": {
+    "p10": 995.4999004634503,
+    "p50": 1205.531126264266,
+    "p90": 1375.8544325800026
+   },
+   "yield_ratio": {
+    "p10": 0.5346045112998536,
+    "p50": 0.5742917157762014,
+    "p90": 0.6065740914374691
+   }
+  },
+  "score": 55.1,
+  "score_breakdown": {
+   "erosion": 42.44,
+   "income": 30.01,
+   "risk": 42.84,
+   "soil": 51.27,
+   "water": 87.52
+  },
+  "steps": [
+   {
+    "crop_id": "lentil",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "sunflower",
+    "irrigation": "none",
+    "year": 2
+   },
+   {
+    "crop_id": "chickpea",
+    "irrigation": "none",
+    "year": 3
+   },
+   {
+    "crop_id": "maize_grain",
+    "irrigation": "deficit",
+    "year": 4
+   }
+  ]
+ },
+ {
+  "archetype": "soil_builder",
+  "id": "soil_builder",
+  "indicators": {
+   "erosion_rel": 0.5894834745762713,
+   "frost_risk": 0.0,
+   "heat_risk": 0.35,
+   "income_usd_ha_yr": {
+    "p10": 850.211224528007,
+    "p50": 1058.1764707690138,
+    "p90": 1210.0925102756469
+   },
+   "irrigation_mm_yr": {
+    "p10": 119.15047355684506,
+    "p50": 137.9087891728763,
+    "p90": 160.87700427676344
+   },
+   "n_balance_kg_ha_yr": 29.65,
+   "pest_break": 0.8,
+   "residue_index": 0.692857142857143,
+   "soil_cover_days_yr": 192.19,
+   "stress_days_yr": {
+    "p10": 87.2,
+    "p50": 102.0,
+    "p90": 110.9
+   },
+   "water_m3_ha_yr": {
+    "p10": 1191.5047355684505,
+    "p50": 1379.0878917287632,
+    "p90": 1608.7700427676343
+   },
+   "yield_ratio": {
+    "p10": 0.4711403730899524,
+    "p50": 0.5338051162122474,
+    "p90": 0.5865257125599282
+   }
+  },
+  "score": 65.29,
+  "score_breakdown": {
+   "erosion": 70.53,
+   "income": 26.74,
+   "risk": 37.86,
+   "soil": 88.21,
+   "water": 85.72
+  },
+  "steps": [
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "vetch_cover",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "chickpea",
+    "irrigation": "none",
+    "year": 2
+   },
+   {
+    "crop_id": "rye_cover",
+    "irrigation": "none",
+    "year": 2
+   },
+   {
+    "crop_id": "maize_grain",
+    "irrigation": "deficit",
+    "year": 3
+   },
+   {
+    "crop_id": "vetch_cover",
+    "irrigation": "none",
+    "year": 3
+   },
+   {
+    "crop_id": "sunflower",
+    "irrigation": "none",
+    "year": 4
+   }
+  ]
+ },
+ {
+  "archetype": "balanced_income",
+  "id": "balanced_income",
+  "indicators": {
+   "erosion_rel": 0.549263559322034,
+   "frost_risk": 0.02666666666666667,
+   "heat_risk": 0.3466666666666667,
+   "income_usd_ha_yr": {
+    "p10": 2691.0294412081357,
+    "p50": 2781.7266457565916,
+    "p90": 2968.6553591945685
+   },
+   "irrigation_mm_yr": {
+    "p10": 159.88992853136125,
+    "p50": 184.31979710160968,
+    "p90": 197.44710521783585
+   },
+   "n_balance_kg_ha_yr": 33.333333333333336,
+   "pest_break": 1.0,
+   "residue_index": 0.56,
+   "soil_cover_days_yr": 191.13333333333333,
+   "stress_days_yr": {
+    "p10": 50.666666666666664,
+    "p50": 65.33333333333333,
+    "p90": 80.66666666666667
+   },
+   "water_m3_ha_yr": {
+    "p10": 1598.8992853136124,
+    "p50": 1843.1979710160967,
+    "p90": 1974.4710521783584
+   },
+   "yield_ratio": {
+    "p10": 0.679750421165582,
+    "p50": 0.7128242719013617,
+    "p90": 0.8177347387108072
+   }
+  },
+  "score": 75.36,
+  "score_breakdown": {
+   "erosion": 72.54,
+   "income": 70.3,
+   "risk": 52.86,
+   "soil": 83.9,
+   "water": 80.91
+  },
+  "steps": [
+   {
+    "crop_id": "vetch_forage",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "vetch_cover",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "potato",
+    "irrigation": "deficit",
+    "year": 2
+   },
+   {
+    "crop_id": "barley_winter",
+    "irrigation": "none",
+    "year": 3
+   },
+   {
+    "crop_id": "rye_cover",
+    "irrigation": "none",
+    "year": 3
+   }
+  ]
+ }
+]

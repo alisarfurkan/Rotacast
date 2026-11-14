@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import dataclasses
 import json
 import math
 import threading
@@ -14,9 +15,12 @@ import pandas as pd
 from .connectors import modis, power, precip, soil as soil_mod, terrain as terrain_mod
 from .engine.climate import add_et0, climate_profile
 from .engine.phenology import analyze_ndvi
-from .engine.rotations import Rotation, RotationStep, generate_candidates, pick_strategies, simulate_rotation
+from .engine.rotations import (IRRIGATION_EFFICIENCY, Rotation, RotationStep, generate_candidates, pick_strategies,
+                               simulate_rotation)
 from .engine.scoring import DEFAULT_PRIORITIES, score
+from .field_inputs import normalize_details, normalize_polygon
 from .knowledge.crops import load_crops
+from pydantic import ValidationError
 
 WEATHER_START_YEAR = 1991
 NDVI_START = date(2000, 2, 1)
@@ -43,7 +47,25 @@ SOURCES = {
                      "url": "https://soilgrids.org/"},
     "srtm_terrain_tiles": {"name": "SRTM terrain tiles", "detail": "AWS Open Data terrain tiles, SRTM-derived",
                            "url": "https://registry.opendata.aws/terrain-tiles/"},
+    "irrigation_efficiency": {"name": "FAO Irrigation Water Management Training Manual No. 5: Irrigation Methods (Brouwer, Prins, Kay, Heibloem, 1989)",
+                              "detail": "Typical field application efficiencies by irrigation method (flood 0.55, furrow 0.65, "
+                                        "sprinkler 0.75, drip 0.90); rounded typical values, not measured on the field",
+                              "url": "https://www.fao.org/4/s8684e/s8684e00.htm"},
+    "user": {"name": "User-provided field data / Kullanıcı beyanı",
+             "detail": "Values typed in by the user (field boundary, soil, crops, water); not verified", "url": ""},
 }
+
+# Representative (clay %, sand %) per USDA texture class: area centroids of each class in the USDA texture triangle
+# (class boundaries as in connectors/soil.py usda_texture_class; centroid of the clay/sand plane, rounded).
+# Used only when the user names a texture class without clay/sand. See docs/METHODS.md section 11.
+TEXTURE_CLAY_SAND = {
+    "clay": (63, 20), "clay loam": (33, 33), "silty clay loam": (33, 10), "silty clay": (47, 7),
+    "loam": (18, 42), "silt loam": (13, 22), "sandy loam": (10, 65), "sandy clay loam": (27, 61),
+    "sandy clay": (41, 52), "loamy sand": (6, 82), "sand": (3, 92), "silt": (5, 8),
+}
+TEXTURE_TR = {"clay": "killi", "clay loam": "killi tın", "silty clay loam": "siltli killi tın", "silty clay": "siltli kil",
+              "loam": "tın", "silt loam": "siltli tın", "sandy loam": "kumlu tın", "sandy clay loam": "kumlu killi tın",
+              "sandy clay": "kumlu kil", "loamy sand": "tınlı kum", "sand": "kumlu", "silt": "silt"}
 
 DISCLAIMER = {
     "en": "Rotacast is a decision-support tool, not a guarantee. Results come from satellite and reanalysis data and "
@@ -132,9 +154,21 @@ def normalize_request(req: dict | None) -> dict:
     scen.update({k: float(v) for k, v in (req.get("scenario") or {}).items() if v is not None})
     rot = [{"crop_id": s["crop_id"], "irrigation": _irrigation_mode(s.get("irrigation"))}
            for s in (req.get("current_rotation") or DEFAULT_ROTATION)]
-    return {"lat": float(req.get("lat", 37.60)), "lon": float(req.get("lon", 32.75)), "current_rotation": rot,
-            "constraints": cons, "priorities": pri, "scenario": scen, "lang": req.get("lang", "tr"),
-            "label": req.get("label")}
+    lat, lon = float(req.get("lat", 37.60)), float(req.get("lon", 32.75))
+    try:
+        poly = normalize_polygon(req.get("field_polygon"))
+        details = normalize_details(req.get("field_details"))
+    except ValidationError as e:
+        raise ValueError(f"invalid field input: {e.errors()[0]['msg']}") from e
+    out = {"lat": lat, "lon": lon, "current_rotation": rot,
+           "constraints": cons, "priorities": pri, "scenario": scen, "lang": req.get("lang", "tr"),
+           "label": req.get("label")}
+    if poly:  # lat/lon come from the polygon centroid
+        out["lat"], out["lon"] = float(poly["centroid"][1]), float(poly["centroid"][0])
+        out["polygon"] = poly
+    if details:
+        out["details"] = details
+    return out
 
 
 def _apply_scenario(wx: pd.DataFrame, scen: dict, lat: float) -> pd.DataFrame:
@@ -236,9 +270,7 @@ def _climate_facts(F: Facts, climate: dict, fm: dict, soil: dict, lat_label: str
             f"{L} gün boş kalıyor (olasılık %{pr}).", L, "days", "modis_mod13q1")
     if soil.get("taw_mm_per_m") is not None:
         tx = soil.get("texture_class", "")
-        TR = {"clay": "killi", "clay loam": "killi tın", "silty clay loam": "siltli killi tın", "silty clay": "siltli kil",
-              "loam": "tın", "silt loam": "siltli tın", "sandy loam": "kumlu tın", "sandy clay loam": "kumlu killi tın",
-              "sandy clay": "kumlu kil", "loamy sand": "tınlı kum", "sand": "kumlu", "silt": "silt"}
+        TR = TEXTURE_TR
         ids["soil"] = F.add(
             "soil", f"The soil is {tx} and holds about {_num(soil['taw_mm_per_m'], 0, 'en')} mm of plant-available "
                     f"water per metre of depth.",
@@ -393,8 +425,8 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
             if "water" in d:
                 w = d["water"]
                 why.append(item(
-                    f"Crops chosen here ({chain_en}) need {_dir(w[1], 'en', ('less', 'more'), ('less', 'more'))} irrigation water than your current rotation.",
-                    f"Burada seçilen ürünler ({chain_tr}) mevcut rotasyonunuza göre {_dir(w[1], 'tr', ('daha az', 'daha fazla'), ('daha az', 'daha fazla'))} sulama suyu istiyor.",
+                    f"Crops chosen here ({chain_en}) need {_dir(w[1], 'en', ('less', 'daha az'), ('more', 'daha fazla'))} irrigation water than your current rotation.",
+                    f"Burada seçilen ürünler ({chain_tr}) mevcut rotasyonunuza göre {_dir(w[1], 'tr', ('less', 'daha az'), ('more', 'daha fazla'))} sulama suyu istiyor.",
                     [w[0]]))
             why.append(item("Your area loses far more water to evaporation than it receives as rain, so every cubic metre saved counts.",
                             "Bölgenizde buharlaşmayla kaybedilen su yağmurdan çok fazla; tasarruf edilen her metreküp önemli.",
@@ -480,13 +512,226 @@ def _evidence(st: dict, base: dict, deltas: dict, ids: dict, crops: dict, base_c
     return {"why": why, "benefits": benefits, "gaps": copy.deepcopy(GAPS), "risks": risks}
 
 
+
+
+# ------------------------------------------------------------------ user-provided field details (CONTRACTS section 6)
+_REASON_LABEL = {"no_equipment": ("no equipment", "ekipman yok"), "no_buyer": ("no buyer", "alıcı yok"),
+                 "not_wanted": ("not wanted", "istenmiyor")}
+_METHOD_LABEL = {"flood": ("flood irrigation", "salma sulama"), "furrow": ("furrow irrigation", "karık sulama"),
+                 "sprinkler": ("sprinkler irrigation", "yağmurlama sulama"), "drip": ("drip irrigation", "damla sulama")}
+
+
+def _tx(sp_or_name, lang):
+    return TEXTURE_TR.get(sp_or_name, sp_or_name) if lang == "tr" else sp_or_name
+
+
+def override_soil(sp, u: dict):
+    """SoilProfile with the user's values replacing the SoilGrids ones (CONTRACTS 6.2). Hydraulics are recomputed."""
+    clay, sand = u.get("clay_pct"), u.get("sand_pct")
+    rep = TEXTURE_CLAY_SAND.get(u.get("texture_class"))
+    changed = clay is not None or sand is not None or rep is not None
+    if changed:
+        c = clay if clay is not None else (rep[0] if rep else sp.clay_pct)
+        s = sand if sand is not None else (rep[1] if rep else sp.sand_pct)
+        if c + s > 100:  # only one of the two was given: shrink the inferred one
+            if clay is None:
+                c = 100.0 - s
+            else:
+                s = 100.0 - c
+        silt = max(0.0, 100.0 - c - s)
+    else:
+        c, s, silt = sp.clay_pct, sp.sand_pct, sp.silt_pct
+    soc = u.get("soc_gkg", sp.soc_gkg)
+    ph = u.get("ph", sp.ph)
+    prof = soil_mod.build_profile(float(c), float(s), float(silt), float(soc), float(ph), sp.bulk_density, "user")
+    if u.get("texture_class"):
+        prof = dataclasses.replace(prof, texture_class=u["texture_class"])
+    return prof
+
+
+def scale_yields(crops: dict, declared: dict, rotation: list[dict]):
+    """Per-request copy of ``crops`` with potential yields scaled to the user's declared yields; returns (crops, yield_check).
+    Factor = declared / regional reference (irrigated tier if the crop is irrigated in the current rotation, else rainfed)."""
+    out, check = dict(crops), []
+    irrigated = {s["crop_id"] for s in rotation if s["irrigation"] != "none"}
+    in_rot = {s["crop_id"] for s in rotation}
+    for cid, dec in declared.items():
+        cr = crops[cid]
+        y = cr.economics.yield_t_ha
+        tier = "irrigated" if (cid in irrigated or (cid not in in_rot and cr.irrigation_typical == "required")) else "rainfed"
+        ref = float(y.get(tier, y["irrigated"]))
+        f = float(dec) / ref
+        out[cid] = dataclasses.replace(cr, economics=dataclasses.replace(
+            cr.economics, yield_t_ha={k: float(v) * f for k, v in y.items()}))
+        check.append({"crop_id": cid, "declared_t_ha": float(dec), "regional_t_ha": round(ref, 2), "factor": round(f, 3)})
+    return out, check
+
+
+def _declared_pattern(crop) -> str:
+    return "winter_crop" if crop.season == "winter" else "summer_crop"
+
+
+def _bi(en, tr):
+    return {"en": en, "tr": tr}
+
+
+def _user_block(F: Facts, r: dict, crops: dict, sp_model, sp, fm: dict, base_raw: dict, quota: dict | None,
+                yield_check: list) -> dict:
+    """User-input facts (source ``user``), the ``user_inputs`` list and the history / irrigation checks."""
+    poly, d = r.get("polygon"), r.get("details") or {}
+    items: list[dict] = []
+    fid: dict[str, str] = {}
+    out: dict = {}
+
+    def add(iid, label_en, label_tr, value, model, key, f_en, f_tr, f_val, unit):
+        fid[iid] = F.add(f"user:{key}", f_en, f_tr, f_val, unit, "user")
+        items.append({"id": iid, "label": _bi(label_en, label_tr), "value": value, "model": model, "fact": fid[iid]})
+
+    if poly:
+        a = poly["area_ha"]
+        v = _bi(f"{_num(a, 2, 'en')} ha", f"{_num(a, 2, 'tr')} ha")
+        add("polygon", "Field boundary", "Tarla sınırı", v, None, "polygon",
+            f"You drew the field boundary: {_num(a, 2, 'en')} ha. Weather and satellite data are still taken for the boundary's centre.",
+            f"Tarla sınırını çizdiniz: {_num(a, 2, 'tr')} ha. Hava ve uydu verisi hâlâ sınırın merkezi için alınıyor.",
+            round(a, 2), "ha")
+    if "soil" in d:
+        u = d["soil"]
+        pe, pt = [], []
+        if u.get("texture_class"):
+            pe.append(u["texture_class"])
+            pt.append(_tx(u["texture_class"], "tr"))
+        if "clay_pct" in u:
+            pe.append(f"clay {_num(u['clay_pct'], 0, 'en')} %")
+            pt.append(f"kil %{_num(u['clay_pct'], 0, 'tr')}")
+        if "sand_pct" in u:
+            pe.append(f"sand {_num(u['sand_pct'], 0, 'en')} %")
+            pt.append(f"kum %{_num(u['sand_pct'], 0, 'tr')}")
+        if "soc_gkg" in u:
+            pe.append(f"organic carbon {_num(u['soc_gkg'], 0, 'en')} g/kg")
+            pt.append(f"organik karbon {_num(u['soc_gkg'], 0, 'tr')} g/kg")
+        if "ph" in u:
+            pe.append(f"pH {_num(u['ph'], 1, 'en')}")
+            pt.append(f"pH {_num(u['ph'], 1, 'tr')}")
+        nm = "SoilGrids" if sp_model.source_id == "soilgrids" else "Regional default"
+        nm_tr = "SoilGrids" if sp_model.source_id == "soilgrids" else "Bölgesel varsayılan"
+        model = _bi(f"{nm}: {sp_model.texture_class}, clay {_num(sp_model.clay_pct, 0, 'en')} %, sand {_num(sp_model.sand_pct, 0, 'en')} %",
+                    f"{nm_tr}: {_tx(sp_model.texture_class, 'tr')}, kil %{_num(sp_model.clay_pct, 0, 'tr')}, kum %{_num(sp_model.sand_pct, 0, 'tr')}")
+        add("soil", "Soil", "Toprak", _bi(", ".join(pe), ", ".join(pt)), model, "soil",
+            f"You entered soil data ({', '.join(pe)}); the soil then holds about {_num(sp.taw_mm_per_m, 0, 'en')} mm of "
+            f"plant-available water per metre (satellite estimate: {_num(sp_model.taw_mm_per_m, 0, 'en')} mm/m).",
+            f"Toprak bilgisi girdiniz ({', '.join(pt)}); toprak bu durumda metre başına yaklaşık {_num(sp.taw_mm_per_m, 0, 'tr')} mm "
+            f"bitkiye yarayışlı su tutuyor (uydu tahmini: {_num(sp_model.taw_mm_per_m, 0, 'tr')} mm/m).",
+            round(sp.taw_mm_per_m, 0), "mm/m")
+    if "excluded_crops" in d:
+        ex = d["excluded_crops"]
+        pe = ", ".join(f"{crops[c].name['en']} ({_REASON_LABEL[x][0]})" for c, x in ex.items())
+        pt = ", ".join(f"{crops[c].name['tr']} ({_REASON_LABEL[x][1]})" for c, x in ex.items())
+        add("excluded_crops", "Crops left out", "Hariç tutulan ürünler", _bi(pe, pt), None, "excluded_crops",
+            f"You asked to leave out: {pe}. They are not used in the other options.",
+            f"Şu ürünleri hariç tutmak istediniz: {pt}. Diğer seçeneklerde kullanılmıyorlar.", len(ex), "crops")
+    if "irrigation_method" in d:
+        m = d["irrigation_method"]
+        e = IRRIGATION_EFFICIENCY[m]
+        add("irrigation_method", "Irrigation method", "Sulama yöntemi",
+            _bi(f"{_METHOD_LABEL[m][0]} (efficiency {_num(e, 2, 'en')})", f"{_METHOD_LABEL[m][1]} (verim {_num(e, 2, 'tr')})"),
+            _bi("Net crop need, no application losses", "Net bitki ihtiyacı, uygulama kaybı yok"), "irrigation_method",
+            f"You irrigate by {_METHOD_LABEL[m][0]}: typically {_num(e * 100, 0, 'en')}% of the water pumped reaches the crop, "
+            f"so water use is the crop need divided by {_num(e, 2, 'en')}.",
+            f"{_METHOD_LABEL[m][1]} yapıyorsunuz: pompalanan suyun tipik olarak %{_num(e * 100, 0, 'tr')}'i bitkiye ulaşır; "
+            f"su kullanımı bitki ihtiyacının {_num(e, 2, 'tr')} değerine bölünmesiyle bulunur.", e, "ratio")
+    if quota:
+        q, qh = quota["quota_m3_yr"], quota["quota_m3_ha_yr"]
+        if quota["basis"] == "field_total":
+            ve = f"{_num(q, 0, 'en')} m³/yr ({_num(qh, 0, 'en')} m³/ha)"
+            vt = f"{_num(q, 0, 'tr')} m³/yıl ({_num(qh, 0, 'tr')} m³/ha)"
+        else:
+            ve, vt = f"{_num(q, 0, 'en')} m³/ha/yr", f"{_num(q, 0, 'tr')} m³/ha/yıl"
+        add("water_quota", "Water quota", "Su kotası", _bi(ve, vt), None, "water_quota",
+            f"Your water quota is {ve}.", f"Su kotanız {vt}.", round(qh, 1), "m3/ha/yr")
+    if yield_check:
+        def lst(key, lang, f=lambda y: y):
+            return ", ".join(f"{crops[y['crop_id']].name[lang]} {_num(y[key], 1, lang)} t/ha" for y in yield_check)
+        pe, pt = lst("declared_t_ha", "en"), lst("declared_t_ha", "tr")
+        me, mt = lst("regional_t_ha", "en"), lst("regional_t_ha", "tr")
+        add("yields", "Your yields", "Verimleriniz", _bi(pe, pt), _bi(f"Regional reference: {me}", f"Bölgesel referans: {mt}"),
+            "yields", f"You reported yields of {pe}; income is scaled to them (regional reference: {me}).",
+            f"Bildirdiğiniz verimler: {pt}; gelir bunlara göre ölçeklendi (bölgesel referans: {mt}).", len(yield_check), "crops")
+    if "history" in d:
+        sat = {y["year"]: y.get("pattern") for y in (fm.get("years") or [])}
+        yrs, n_ok, n_cnt = [], 0, 0
+        for h in d["history"]:
+            dp = _declared_pattern(crops[h["crop_id"]])
+            sp_ = sat.get(h["year"])
+            agree = None if sp_ is None else bool(sp_ == dp or sp_ == "double_crop")
+            if agree is not None:
+                n_cnt += 1
+                n_ok += int(agree)
+            yrs.append({"year": h["year"], "crop_id": h["crop_id"], "declared_pattern": dp, "satellite_pattern": sp_, "agree": agree})
+        out["history_check"] = {"n_years": n_cnt, "n_agree": n_ok, "agreement": round(n_ok / n_cnt, 3) if n_cnt else None, "years": yrs}
+        pe = ", ".join(f"{h['year']} {crops[h['crop_id']].name['en']}" for h in d["history"])
+        pt = ", ".join(f"{h['year']} {crops[h['crop_id']].name['tr']}" for h in d["history"])
+        if n_cnt:
+            me, mt = f"Satellite agrees in {n_ok} of {n_cnt} years", f"Uydu {n_cnt} yılın {n_ok} tanesinde uyumlu"
+        else:
+            me, mt = "No satellite data for these years", "Bu yıllar için uydu verisi yok"
+        add("history", "Crop history", "Ekim geçmişi", _bi(pe, pt), _bi(me, mt), "history",
+            f"You reported past crops ({pe}). {me}.", f"Geçmiş ürünleri bildirdiniz ({pt}). {mt}.", n_ok, "years")
+    if "irrigation_applied_m3_ha" in d:
+        mod = base_raw.get("irrigation_m3_ha_by_crop") or {}
+        chk = []
+        for cid, dec in d["irrigation_applied_m3_ha"].items():
+            m = mod.get(cid)
+            chk.append({"crop_id": cid, "declared_m3_ha": float(dec), "modelled_m3_ha": None if m is None else round(m, 0),
+                        "diff_pct": round((dec - m) / m * 100.0, 1) if m else None})
+        out["irrigation_check"] = chk
+        pe = ", ".join(f"{crops[c['crop_id']].name['en']} {_num(c['declared_m3_ha'], 0, 'en')} m³/ha" for c in chk)
+        pt = ", ".join(f"{crops[c['crop_id']].name['tr']} {_num(c['declared_m3_ha'], 0, 'tr')} m³/ha" for c in chk)
+        mm = [c for c in chk if c["modelled_m3_ha"] is not None]
+        me = ", ".join(f"{crops[c['crop_id']].name['en']} {_num(c['modelled_m3_ha'], 0, 'en')} m³/ha" for c in mm)
+        mt = ", ".join(f"{crops[c['crop_id']].name['tr']} {_num(c['modelled_m3_ha'], 0, 'tr')} m³/ha" for c in mm)
+        model = _bi(f"Model: {me}", f"Model: {mt}") if mm else None
+        add("irrigation_applied", "Water you applied", "Uyguladığınız su", _bi(pe, pt), model, "irrigation_applied",
+            f"You reported applying {pe} per season; this is compared with the model, which is not changed.",
+            f"Sezon başına {pt} su uyguladığınızı bildirdiniz; bu değer modelle karşılaştırılır, model değişmez.", len(chk), "crops")
+    out["user_inputs"] = items
+    out["_fid"] = fid
+    return out
+
+
+def _user_evidence(ev: dict, st: dict, deltas: dict, ufid: dict, quota: dict | None, details: dict, crops: dict) -> None:
+    """Evidence items that depend on user inputs (excluded crops, water quota)."""
+    base = st["archetype"] == "baseline"
+    ex = details.get("excluded_crops")
+    if ex and not base and "excluded_crops" in ufid:
+        pe = ", ".join(f"{crops[c].name['en']} ({_REASON_LABEL[x][0]})" for c, x in ex.items())
+        pt = ", ".join(f"{crops[c].name['tr']} ({_REASON_LABEL[x][1]})" for c, x in ex.items())
+        ev["why"].append({"text": {"en": f"Left out as you asked: {pe}.", "tr": f"İsteğiniz üzerine dışarıda bırakıldı: {pt}."},
+                          "facts": [ufid["excluded_crops"]]})
+    if quota and "water_quota" in ufid:
+        w = _p50(st["indicators"]["water_m3_ha_yr"])
+        qh = quota["quota_m3_ha_yr"]
+        if w > qh:
+            facts = [ufid["water_quota"]] + ([deltas["water"][0]] if base and "water" in deltas else [])
+            if base:
+                en = (f"Your current rotation needs about {_num(w, 0, 'en')} m³/ha of water per year, more than your quota of "
+                      f"{_num(qh, 0, 'en')} m³/ha; check your permit and the well or canal capacity.")
+                tr = (f"Mevcut rotasyonunuz yılda yaklaşık {_num(w, 0, 'tr')} m³/ha su istiyor; kotanız {_num(qh, 0, 'tr')} m³/ha. "
+                      f"Su iznini ve kuyu ya da kanal kapasitesini kontrol edin.")
+            else:
+                en = (f"This option needs about {_num(w, 0, 'en')} m³/ha of water per year, above your quota of {_num(qh, 0, 'en')} "
+                      f"m³/ha; it is shown only because too few options fit the quota.")
+                tr = (f"Bu seçenek yılda yaklaşık {_num(w, 0, 'tr')} m³/ha su istiyor; kotanız {_num(qh, 0, 'tr')} m³/ha'nın üzerinde. "
+                      f"Kotaya sığan seçenek yeterince olmadığı için gösteriliyor.")
+            ev["risks"].append({"text": {"en": en, "tr": tr}, "facts": facts, "check_with": "extension_service"})
+
+
 # ------------------------------------------------------------------ main builder
-def _simulate_all(cands, wx, soil, crops, last_year, base_idx):
+def _simulate_all(cands, wx, soil, crops, last_year, base_idx, eff=1.0):
     out = []
     for r in cands:
         n = _n_main(r.steps, crops)
         ys = _start_years(WEATHER_START_YEAR, last_year, n)
-        out.append(simulate_rotation(r, wx, soil, crops, ys, baseline_erosion_index=base_idx))
+        out.append(simulate_rotation(r, wx, soil, crops, ys, baseline_erosion_index=base_idx, irrigation_efficiency=eff))
     return out
 
 
@@ -498,6 +743,16 @@ def build_field_report(req: dict | None = None) -> dict:
         if s["crop_id"] not in crops:
             raise ValueError(f"unknown crop_id: {s['crop_id']}")
     last_year = date.today().year - 1
+    poly, details = r.get("polygon"), r.get("details") or {}
+    yield_check: list = []
+    if details.get("yields_t_ha"):  # per-request copy; the cached knowledge base is never mutated
+        crops, yield_check = scale_yields(crops, details["yields_t_ha"], r["current_rotation"])
+    eff = IRRIGATION_EFFICIENCY[details["irrigation_method"]] if details.get("irrigation_method") else 1.0
+    quota = None
+    if details.get("water_quota_m3_yr") is not None:
+        q = details["water_quota_m3_yr"]
+        quota = {"quota_m3_yr": q, "basis": "field_total" if poly else "per_ha",
+                 "quota_m3_ha_yr": q / poly["area_ha"] if poly else q}
 
     wx0 = power.fetch_daily(lat, lon, date(WEATHER_START_YEAR, 1, 1), date(last_year, 12, 31))
     pcorr, extra_gaps = None, []
@@ -525,7 +780,8 @@ def build_field_report(req: dict | None = None) -> dict:
         fm = analyze_ndvi(ndvi)
     except Exception:  # degrade gracefully: no field memory
         fm = {"ndvi": [], "years": [], "bare_probability": [], "bare_windows": [], "stress_years": []}
-    sp = soil_mod.fetch_soil(lat, lon)
+    sp_model = soil_mod.fetch_soil(lat, lon)
+    sp = override_soil(sp_model, details["soil"]) if details.get("soil") else sp_model
     soil = {"clay_pct": sp.clay_pct, "sand_pct": sp.sand_pct, "silt_pct": sp.silt_pct, "soc_gkg": sp.soc_gkg, "ph": sp.ph,
             "texture_class": sp.texture_class, "taw_mm_per_m": sp.taw_mm_per_m, "source_id": sp.source_id}
     try:
@@ -538,10 +794,25 @@ def build_field_report(req: dict | None = None) -> dict:
     steps = [RotationStep(crop_id=s["crop_id"], year=i + 1, irrigation=s["irrigation"])
              for i, s in enumerate(r["current_rotation"])]
     base_rot = Rotation(id="baseline", name={"en": "Current rotation", "tr": "Mevcut rotasyon"}, archetype="baseline", steps=steps)
-    base = simulate_rotation(base_rot, wx_sim, sp, crops, _start_years(WEATHER_START_YEAR, last_year, _n_main(steps, crops)))
+    base = simulate_rotation(base_rot, wx_sim, sp, crops, _start_years(WEATHER_START_YEAR, last_year, _n_main(steps, crops)),
+                             irrigation_efficiency=eff)
     base_idx = base.get("erosion_index") or None
-    cands = generate_candidates(crops, climate, fm, r["constraints"])
-    results = [base] + _simulate_all(cands, wx_sim, sp, crops, last_year, base_idx)
+    cons = dict(r["constraints"])
+    if details.get("excluded_crops"):
+        cons["exclude_crops"] = sorted(details["excluded_crops"])
+    if quota:
+        cons["water_access"] = "full" if quota["quota_m3_ha_yr"] > 0 else "none"
+    cands = generate_candidates(crops, climate, fm, cons)
+    sims = _simulate_all(cands, wx_sim, sp, crops, last_year, base_idx, eff)
+    if quota:  # drop candidates above the per-ha quota; keep them (marked) if fewer than 3 would remain
+        qh = quota["quota_m3_ha_yr"]
+        within = [x for x in sims if _p50(x["indicators"]["water_m3_ha_yr"]) <= qh]
+        relaxed = sum(1 for x in within if x.get("feasible", True)) < 3
+        quota["n_candidates_excluded"] = 0 if relaxed else len(sims) - len(within)
+        quota["relaxed"] = relaxed
+        if not relaxed:
+            sims = within
+    results = [base] + sims
     picked = pick_strategies(results, r["priorities"])
     cand_names = {c.id: c.name for c in cands}
 
@@ -550,6 +821,10 @@ def build_field_report(req: dict | None = None) -> dict:
     ids = _climate_facts(F, climate, fm, soil, "")
     _precip_fact(F, pcorr, ids)
     base_s = picked[0]
+    ub = _user_block(F, r, crops, sp_model, sp, fm, base, quota, yield_check) if (poly or details) else {}
+    ufid = ub.pop("_fid", {})
+    if quota:
+        quota["baseline_exceeds"] = bool(_p50(base_s["indicators"]["water_m3_ha_yr"]) > quota["quota_m3_ha_yr"])
     base_crops = {s["crop_id"] for s in base_s["steps"]}
     ordered = [picked[0]] + [s for a in ARCH_ORDER for s in picked[1:] if s["archetype"] == a]
     strategies = []
@@ -557,11 +832,20 @@ def build_field_report(req: dict | None = None) -> dict:
         deltas = _strategy_deltas(F, st, base_s, ids)
         ev = _evidence(st, base_s, deltas, ids, crops, base_crops)
         ev["gaps"] = ev["gaps"] + copy.deepcopy(extra_gaps)
+        if poly:
+            ev["gaps"].append({"text": {
+                "en": "Your field boundary is recorded, but the 250 m MODIS pixel and the 0.5° weather grid still describe the "
+                      "surroundings, so the boundary does not sharpen these results yet (planned: 30 m HLS imagery).",
+                "tr": "Tarla sınırınız kaydedildi, ancak 250 m'lik MODIS pikseli ve 0,5° hava ızgarası hâlâ çevreyi tanımlıyor; "
+                      "bu yüzden sınır sonuçları henüz keskinleştirmiyor (planlanan: 30 m HLS görüntüleri)."}})
+        _user_evidence(ev, st, deltas, ufid, quota, details, crops)
         out = {k: st[k] for k in ("id", "archetype", "name", "cycle_years", "calendar", "indicators", "score",
                                    "score_breakdown", "feasibility") if k in st}
         out["rotation_name"] = cand_names.get(st.get("rotation_id"), st["name"]) if st["archetype"] != "baseline" else \
             {"en": _crop_chain(st, crops, "en"), "tr": _crop_chain(st, crops, "tr")}
         out["steps"] = st["steps"]
+        if quota:
+            out["exceeds_quota"] = bool(_p50(st["indicators"]["water_m3_ha_yr"]) > quota["quota_m3_ha_yr"])
         out["evidence"] = ev
         strategies.append(out)
 
@@ -570,6 +854,8 @@ def build_field_report(req: dict | None = None) -> dict:
         used.add(pcorr["source_id"])
     if fm.get("years"):
         used.add("modis_mod13q1")
+    if "irrigation_method" in details:
+        used.add("irrigation_efficiency")
     sources = [{"id": k, **SOURCES[k]} for k in SOURCES if k in used]
 
     lab = r.get("label") or ("Çumra, Konya" if abs(lat - 37.60) < 0.1 and abs(lon - 32.75) < 0.1 else f"{lat:.2f}, {lon:.2f}")
@@ -587,6 +873,20 @@ def build_field_report(req: dict | None = None) -> dict:
         "scenario": r["scenario"],
         "precip_correction": pcorr,
     }
+    if poly:
+        report["location"]["area_ha"] = round(poly["area_ha"], 2)
+        report["location"]["polygon"] = {"type": "Polygon", "coordinates": [poly["ring"]]}
+    if ub.get("user_inputs"):
+        report["user_inputs"] = ub["user_inputs"]
+    if "irrigation_method" in details:
+        report["irrigation"] = {"method": details["irrigation_method"], "efficiency": eff, "source_id": "irrigation_efficiency"}
+    if quota:
+        report["quota"] = {k: (round(v, 1) if k == "quota_m3_ha_yr" else v) for k, v in quota.items()}
+    if yield_check:
+        report["yield_check"] = yield_check
+    for k in ("history_check", "irrigation_check"):
+        if k in ub:
+            report[k] = ub[k]
     return _clean(report)
 
 
