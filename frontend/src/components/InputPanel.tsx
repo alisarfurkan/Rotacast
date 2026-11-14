@@ -63,7 +63,7 @@ export function InputPanel(p: Props) {
     ;[r[i], r[j]] = [r[j], r[i]]
     p.setRotation(r)
   }
-  const irrOpts: [Irrigation, Key][] = [['none', 'irrNone'], ['limited', 'irrLimited'], ['full', 'irrFull']]
+  const irrOpts: [Irrigation, Key][] = [['none', 'irrNone'], ['deficit', 'irrLimited'], ['full', 'irrFull']]
   const waterOpts: [WaterAccess, Key][] = [['none', 'waterNone'], ['limited', 'waterLimited'], ['full', 'waterFull']]
   const canGo = !!p.point && p.rotation.length > 0
 

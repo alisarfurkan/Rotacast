@@ -4,7 +4,7 @@ export type Lang = 'en' | 'tr'
 export interface I18nText { en: string; tr: string }
 export interface Band { p10: number; p50: number; p90: number }
 
-export type Irrigation = 'none' | 'limited' | 'full'
+export type Irrigation = 'none' | 'deficit' | 'full'
 export type WaterAccess = 'none' | 'limited' | 'full'
 
 export interface RotationStep { crop_id: string; irrigation: Irrigation }

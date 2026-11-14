@@ -8,7 +8,7 @@ os.environ["ROTACAST_OFFLINE"] = "1"
 from fastapi.testclient import TestClient  # noqa: E402
 
 from rotacast.api.main import app  # noqa: E402
-from rotacast.report import build_field_report  # noqa: E402
+from rotacast.report import build_field_report, normalize_request  # noqa: E402
 
 REQ = {"lat": 37.60, "lon": 32.75}
 
@@ -53,6 +53,19 @@ def test_fact_references(report):
 def test_json_roundtrip(report):
     txt = json.dumps(report, allow_nan=False)
     assert json.loads(txt)["location"]["lat"] == 37.6
+
+
+def test_irrigation_mode_normalized():
+    rot = [{"crop_id": "sugar_beet", "irrigation": m} for m in ("none", "deficit", "full", "limited")] + [{"crop_id": "maize_grain"}]
+    got = [s["irrigation"] for s in normalize_request({"current_rotation": rot})["current_rotation"]]
+    assert got == ["none", "deficit", "full", "deficit", "none"]  # "limited" was silently simulated as rain-fed before
+
+
+def test_unknown_irrigation_mode_rejected():
+    with pytest.raises(ValueError):
+        normalize_request({"current_rotation": [{"crop_id": "sugar_beet", "irrigation": "partial"}]})
+    r = TestClient(app).post("/api/field/analyze", json={**REQ, "current_rotation": [{"crop_id": "sugar_beet", "irrigation": "partial"}]})
+    assert r.status_code == 422
 
 
 def test_api_health_and_crops():

@@ -110,6 +110,18 @@ class Facts:
         return fid
 
 
+IRRIGATION_MODES = ("none", "deficit", "full")
+_IRRIGATION_ALIASES = {"limited": "deficit"}  # older clients sent the water-access word for a crop step
+
+
+def _irrigation_mode(value) -> str:
+    """Per-step irrigation mode the water balance understands; unknown values raise instead of silently meaning 'none'."""
+    mode = _IRRIGATION_ALIASES.get(value or "none", value or "none")
+    if mode not in IRRIGATION_MODES:
+        raise ValueError(f"unknown irrigation mode: {value!r} (expected one of {', '.join(IRRIGATION_MODES)})")
+    return mode
+
+
 def normalize_request(req: dict | None) -> dict:
     req = dict(req or {})
     cons = {"water_access": "limited", "max_irrigated_share": 0.5}
@@ -118,7 +130,7 @@ def normalize_request(req: dict | None) -> dict:
     pri.update({k: float(v) for k, v in (req.get("priorities") or {}).items() if v is not None})
     scen = {"delta_t_c": 0.0, "precip_change_pct": 0.0}
     scen.update({k: float(v) for k, v in (req.get("scenario") or {}).items() if v is not None})
-    rot = [{"crop_id": s["crop_id"], "irrigation": s.get("irrigation", "none")}
+    rot = [{"crop_id": s["crop_id"], "irrigation": _irrigation_mode(s.get("irrigation"))}
            for s in (req.get("current_rotation") or DEFAULT_ROTATION)]
     return {"lat": float(req.get("lat", 37.60)), "lon": float(req.get("lon", 32.75)), "current_rotation": rot,
             "constraints": cons, "priorities": pri, "scenario": scen, "lang": req.get("lang", "tr"),
