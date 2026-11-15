@@ -9,7 +9,9 @@ more irrigation water or cause more erosion than the current rotation. A Basin V
 Closed Basin and compares water-focused adoption scenarios with the GRACE groundwater-storage decline. Built for the NASA
 Space Apps 2026 challenge "Field Shift: Adapting Farms with NASA Data".
 
-![Rotacast screenshot](docs/screenshot.png)
+![Rotacast: built to ease farming's pressure on water](docs/readme_slide6.png)
+
+![Multi-scale NASA data for one field decision](docs/readme_slide8.png)
 
 ## Features
 

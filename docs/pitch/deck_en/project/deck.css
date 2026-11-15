@@ -123,7 +123,7 @@ h3 { font-size: 32px; font-weight: 650; line-height: 1.2; }
 .shot-col { display: flex; flex-direction: column; gap: 20px; }
 .shot { width: 880px; height: 529px; object-fit: contain; border-radius: 20px; box-shadow: 0 24px 60px rgba(31, 26, 19, 0.28); background: #1B1712; }
 .modes { display: flex; gap: 16px; }
-.mode { font-size: 24px; font-weight: 600; padding: 10px 22px; border-radius: 999px; }
+.mode { font-size: 24px; font-weight: 600; padding: 10px 22px; border-radius: 999px; white-space: nowrap; }
 .mode.b { background: var(--gold); color: #2A1E07; }
 .mode.a { background: var(--water-deep); color: #F3F7FC; }
 
