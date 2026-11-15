@@ -1,4 +1,5 @@
 import type { BasinReport, FieldReport, FieldRequest, ZonesData } from './types'
+import { areaHa } from './geometry'
 import mockBasin from './mock/basinReport.konya.json'
 import mockReport from './mock/fieldReport.konya.json'
 import mockZones from './mock/zones.konya.json'
@@ -7,6 +8,13 @@ import mockZones from './mock/zones.konya.json'
 export class AnalyzeError extends Error {
   code: string
   constructor(code: string, message: string) { super(message); this.code = code }
+}
+
+/** HTTP 422 from the API: the request was understood but a value is invalid. Never falls back to the mock. */
+export interface ValidationIssue { loc: (string | number)[]; msg: string }
+export class ValidationError extends Error {
+  issues: ValidationIssue[]
+  constructor(issues: ValidationIssue[]) { super('HTTP 422'); this.issues = issues }
 }
 
 export interface AnalyzeResult { report: FieldReport; source: 'live' | 'mock-forced' | 'mock-fallback' }
@@ -35,7 +43,13 @@ function scoreMock(req: FieldRequest): FieldReport {
     s.indicators.water_m3_ha_yr = { p10: bd.p10 * k, p50: bd.p50 * k, p90: bd.p90 * k }
     s.indicators.heat_risk = Math.min(1, s.indicators.heat_risk * (1 + 0.12 * dT))
   }
-  return rep  // location stays Çumra: the demo numbers never belong to another point
+  // Location stays Çumra: the demo numbers never belong to another point.
+  if (req.field_polygon) {
+    // The bundled demo has no v1.2 keys; only expose the boundary and its area so the UI can be exercised offline.
+    const ring = req.field_polygon.coordinates[0].slice(0, -1).map(([lon, lat]) => ({ lat, lon }))
+    rep.location = { ...rep.location, area_ha: +areaHa(ring).toFixed(2), polygon: req.field_polygon }
+  }
+  return rep
 }
 
 export async function analyzeField(req: FieldRequest): Promise<AnalyzeResult> {
@@ -52,16 +66,20 @@ export async function analyzeField(req: FieldRequest): Promise<AnalyzeResult> {
     if (res.status === 422) {
       const body = await res.json().catch(() => null)
       const d = body?.detail
-      if (d && typeof d === 'object' && (d.code === 'outside_konya' || d.code === 'on_lake')) {
+      if (d && typeof d === 'object' && !Array.isArray(d) && (d.code === 'outside_konya' || d.code === 'on_lake')) {
         throw new AnalyzeError(d.code, String(d.message ?? ''))
       }
+      let issues: ValidationIssue[] = []
+      if (Array.isArray(d)) issues = d.map((x: { loc?: (string | number)[]; msg?: string }) => ({ loc: x.loc ?? [], msg: String(x.msg ?? '') }))
+      else if (typeof d === 'string') issues = [{ loc: [], msg: d }]
+      throw new ValidationError(issues)
     }
     if (!res.ok) throw new Error('HTTP ' + res.status)
     const report = (await res.json()) as FieldReport
     if (!report || !Array.isArray(report.strategies)) throw new Error('bad payload')
     return { report, source: 'live' }
-  } catch (e) {
-    if (e instanceof AnalyzeError) throw e
+  } catch (err) {
+    if (err instanceof AnalyzeError || err instanceof ValidationError) throw err
     await new Promise((r) => setTimeout(r, 2600))
     return { report: scoreMock(req), source: 'mock-fallback' }
   }

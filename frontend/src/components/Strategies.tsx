@@ -261,7 +261,10 @@ function Trials({ s }: { s: Strategy }) {
   )
 }
 
-export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; base: Strategy; scales: Scales; top: boolean; onOpen: () => void }) {
+/** Field totals are rough (per-ha model x area): show 3 significant figures, e.g. 4 189 221 -> 4 190 000. */
+const round3 = (v: number) => { if (!v) return 0; const p = 10 ** (Math.floor(Math.log10(Math.abs(v))) - 2); return Math.round(v / p) * p }
+
+export function StrategyCard({ s, base, scales, top, onOpen, areaHa }: { s: Strategy; base: Strategy; scales: Scales; top: boolean; onOpen: () => void; areaHa?: number }) {
   const t = useT()
   const lang = useLang()
   const accent = ACCENT[s.archetype] ?? '#7a6652'
@@ -285,6 +288,7 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
           </div>
           {top && <span className="text-[10px] font-bold bg-white text-ink rounded-full px-2 py-0.5 shrink-0">★ {t(s.archetype === 'balanced_transition' ? 'stDefaultPick' : 'stTopPick')}</span>}
         </div>
+        {s.exceeds_quota && <div className="mt-2 inline-block rounded-full bg-bad text-bg text-[11px] font-bold px-2.5 py-0.5">⚠ {t('exceedsQuota')}</div>}
       </div>
 
       <div className="p-4 flex flex-col gap-4 flex-1">
@@ -315,12 +319,14 @@ export function StrategyCard({ s, base, scales, top, onOpen }: { s: Strategy; ba
             <span className="font-display text-4xl font-black text-water tabular-nums leading-none">{fmt(i.water_m3_ha_yr.p50, 0, lang)}</span>
             <span className="text-xs text-muted">{t('waterUnit')}</span>
           </div>
+          {areaHa !== undefined && <div className="mt-1 text-xs font-semibold text-water">{t('fieldWater', { area: fmt(areaHa, areaHa < 10 ? 2 : 1, lang), total: fmt(round3(i.water_m3_ha_yr.p50 * areaHa), 0, lang) })}</div>}
           {!isBase && <div className="mt-1.5"><Delta good={dWater < 0 ? true : dWater > 0 ? false : null} text={`${signed(dWater, 0, lang)} ${t('waterUnit')}`} /> <span className="text-[10.5px] text-muted">{t('vsCurrent')}</span></div>}
           <div className="mt-2"><BandRow label={<Term k="band">{t('water')}</Term>} band={i.water_m3_ha_yr} scale={[0, Math.max(scales.water[1], 1)]} unit="" higherBetter={null} /></div>
         </div>
 
         <div className="grid gap-3.5">
           <BandRow label={<Term k="income">{t('income')}</Term>} band={i.income_usd_ha_yr} scale={scales.income} unit={t('incomeUnit')} higherBetter />
+          {areaHa !== undefined && <div className="-mt-2 text-xs font-semibold text-muted">{t('fieldIncome', { total: fmt(round3(i.income_usd_ha_yr.p50 * areaHa), 0, lang) })}</div>}
           {!isBase && <div className="-mt-2"><Delta good={dInc > 0 ? true : dInc < 0 ? false : null} text={`${signed(dInc, 0, lang)} USD/ha`} /></div>}
           <BandRow label={<Term k="yield">{t('yieldRatio')}</Term>} band={i.yield_ratio} scale={scales.yield} unit="" higherBetter decimals={2} />
           <MeterRow label={<Term k="nbalance">{t('nBalance')}</Term>} value={i.n_balance_kg_ha_yr} max={60} unit={t('nUnit')}
@@ -351,7 +357,7 @@ const NOTE_KEY: Record<string, Key> = {
   no_candidate_within_limits: 'noteNoCandidate', no_verified_specialty: 'noteNoSpecialty', no_local_evidence: 'noteNoLocal',
 }
 
-export function Strategies({ strategies, onOpen, cards }: { strategies: Strategy[]; onOpen: (id: string) => void; cards?: CardsInfo | null }) {
+export function Strategies({ strategies, onOpen, cards, areaHa }: { strategies: Strategy[]; onOpen: (id: string) => void; cards?: CardsInfo | null; areaHa?: number }) {
   const t = useT()
   const lang = useLang()
   const base = strategies.find((s) => s.archetype === 'baseline') ?? strategies[0]
@@ -379,7 +385,7 @@ export function Strategies({ strategies, onOpen, cards }: { strategies: Strategy
       ))}
       <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         {ordered.map((s) => (
-          <StrategyCard key={s.id} s={s} base={base} scales={scales} top={s === top} onOpen={() => onOpen(s.id)} />
+          <StrategyCard key={s.id} s={s} base={base} scales={scales} top={s === top} onOpen={() => onOpen(s.id)} areaHa={areaHa} />
         ))}
       </div>
     </section>

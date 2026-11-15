@@ -5,7 +5,9 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import { useLang, useT } from '../ctx'
 import { getZones } from '../api'
 import { inGeometry } from '../geo'
-import type { ZoneProps, ZonesData } from '../types'
+import type { Mode, ZoneProps, ZonesData } from '../types'
+import { areaHa, midpoint, selfIntersects, MIN_HA, MAX_HA } from '../geometry'
+import { fmt } from '../util'
 
 maplibregl.setWorkerUrl(workerUrl)
 
@@ -52,9 +54,28 @@ export function locate(z: ZonesData | null, p: Point): { zone: ZoneProps | null;
   return { zone: f?.properties ?? null, problem: null }
 }
 
-export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p: Point) => void }) {
+const HANDLE = 'rc-handle'
+
+function handleEl(kind: 'vertex' | 'first' | 'mid', draggable: boolean): HTMLDivElement {
+  const el = document.createElement('div')
+  el.className = HANDLE
+  const dot = kind === 'mid' ? 14 : kind === 'first' ? 20 : 16
+  el.style.cssText = `width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:${draggable ? 'grab' : 'pointer'}`
+  const inner = document.createElement('div')
+  inner.style.cssText = kind === 'mid'
+    ? `width:${dot}px;height:${dot}px;border-radius:50%;background:rgba(255,255,255,.85);border:2px solid #3b2616;color:#3b2616;font:700 12px/10px sans-serif;display:flex;align-items:center;justify-content:center`
+    : `width:${dot}px;height:${dot}px;border-radius:50%;background:${kind === 'first' ? '#f2c14e' : '#fff'};border:3px solid #3b2616;box-shadow:0 0 0 2px rgba(255,255,255,.6)`
+  if (kind === 'mid') inner.textContent = '+'
+  el.appendChild(inner)
+  return el
+}
+
+interface Props { point: Point | null; onPick: (p: Point) => void; mode: Mode; polygon: Point[] | null; onPolygon: (p: Point[] | null) => void }
+
+export function FieldPicker({ point, onPick, mode, polygon, onPolygon }: Props) {
   const t = useT()
   const lang = useLang()
+  const advanced = mode === 'advanced'
   const [zones, setZones] = useState<ZonesData | null>(null)
   const [mapReady, setMapReady] = useState(false)
   const [notice, setNotice] = useState<'outsideKonya' | 'onLake' | null>(null)
@@ -67,9 +88,46 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
   const el = useRef<HTMLDivElement>(null)
   const map = useRef<maplibregl.Map | null>(null)
   const marker = useRef<maplibregl.Marker | null>(null)
-  const onPickRef = useRef(onPick)
-  onPickRef.current = onPick
   const [base, setBase] = useState<'esri' | 'osm'>('esri')
+
+  // polygon working copy: `verts` is the draft while drawing and the editable boundary once `closed`
+  const [verts, setVerts] = useState<Point[]>(polygon ?? [])
+  const [closed, setClosed] = useState(!!polygon)
+  const [drawing, setDrawing] = useState(false)
+  const vertsRef = useRef(verts); vertsRef.current = verts
+  const closedRef = useRef(closed); closedRef.current = closed
+  const drawingRef = useRef(drawing); drawingRef.current = drawing
+  const advancedRef = useRef(advanced); advancedRef.current = advanced
+  const onPickRef = useRef(onPick); onPickRef.current = onPick
+  const onPolygonRef = useRef(onPolygon); onPolygonRef.current = onPolygon
+  const emitted = useRef<Point[] | null>(polygon)
+  const handles = useRef<maplibregl.Marker[]>([])
+  const mids = useRef<maplibregl.Marker[]>([])
+  const dragging = useRef(-1)
+  const updateSource = useRef<() => void>(() => {})
+
+  const emit = (p: Point[] | null) => { emitted.current = p; onPolygonRef.current(p) }
+  const close = () => {
+    if (vertsRef.current.length < 3) return
+    setClosed(true); setDrawing(false)
+    emit(vertsRef.current)
+  }
+  const reset = (redraw: boolean) => {
+    setVerts([]); setClosed(false); setDrawing(redraw)
+    emit(null)
+  }
+
+  // polygon changed from outside (new point picked, demo button): follow it
+  useEffect(() => {
+    if (polygon === emitted.current) return
+    emitted.current = polygon
+    if (polygon) { setVerts(polygon); setClosed(true); setDrawing(false) } else { setVerts([]); setClosed(false); setDrawing(false) }
+  }, [polygon])
+
+  // leaving Advanced drops an unfinished draft (a finished boundary is kept in App state)
+  useEffect(() => {
+    if (!advanced && drawing) { setDrawing(false); if (!closed) setVerts([]) }
+  }, [advanced, drawing, closed])
 
   useEffect(() => {
     if (!el.current) return
@@ -79,13 +137,41 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
       minZoom: 6, maxBounds: [[w - PAD, s - PAD], [e + PAD, n + PAD]], attributionControl: { compact: true },
     })
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
-    m.on('load', () => setMapReady(true))
-    m.on('click', (ev) => {
-      const p = { lat: +ev.lngLat.lat.toFixed(4), lon: +ev.lngLat.lng.toFixed(4) }
-      const { problem } = locate(zonesRef.current, p)
+    m.on('click', (e) => {
+      const tgt = e.originalEvent?.target as HTMLElement | undefined
+      if (tgt?.closest?.('.' + HANDLE)) return
+      const ll = { lat: +e.lngLat.lat.toFixed(6), lon: +e.lngLat.lng.toFixed(6) }
+      const { problem } = locate(zonesRef.current, ll)
+      if (advancedRef.current && drawingRef.current) {  // corners may sit on a lake shore, but never outside Konya
+        if (problem === 'outside') { setNotice('outsideKonya'); return }
+        setNotice(null); setVerts((v) => [...v, ll]); return
+      }
+      if (advancedRef.current && closedRef.current) return // a boundary exists: do not move the point by accident
       if (problem) { setNotice(problem === 'lake' ? 'onLake' : 'outsideKonya'); return }
       setNotice(null)
-      onPickRef.current(p)
+      onPickRef.current({ lat: +ll.lat.toFixed(4), lon: +ll.lon.toFixed(4) })
+    })
+    updateSource.current = () => {
+      const src = m.getSource('rc-poly') as maplibregl.GeoJSONSource | undefined
+      if (!src) return
+      const v = vertsRef.current
+      const feats: GeoJSON.Feature[] = []
+      if (advancedRef.current && v.length >= 2) {
+        const c = v.map((p) => [p.lon, p.lat])
+        if (closedRef.current && v.length >= 3) {
+          feats.push({ type: 'Feature', properties: { bad: selfIntersects(v) }, geometry: { type: 'Polygon', coordinates: [[...c, c[0]]] } })
+        } else feats.push({ type: 'Feature', properties: { bad: false }, geometry: { type: 'LineString', coordinates: c } })
+      }
+      src.setData({ type: 'FeatureCollection', features: feats })
+    }
+    m.on('load', () => {
+      setMapReady(true)
+      m.addSource('rc-poly', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      m.addLayer({ id: 'rc-fill', type: 'fill', source: 'rc-poly', filter: ['==', ['geometry-type'], 'Polygon'],
+        paint: { 'fill-color': ['case', ['get', 'bad'], '#e2553f', '#f2c14e'], 'fill-opacity': 0.28 } })
+      m.addLayer({ id: 'rc-line', type: 'line', source: 'rc-poly',
+        paint: { 'line-color': ['case', ['get', 'bad'], '#e2553f', '#f2c14e'], 'line-width': 3 } })
+      updateSource.current()
     })
     map.current = m
     return () => { m.remove(); map.current = null; setMapReady(false) }
@@ -97,10 +183,10 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
     m.addSource('zones', { type: 'geojson', data: zones.zones as never })
     m.addSource('lakes', { type: 'geojson', data: zones.lakes as never })
     m.addSource('boundary', { type: 'geojson', data: zones.boundary as never })
-    m.addLayer({ id: 'zones-fill', type: 'fill', source: 'zones', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.35 } })
-    m.addLayer({ id: 'zones-line', type: 'line', source: 'zones', paint: { 'line-color': ['get', 'color'], 'line-width': 1, 'line-opacity': 0.9 } })
-    m.addLayer({ id: 'lakes-fill', type: 'fill', source: 'lakes', paint: { 'fill-color': '#3b8fd1', 'fill-opacity': 0.75 } })
-    m.addLayer({ id: 'boundary-line', type: 'line', source: 'boundary', paint: { 'line-color': '#ffffff', 'line-width': 2.5, 'line-opacity': 0.95 } })
+    m.addLayer({ id: 'zones-fill', type: 'fill', source: 'zones', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': 0.35 } }, 'rc-fill')
+    m.addLayer({ id: 'zones-line', type: 'line', source: 'zones', paint: { 'line-color': ['get', 'color'], 'line-width': 1, 'line-opacity': 0.9 } }, 'rc-fill')
+    m.addLayer({ id: 'lakes-fill', type: 'fill', source: 'lakes', paint: { 'fill-color': '#3b8fd1', 'fill-opacity': 0.75 } }, 'rc-fill')
+    m.addLayer({ id: 'boundary-line', type: 'line', source: 'boundary', paint: { 'line-color': '#ffffff', 'line-width': 2.5, 'line-opacity': 0.95 } }, 'rc-fill')
     m.on('mousemove', 'zones-fill', (ev) => {
       const id = ev.features?.[0]?.properties?.id
       setHoverId(typeof id === 'number' ? id : null)
@@ -132,6 +218,84 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
 
   const here = point ? locate(zones, point).zone : null
   const hover = hoverId != null ? zones?.zones.features.find((f) => f.properties.id === hoverId)?.properties : null
+  // double-click is used to delete a corner, so the map must not zoom on it in Advanced mode
+  useEffect(() => {
+    const m = map.current
+    if (!m) return
+    if (advanced) m.doubleClickZoom.disable(); else m.doubleClickZoom.enable()
+    m.getCanvas().style.cursor = advanced && drawing ? 'crosshair' : ''
+  }, [advanced, drawing])
+
+  // handle markers: rebuilt only when their number or role changes (never while a corner is being dragged)
+  useEffect(() => {
+    const m = map.current
+    const clear = () => {
+      handles.current.forEach((h) => h.remove()); handles.current = []
+      mids.current.forEach((h) => h.remove()); mids.current = []
+    }
+    clear()
+    if (!m || !advanced) return
+    const v = vertsRef.current
+    v.forEach((p, i) => {
+      const first = drawing && i === 0 && v.length >= 3
+      const node = handleEl(first ? 'first' : 'vertex', closed)
+      const mk = new maplibregl.Marker({ element: node, draggable: closed }).setLngLat([p.lon, p.lat]).addTo(m)
+      node.addEventListener('click', (ev) => { ev.stopPropagation(); if (drawingRef.current && i === 0) close() })
+      node.addEventListener('dblclick', (ev) => {
+        ev.stopPropagation(); ev.preventDefault()
+        if (!closedRef.current || vertsRef.current.length <= 3) return
+        const next = vertsRef.current.filter((_, j) => j !== i)
+        setVerts(next); emit(next)
+      })
+      mk.on('dragstart', () => { dragging.current = i })
+      mk.on('drag', () => {
+        const ll = mk.getLngLat()
+        setVerts((cur) => cur.map((q, j) => (j === i ? { lat: ll.lat, lon: ll.lng } : q)))
+      })
+      mk.on('dragend', () => {
+        dragging.current = -1
+        const next = handles.current.map((h) => ({ lat: +h.getLngLat().lat.toFixed(6), lon: +h.getLngLat().lng.toFixed(6) }))
+        setVerts(next); emit(next)
+      })
+      handles.current.push(mk)
+    })
+    if (closed && v.length >= 3) {
+      v.forEach((p, i) => {
+        const q = midpoint(p, v[(i + 1) % v.length])
+        const node = handleEl('mid', false)
+        const mk = new maplibregl.Marker({ element: node }).setLngLat([q.lon, q.lat]).addTo(m)
+        node.addEventListener('click', (ev) => {
+          ev.stopPropagation()
+          const cur = vertsRef.current
+          const mid = midpoint(cur[i], cur[(i + 1) % cur.length])
+          const next = [...cur.slice(0, i + 1), { lat: +mid.lat.toFixed(6), lon: +mid.lon.toFixed(6) }, ...cur.slice(i + 1)]
+          setVerts(next); emit(next)
+        })
+        node.addEventListener('dblclick', (ev) => { ev.stopPropagation(); ev.preventDefault() })
+        mids.current.push(mk)
+      })
+    }
+    return clear
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advanced, closed, drawing, verts.length])
+
+  // follow vertex positions (live while dragging) and redraw the shape
+  useEffect(() => {
+    verts.forEach((p, i) => { if (i !== dragging.current) handles.current[i]?.setLngLat([p.lon, p.lat]) })
+    if (closed && verts.length >= 3) {
+      verts.forEach((p, i) => {
+        const q = midpoint(p, verts[(i + 1) % verts.length])
+        mids.current[i]?.setLngLat([q.lon, q.lat])
+      })
+    }
+    updateSource.current()
+  }, [verts, closed, advanced])
+
+  const ha = closed && verts.length >= 3 ? areaHa(verts) : null
+  const crossing = closed && verts.length >= 4 && selfIntersects(verts)
+  const badSize = ha !== null && !crossing && (ha < MIN_HA || ha > MAX_HA)
+
+  const btn = 'text-sm font-semibold rounded-full border border-line bg-surface2 hover:bg-leafsoft px-3 py-1.5 disabled:opacity-50'
   return (
     <div>
       <div className="relative rounded-2xl overflow-hidden border border-line">
@@ -168,6 +332,29 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
         )}
       </div>
       {notice && <p role="alert" className="mt-2 rounded-lg bg-sunsoft border border-sun px-3 py-2 text-sm">{t(notice)}</p>}
+      {advanced && (
+        <div className="mt-2 flex items-center gap-2 flex-wrap">
+          {!drawing && !closed && <button onClick={() => { setVerts([]); setDrawing(true) }} className={btn}>⬠ {t('polyDraw')}</button>}
+          {drawing && (
+            <>
+              <button onClick={close} disabled={verts.length < 3} className={btn}>✔ {t('polyFinish')}</button>
+              <button onClick={() => { setDrawing(false); setVerts([]) }} className={btn}>{t('polyCancel')}</button>
+              <span className="text-xs text-muted">{t('polyCorners', { n: verts.length })}</span>
+            </>
+          )}
+          {closed && (
+            <>
+              <button onClick={() => reset(true)} className={btn}>↻ {t('polyRedraw')}</button>
+              <button onClick={() => reset(false)} className={btn}>✕ {t('polyClear')}</button>
+            </>
+          )}
+          {ha !== null && (
+            <span className="text-sm font-bold tabular-nums ml-auto" aria-live="polite">{t('polyArea')}: {fmt(ha, ha < 10 ? 2 : 1, lang)} {t('polyHa')}</span>
+          )}
+        </div>
+      )}
+      {advanced && crossing && <p role="alert" className="mt-2 rounded-lg bg-badsoft text-bad text-sm font-semibold px-3 py-2">⚠ {t('polySelfX')}</p>}
+      {advanced && badSize && <p role="alert" className="mt-2 rounded-lg bg-badsoft text-bad text-sm font-semibold px-3 py-2">⚠ {t('polySize')}</p>}
       <div className="mt-2 flex items-center justify-between gap-2 flex-wrap">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-xs font-bold text-muted">{t('samplesLabel')}</span>
@@ -192,7 +379,7 @@ export function FieldPicker({ point, onPick }: { point: Point | null; onPick: (p
           <span><span className="text-muted">{t('zoneOfPoint')}:</span> <strong>{zname(here)}</strong></span>
         </p>
       )}
-      <p className="text-xs text-muted mt-1">{t('mapHint')}</p>
+      <p className="text-xs text-muted mt-1">{!advanced ? t('mapHint') : drawing ? t('polyDrawHint') : closed ? t('polyEditHint') : t('polyIdleHint')}</p>
       {point && !isSample(point) && (
         <p className="text-xs mt-1 rounded-lg bg-surface2 px-2.5 py-1.5">⏳ {t('newPointNote')}</p>
       )}

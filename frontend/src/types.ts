@@ -11,9 +11,27 @@ export interface RotationStep { crop_id: string; irrigation: Irrigation }
 
 export interface Priorities { water: number; soil: number; income: number; erosion: number; risk: number }
 
+export type Mode = 'beginner' | 'advanced'
+
+// --- v1.2 request additions (docs/CONTRACTS.md section 6.1); all optional ---
+export interface FieldPolygon { type: 'Polygon'; coordinates: number[][][] } // [lon, lat], closed outer ring
+export type ExclusionReason = 'no_equipment' | 'no_buyer' | 'not_wanted'
+export type IrrigationMethod = 'flood' | 'furrow' | 'sprinkler' | 'drip'
+export interface FieldDetails {
+  soil?: { texture_class?: string; clay_pct?: number; sand_pct?: number; soc_gkg?: number; ph?: number }
+  excluded_crops?: { crop_id: string; reason: ExclusionReason }[]
+  irrigation_method?: IrrigationMethod
+  water_quota_m3_yr?: number
+  yields_t_ha?: Record<string, number>
+  history?: { year: number; crop_id: string }[]
+  irrigation_applied_m3_ha?: Record<string, number>
+}
+
 export interface FieldRequest {
   lat: number
   lon: number
+  field_polygon?: FieldPolygon
+  field_details?: FieldDetails
   current_rotation: RotationStep[]
   constraints: { water_access: WaterAccess; max_irrigated_share: number }
   priorities: Priorities
@@ -125,6 +143,7 @@ export interface Strategy {
   score: number
   score_breakdown: ScoreBreakdown
   evidence: Evidence
+  exceeds_quota?: boolean // v1.2: only with water_quota_m3_yr
 }
 export interface Fact { id: string; text: I18nText; value: number; unit: string; source_id: string }
 
@@ -169,10 +188,31 @@ export interface ZonesData {
   lakes: GeoCollection<{ name: string }>
 }
 
+// --- v1.2 response additions (docs/CONTRACTS.md section 6.3); all optional ---
+export interface UserInput {
+  id: string // polygon | soil | excluded_crops | irrigation_method | water_quota | yields | history | irrigation_applied
+  label: I18nText
+  value: I18nText
+  model?: I18nText | null
+  fact?: string
+}
+export interface YieldCheck { crop_id: string; declared_t_ha: number; regional_t_ha: number; factor: number }
+export interface HistoryCheck {
+  n_years: number; n_agree: number; agreement: number | null // null when no declared year has satellite data
+  years: { year: number; crop_id: string; declared_pattern: string; satellite_pattern: string | null; agree: boolean | null }[]
+}
+export interface IrrigationCheck { crop_id: string; declared_m3_ha: number; modelled_m3_ha: number | null; diff_pct: number | null }
+
 export interface FieldReport {
   zone?: ZoneInfo
   cards?: CardsInfo | null
-  location: { lat: number; lon: number; elevation_m: number; label: string }
+  location: { lat: number; lon: number; elevation_m: number; label: string; area_ha?: number; polygon?: FieldPolygon }
+  user_inputs?: UserInput[]
+  irrigation?: { method: string; efficiency: number; source_id: string }
+  quota?: { quota_m3_yr: number; quota_m3_ha_yr: number; basis: 'field_total' | 'per_ha'; baseline_exceeds: boolean; n_candidates_excluded: number; relaxed?: boolean }
+  yield_check?: YieldCheck[]
+  history_check?: HistoryCheck
+  irrigation_check?: IrrigationCheck[]
   sources: SourceInfo[]
   climate: Climate
   field_memory: FieldMemory

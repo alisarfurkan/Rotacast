@@ -36,7 +36,10 @@ Code and data files refer to these ids (`source_id`, `sources:`). Add an entry b
 | ugur_kan2016_kimyon | Uğur, Kan (2016). Selçuk Tarım Bilimleri Dergisi 3(2):205-209 | Rain-fed cumin sowing and harvest dates, Ankara-Gölbaşı (knowledge/specialty_water.yaml) | Open access journal | https://dergipark.org.tr/en/download/article-file/3082658 |
 | cemen_ankara2016 | Fenugreek trial, Selçuk Tarım Bilimleri Dergisi 3(2):210-214 (2016) | Rain-fed fenugreek sowing and harvest dates, Ankara-Gölbaşı (knowledge/specialty_water.yaml) | Open access journal | https://dergipark.org.tr/en/download/article-file/3082673 |
 | reyhani2015_kimyon | Reyhani, Khashei Siuki (2015). Water and Soil 29(5):1047-1056, doi:10.22067/jsw.v29i5.24171 | Cumin lysimeter growth-stage lengths (knowledge/specialty_water.yaml) | Journal article, see DOI | https://doi.org/10.22067/jsw.v29i5.24171 |
+| irrigation_efficiency | Brouwer, C., Prins, K., Kay, M., Heibloem, M. (1989). Irrigation Water Management: Irrigation Methods. FAO Training Manual No. 5 (typical field application efficiencies: surface ~0.60, sprinkler ~0.75, drip ~0.90; Rotacast splits surface into flood 0.55 and furrow 0.65 as its own assumption; all values rounded and typical, not field-measured) | Gross irrigation water from net crop need (engine/rotations.py `IRRIGATION_EFFICIENCY`) | Open publication | https://www.fao.org/4/s8684e/s8684e00.htm |
+| user | User-provided field data (field boundary, soil, excluded crops, irrigation method, quota, yields, history, applied water); not verified | Optional field inputs, API v1.2 (report.py, field_inputs.py) | Entered by the user | (none) |
 
+TODO verify: the per-method irrigation efficiency values against the manual's tables (the cited page lists chapters only); the USDA texture-class centroids in report.py `TEXTURE_CLAY_SAND` are computed from `usda_texture_class`, not copied from a table.
 
 ## Methods & statistics
 

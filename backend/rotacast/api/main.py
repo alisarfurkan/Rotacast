@@ -12,8 +12,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
+from ..field_inputs import FieldDetails, FieldPolygon, normalize_polygon
 from ..knowledge.crops import load_crops
 from ..report import DEFAULT_ROTATION, get_field_report
 from ..zones import lookup as zone_lookup
@@ -54,6 +55,13 @@ class AnalyzeRequest(BaseModel):
     priorities: Priorities = Priorities()
     scenario: Scenario = Scenario()
     lang: str = "tr"
+    field_polygon: FieldPolygon | None = None   # CONTRACTS section 6.1
+    field_details: FieldDetails | None = None
+
+    @field_validator("field_polygon", "field_details", mode="before")
+    @classmethod
+    def _empty_is_none(cls, v):  # CONTRACTS 6.1: null, {} and [] mean "not given"
+        return None if v in ({}, []) else v
 
 
 @app.get("/api/health")
@@ -69,7 +77,7 @@ def crops():
 
 @app.get("/api/zones")
 def zones():
-    """Konya agro-microclimate zones, province boundary and lakes (scripts/build_konya_zones.py; CONTRACTS.md §6)."""
+    """Konya agro-microclimate zones, province boundary and lakes (scripts/build_konya_zones.py; CONTRACTS.md §7)."""
     try:
         return JSONResponse({"zones": zone_lookup.zones_geojson(), "boundary": zone_lookup.boundary_geojson(),
                              "lakes": zone_lookup.lakes_geojson()})
@@ -104,10 +112,17 @@ def field_zone(lat: float, lon: float, field_elevation_m: float | None) -> dict:
 
 @app.post("/api/field/analyze")
 def analyze(req: AnalyzeRequest):
-    field_zone(req.lat, req.lon, None)  # reject points outside Konya before any data download
+    lat, lon = req.lat, req.lon
+    if req.field_polygon is not None:  # the polygon centroid is the analysed point (CONTRACTS 6.1); check it like a point
+        try:
+            lon, lat = normalize_polygon(req.field_polygon)["centroid"]
+        except ValueError as e:
+            raise HTTPException(status_code=422, detail=str(e))
+    field_zone(lat, lon, None)  # reject points outside Konya before any data download
     try:
         report = get_field_report(req.model_dump())
-        report = {**report, "zone": field_zone(req.lat, req.lon, report.get("location", {}).get("elevation_m"))}
+        loc = report.get("location", {})
+        report = {**report, "zone": field_zone(loc.get("lat", lat), loc.get("lon", lon), loc.get("elevation_m"))}
         return JSONResponse(report)
     except HTTPException:
         raise

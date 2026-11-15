@@ -5,7 +5,7 @@ Yeni oturum için başlangıç noktası. Önce bunu, sonra `docs/STATUS.md`'yi o
 ## Durum
 - Dal: `feature/konya-zones` (GitHub'a gönderildi, commit `1ffd36a`). `main`'e birleştirme ve PR **yok**, kullanıcı istemiyor.
   `feature/modes` dalına dokunulmayacak.
-- Konya 7 zirai-mikroklima bölgesine ayrıldı ve uygulamada çalışıyor (METHODS §10, CONTRACTS §6).
+- Konya 7 zirai-mikroklima bölgesine ayrıldı ve uygulamada çalışıyor (METHODS §10, CONTRACTS §7).
 - Ürün araştırması bitti, **commit edilmedi**:
   - Rapor: `reports/Konya bölgeleri ürün araştırması.md` (7 bölge × Liste A geleneksel / Liste B yenilikçi / elenenler,
     31 ürün × 7 bölge matrisi U/Ş/X/?, veri kalitesi ve çelişkiler bölümü)

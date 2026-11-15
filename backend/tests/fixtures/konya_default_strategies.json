@@ -1,0 +1,476 @@
+[
+ {
+  "archetype": "baseline",
+  "id": "baseline",
+  "indicators": {
+   "erosion_rel": 1.0,
+   "frost_risk": 0.0,
+   "heat_risk": 0.5606060606060606,
+   "income_usd_ha_yr": {
+    "p10": 1624.4576786535683,
+    "p50": 1978.4569296175382,
+    "p90": 2181.0328471780435
+   },
+   "irrigation_mm_yr": {
+    "p10": 437.03749130330743,
+    "p50": 482.8525347595349,
+    "p90": 513.3486066180453
+   },
+   "n_balance_kg_ha_yr": 0.0,
+   "pest_break": 0.6666666666666666,
+   "residue_index": 0.6666666666666666,
+   "soil_cover_days_yr": 160.72727272727272,
+   "stress_days_yr": {
+    "p10": 33.63333333333333,
+    "p50": 44.33333333333333,
+    "p90": 58.40000000000002
+   },
+   "water_m3_ha_yr": {
+    "p10": 4370.374913033074,
+    "p50": 4828.525347595349,
+    "p90": 5133.486066180453
+   },
+   "yield_ratio": {
+    "p10": 0.7837288458283435,
+    "p50": 0.8261090033668528,
+    "p90": 0.8695740925880749
+   }
+  },
+  "score": 50.0,
+  "score_breakdown": {
+   "erosion": 50.0,
+   "income": 50.0,
+   "risk": 50.0,
+   "soil": 50.0,
+   "water": 50.0
+  },
+  "steps": [
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "sugar_beet",
+    "irrigation": "full",
+    "year": 2
+   },
+   {
+    "crop_id": "maize_grain",
+    "irrigation": "full",
+    "year": 3
+   }
+  ]
+ },
+ {
+  "archetype": "balanced_transition",
+  "coverage": 0.75,
+  "id": "balanced_transition",
+  "indicators": {
+   "erosion_rel": 0.9561532485875706,
+   "frost_risk": 0.0,
+   "heat_risk": 0.3466666666666667,
+   "income_usd_ha_yr": {
+    "p10": 2991.446050009388,
+    "p50": 3068.4965508433156,
+    "p90": 3283.853126866793
+   },
+   "irrigation_mm_yr": {
+    "p10": 150.86958547600847,
+    "p50": 178.64942879370003,
+    "p90": 188.56583428227876
+   },
+   "n_balance_kg_ha_yr": 8.333333333333334,
+   "pest_break": 1.0,
+   "residue_index": 0.4166666666666667,
+   "soil_cover_days_yr": 139.84,
+   "stress_days_yr": {
+    "p10": 64.53333333333333,
+    "p50": 76.66666666666667,
+    "p90": 93.4
+   },
+   "water_m3_ha_yr": {
+    "p10": 1131.5218910700635,
+    "p50": 1339.8707159527503,
+    "p90": 1414.2437571170906
+   },
+   "yield_ratio": {
+    "p10": 0.6386504207234307,
+    "p50": 0.6638951197131551,
+    "p90": 0.7365354751395612
+   }
+  },
+  "parts": [
+   {
+    "kind": "rotation",
+    "modeled": true,
+    "role": "verified_rotation",
+    "rotation_id": "cand_034",
+    "rotation_name": {
+     "en": "Chickpea > Potato > Winter wheat",
+     "tr": "Nohut > Patates > Kışlık buğday"
+    },
+    "share": 0.75
+   },
+   {
+    "crop": {
+     "districts": [
+      "Sarayönü",
+      "Karatay"
+     ],
+     "documented_yield": {
+      "basis": "province_mean",
+      "kg_da": 50,
+      "note": {
+       "en": "Konya province mean (TÜİK 2024: 3,129 t / 62,210 da); mostly rain-fed. Not a forecast for your field.",
+       "tr": "Konya il ortalaması (TÜİK 2024: 3.129 t / 62.210 da); alanın çoğu kuru tarım. Tarlanız için tahmin değildir."
+      },
+      "source": "ilt_kitap_2026",
+      "year": 2024
+     },
+     "engine_ids": [],
+     "group": "special",
+     "modeled": false,
+     "name": {
+      "en": "Cumin",
+      "tr": "Kimyon"
+     },
+     "note": null,
+     "perennial": false,
+     "sources": [
+      "ilt_aromatik",
+      "ilt_kitap_2026"
+     ],
+     "status": "verified",
+     "water_model": "cumin"
+    },
+    "kind": "specialty",
+    "modeled": false,
+    "share": 0.25,
+    "share_range": [
+     0.2,
+     0.3
+    ],
+    "water": {
+     "etc_mm": {
+      "p10": 448.994339093439,
+      "p50": 486.0507376858196,
+      "p90": 526.6239890789151
+     },
+     "irr_need_full_m3_ha": {
+      "p10": 3089.5119346532206,
+      "p50": 3843.6336574526017,
+      "p90": 4505.863531574524
+     },
+     "irrigation_m3_ha_yr": {
+      "p10": 0.0,
+      "p50": 0.0,
+      "p90": 0.0
+     },
+     "model": "cumin",
+     "practice": "rainfed",
+     "rain_eff_mm": {
+      "p10": 78.6121735776186,
+      "p50": 125.08824763738033,
+      "p90": 170.35242500904172
+     },
+     "rainfed_eta_mm": {
+      "p10": 125.29559548186411,
+      "p50": 159.9386903396394,
+      "p90": 190.11958405848145
+     },
+     "season": {
+      "days": 147,
+      "harvest_doy": 204,
+      "sow_doy": 57
+     }
+    },
+    "water_modeled": true
+   }
+  ],
+  "score": 67.81,
+  "score_breakdown": {
+   "erosion": 52.19,
+   "income": 77.55,
+   "risk": 51.21,
+   "soil": 48.98,
+   "water": 86.13
+  },
+  "steps": [
+   {
+    "crop_id": "chickpea",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "potato",
+    "irrigation": "deficit",
+    "year": 2
+   },
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "none",
+    "year": 3
+   }
+  ],
+  "water_coverage": 1.0
+ },
+ {
+  "archetype": "low_risk",
+  "coverage": 1.0,
+  "id": "low_risk",
+  "indicators": {
+   "erosion_rel": 0.861332627118644,
+   "frost_risk": 0.02,
+   "heat_risk": 0.27,
+   "income_usd_ha_yr": {
+    "p10": 2517.411844190293,
+    "p50": 2615.7847800387362,
+    "p90": 2767.1682698626655
+   },
+   "irrigation_mm_yr": {
+    "p10": 150.95017759282558,
+    "p50": 200.54997238519613,
+    "p90": 225.3398152630015
+   },
+   "n_balance_kg_ha_yr": 6.25,
+   "pest_break": 0.8,
+   "residue_index": 0.4625,
+   "soil_cover_days_yr": 164.99,
+   "stress_days_yr": {
+    "p10": 68.1,
+    "p50": 77.0,
+    "p90": 97.10000000000001
+   },
+   "water_m3_ha_yr": {
+    "p10": 1509.5017759282557,
+    "p50": 2005.4997238519613,
+    "p90": 2253.398152630015
+   },
+   "yield_ratio": {
+    "p10": 0.6813971325160265,
+    "p50": 0.7228284896839021,
+    "p90": 0.7709135481674165
+   }
+  },
+  "parts": [
+   {
+    "kind": "rotation",
+    "modeled": true,
+    "role": "verified_rotation",
+    "rotation_id": "cand_015",
+    "rotation_name": {
+     "en": "Winter wheat > Potato > Winter barley > Chickpea",
+     "tr": "Kışlık buğday > Patates > Kışlık arpa > Nohut"
+    },
+    "share": 1.0
+   }
+  ],
+  "score": 64.42,
+  "score_breakdown": {
+   "erosion": 56.93,
+   "income": 66.11,
+   "risk": 57.9,
+   "soil": 50.55,
+   "water": 79.23
+  },
+  "steps": [
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "deficit",
+    "year": 1
+   },
+   {
+    "crop_id": "potato",
+    "irrigation": "deficit",
+    "year": 2
+   },
+   {
+    "crop_id": "barley_winter",
+    "irrigation": "none",
+    "year": 3
+   },
+   {
+    "crop_id": "chickpea",
+    "irrigation": "none",
+    "year": 4
+   }
+  ]
+ },
+ {
+  "archetype": "innovative",
+  "coverage": 0.8,
+  "id": "innovative",
+  "indicators": {
+   "erosion_rel": 1.0,
+   "frost_risk": 0.0,
+   "heat_risk": 0.5606060606060606,
+   "income_usd_ha_yr": {
+    "p10": 1624.4576786535683,
+    "p50": 1978.4569296175382,
+    "p90": 2181.0328471780435
+   },
+   "irrigation_mm_yr": {
+    "p10": 437.03749130330743,
+    "p50": 482.8525347595349,
+    "p90": 513.3486066180453
+   },
+   "n_balance_kg_ha_yr": 0.0,
+   "pest_break": 0.6666666666666666,
+   "residue_index": 0.6666666666666666,
+   "soil_cover_days_yr": 160.72727272727272,
+   "stress_days_yr": {
+    "p10": 33.63333333333333,
+    "p50": 44.33333333333333,
+    "p90": 58.40000000000002
+   },
+   "water_m3_ha_yr": {
+    "p10": 3496.2999304264595,
+    "p50": 3862.820278076279,
+    "p90": 4106.788852944363
+   },
+   "yield_ratio": {
+    "p10": 0.7837288458283435,
+    "p50": 0.8261090033668528,
+    "p90": 0.8695740925880749
+   }
+  },
+  "parts": [
+   {
+    "kind": "rotation",
+    "modeled": true,
+    "role": "current_rotation",
+    "rotation_id": "baseline",
+    "rotation_name": {
+     "en": "Winter wheat → Sugar beet → Grain maize",
+     "tr": "Kışlık buğday → Şeker pancarı → Dane mısır"
+    },
+    "share": 0.8
+   },
+   {
+    "crop": {
+     "districts": [
+      "Çumra",
+      "Selçuklu"
+     ],
+     "documented_yield": null,
+     "engine_ids": [],
+     "group": "special",
+     "modeled": false,
+     "name": {
+      "en": "Fenugreek",
+      "tr": "Çemen"
+     },
+     "note": null,
+     "perennial": false,
+     "sources": [
+      "ilt_aromatik"
+     ],
+     "status": "verified",
+     "water_model": "fenugreek"
+    },
+    "kind": "specialty",
+    "modeled": false,
+    "share": 0.2,
+    "share_range": [
+     0.1,
+     0.3
+    ],
+    "water": {
+     "etc_mm": {
+      "p10": 566.0146861112676,
+      "p50": 607.1875493550891,
+      "p90": 653.0629789605644
+     },
+     "irr_need_full_m3_ha": {
+      "p10": 3788.9205494277517,
+      "p50": 4921.893409447395,
+      "p90": 5424.911583296312
+     },
+     "irrigation_m3_ha_yr": {
+      "p10": 0.0,
+      "p50": 0.0,
+      "p90": 0.0
+     },
+     "model": "fenugreek",
+     "practice": "rainfed",
+     "rain_eff_mm": {
+      "p10": 78.80322963740696,
+      "p50": 125.38747729682936,
+      "p90": 170.35242500904172
+     },
+     "rainfed_eta_mm": {
+      "p10": 193.5370331596833,
+      "p50": 229.21286542408058,
+      "p90": 282.12785510022877
+     },
+     "season": {
+      "days": 157,
+      "harvest_doy": 214,
+      "sow_doy": 57
+     }
+    },
+    "water_modeled": true
+   }
+  ],
+  "score": 53.0,
+  "score_breakdown": {
+   "erosion": 50.0,
+   "income": 50.0,
+   "risk": 50.0,
+   "soil": 50.0,
+   "water": 60.0
+  },
+  "steps": [
+   {
+    "crop_id": "wheat_winter",
+    "irrigation": "none",
+    "year": 1
+   },
+   {
+    "crop_id": "sugar_beet",
+    "irrigation": "full",
+    "year": 2
+   },
+   {
+    "crop_id": "maize_grain",
+    "irrigation": "full",
+    "year": 3
+   }
+  ],
+  "trials": [
+   {
+    "crop": {
+     "districts": [
+      "Karatay",
+      "Sarayönü"
+     ],
+     "documented_yield": null,
+     "engine_ids": [],
+     "group": "field",
+     "modeled": false,
+     "name": {
+      "en": "Sorghum and sorghum hybrids",
+      "tr": "Sorgum ve sorgum melezleri"
+     },
+     "note": {
+      "en": "The official project is on silage sorghum; the engine's grain-sorghum parameters do not represent it, so no numbers are shown.",
+      "tr": "Resmî proje silajlık sorgum üzerine; motordaki dane sorgum parametreleri bu pilotu temsil etmez, sayı gösterilmez."
+     },
+     "perennial": false,
+     "sources": [
+      "ilt_sorgum"
+     ],
+     "status": "pilot",
+     "water_model": null
+    },
+    "modeled": false,
+    "share_range": [
+     0.05,
+     0.1
+    ]
+   }
+  ],
+  "water_coverage": 1.0
+ }
+]

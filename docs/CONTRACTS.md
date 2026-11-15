@@ -329,7 +329,86 @@ Produced by `backend/scripts/build_basin_report.py` (`rotacast/regional.py`). Sc
 
 Notes: the baseline is a weighted mix of representative irrigated rotations calibrated to Konya crop-area statistics. A fraction of the *irrigated* area of every cell (irrigated = cropland × `irrigated_share`), taken proportionally from each baseline rotation, moves to the cell's own archetype rotation, so a crop can lose at most its baseline area share. `assumptions[id=plausibility_irrigation]` compares the modelled baseline demand with published basin irrigation figures. Results are steady-state annual rates at the horizon (no ramp-up). The p10/p50/p90 water band sums same-quantile differences across cells (weather assumed perfectly correlated).
 
-## 6. Konya zones — `GET /api/zones` and `FieldReport.zone`
+---
+
+## 6. Field request/report extensions (v1.2, Başlangıç / Gelişmiş modes)
+
+All additions are **optional**. A request without them must give exactly the v1.1 report (same keys, same numbers):
+new response keys appear **only** when the matching input was sent.
+
+### 6.1 Request additions (`POST /api/field/analyze`)
+
+```jsonc
+{
+  // ...v1.1 fields unchanged...
+  "field_polygon": {"type": "Polygon", "coordinates": [[[32.749, 37.599], [32.751, 37.599], [32.751, 37.601], [32.749, 37.601], [32.749, 37.599]]]},
+  //   GeoJSON Polygon, WGS84 [lon, lat], one outer ring (holes ignored). Ring may be open or closed; >= 3 distinct
+  //   vertices; must not self-intersect; area 0.01–10 000 ha. When present, lat/lon are replaced by the polygon centroid.
+  "field_details": {
+    "soil": {"texture_class": "clay loam", "clay_pct": 38, "sand_pct": 22, "soc_gkg": 9, "ph": 7.9},
+    //   every key optional. texture_class: one of the 12 USDA class names (lower case, as SoilProfile.texture_class).
+    //   clay_pct, sand_pct 0–100 and clay+sand <= 100; soc_gkg 0–200; ph 3–10.
+    "excluded_crops": ["sugar_beet", {"crop_id": "potato", "reason": "no_buyer"}],
+    //   plain id or object; reason: no_equipment | no_buyer | not_wanted (default not_wanted)
+    "irrigation_method": "drip",            // flood | furrow | sprinkler | drip
+    "water_quota_m3_yr": 40000,             // >= 0. Field total if the polygon area is known, else m³/ha/yr
+    "yields_t_ha": {"wheat_winter": 4.2},   // > 0 and <= 200, known crop ids
+    "history": [{"year": 2024, "crop_id": "maize_grain"}],   // year 2000..last year, known crop ids, unique years
+    "irrigation_applied_m3_ha": {"maize_grain": 6500}       // >= 0 and <= 30 000, known crop ids
+  }
+}
+```
+
+Invalid values (out of range, clay+sand > 100, unknown crop id, unknown enum, self-intersecting polygon) → **422**
+with FastAPI's standard body `{"detail": [{"loc": ["body", "field_details", "water_quota_m3_yr"], "msg": "...", "type": "..."}]}`
+so the UI can show the message next to the field. `null`, `{}` and `[]` values mean "not given".
+
+### 6.2 Effects
+
+| Input | Effect |
+|---|---|
+| `field_polygon` | lat/lon = centroid; `location.area_ha`, `location.polygon`; extra `evidence.gaps` item (MODIS 250 m pixel does not resolve the polygon yet) |
+| `soil` | Overrides the SoilGrids values that were given; silt = 100 − clay − sand; texture class recomputed from clay/sand unless given; if only `texture_class` is given, representative clay/sand of that class are used for the hydraulics; fc, wp, `taw_mm_per_m` recomputed (Saxton & Rawls 2006). `soil.source_id = "user"` |
+| `excluded_crops` | Removed from generated candidates (`constraints.exclude_crops`). The user's own current rotation is not changed. Each non-baseline strategy gets a `why` item (appended after the first three) naming the excluded crops and reasons |
+| `irrigation_method` | Gross water = net irrigation / efficiency (flood 0.55, furrow 0.65, sprinkler 0.75, drip 0.90; `docs/METHODS.md`, `docs/SOURCES.md` id `irrigation_efficiency`). `water_m3_ha_yr` and the water cost in income are gross; `irrigation_mm_yr` stays net crop irrigation |
+| `water_quota_m3_yr` | Per-ha quota = quota / `area_ha` (or the value itself without area). Candidate generation uses `water_access: "full"` (quota 0 → `"none"`) instead of the request's `water_access`. Candidates whose p50 `water_m3_ha_yr` exceed the per-ha quota are dropped before picking; if fewer than 3 candidates remain, the over-quota ones stay eligible but are marked. Baseline over quota → a `risks` item on the baseline (`check_with: "extension_service"`) |
+| `yields_t_ha` | Per crop, factor = declared / regional reference (`economics.yield_t_ha.irrigated` if that crop is irrigated in the current rotation, else `rainfed`); the crop's potential yield used in income is multiplied by the factor in every strategy |
+| `history` | Compared with `field_memory.years[].pattern` (winter-season crop → `winter_crop`, spring/summer crop → `summer_crop`, a `double_crop` year agrees with either). Model unchanged |
+| `irrigation_applied_m3_ha` | Compared with the modelled per-crop gross irrigation of the current rotation. Model unchanged |
+
+Every user value that is used becomes a fact with `source_id: "user"`; `sources` then includes
+`{"id": "user", "name": "User-provided field data / Kullanıcı beyanı", ...}`.
+
+### 6.3 Response additions
+
+```jsonc
+{
+  "location": {"...": "...", "area_ha": 4.83, "polygon": {"type": "Polygon", "coordinates": [[[0, 0]]]}},  // only with field_polygon
+  "user_inputs": [   // only when field_polygon or any field_details value was given; order = UI order
+    {"id": "soil",   // polygon | soil | excluded_crops | irrigation_method | water_quota | yields | history | irrigation_applied
+     "label": {"en": "Soil", "tr": "Toprak"},
+     "value": {"en": "clay loam, clay 38 %, sand 22 %", "tr": "killi tın, kil %38, kum %22"},   // what you entered
+     "model": {"en": "SoilGrids: loam, clay 24 %", "tr": "SoilGrids: tın, kil %24"},            // satellite/model estimate it replaces or is compared to; null if none
+     "fact": "f31"}
+  ],
+  "irrigation": {"method": "drip", "efficiency": 0.9, "source_id": "irrigation_efficiency"},   // only with irrigation_method
+  "quota": {"quota_m3_yr": 40000, "quota_m3_ha_yr": 8281.6, "basis": "field_total",           // basis: field_total | per_ha
+            "baseline_exceeds": false, "n_candidates_excluded": 12, "relaxed": false},          // only with water_quota_m3_yr; relaxed: < 3 options fit, so over-quota ones were kept (marked)
+  "strategies": [{"...": "...", "exceeds_quota": false}],                                       // key only with water_quota_m3_yr
+  "yield_check": [{"crop_id": "wheat_winter", "declared_t_ha": 4.2, "regional_t_ha": 5.5, "factor": 0.764}],
+  "history_check": {"n_years": 3, "n_agree": 2, "agreement": 0.667,   // agreement null when n_years is 0
+                    "years": [{"year": 2024, "crop_id": "maize_grain", "declared_pattern": "summer_crop",
+                               "satellite_pattern": "summer_crop", "agree": true}]},   // years without satellite data: satellite_pattern null, agree null, not counted
+  "irrigation_check": [{"crop_id": "maize_grain", "declared_m3_ha": 6500, "modelled_m3_ha": 7120, "diff_pct": -8.7}]
+  //   modelled = mean gross m³/ha of that crop's season(s) in the current rotation; crops not in the rotation: modelled null
+}
+```
+
+Field totals are not sent by the API; the UI multiplies per-ha values by `location.area_ha`.
+
+---
+
+## 7. Konya zones — `GET /api/zones` and `FieldReport.zone`
 
 Files: `data/zones/konya_zones.geojson`, `konya_boundary.geojson`, `konya_lakes.geojson`, `konya_districts.geojson`
 (built by `backend/scripts/build_konya_zones.py`; method in METHODS.md §10).
@@ -367,4 +446,5 @@ Files: `data/zones/konya_zones.geojson`, `konya_boundary.geojson`, `konya_lakes.
            "notes": [{"tr": "", "en": "", "sources": [""]}],
            "sources": [{"id": "", "title": "", "url": "" /* or null */}]}}  // excluded crops are never returned
 // Points outside Konya or on a lake: HTTP 422, detail = {"code": "outside_konya" | "on_lake", "message": "", "lake"?: ""}
+// (detail is an object here; validation errors of section 6.1 have a list detail). With field_polygon, the centroid is checked.
 ```

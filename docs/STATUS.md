@@ -34,7 +34,7 @@
 - App narrowed to **Konya province**: `/api/field/analyze` returns 422 `outside_konya` / `on_lake`; the map is locked to Konya.
 - **7 agro-microclimate zones** (`data/zones/`, `backend/scripts/build_konya_zones.py`, METHODS §10): district groups
   + SRTM Taurus rule (≥ 1500 m) + 8 km Beyşehir lake buffer; profiled with MGM 1991–2020 classifications (12 stations)
-  and NASA POWER 2001–2025 frost/temperature climatology. `GET /api/zones`; reports carry a `zone` block (CONTRACTS §6).
+  and NASA POWER 2001–2025 frost/temperature climatology. `GET /api/zones`; reports carry a `zone` block (CONTRACTS §7).
 - Frontend: coloured zone layer + legend, Konya-only click check, zone line under the map, `ZoneCard` in the results.
 - Fixed: `.mjs` served as text/plain on Windows, which broke the MapLibre worker (GeoJSON layers did not draw).
 - An earlier attempt to derive zones by clustering MODIS LST/PET (AppEEARS) was dropped: hours of server-side queue.
