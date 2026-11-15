@@ -1,0 +1,45 @@
+<section id="simulasyon" class="light">
+<div class="head">
+<p class="eyebrow">SIMULATION ENGINE</p>
+<h2>No crystal ball: tested on the real weather of the past</h2>
+</div>
+<div class="eq">
+<div class="card eq-box eq-anim" style="--i:0"><p class="num">179</p><p class="unit">crop sequences</p></div>
+<p class="op eq-anim" style="--i:1">×</p>
+<div class="card eq-box eq-anim" style="--i:2"><p class="num water">25</p><p class="unit">start years · 1991–2025 weather record</p></div>
+<p class="op eq-anim" style="--i:3">=</p>
+<div class="card eq-box total eq-anim" style="--i:4"><p class="num">4,475</p><p class="unit">simulations for a single field</p></div>
+</div>
+<div class="fan-row">
+<div class="fan">
+<svg aria-label="Results of one crop sequence under 25 different years of weather: a fan that widens over time; the top edge is a good year, the middle line a normal year, the bottom edge a bad year" viewBox="0 0 1000 260" width="1000" height="260" style="position:absolute; left:0; top:0; width:1000px; height:260px;">
+<rect x="0" y="0" width="1000" height="260" rx="16" fill="#FBF7EF"/>
+<clipPath id="reveal"><rect x="0" y="0" width="1000" height="260"></rect></clipPath>
+<g clip-path="url(#reveal)">
+<polygon points="0,130 100,114 200,100 300,88 400,76 500,66 600,57 700,49 800,42 900,36 1000,30 1000,230 900,224 800,218 700,211 600,203 500,194 400,184 300,172 200,160 100,146" fill="#D6E4F2"/>
+<g fill="none" stroke="#8DB4DA" stroke-width="2">
+<polyline points="0,130 100,120 200,108 300,112 400,96 500,90 600,84 700,70 800,66 900,58 1000,52"/>
+<polyline points="0,130 100,138 200,146 300,140 400,158 500,166 600,160 700,180 800,186 900,192 1000,200"/>
+<polyline points="0,130 100,126 200,118 300,128 400,120 500,110 600,118 700,104 800,112 900,100 1000,96"/>
+<polyline points="0,130 100,134 200,138 300,130 400,144 500,140 600,150 700,146 800,158 900,152 1000,162"/>
+<polyline points="0,130 100,116 200,104 300,96 400,86 500,80 600,74 700,64 800,60 900,50 1000,44"/>
+<polyline points="0,130 100,142 200,152 300,164 400,170 500,182 600,190 700,196 800,204 900,212 1000,216"/>
+</g>
+<polyline points="0,130 100,128 200,132 300,126 400,131 500,128 600,133 700,127 800,131 900,129 1000,130" fill="none" stroke="#1D5C96" stroke-width="5"/>
+</g>
+</svg>
+<p class="fan-axis" style="left:16px; top:10px;">Yield ↑</p>
+<p class="fan-axis" style="left:850px; top:224px;">Years →</p>
+<p class="fan-label" style="top:14px; color:#1D5C96;">Good year (p90)</p>
+<p class="fan-label" style="top:112px; color:#1F1A13;">Normal year (p50)</p>
+<p class="fan-label" style="top:206px; color:#8A5A08;">Bad year (p10)</p>
+</div>
+<div class="fan-notes">
+<p class="small"><b>Illustration:</b> the yield of one crop sequence over the years.</p>
+<p class="small"><b>FAO-56 method:</b> soil water is recomputed every day.</p>
+<p class="small"><b>A range, not one number:</b> every option is tested in bad, normal and good years.</p>
+</div>
+</div>
+<div class="foot"><span>Sources: FAO Irrigation and Drainage Paper 56 · NASA POWER daily weather (1991–2025) · Çumra demo request</span><span class="pg"></span></div>
+<aside>The simulation engine inside the app tests every option on the real weather of the past. For the Çumra field we run 179 different crop sequences, each with the real weather of 25 different start years from the 1991–2025 record: 4,475 simulations in total, each one day by day over several years. So we do not forecast; we test each option for a bad, a normal and a good year.</aside>
+</section>

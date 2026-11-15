@@ -1,0 +1,245 @@
+:root {
+  --night: #0D1524;
+  --night2: #16223A;
+  --paper: #F3ECDF;
+  --paper2: #E8DDC8;
+  --card: #FBF7EF;
+  --ink: #1F1A13;
+  --ink-soft: #564C3F;
+  --mist: #B8C4D6;
+  --gold: #E0AE4A;
+  --gold-deep: #8A5A08;
+  --water: #5AA4E6;
+  --water-deep: #1D5C96;
+  --line-dark: #2C3A55;
+  --line-light: #CDBFA6;
+}
+
+body { font-family: 'Inter', Arial, sans-serif; color: var(--ink); }
+
+section {
+  counter-increment: page;
+  padding: 128px 128px 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+}
+
+.dark { background: var(--night); color: #EEF2F8; }
+.light { background: var(--paper); color: var(--ink); }
+.light2 { background: var(--paper2); color: var(--ink); }
+
+h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; }
+h1 { font-size: 112px; font-weight: 700; line-height: 1.02; }
+h2 { font-size: 72px; font-weight: 650; line-height: 1.08; }
+h3 { font-size: 32px; font-weight: 650; line-height: 1.2; }
+
+.eyebrow { font-size: 24px; font-weight: 700; letter-spacing: 4px; }
+.dark .eyebrow { color: var(--gold); }
+.light .eyebrow, .light2 .eyebrow { color: var(--gold-deep); }
+
+.lede { font-size: 32px; line-height: 1.4; }
+.dark .lede { color: var(--mist); }
+.light .lede, .light2 .lede { color: var(--ink-soft); }
+
+.small { font-size: 24px; line-height: 1.45; }
+.dark .small { color: var(--mist); }
+.light .small, .light2 .small { color: var(--ink-soft); }
+
+.head { display: flex; flex-direction: column; gap: 16px; }
+
+/* footer band */
+.foot {
+  position: absolute; left: 128px; bottom: 64px; width: 1664px;
+  display: flex; justify-content: space-between; font-size: 24px;
+}
+.dark .foot { color: #8E9BB2; }
+.light .foot, .light2 .foot { color: #6E6253; }
+.pg::after { content: counter(page); }
+
+/* cards */
+.cards { display: grid; gap: 32px; }
+.card { border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 16px; }
+.light .card, .light2 .card { background: var(--card); border: 2px solid var(--line-light); }
+.dark .card { background: var(--night2); border: 2px solid var(--line-dark); }
+
+.num { font-family: 'Fraunces', Georgia, serif; font-weight: 700; line-height: 1; }
+.dark .num { color: var(--gold); }
+.light .num, .light2 .num { color: var(--gold-deep); }
+.num.water { color: var(--water-deep); }
+.dark .num.water { color: var(--water); }
+
+.chip {
+  font-size: 24px; padding: 6px 16px; border-radius: 999px; display: inline-block;
+}
+.dark .chip { background: #22314F; color: #D5DEEC; }
+.light .chip, .light2 .chip { background: var(--paper2); color: var(--ink-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.source { font-size: 24px; }
+
+/* 1 · NASA */
+.nasa .nasa-num { font-family: 'Fraunces', Georgia, serif; font-size: 150px; font-weight: 700; line-height: 1.02; color: #F4F7FC; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+.nasa-row { display: flex; align-items: baseline; }
+.nasa .nasa-lead { width: 300px; text-align: right; }
+.nasa-q { display: flex; flex-direction: column; gap: 12px; width: 1000px; border-left: 6px solid var(--gold); padding-left: 32px; }
+.nasa-q1 { font-family: 'Fraunces', Georgia, serif; font-size: 56px; font-weight: 650; color: var(--gold); }
+.nasa-q2 { font-size: 32px; line-height: 1.4; color: #EEF2F8; }
+
+/* 2 · Konya tarih */
+.bridge { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 32px; color: var(--ink-soft); }
+.tl { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; margin-top: 24px; }
+.tl-step { border-top: 4px solid var(--line-light); padding-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.tl-step.now { border-top-color: var(--gold-deep); }
+.tl-step.next { border-top-color: var(--water-deep); }
+.tl .num { font-size: 44px; }
+.tl-step.next .num { color: var(--water-deep); }
+
+/* 3 · Sorunlar */
+.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+.card .big { font-size: 96px; }
+.unit { font-size: 24px; font-weight: 600; }
+.light .unit, .light2 .unit { color: var(--ink-soft); }
+.dark .unit { color: var(--mist); }
+.card .tag { font-size: 24px; font-weight: 700; letter-spacing: 3px; color: var(--gold-deep); }
+
+/* 4 · Obruk */
+.obruk { flex-direction: row; gap: 64px; align-items: center; }
+.obruk-left { width: 880px; display: flex; flex-direction: column; gap: 24px; }
+.obruk .huge { font-size: 280px; letter-spacing: -6px; }
+.obruk-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+.obruk-stats .num { font-size: 56px; }
+.obruk-art { position: relative; width: 720px; height: 720px; }
+.art-label { position: absolute; font-size: 24px; font-weight: 600; color: #EEF2F8; width: 300px; }
+
+/* 5 · Rotacast */
+.split { flex-direction: row; gap: 72px; align-items: center; }
+.split-left { width: 712px; display: flex; flex-direction: column; gap: 36px; }
+.feat { display: flex; flex-direction: column; gap: 24px; }
+.feat-row { display: flex; gap: 20px; align-items: flex-start; }
+.feat-row x-icon { width: 40px; height: 40px; color: var(--gold-deep); }
+.feat-row p { font-size: 28px; line-height: 1.4; width: 640px; }
+.shot-col { display: flex; flex-direction: column; gap: 20px; }
+.shot { width: 880px; height: 529px; object-fit: contain; border-radius: 20px; box-shadow: 0 24px 60px rgba(31, 26, 19, 0.28); background: #1B1712; }
+.modes { display: flex; gap: 16px; }
+.mode { font-size: 24px; font-weight: 600; padding: 10px 22px; border-radius: 999px; }
+.mode.b { background: var(--gold); color: #2A1E07; }
+.mode.a { background: var(--water-deep); color: #F3F7FC; }
+
+/* 6 · Bölgeler */
+.zone-row { display: flex; gap: 48px; align-items: flex-start; }
+.map-card { background: #FDFBF7; border-radius: 24px; padding: 16px; border: 2px solid var(--line-light); }
+.map { width: 960px; height: 625px; object-fit: contain; }
+.basis { width: 624px; display: flex; flex-direction: column; gap: 28px; }
+.basis-item { display: flex; flex-direction: column; gap: 6px; border-left: 4px solid var(--gold-deep); padding-left: 20px; }
+
+/* 7 · Veri */
+.cols3x2 { grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.data-card { padding: 28px 32px; gap: 12px; }
+.data-card .small { color: var(--mist); }
+.callout { flex-direction: row; align-items: center; gap: 40px; padding: 28px 40px; border-color: var(--gold); }
+.callout .num { font-size: 56px; white-space: nowrap; }
+.callout .small { width: 1100px; }
+
+/* 8 · Simülasyon */
+.eq { display: flex; align-items: center; gap: 32px; }
+.eq-box { padding: 28px 40px; gap: 8px; width: 400px; box-sizing: border-box; }
+.eq-box .num { font-size: 96px; }
+.eq-box.total { background: var(--ink); border-color: var(--ink); }
+.eq-box.total .num { color: var(--gold); }
+.eq-box.total .unit { color: #E9DFCC; }
+.op { font-family: 'Fraunces', Georgia, serif; font-size: 72px; color: var(--ink-soft); }
+.fan-row { display: flex; gap: 48px; align-items: center; }
+.fan { position: relative; width: 1240px; height: 260px; }
+.fan-label { position: absolute; left: 1010px; width: 230px; font-size: 24px; font-weight: 600; }
+.fan-axis { position: absolute; width: 150px; font-size: 24px; font-weight: 600; color: #564C3F; }
+.fan-notes { width: 376px; display: flex; flex-direction: column; gap: 20px; }
+
+/* 9 · Sonuç */
+.res-head { display: grid; grid-template-columns: 430px 740px 200px 200px; gap: 24px; font-size: 24px; color: #8E9BB2; padding: 0 16px; }
+.res { display: flex; flex-direction: column; gap: 8px; }
+.res-row { display: grid; grid-template-columns: 430px 740px 200px 200px; gap: 24px; align-items: center; padding: 12px 16px; border-radius: 16px; }
+.res-row.best { background: var(--night2); border: 2px solid var(--gold); }
+.res-name { display: flex; flex-direction: column; gap: 2px; }
+.res-name .small { font-size: 24px; }
+.bar { height: 36px; border-radius: 8px; background: #1B2740; overflow: hidden; }
+.res-val { font-family: 'Fraunces', Georgia, serif; font-size: 44px; font-weight: 700; color: #EEF2F8; }
+.res-row.best .res-val { color: var(--gold); }
+.verdict { display: flex; gap: 48px; align-items: center; }
+.verdict .num { font-size: 44px; }
+.rule { font-size: 24px; line-height: 1.4; color: var(--mist); border-left: 4px solid var(--gold); padding-left: 16px; width: 330px; }
+
+/* 10 · Yenilikçi */
+.cols4 { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; }
+.crop-card { padding: 28px 32px; gap: 10px; }
+.crop-art { width: 96px; height: 96px; }
+.crop-card .num { font-size: 56px; }
+.st { font-size: 24px; font-weight: 700; padding: 4px 16px; border-radius: 999px; align-self: flex-start; }
+.st.ok { background: #DCE9D2; color: #2F5A1E; }
+.st.pilot { background: #DCE7F3; color: #1D4F80; }
+/* static version: no motion */
+
+
+
+/* 1 · kapak: soru, sayıdan sonra gelir */
+
+/* 4 · obruk: etiket, su indikten sonra */
+
+/* 8 · simülasyon: kutular sırayla, yelpaze etiketleri sonra */
+
+/* 9 · sonuç: çubuklar sırayla dolar */
+.bar-fill { height: 36px; border-radius: 8px; background: #3F5A85;  }
+.res-row.best .bar-fill { background: var(--gold) }
+
+/* 0 · Apollon açılışı */
+.apollon { justify-content: center; align-items: center; text-align: center; gap: 28px; padding: 128px; }
+.apollon-sub { font-size: 32px; font-weight: 700; letter-spacing: 12px; color: var(--gold);  }
+.apollon-word { font-family: 'Fraunces', Georgia, serif; font-size: 240px; font-weight: 800; line-height: 1; letter-spacing: 20px; color: #F2C66A; background: linear-gradient(180deg, #FFF1C9 0%, #F2C66A 55%, #C98A1E 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;  }
+.apollon-line { font-size: 32px; color: var(--mist);  }
+
+/* 1 · NASA kelimesi */
+.nasa-word { display: flex; gap: 4px; }
+.nl { font-family: 'Fraunces', Georgia, serif; font-size: 120px; font-weight: 800; line-height: 1; letter-spacing: 6px; color: #F4F7FC;   }
+
+/* 2 · zaman çizelgesi görselleri */
+.tl-art { width: 360px; height: 200px; }
+
+/* 3 · sorun kartları */
+.prob-art { width: 440px; height: 150px; }
+
+/* 5 · Rotacast amblemi */
+.brand { display: flex; align-items: center; gap: 32px; }
+.emblem { width: 160px; height: 160px;  }
+.brand-text { display: flex; flex-direction: column; gap: 8px; }
+.wordmark { font-family: 'Fraunces', Georgia, serif; font-size: 96px; font-weight: 800; line-height: 1; letter-spacing: -1px; color: var(--ink);  }
+
+/* 6 · yükselen bölgeler */
+.zmap { position: relative; width: 960px; height: 600px; }
+.zone { position: absolute; left: 0; top: 0; width: 960px; height: 600px;   }
+.zlabel { position: absolute; font-size: 24px; font-weight: 700; color: #FBF7EF; background: #2B241A; padding: 4px 12px; border-radius: 10px; white-space: nowrap;  }
+
+/* 7 · uydular */
+.data-card { position: relative; }
+.sat { position: absolute; right: 20px; top: 16px; width: 120px; height: 80px; }
+
+/* 10 · çiçeklenen ürünler */
+
+/* 11 · Uygulamadan */
+.app-row { display: flex; gap: 64px; align-items: flex-start; }
+.app-col { display: flex; flex-direction: column; gap: 16px;   }
+.app-shot { border-radius: 20px; border: 2px solid var(--line-dark); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); object-fit: contain; background: #1B1712; }
+.app-shot.wide { width: 1150px; height: 514px; }
+.app-shot.tall { width: 440px; height: 600px; }
+
+/* 12 · Takım */
+.team-head { display: flex; flex-direction: column; gap: 8px; }
+.team-name { font-family: 'Fraunces', Georgia, serif; font-size: 160px; font-weight: 700; line-height: 1; color: var(--gold); letter-spacing: -2px; }
+.cols5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 24px; }
+.member { padding: 32px; gap: 14px; }
+.member .idx { font-family: 'Fraunces', Georgia, serif; font-size: 44px; font-weight: 700; color: var(--water); }
+.member.cap { border-color: var(--gold); }
+.member .role { font-size: 24px; font-weight: 700; padding: 4px 16px; border-radius: 999px; background: var(--gold); color: #2A1E07; align-self: flex-start; }
+.closing { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 44px; color: #EEF2F8; }
+
+.honest { font-size: 28px; color: var(--ink); border-left: 6px solid var(--gold-deep); padding-left: 24px; }

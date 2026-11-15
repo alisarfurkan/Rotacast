@@ -1,0 +1,20 @@
+{
+  "v": 5,
+  "createdOnFiles": {"v": 1, "at": "2026-11-15T21:30:00Z"},
+  "lists": "css",
+  "format": {"v": 1, "shared": ["project/deck.css"]},
+  "title": "Rotacast (English)",
+  "cover": "apollon",
+  "order": ["apollon", "nasa", "konya-tarih", "sorunlar", "obruk", "rotacast", "bolgeler", "veri", "simulasyon", "sonuc", "yenilikci", "uygulama", "takim"],
+  "sections": {
+    "s1": {"description": "Team Apollon, NASA data and our choice: one place’s problem, not a generic tool.", "start": "apollon"},
+    "s2": {"description": "Konya: an ancient farming land and today’s water crisis.", "start": "konya-tarih"},
+    "s3": {"description": "Rotacast: zones, NASA data and the simulation engine.", "start": "rotacast"},
+    "s4": {"description": "Results: the crop sequence and innovative crops.", "start": "sonuc"}
+  },
+  "faces": {
+    "fraunces": {"family": "Fraunces", "href": "https://fonts.googleapis.com/css2?family=Fraunces:wght@400..800&display=swap"},
+    "inter": {"family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"}
+  },
+  "designSystems": []
+}
