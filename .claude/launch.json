@@ -43,6 +43,23 @@
         "8001"
       ],
       "port": 8001
+    },
+    {
+      "name": "rotacast-offline",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "uvicorn",
+        "rotacast.api.main:app",
+        "--app-dir",
+        "backend",
+        "--port",
+        "8003"
+      ],
+      "port": 8003,
+      "env": {
+        "ROTACAST_OFFLINE": "1"
+      }
     }
   ]
 }

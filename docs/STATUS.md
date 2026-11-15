@@ -27,7 +27,7 @@
 - Challenge Resources tab reviewed: about half the listed sources are US-only (WSS, SSURGO, CDL, NAIP, NLCD, PRISM, CoCoRaHS, NWIS, AMS, NASS, OpenET, LANDFIRE). Usable global ones not yet integrated: SMAP, GLDAS, ECOSTRESS, HLS/Sentinel-2, FAO GAEZ, ERA5.
 - Earthdata Login works (`~/.netrc`, kept outside the repo): GES DISC (GLDAS), NSIDC (SMAP L4), LP DAAC (HLS, ECOSTRESS) and the AppEEARS API were all tested on the Konya tile. Nothing integrated yet.
 - Fixed: the per-crop "limited irrigation" button sent `limited`, which the engine silently treated as rain-fed; it now sends `deficit`, and unknown modes return 422 (commit `9944001`).
-- Repo on GitHub (private): https://github.com/selejder/Rotacast. Rollback tag before the mode split: `v1-single-mode`.
+- Repo on GitHub (public since 2026-11-15): https://github.com/selejder/Rotacast. Rollback tag before the mode split: `v1-single-mode`.
 - Beginner/Advanced modes are handed to a teammate (spec shared with them directly, not in the repo).
 
 ## Update 2026-11-14 (branch `feature/konya-zones`, not merged into main)
@@ -71,6 +71,14 @@
   DOI checked (SOURCES.md). README screenshot added (800x500, field cards view).
 - Still open from the review: "+" detail-info module (spec needed from @selejder), frontend tests, bundle size
   (~2.3 MB, MapLibre not code-split), regional development screen (postponed).
+
+## Final state (2026-11-15)
+- Hackathon submitted and presented. Repo is now **public**; `feature/konya-zones` and Beginner/Advanced modes are
+  merged into `main`. 166 tests pass offline (1 skipped).
+- Pitch material in `docs/pitch/`: Turkish deck (`Rotacast_sunum.pptx`), speech (`konusma_metni.md`), jury Q&A
+  notes (`JURI_SORU_CEVAP.md`), AI-generated video (labelled, `video/`), and a static English deck (`deck_en/`).
+  README images are deck slides 6 and 8.
+- The "Next steps" below are kept as the roadmap after the event; none is in progress.
 
 ## Next steps
 0. **Beginner/Advanced modes.** Owner: the teammate who received the handoff spec. Others: do not start.

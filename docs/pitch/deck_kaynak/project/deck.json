@@ -1,0 +1,20 @@
+{
+  "v": 5,
+  "createdOnFiles": {"v": 1, "at": "2026-11-15T12:00:00Z"},
+  "lists": "css",
+  "format": {"v": 1, "shared": ["project/deck.css"]},
+  "title": "Rotacast Sunum",
+  "cover": "apollon",
+  "order": ["apollon", "nasa", "konya-tarih", "sorunlar", "obruk", "rotacast", "video", "bolgeler", "veri", "simulasyon", "sonuc", "yenilikci", "uygulama", "takim"],
+  "sections": {
+    "s1": {"description": "Takım Apollon, NASA verisi ve seçimimiz: genel bir program değil, tek bir yerin problemi.", "start": "apollon"},
+    "s2": {"description": "Konya: kadim tarım toprağı ve bugünkü su krizi.", "start": "konya-tarih"},
+    "s3": {"description": "Rotacast: bölgeler, NASA verisi ve simülasyon motoru.", "start": "rotacast"},
+    "s4": {"description": "Sonuç: en iyi ekim sırası ve yenilikçi ürünler.", "start": "sonuc"}
+  },
+  "faces": {
+    "fraunces": {"family": "Fraunces", "href": "https://fonts.googleapis.com/css2?family=Fraunces:wght@400..800&display=swap"},
+    "inter": {"family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"}
+  },
+  "designSystems": []
+}

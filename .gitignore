@@ -18,3 +18,7 @@ frontend/*.tsbuildinfo
 
 # Large raw downloads for the zoning pipeline (CHIRPS, AppEEARS bundles, boundaries)
 data/cache/_raw/
+
+# Local-only pitch backups and the teammate handoff spec (shared directly, not part of the repo)
+docs/pitch/yedek/
+docs/HANDOFF_MODES.md

@@ -6,7 +6,7 @@ Pick a field in Konya and Rotacast reads 25 years of NASA satellite and weather 
 (balanced transition, low risk and resilient, innovative crop opportunity) with uncertainty bands and plain-language
 reasons. Only crops documented in the field's agro-climate zone by an official source are used, and no card may use
 more irrigation water or cause more erosion than the current rotation. A Basin View scales the engine to the Konya
-Closed Basin and compares water-focused adoption scenarios with the GRACE groundwater-storage decline. Built for the NASA
+Closed Basin and compares water-focused adoption scenarios with the GRACE total water storage decline. Built for the NASA
 Space Apps 2026 challenge "Field Shift: Adapting Farms with NASA Data".
 
 ![Rotacast: built to ease farming's pressure on water](docs/readme_slide6.png)
@@ -70,6 +70,7 @@ backend/scripts/ build demo / basin reports, offline check     backend/tests/ py
 frontend/       React + Vite + MapLibre + ECharts UI
 data/           cache/ (API responses) and demo/ (prebuilt reports)
 docs/           PLAN, CONTRACTS, METHODS, SOURCES, STATUS
+docs/pitch/     pitch deck (Turkish .pptx, English static deck in deck_en/), speech, jury Q&A notes
 ```
 
 ## Methods
